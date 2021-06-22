@@ -1,0 +1,21 @@
+app PeaceKeeper
+{
+    on Init =>
+    {
+		"Begin" >> @>log;
+        "The Beatles!" >> @>log;
+		@@host.`go`(to: #@[20, -45]);
+		@@host.`go`(to: #@[10, 90]);
+		@@host.`go`(to: #@[10, -20]);
+		@@host.`go`(to: #@[10, -10]);
+		@@host.`go`(to: #@[5, -20]);
+		@@host.`go`(to: #@[14, 2]);
+		@@host.`go`(to: #@[20, -90]);
+		@@host.`go`(to: #@[20]);
+	    "End" >> @>log;
+    }
+	
+	on {: see(I, barrel) :} => {
+	     "L It is barrel!" >> @>log;
+	}
+}
