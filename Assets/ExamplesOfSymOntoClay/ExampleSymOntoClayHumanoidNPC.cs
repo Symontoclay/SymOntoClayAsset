@@ -158,7 +158,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         var methodId = GetMethodId();
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
 #endif
         AddWalkingFact();
 
@@ -177,7 +177,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         });
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
 #endif
 
         while (true)
@@ -190,34 +190,17 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
                 }
 
 #if DEBUG
-                Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    throw new System.Exception("fffff");
-                    //cancellationToken.ThrowIfCancellationRequested();
-
-                    _npc.RunInMainThread(() => {
-                        lock (_lockObj)
-                        {
-                            if (_walkingRepresentative == representative)
-                            {
-                                _walkingRepresentative = null;
-                                PerformStop();
-                            }
-                        }
-                    });                    
-
-                    break;
-                }
+                cancellationToken.ThrowIfCancellationRequested();
             }
 
             Thread.Sleep(1000);
         }
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
     }
 }
