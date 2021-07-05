@@ -15,7 +15,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     void Awake()
     {
 #if DEBUG
-        Debug.Log("ExampleSymOntoClayHumanoidNPC Awake");
+        //Debug.Log("ExampleSymOntoClayHumanoidNPC Awake");
 #endif
 
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -28,7 +28,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     void Start()
     {
 #if DEBUG
-        Debug.Log("ExampleSymOntoClayHumanoidNPC Start Begin");
+        //Debug.Log("ExampleSymOntoClayHumanoidNPC Start Begin");
 #endif
 
         _uHumanoidNPC = GetComponent<IUHumanoidNPC>();
@@ -38,7 +38,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         AddStopFact();
 
 #if DEBUG
-        Debug.Log("ExampleSymOntoClayHumanoidNPC Start End");
+        //Debug.Log("ExampleSymOntoClayHumanoidNPC Start End");
 #endif
     }
 
@@ -68,7 +68,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
                 }
 
 #if DEBUG
-                Debug.Log("HumanoidNPC Update Walking has been stoped.");
+                //Debug.Log("HumanoidNPC Update Walking has been stoped.");
 #endif
             }
         }
@@ -113,14 +113,14 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     {
 #if DEBUG
         var factStr = $"act({_idForFacts}, stop)";
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
 #endif
 
         _npc.RemovePublicFact(_walkingFactId);
         _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, stop)");
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact _walkingFactId = {_walkingFactId}");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact _walkingFactId = {_walkingFactId}");
 #endif
     }
 
@@ -128,14 +128,14 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     {
 #if DEBUG
         var factStr = $"act({_idForFacts}, walk)";
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
 #endif
 
         _npc.RemovePublicFact(_walkingFactId);
         _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, walk)");
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact _walkingFactId = {_walkingFactId}");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
     }
 
@@ -145,7 +145,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     float speed = 12)
     {
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl point = {point}");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl point = {point}");
 #endif
         AddWalkingFact();
 
@@ -164,7 +164,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         });
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been started.");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been started.");
 #endif
 
         while (true)
@@ -197,7 +197,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         }
 
 #if DEBUG
-        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been stoped.");
+        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been stoped.");
 #endif
     }
 }

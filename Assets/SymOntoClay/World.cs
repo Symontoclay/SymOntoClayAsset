@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SymOntoClay
 {
@@ -15,6 +16,8 @@ namespace SymOntoClay
     public class World : MonoBehaviour
     {
         public WorldFile WorldFile;
+
+        private bool _isStarded;
 
         void Awake()
         {
@@ -34,13 +37,13 @@ namespace SymOntoClay
             var worldFullFileName = Path.Combine(Application.dataPath, WorldFile.FullName);
 
 #if DEBUG
-            Debug.Log($"World Awake worldFullFileName = {worldFullFileName}");
+            //Debug.Log($"World Awake worldFullFileName = {worldFullFileName}");
 #endif
 
             var wspaceDir = WorldSpaceHelper.GetRootWorldSpaceDir(worldFullFileName);
 
 #if DEBUG
-            Debug.Log($"World Awake wspaceDir = {wspaceDir}");
+            //Debug.Log($"World Awake wspaceDir = {wspaceDir}");
 #endif
 
             var settings = new WorldSettings();
@@ -65,18 +68,29 @@ namespace SymOntoClay
             };
 
 #if DEBUG            
-            Debug.Log($"World Awake settings = {settings}");
+            //Debug.Log($"World Awake settings = {settings}");
 #endif
 
-            QuickLogger.Log($"World Awake settings = {settings}");
+            //QuickLogger.Log($"World Awake settings = {settings}");
 
             _world.SetSettings(settings);
+
+            SceneManager.sceneLoaded += OnLevelFinishedLoading;
+
+            DontDestroyOnLoad(gameObject);
         }
 
-        void Start()
+        void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
         {
+            if(_isStarded)
+            {
+                return;
+            }
+
+            _isStarded = true;
+
 #if DEBUG
-            Debug.Log("World Start");
+            //Debug.Log("World OnLevelFinishedLoading");
 #endif
 
             _world.Start();
