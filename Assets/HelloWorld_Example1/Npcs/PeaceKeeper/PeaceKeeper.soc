@@ -5,17 +5,28 @@ app PeaceKeeper
 		"Begin" >> @>log;
         "The Beatles!" >> @>log;
 		@@host.`go`(to: #@[20, -45]);
+		"End of step 1" >> @>log;
 		@@host.`go`(to: #@[10, 90]);
+		"End of step 2" >> @>log;
 		@@host.`go`(to: #@[10, -20]);
+		"End of step 3" >> @>log;
 		@@host.`go`(to: #@[10, -10]);
+		"End of step 4" >> @>log;
 		@@host.`go`(to: #@[5, -20]);
+		"End of step 5" >> @>log;
 		@@host.`go`(to: #@[14, 2]);
+		"End of step 6" >> @>log;
 		@@host.`go`(to: #@[20, -90]);
+		"End of step 7" >> @>log;
 		@@host.`go`(to: #@[20]);
+		"End of step 8" >> @>log;
 	    "End" >> @>log;
     }
 	
-	on {: see(I, barrel) :} => {
-	     "L It is barrel!" >> @>log;
+	on {: focus(I, barrel) :} => {
+	    //insert {: turned(I, back) :};
+	    "L It is barrel!" >> @>log;
+		@@host.`go`(to: #@[20, 180]);
+		"End of step L It is barrel!" >> @>log;
 	}
 }

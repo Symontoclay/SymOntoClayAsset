@@ -154,7 +154,7 @@ namespace SymOntoClay
                 if (Physics.Raycast(pos, globalDirection, out hit, RaysDistance))
                 {
 #if UNITY_EDITOR
-                    //Debug.DrawLine(pos, hit.point, Color.blue);
+                    Debug.DrawLine(pos, hit.point, Color.blue);
 #endif
 
                     var hitTransform = hit.transform;
@@ -168,10 +168,10 @@ namespace SymOntoClay
                     newRawVisibleItemsList.Add(visibleItem);
                 }
 #if UNITY_EDITOR
-                //else
-                //{
-                //    Debug.DrawRay(pos, globalDirection * RaysDistance, Color.red);
-                //}
+                else
+                {
+                    Debug.DrawRay(pos, globalDirection * RaysDistance, Color.red);
+                }
 #endif
             }
 

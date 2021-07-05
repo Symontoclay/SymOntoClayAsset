@@ -139,13 +139,26 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 #endif
     }
 
+    private static int _methodId;
+
+    private int GetMethodId()
+    {
+        lock (_lockObj)
+        {
+            _methodId++;
+            return _methodId;
+        }
+    }
+
     [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
     public void GoToImpl(CancellationToken cancellationToken,
     [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
     float speed = 12)
     {
+        var methodId = GetMethodId();
+
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl point = {point}");
+        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
 #endif
         AddWalkingFact();
 
@@ -164,7 +177,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         });
 
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been started.");
+        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
 #endif
 
         while (true)
@@ -176,8 +189,15 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
                     break;
                 }
 
+#if DEBUG
+                Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+#endif
+
                 if (cancellationToken.IsCancellationRequested)
                 {
+                    throw new System.Exception("fffff");
+                    //cancellationToken.ThrowIfCancellationRequested();
+
                     _npc.RunInMainThread(() => {
                         lock (_lockObj)
                         {
@@ -187,7 +207,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
                                 PerformStop();
                             }
                         }
-                    });
+                    });                    
 
                     break;
                 }
@@ -197,7 +217,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         }
 
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl Walking has been stoped.");
+        Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
     }
 }
