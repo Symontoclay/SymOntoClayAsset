@@ -1,0 +1,18 @@
+{
+  "name": "symontoclay",
+  "version": "0.3.2",
+  "displayName": "SymOntoClay",
+  "description": "SymOntoClay is a hybrid language with logic programming and fuzzy logic for defining game characters behavior",
+  "unity": "2020.2",
+  "unityRelease": "3f1",
+  "documentationUrl": "https://symontoclay.github.io/docs/index.html",
+  "changelogUrl": "https://symontoclay.github.io/downloads/index.html",
+  "licensesUrl": "https://github.com/Symontoclay/SymOntoClayAsset/blob/master/LICENSE",
+  "keywords": [
+    "AI"
+  ],
+  "author": {
+    "name": "Sergiy Tolkachov AKA metatypeman",
+    "url": "https://symontoclay.github.io"
+  }
+}
