@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: -6750239444755058063, guid: c9386abc61fc05641ae17d7acf776fe4, type: 3}
   Id: '#CleanedNPC'
-  Head: {fileID: 791785954}
+  Head: {fileID: 0}
   RaysDistance: 20
   TotalRaysAngle: 120
   TotalRaysInterval: 30
@@ -319,6 +319,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1434802577051000203, guid: 9e7ce9fa7294e364baec7c1e29fd36b0, type: 3}
   m_PrefabInstance: {fileID: 14611540}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &791785955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791785954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd7cfa2f61f2ce488f74a497807a5ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &800931083
 GameObject:
   m_ObjectHideFlags: 0
