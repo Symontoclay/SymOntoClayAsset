@@ -129,7 +129,16 @@ namespace SymOntoClay
         {
             CalculateRaysAngles();
 
-            _targetHeadTransform = Head.transform;
+            if(Head == null)
+            {
+                var headLocator = GetComponentInChildren<HeadLocator>();
+                var head = headLocator.gameObject;
+                _targetHeadTransform = head.transform;
+            }
+            else
+            {
+                _targetHeadTransform = Head.transform;
+            }
         }
 
         void Update()

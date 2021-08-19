@@ -5,6 +5,7 @@ using System.Threading;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using UnityEngine.AI;
+using System.Diagnostics;
 
 [RequireComponent(typeof(IUHumanoidNPC))]
 public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
@@ -150,6 +151,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         }
     }
 
+    [DebuggerHidden]
     [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
     public void GoToImpl(CancellationToken cancellationToken,
     [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
