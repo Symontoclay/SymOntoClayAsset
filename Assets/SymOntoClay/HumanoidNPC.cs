@@ -32,7 +32,9 @@ namespace SymOntoClay
         public int TotalRaysInterval = 30;
         public int FocusRaysAngle = 30;
         public int FocusRaysInterval = 10;
-
+#if UNITY_EDITOR
+        public bool ShowRayCastGizmo;
+#endif
         //public bool IsImmortal;
         //public int Health = 100;
         //public bool IsResurrected;
@@ -163,7 +165,10 @@ namespace SymOntoClay
                 if (Physics.Raycast(pos, globalDirection, out hit, RaysDistance))
                 {
 #if UNITY_EDITOR
-                    Debug.DrawLine(pos, hit.point, Color.blue);
+                    if(ShowRayCastGizmo)
+                    {
+                        Debug.DrawLine(pos, hit.point, Color.blue);
+                    }                    
 #endif
 
                     var hitTransform = hit.transform;
@@ -179,7 +184,10 @@ namespace SymOntoClay
 #if UNITY_EDITOR
                 else
                 {
-                    Debug.DrawRay(pos, globalDirection * RaysDistance, Color.red);
+                    if (ShowRayCastGizmo)
+                    {
+                        Debug.DrawRay(pos, globalDirection * RaysDistance, Color.red);
+                    }                    
                 }
 #endif
             }

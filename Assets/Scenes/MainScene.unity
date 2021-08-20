@@ -217,10 +217,7 @@ MonoBehaviour:
   TotalRaysInterval: 30
   FocusRaysAngle: 30
   FocusRaysInterval: 10
-  IsImmortal: 0
-  Health: 100
-  IsResurrected: 0
-  IsInitiallyDead: 0
+  ShowRayCastGizmo: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

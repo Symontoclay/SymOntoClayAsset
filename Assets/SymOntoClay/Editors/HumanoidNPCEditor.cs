@@ -30,7 +30,8 @@ namespace SymOntoClay.Editors
         //}
 
         private bool _showVisionPosition = true;
-        private bool _showHealthPosition = true;
+        //private bool _showHealthPosition = true;
+        private bool _showGizmosPosition = true;
         private GUIStyle _boldLabelStyle;
 
         public override void OnInspectorGUI()
@@ -74,6 +75,13 @@ namespace SymOntoClay.Editors
             //    _target.IsResurrected = EditorGUILayout.Toggle("Is Resurrected", _target.IsResurrected);
             //    _target.IsInitiallyDead = EditorGUILayout.Toggle("Is Initially Dead", _target.IsInitiallyDead);
             //}
+
+            _showGizmosPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_showGizmosPosition, "Gizmos");
+
+            if(_showGizmosPosition)
+            {
+                _target.ShowRayCastGizmo = EditorGUILayout.Toggle("Show RayCast Gizmo", _target.ShowRayCastGizmo);
+            }            
 
             GUILayout.EndVertical();
 
