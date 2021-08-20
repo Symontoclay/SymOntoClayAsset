@@ -1,10 +1,11 @@
-<spec_readme></spec_readme>
+<div>Unity components of SymOntoClay Engine.</div>
 
 <p align="center"><a href="https://symontoclay.github.io" target="_blank">
     <img src="https://symontoclay.github.io/favicon.png">&nbsp;<span style="font-size: 30px; font-weight: bold;">SymOntoClay</span>
 </a></p>
 
-<gen_badges></gen_badges><spec_badges></spec_badges>
+<span>[![Website](https://img.shields.io/badge/documentation-online-brightgreen)](https://symontoclay.github.io/docs/index.html)
+</span><span></span>
 
 [SymOntoClay][1]
 
