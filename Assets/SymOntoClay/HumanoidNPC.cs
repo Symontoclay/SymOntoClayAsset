@@ -33,10 +33,10 @@ namespace SymOntoClay
         public int FocusRaysAngle = 30;
         public int FocusRaysInterval = 10;
 
-        public bool IsImmortal;
-        public int Health = 100;
-        public bool IsResurrected;
-        public bool IsInitiallyDead;
+        //public bool IsImmortal;
+        //public int Health = 100;
+        //public bool IsResurrected;
+        //public bool IsInitiallyDead;
 
         void OnValidate()
         {

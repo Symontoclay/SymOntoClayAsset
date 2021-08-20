@@ -65,15 +65,15 @@ namespace SymOntoClay.Editors
 
             EditorGUILayout.EndFoldoutHeaderGroup();
 
-            _showHealthPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_showHealthPosition, "Life");
+            //_showHealthPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_showHealthPosition, "Life");
 
-            if(_showHealthPosition)
-            {
-                _target.IsImmortal = EditorGUILayout.Toggle("Is Immortal", _target.IsImmortal);
-                _target.Health = EditorGUILayout.IntField("Health", _target.Health);
-                _target.IsResurrected = EditorGUILayout.Toggle("Is Resurrected", _target.IsResurrected);
-                _target.IsInitiallyDead = EditorGUILayout.Toggle("Is Initially Dead", _target.IsInitiallyDead);
-            }
+            //if(_showHealthPosition)
+            //{
+            //    _target.IsImmortal = EditorGUILayout.Toggle("Is Immortal", _target.IsImmortal);
+            //    _target.Health = EditorGUILayout.IntField("Health", _target.Health);
+            //    _target.IsResurrected = EditorGUILayout.Toggle("Is Resurrected", _target.IsResurrected);
+            //    _target.IsInitiallyDead = EditorGUILayout.Toggle("Is Initially Dead", _target.IsInitiallyDead);
+            //}
 
             GUILayout.EndVertical();
 
