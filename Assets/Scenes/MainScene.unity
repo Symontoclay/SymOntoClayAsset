@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6030519418763139701, guid: 9e7ce9fa7294e364baec7c1e29fd36b0, type: 3}
       propertyPath: m_Name
-      value: CleanedNPC
+      value: MyNPC
       objectReference: {fileID: 0}
     - target: {fileID: 9085053193385730055, guid: 9e7ce9fa7294e364baec7c1e29fd36b0, type: 3}
       propertyPath: m_RootOrder
@@ -649,7 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8998525347231195197, guid: 0c98d7614bb5ca64e881e767a8ed2d10, type: 3}
       propertyPath: m_Name
-      value: Cleaned Metal Barrel
+      value: Metal Barrel 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c98d7614bb5ca64e881e767a8ed2d10, type: 3}
