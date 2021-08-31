@@ -1,4 +1,4 @@
-app PeaceKeeper
+app MyNPC
 {
     on Init =>
     {
@@ -24,7 +24,6 @@ app PeaceKeeper
     }
 	
 	on {: focus(I, barrel) :} => {
-	    //insert {: turned(I, back) :};
 	    "L It is barrel!" >> @>log;
 		@@host.`go`(to: #@[20, 180]);
 		"End of step L It is barrel!" >> @>log;

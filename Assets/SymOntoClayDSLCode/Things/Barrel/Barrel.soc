@@ -1,0 +1,6 @@
+app Barrel_app is barrel
+{
+    on Init =>
+    {
+    }
+}

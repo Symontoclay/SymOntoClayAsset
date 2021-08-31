@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485907976183bd4e81b2eb0d80fae42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SobjFile: {fileID: -6750239444755058063, guid: c9386abc61fc05641ae17d7acf776fe4, type: 3}
+  SobjFile: {fileID: -6750239444755058063, guid: 08978315c36a4d040a617238765d1967, type: 3}
   Id: '#CleanedNPC'
   Head: {fileID: 0}
   RaysDistance: 20
@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae6ecfd533431c48998aae500325388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorldFile: {fileID: -6750239444755058063, guid: a991484719fbe3c458220d243b6fdd0f, type: 3}
+  WorldFile: {fileID: -6750239444755058063, guid: 668f3d12172c0804a98a57f2f2dd1337, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,5 +670,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce3765100bb9ac42854dbaf2e06f081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SobjFile: {fileID: -6750239444755058063, guid: 4388d582bb74fe642b58cdf65dfa01fe, type: 3}
+  SobjFile: {fileID: -6750239444755058063, guid: 8696e53c03865cf41954032f6370a66b, type: 3}
   Id: '#Cleaned Metal Barrel'
