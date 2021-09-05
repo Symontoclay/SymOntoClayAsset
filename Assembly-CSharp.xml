@@ -19,7 +19,8 @@
         </member>
         <member name="T:SymOntoClay.IUHostListener">
             <summary>
-            Host listener locator
+            Host listener locator. 
+            Each NPC's behavior with host methods' endpoint should implement this interface.
             </summary>
         </member>
         <member name="P:Assets.SymOntoClay.Convertors.Vector3UnityAndSystemNumericConvertor.PlatformType">
