@@ -1,6 +1,6 @@
 {
   "name": "symontoclay",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "displayName": "SymOntoClay",
   "description": "SymOntoClay is a hybrid language with logic programming and fuzzy logic for defining game characters behavior",
   "unity": "2020.2",
