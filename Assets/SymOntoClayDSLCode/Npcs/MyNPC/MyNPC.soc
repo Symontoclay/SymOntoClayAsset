@@ -3,29 +3,29 @@ app MyNPC
     on Init =>
     {
 		"Begin" >> @>log;
-        "The Beatles!" >> @>log;
-		@@host.`go`(to: #@[20, -45]);
-		"End of step 1" >> @>log;
-		@@host.`go`(to: #@[10, 90]);
-		"End of step 2" >> @>log;
-		@@host.`go`(to: #@[10, -20]);
-		"End of step 3" >> @>log;
-		@@host.`go`(to: #@[10, -10]);
-		"End of step 4" >> @>log;
-		@@host.`go`(to: #@[5, -20]);
-		"End of step 5" >> @>log;
-		@@host.`go`(to: #@[14, 2]);
-		"End of step 6" >> @>log;
-		@@host.`go`(to: #@[20, -90]);
-		"End of step 7" >> @>log;
-		@@host.`go`(to: #@[20]);
-		"End of step 8" >> @>log;
+        go();
 	    "End" >> @>log;
     }
-	
-	on {: focus(I, barrel) :} => {
-	    "L It is barrel!" >> @>log;
-		@@host.`go`(to: #@[20, 180]);
-		"End of step L It is barrel!" >> @>log;
+}
+
+action Go
+{
+    op () => 
+	{
+	    @@host.`go`(to: #@[200]);
 	}
+	
+//	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
+//	{
+//	    "I see " >> @>log;
+//		@x >> @>log;
+//		@y >> @>log;
+//		complete action;
+//	}
+	
+	//on {: see(I, barrel) :} => {
+	//    "It is barrel!" >> @>log;
+		//@@host.`go`(to: #@[20, 180]);
+		//complete action;
+	//}
 }

@@ -160,7 +160,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         var methodId = GetMethodId();
 
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
+        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
 #endif
         AddWalkingFact();
 
@@ -179,7 +179,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         });
 
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
+        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
 #endif
 
         while (true)
@@ -192,17 +192,34 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
                 }
 
 #if DEBUG
-                //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
+
+                if(cancellationToken.IsCancellationRequested)
+                {
+                    _npc.RunInMainThread(() => {
+                        PerformStop();
+
+                        //lock (_lockObj)//this block frozes Unity! Fix It!!!
+                        //{
+                        //    lock (_walkingRepresentative)
+                        //    {
+                        //        _walkingRepresentative.IsFinished = true;
+                        //    }
+
+                        //    _walkingRepresentative = null;
+                        //}
+                    });
+                }
 
                 cancellationToken.ThrowIfCancellationRequested();
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
         }
 
 #if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
+        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
     }
 }
