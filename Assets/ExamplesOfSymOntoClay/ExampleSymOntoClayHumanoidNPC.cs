@@ -51,28 +51,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
             return;
         }
 
-        if (_isWalking)
-        {
-            var nextPosition = _navMeshAgent.nextPosition;
-            if (_targetPosition.x == nextPosition.x && _targetPosition.z == nextPosition.z)
-            {
-                PerformStop();
-
-                lock (_lockObj)
-                {
-                    lock (_walkingRepresentative)
-                    {
-                        _walkingRepresentative.IsFinished = true;
-                    }
-
-                    _walkingRepresentative = null;
-                }
-
-#if DEBUG
-                //Debug.Log("HumanoidNPC Update Walking has been stoped.");
-#endif
-            }
-        }
+        _position = _navMeshAgent.nextPosition;
     }
 
     private NavMeshAgent _navMeshAgent;
@@ -90,9 +69,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 
     private string _walkingFactId;
 
-    private ActionRepresentative _walkingRepresentative;
-
-    private Vector3 _targetPosition;
+    private Vector3 _position;
 
     private void UpdateAnimator()
     {
@@ -157,6 +134,11 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
     float speed = 12)
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         var methodId = GetMethodId();
 
 #if DEBUG
@@ -164,18 +146,10 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 #endif
         AddWalkingFact();
 
-        var representative = new ActionRepresentative();
-
         _npc.RunInMainThread(() => {
-            _targetPosition = point;
             _navMeshAgent.SetDestination(point);
             _isWalking = true;
             UpdateAnimator();
-
-            lock (_lockObj)
-            {
-                _walkingRepresentative = representative;
-            }
         });
 
 #if DEBUG
@@ -184,38 +158,35 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 
         while (true)
         {
-            lock (representative)
+            if (point.x == _position.x && point.z == _position.z)
             {
-                if (representative.IsFinished)
+                _npc.RunInMainThread(() =>
                 {
-                    break;
-                }
-
+                    PerformStop();
+                });
+                
 #if DEBUG
-                UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
 
-                if(cancellationToken.IsCancellationRequested)
-                {
-                    _npc.RunInMainThread(() => {
-                        PerformStop();
-
-                        //lock (_lockObj)//this block frozes Unity! Fix It!!!
-                        //{
-                        //    lock (_walkingRepresentative)
-                        //    {
-                        //        _walkingRepresentative.IsFinished = true;
-                        //    }
-
-                        //    _walkingRepresentative = null;
-                        //}
-                    });
-                }
-
-                cancellationToken.ThrowIfCancellationRequested();
+                break;
             }
 
-            Thread.Sleep(100);
+#if DEBUG
+            UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+#endif
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                _npc.RunInMainThread(() =>
+                {
+                    PerformStop();
+                });
+
+                break;
+            }
+
+            Thread.Sleep(10);
         }
 
 #if DEBUG
