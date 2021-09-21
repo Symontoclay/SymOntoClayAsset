@@ -6,13 +6,11 @@ using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using UnityEngine.AI;
 using System.Diagnostics;
+using Assets.SymOntoClay;
 
 [RequireComponent(typeof(IUHumanoidNPC))]
-public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
+public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
 {
-    private IUHumanoidNPC _uHumanoidNPC;
-    private IHumanoidNPC _npc;
-
     void Awake()
     {
 #if DEBUG
@@ -25,21 +23,18 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    // Use this for initialization
-    void Start()
+    protected override void OnStart()
     {
 #if DEBUG
-        //Debug.Log("ExampleSymOntoClayHumanoidNPC Start Begin");
+        //Debug.Log("ExampleSymOntoClayHumanoidNPC OnStart Begin");
 #endif
 
-        _uHumanoidNPC = GetComponent<IUHumanoidNPC>();
-        _npc = _uHumanoidNPC.NPC;
-        _idForFacts = _uHumanoidNPC.IdForFacts;
+        base.OnStart();
 
         AddStopFact();
 
 #if DEBUG
-        //Debug.Log("ExampleSymOntoClayHumanoidNPC Start End");
+        //Debug.Log("ExampleSymOntoClayHumanoidNPC OnStart End");
 #endif
     }
 
@@ -58,16 +53,10 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
     private Animator _animator;
     private Rigidbody _rigidbody;
 
-    private object _lockObj = new object();
-
-    private string _idForFacts;
-
     private bool _hasRifle;
     private bool _isWalking;
     private bool _isAim;
     private bool _isDead;
-
-    private string _walkingFactId;
 
     private Vector3 _position;
 
@@ -85,47 +74,6 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         _isWalking = false;
         UpdateAnimator();
         AddStopFact();
-    }
-
-    private void AddStopFact()
-    {
-#if DEBUG
-        var factStr = $"act({_idForFacts}, stop)";
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
-#endif
-
-        _npc.RemovePublicFact(_walkingFactId);
-        _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, stop)");
-
-#if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact _walkingFactId = {_walkingFactId}");
-#endif
-    }
-
-    private void AddWalkingFact()
-    {
-#if DEBUG
-        var factStr = $"act({_idForFacts}, walk)";
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
-#endif
-
-        _npc.RemovePublicFact(_walkingFactId);
-        _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, walk)");
-
-#if DEBUG
-        //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact _walkingFactId = {_walkingFactId}");
-#endif
-    }
-
-    private static int _methodId;
-
-    private int GetMethodId()
-    {
-        lock (_lockObj)
-        {
-            _methodId++;
-            return _methodId;
-        }
     }
 
     [DebuggerHidden]
@@ -146,7 +94,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 #endif
         AddWalkingFact();
 
-        _npc.RunInMainThread(() => {
+        RunInMainThread(() => {
             _navMeshAgent.SetDestination(point);
             _isWalking = true;
             UpdateAnimator();
@@ -160,7 +108,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
         {
             if (point.x == _position.x && point.z == _position.z)
             {
-                _npc.RunInMainThread(() =>
+                RunInMainThread(() =>
                 {
                     PerformStop();
                 });
@@ -178,7 +126,7 @@ public class ExampleSymOntoClayHumanoidNPC : MonoBehaviour, IUHostListener
 
             if (cancellationToken.IsCancellationRequested)
             {
-                _npc.RunInMainThread(() =>
+                RunInMainThread(() =>
                 {
                     PerformStop();
                 });
