@@ -17,7 +17,7 @@ namespace SymOntoClay
 
         void Start()
         {
-
+            OnStart();
         }
 
         protected virtual void OnStart()
@@ -32,7 +32,7 @@ namespace SymOntoClay
         protected void AddStopFact()
         {
 #if DEBUG
-            var factStr = $"act({_idForFacts}, stop)";
+            var factStr = $"act(I, stop)";
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
 #endif
 
@@ -47,7 +47,7 @@ namespace SymOntoClay
         protected void AddWalkingFact()
         {
 #if DEBUG
-            var factStr = $"act({_idForFacts}, walk)";
+            var factStr = $"act(I, walk)";
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
 #endif
 

@@ -12,20 +12,38 @@ action Go
 {
     op () => 
 	{
-	    @@host.`go`(to: #@[20]);
+	    @@host.`go`(to: #@[50]);
 	}
 	
-//	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
-//	{
-//	    "I see " >> @>log;
-//		@x >> @>log;
-//		@y >> @>log;
-//		complete action;
-//	}
+	on {: see(I, $x) & barrel($x) :} ($x >> @x) => 
+	{
+	    "I see" >> @>log;
+		@x >> @>log;
+		complete action;
+	}
 	
-	//on {: see(I, barrel) :} => {
-	//    "It is barrel!" >> @>log;
+	on {: see(I, barrel) :} => 
+	{
+	    "It is barrel!" >> @>log;
 		//@@host.`go`(to: #@[20, 180]);
-		//complete action;
-	//}
+	//	complete action;
+	}
+	
+	on {: distance(I, barrel, $y) :}($y >> @y) => 
+	{
+	    "It is barrel (2) !" >> @>log;
+		@y >> @>log;
+		//@@host.`go`(to: #@[20, 180]);
+	//	complete action;
+	}
 }
+
+/*
+	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
+	{
+	    "I see" >> @>log;
+		@x >> @>log;
+		@y >> @>log;
+		complete action;
+	}
+*/

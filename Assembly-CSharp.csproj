@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{A67DAB00-B4B7-D014-5BEE-5258FA15A814}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -54,10 +53,6 @@
     <UnityVersion>2021.1.20f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
     <Compile Include="Assets\SymOntoClay\HumanoidNPC.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3UnityAndSystemNumericConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Build\BuildProcessor.cs" />
@@ -65,6 +60,7 @@
     <Compile Include="Assets\SymOntoClay\Editors\WorldFileImporterEditor.cs" />
     <Compile Include="Assets\SymOntoClay\IUHumanoidNPC.cs" />
     <Compile Include="Assets\SymOntoClay\Thing.cs" />
+    <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
     <Compile Include="Assets\SymOntoClay\IUHostListener.cs" />
     <Compile Include="Assets\SymOntoClay\World.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3AndWayPointValueConvertor.cs" />
