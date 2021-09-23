@@ -32,12 +32,12 @@ namespace SymOntoClay
         protected void AddStopFact()
         {
 #if DEBUG
-            var factStr = $"act(I, stop)";
+            var factStr = $"act({_idForFacts}, stop)";
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
 #endif
 
             _npc.RemovePublicFact(_walkingFactId);
-            _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, stop)");
+            _walkingFactId = _npc.InsertPublicFact(factStr);
 
 #if DEBUG
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact _walkingFactId = {_walkingFactId}");
@@ -47,12 +47,12 @@ namespace SymOntoClay
         protected void AddWalkingFact()
         {
 #if DEBUG
-            var factStr = $"act(I, walk)";
+            var factStr = $"act({_idForFacts}, walk)";
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
 #endif
 
             _npc.RemovePublicFact(_walkingFactId);
-            _walkingFactId = _npc.InsertPublicFact($"act({_idForFacts}, walk)");
+            _walkingFactId = _npc.InsertPublicFact(factStr);
 
 #if DEBUG
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact _walkingFactId = {_walkingFactId}");
