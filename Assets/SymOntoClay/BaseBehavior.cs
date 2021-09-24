@@ -20,6 +20,9 @@ namespace SymOntoClay
             OnStart();
         }
 
+        /// <summary>
+        /// Initializes component instead of private method <b>Start</b>.
+        /// </summary>
         protected virtual void OnStart()
         {
             _uHumanoidNPC = GetComponent<IUHumanoidNPC>();
@@ -29,6 +32,9 @@ namespace SymOntoClay
 
         private string _walkingFactId;
 
+        /// <summary>
+        /// Adds fact what the NPC has stopped itself.
+        /// </summary>
         protected void AddStopFact()
         {
 #if DEBUG
@@ -44,6 +50,9 @@ namespace SymOntoClay
 #endif
         }
 
+        /// <summary>
+        /// Adds fact what the NPC has started walking.
+        /// </summary>
         protected void AddWalkingFact()
         {
 #if DEBUG
@@ -61,6 +70,11 @@ namespace SymOntoClay
 
         private static int _methodId;
 
+        /// <summary>
+        /// Returns integer id which is unique for the component.
+        /// It can be helpful for debugging host methods.
+        /// </summary>
+        /// <returns>Integer id which is unique for the component.</returns>
         protected int GetMethodId()
         {
             lock (_lockObj)
@@ -70,11 +84,21 @@ namespace SymOntoClay
             }
         }
 
+        /// <summary>
+        /// Executes handler in main thread context.
+        /// </summary>
+        /// <param name="function">Handler which should be executed in main thread context.</param>
         protected void RunInMainThread(Action function)
         {
             _npc.RunInMainThread(function);
         }
 
+        /// <summary>
+        /// Executes handler in main thread context.
+        /// </summary>
+        /// <typeparam name="TResult">Type of result.</typeparam>
+        /// <param name="function">Handler which should be executed in main thread context.</param>
+        /// <returns>Result of the execution.</returns>
         protected TResult RunInMainThread<TResult>(Func<TResult> function)
         {
             return _npc.RunInMainThread(function);
