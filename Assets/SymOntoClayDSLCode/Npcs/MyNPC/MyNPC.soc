@@ -15,6 +15,26 @@ action Go
 	    @@host.`go`(to: #@[50]);
 	}
 	
+	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
+	{
+	    "I see" >> @>log;
+		@x >> @>log;
+		@y >> @>log;
+		complete action;
+	}
+}
+
+/*
+	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
+	{
+	    "I see" >> @>log;
+		@x >> @>log;
+		@y >> @>log;
+		complete action;
+	}
+*/
+
+/*
 	on {: see(I, $x) & barrel($x) :} ($x >> @x) => 
 	{
 	    "I see" >> @>log;
@@ -35,15 +55,5 @@ action Go
 		@y >> @>log;
 		//@@host.`go`(to: #@[20, 180]);
 	//	complete action;
-	}
-}
-
-/*
-	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) :} ($y >> @y, $x >> @x) => 
-	{
-	    "I see" >> @>log;
-		@x >> @>log;
-		@y >> @>log;
-		complete action;
 	}
 */
