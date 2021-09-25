@@ -8,6 +8,9 @@ using UnityEngine;
 
 namespace SymOntoClay
 {
+    /// <summary>
+    /// Contains base recommended behavior.
+    /// </summary>
     public abstract class BaseBehavior : MonoBehaviour, IUHostListener
     {
         private IUHumanoidNPC _uHumanoidNPC;

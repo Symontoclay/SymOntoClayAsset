@@ -11,16 +11,57 @@
             </summary>
             <param name="report"></param>
         </member>
-        <member name="T:SymOntoClay.HeadLocator">
+        <member name="T:SymOntoClay.BaseBehavior">
             <summary>
-            Head locator.
-            It allows us to detect head for scanner of visible object without explicit linking Head to HumanoidNPC.
+            Contains base recommended behavior.
             </summary>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.OnStart">
+            <summary>
+            Initializes component instead of private method <b>Start</b>.
+            </summary>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.AddStopFact">
+            <summary>
+            Adds fact what the NPC has stopped itself.
+            </summary>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.AddWalkingFact">
+            <summary>
+            Adds fact what the NPC has started walking.
+            </summary>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.GetMethodId">
+            <summary>
+            Returns integer id which is unique for the component.
+            It can be helpful for debugging host methods.
+            </summary>
+            <returns>Integer id which is unique for the component.</returns>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.RunInMainThread(System.Action)">
+            <summary>
+            Executes handler in main thread context.
+            </summary>
+            <param name="function">Handler which should be executed in main thread context.</param>
+        </member>
+        <member name="M:SymOntoClay.BaseBehavior.RunInMainThread``1(System.Func{``0})">
+            <summary>
+            Executes handler in main thread context.
+            </summary>
+            <typeparam name="TResult">Type of result.</typeparam>
+            <param name="function">Handler which should be executed in main thread context.</param>
+            <returns>Result of the execution.</returns>
         </member>
         <member name="T:SymOntoClay.IUHostListener">
             <summary>
             Host listener locator. 
             Each NPC's behavior with host methods' endpoint should implement this interface.
+            </summary>
+        </member>
+        <member name="T:SymOntoClay.HeadLocator">
+            <summary>
+            Head locator.
+            It allows us to detect head for scanner of visible object without explicit linking Head to HumanoidNPC.
             </summary>
         </member>
         <member name="P:Assets.SymOntoClay.Convertors.Vector3UnityAndSystemNumericConvertor.PlatformType">
