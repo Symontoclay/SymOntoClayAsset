@@ -23,7 +23,7 @@ action Go
 	    @@host.`go`(to: #@[50]);
 	}
 	
-	on {: see(I, $x) & barrel($x) & distance(I, $x, $y) & $y is middle :} ($y >> @y, $x >> @x) => 
+	on {: see(I, $x) & $x is barrel & distance(I, $x, $y) & $y is near :} ($y >> @y, $x >> @x) => 
 	{
 	    "I see" >> @>log;
 		@x >> @>log;
