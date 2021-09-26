@@ -123,8 +123,12 @@ namespace SymOntoClay
             _invokerInMainThread.Update();
         }
 
-        void Stop()
+        void OnDestroy()
         {
+#if DEBUG
+            //Debug.Log("World OnDestroy");
+#endif
+
             _world.Dispose();
         }
 
