@@ -62,8 +62,9 @@ namespace SymOntoClay
         /// </summary>
         protected void AddStopFact()
         {
-#if DEBUG
             var factStr = $"act({_idForFacts}, stop)";
+
+#if DEBUG
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
 #endif
 
@@ -80,8 +81,9 @@ namespace SymOntoClay
         /// </summary>
         protected void AddWalkingFact()
         {
-#if DEBUG
             var factStr = $"act({_idForFacts}, walk)";
+
+#if DEBUG
             //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
 #endif
 
