@@ -87,10 +87,9 @@ public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
             return;
         }
 
-        var methodId = GetMethodId();
-
 #if DEBUG
-        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
+        //var methodId = GetMethodId();
+        //UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] point = {point}");
 #endif
         AddWalkingFact();
 
@@ -101,7 +100,7 @@ public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
         });
 
 #if DEBUG
-        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
+        //UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been started.");
 #endif
 
         while (true)
@@ -114,14 +113,14 @@ public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
                 });
                 
 #if DEBUG
-                UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
+                //UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
 
                 break;
             }
 
 #if DEBUG
-            UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+            //UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
             if (cancellationToken.IsCancellationRequested)
@@ -138,7 +137,7 @@ public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
         }
 
 #if DEBUG
-        UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
+        //UnityEngine.Debug.Log($"ExampleSymOntoClayHumanoidNPC GoToImpl [{methodId}] Walking has been stoped.");
 #endif
     }
 }
