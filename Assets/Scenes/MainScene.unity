@@ -423,6 +423,7 @@ GameObject:
   - component: {fileID: 891105192}
   - component: {fileID: 891105191}
   - component: {fileID: 891105194}
+  - component: {fileID: 891105195}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -502,6 +503,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldFile: {fileID: -6750239444755058063, guid: 668f3d12172c0804a98a57f2f2dd1337, type: 3}
+--- !u!114 &891105195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891105190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb73c378057d1340a66d86ab1440094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,3 +750,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb598f5615e7dfd4baaa93c70e5f4949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 478994977}
+  movementSettings:
+    ForwardSpeed: 8
+    BackwardSpeed: 4
+    StrafeSpeed: 4
+    RunMultiplier: 2
+    RunKey: 304
+    JumpForce: 30
+    CurrentTargetSpeed: 8
+  mouseLook:
+    XSensitivity: 2
+    YSensitivity: 2
+    clampVerticalRotation: 1
+    MinimumX: -90
+    MaximumX: 90
+    smooth: 0
+    smoothTime: 5
+  advancedSettings:
+    groundCheckDistance: 0.01
+    stickToGroundHelperDistance: 0.5
+    slowDownRate: 20
+    airControl: 0
+    shellOffset: 0

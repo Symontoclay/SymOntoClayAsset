@@ -20,20 +20,20 @@ namespace ExamplesOfSymOntoClay.Internal
 
         private Quaternion mCharacterTargetRot;
         private Quaternion mCameraTargetRot;
-        private IUserClientCommonHost mUserClientCommonHost;
+        private IPlayerCommonBus _playerCommonBus;
 
-        public void Init(Transform character, Transform camera, IUserClientCommonHost userClientCommonHost)
+        public void Init(Transform character, Transform camera, IPlayerCommonBus playerCommonBus)
         {
             mCharacterTargetRot = character.localRotation;
             mCameraTargetRot = camera.localRotation;
-            mUserClientCommonHost = userClientCommonHost;
-            mUserClientCommonHost.SetCharacterMode();
+            _playerCommonBus = playerCommonBus;
+            _playerCommonBus.SetCharacterMode();
         }
 
         public void LookRotation(Transform character, Transform camera)
         {
-            var yRot = mUserClientCommonHost.GetAxis("Mouse X") * XSensitivity;
-            var xRot = mUserClientCommonHost.GetAxis("Mouse Y") * YSensitivity;
+            var yRot = _playerCommonBus.GetAxis("Mouse X") * XSensitivity;
+            var xRot = _playerCommonBus.GetAxis("Mouse Y") * YSensitivity;
 
             mCharacterTargetRot *= Quaternion.Euler(0f, yRot, 0f);
             mCameraTargetRot *= Quaternion.Euler(-xRot, 0f, 0f);

@@ -47,19 +47,19 @@ namespace ExamplesOfSymOntoClay
 
         private void Start()
         {
-            mUserClientCommonHost = UserClientCommonHostFactory.Get();
+            _playerCommonBus = PlayerCommonBus.GetBus();
             mRigidBody = GetComponent<Rigidbody>();
             mCapsule = GetComponent<CapsuleCollider>();
-            mouseLook.Init(transform, cam.transform, mUserClientCommonHost);
+            mouseLook.Init(transform, cam.transform, _playerCommonBus);
         }
 
-        private IUserClientCommonHost mUserClientCommonHost;
+        private IPlayerCommonBus _playerCommonBus;
 
         private void Update()
         {
             RotateView();
 
-            if (CrossPlatformInputManager.GetButtonDown("Jump") && !mJump)
+            if (_playerCommonBus.GetButtonDown("Jump") && !mJump)
             {
                 mJump = true;
             }
@@ -137,8 +137,8 @@ namespace ExamplesOfSymOntoClay
         {
             var input = new Vector2
             {
-                x = mUserClientCommonHost.GetAxis("Horizontal"),
-                y = mUserClientCommonHost.GetAxis("Vertical")
+                x = _playerCommonBus.GetAxis("Horizontal"),
+                y = _playerCommonBus.GetAxis("Vertical")
             };
             movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
