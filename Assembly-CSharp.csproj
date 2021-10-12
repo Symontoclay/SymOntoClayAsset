@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{A67DAB00-B4B7-D014-5BEE-5258FA15A814}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -53,6 +54,7 @@
     <UnityVersion>2021.1.20f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\ExamplesOfSymOntoClay\InputKeyHelper.cs" />
     <Compile Include="Assets\SymOntoClay\HumanoidNPC.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3UnityAndSystemNumericConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Build\BuildProcessor.cs" />
