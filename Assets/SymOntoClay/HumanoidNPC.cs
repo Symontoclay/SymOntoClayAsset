@@ -297,6 +297,16 @@ namespace SymOntoClay
             return new System.Numerics.Vector3(newPosition.x, newPosition.y, newPosition.z);
         }
 
+        System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition()
+        {
+            throw new NotImplementedException();
+        }
+
+        float IPlatformSupport.GetDirectionToPosition(System.Numerics.Vector3 position)
+        {
+            throw new NotImplementedException();
+        }
+
         private IHumanoidNPC _npc;
 
         public IHumanoidNPC NPC => _npc;
@@ -370,6 +380,6 @@ namespace SymOntoClay
                     _rayDirectionsList.Add((new Vector3(x, z, y), inFocus));
                 }
             }
-        }        
+        }
     }
 }

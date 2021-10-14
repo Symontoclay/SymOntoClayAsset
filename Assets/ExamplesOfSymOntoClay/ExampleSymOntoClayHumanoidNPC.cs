@@ -46,7 +46,7 @@ public class ExampleSymOntoClayHumanoidNPC : BaseBehavior
             return;
         }
 
-        _position = _navMeshAgent.nextPosition;
+        _position = transform.position;
     }
 
     private NavMeshAgent _navMeshAgent;
