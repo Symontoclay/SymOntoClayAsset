@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class NewBehaviourScript : MonoBehaviour
 {
     private Rigidbody mRigidbody;
-    private Animator mAnimator;
+    public Animator mAnimator;
     private NavMeshAgent mNavMeshAgent;
 
     private IPlayerCommonBus _playerCommonBus;
@@ -16,6 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     private InputKeyHelper mInputKeyHelper;
 
     public GameObject Gun;
+    public GameObject Aim;
 
     public GameObject RightHandWP;
     public GameObject LeftHandWP;
@@ -32,8 +33,10 @@ public class NewBehaviourScript : MonoBehaviour
 
         mInputKeyHelper = new InputKeyHelper(_playerCommonBus);
         mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.R, OnRPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
     }
 
     // Update is called once per frame
@@ -55,6 +58,19 @@ public class NewBehaviourScript : MonoBehaviour
         gunComponent.SetToHandsOfHumanoid(this);
     }
 
+    private void OnRPressAction()
+    {
+        Debug.Log("OnRPressAction");
+
+        mAnimator.SetBool("hasRifle", true);
+
+        var m4A1 = Gun;
+
+        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
+
+        gunComponent.SetToHandsOfHumanoid_2(this);
+    }
+
     private void OnGPressAction()
     {
         Debug.Log("OnGPressAction");
@@ -68,4 +84,30 @@ public class NewBehaviourScript : MonoBehaviour
 
         mAnimator.SetBool("isAim", false);
     }
+
+    //private bool _enableIK;
+
+    private void OnJPressAction()
+    {
+        Debug.Log("OnJPressAction");
+
+        var m4A1 = Gun;
+
+        //_enableIK = true;
+
+        m4A1.transform.LookAt(Aim.transform);
+
+
+    }
+
+    //void OnAnimatorIK(int layerIndex)
+    //{
+    //    if(!_enableIK)
+    //    {
+    //        return;
+    //    }
+
+    //    mAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+    //    mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
+    //}
 }

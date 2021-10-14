@@ -12,10 +12,13 @@ namespace Assets.Scripts
         private Collider mBodyCollider;
         private Rigidbody mBodyRigidbody;
 
+        public GameObject MainWP;
+        public GameObject AddWP;
+
         void Start()
         {
-            mBodyCollider = GetComponent<Collider>();
-            mBodyRigidbody = GetComponent<Rigidbody>();
+            mBodyCollider = GetComponentInChildren<Collider>();
+            mBodyRigidbody = GetComponentInChildren<Rigidbody>();
         }
 
         void Update()
@@ -72,6 +75,7 @@ namespace Assets.Scripts
             //transform.rotation = targetParent.rotation;
             //transform.localPosition = new Vector3(0, 0, 0.2f);
             transform.localPosition = new Vector3(0, 0.06f, 0.08f);
+            //transform.localPosition = new Vector3(0, 0, 0);
 
             //transform.LookAt(humanoid.LeftHandWP.transform);
 
@@ -79,6 +83,17 @@ namespace Assets.Scripts
 
 #if UNITY_EDITOR
             Debug.Log("SetToHandsOfHumanoid ^)");
+#endif
+
+            return true;
+        }
+
+        public bool SetToHandsOfHumanoid_2(NewBehaviourScript humanoid)
+        {
+
+
+#if UNITY_EDITOR
+            Debug.Log("SetToHandsOfHumanoid_2 ^)");
 #endif
 
             return true;
