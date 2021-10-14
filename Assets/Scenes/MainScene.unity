@@ -1951,6 +1951,7 @@ GameObject:
   - component: {fileID: 893239998}
   - component: {fileID: 893239997}
   - component: {fileID: 893239996}
+  - component: {fileID: 893240001}
   m_Layer: 0
   m_Name: MyNPC_non_SOC
   m_TagString: Untagged
@@ -2045,6 +2046,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -86.61101, z: 0}
+--- !u!114 &893240001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893239995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d2cf8a27d8968478f20df60c020ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &908796924
 GameObject:
   m_ObjectHideFlags: 0
