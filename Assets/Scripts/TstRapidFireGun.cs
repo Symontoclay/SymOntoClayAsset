@@ -70,12 +70,12 @@ namespace Assets.Scripts
 
             transform.SetParent(targetParent, false);
 
-            transform.localRotation = Quaternion.Euler(-90, -183.234f, 0);
-            //transform.localRotation = Quaternion.Euler(0, -180.234f, 0);
+            //transform.localRotation = Quaternion.Euler(-90, -183.234f, 0);
+            //transform.localRotation = Quaternion.Euler(0, 180.234f, 0);
             //transform.rotation = targetParent.rotation;
             //transform.localPosition = new Vector3(0, 0, 0.2f);
-            transform.localPosition = new Vector3(0, 0.06f, 0.08f);
-            //transform.localPosition = new Vector3(0, 0, 0);
+            //transform.localPosition = new Vector3(0, 0.06f, 0.08f);
+            transform.localPosition = new Vector3(0, 0, 0);
 
             //transform.LookAt(humanoid.LeftHandWP.transform);
 
@@ -90,6 +90,27 @@ namespace Assets.Scripts
 
         public bool SetToHandsOfHumanoid_2(NewBehaviourScript humanoid)
         {
+            var targetParent = humanoid.RightHandWP.transform;
+
+            if (transform.parent == targetParent)
+            {
+#if UNITY_EDITOR
+                Debug.Log("transform.parent == targetParent");
+#endif
+
+                return true;
+            }
+
+            if (mBodyCollider != null)
+            {
+                mBodyCollider.enabled = false;
+            }
+
+            if (mBodyRigidbody != null)
+            {
+                mBodyRigidbody.isKinematic = true;
+            }
+
 
 
 #if UNITY_EDITOR

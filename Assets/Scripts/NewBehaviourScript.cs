@@ -85,7 +85,7 @@ public class NewBehaviourScript : MonoBehaviour
         mAnimator.SetBool("isAim", false);
     }
 
-    //private bool _enableIK;
+    private bool _enableIK;
 
     private void OnJPressAction()
     {
@@ -93,21 +93,33 @@ public class NewBehaviourScript : MonoBehaviour
 
         var m4A1 = Gun;
 
-        //_enableIK = true;
+        _enableIK = true;
+
+        //var gunForvard = m4A1.transform.forward;
+
+        //var targetPosition = Aim.transform.position;
+
+        //var targetDirection = targetPosition - m4A1.transform.position;
+
+        //var towards = Quaternion.FromToRotation(gunForvard, targetDirection);
+
+        //m4A1.transform.rotation = towards * m4A1.transform.rotation;
 
         m4A1.transform.LookAt(Aim.transform);
-
-
     }
 
-    //void OnAnimatorIK(int layerIndex)
-    //{
-    //    if(!_enableIK)
-    //    {
-    //        return;
-    //    }
+    void OnAnimatorIK(int layerIndex)
+    {
+        if (!_enableIK)
+        {
+            return;
+        }
 
-    //    mAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-    //    mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
-    //}
+        var m4A1 = Gun;
+
+        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
+
+        mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
+        mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunComponent.AddWP.transform.position);
+    }
 }
