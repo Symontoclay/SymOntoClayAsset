@@ -2007,9 +2007,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &893239999
 Animator:
@@ -2058,6 +2058,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d2cf8a27d8968478f20df60c020ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gun: {fileID: 3146404374995991659}
+  RightHandWP: {fileID: 1836613821}
+  LeftHandWP: {fileID: 1450261837}
 --- !u!1 &908796924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,7 +2177,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -6933,6 +6936,7 @@ GameObject:
   - component: {fileID: 5293308114816862795}
   - component: {fileID: 5293308114816862796}
   - component: {fileID: 5293308114816862799}
+  - component: {fileID: 3146404374995991660}
   m_Layer: 0
   m_Name: M4A1
   m_TagString: Untagged
@@ -6940,6 +6944,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40
   m_IsActive: 1
+--- !u!114 &3146404374995991660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3146404374995991659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1755fb176831bfd40b758a8d4381b9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5293308113358994132
 GameObject:
   m_ObjectHideFlags: 0

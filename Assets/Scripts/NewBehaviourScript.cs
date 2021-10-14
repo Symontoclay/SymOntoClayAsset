@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using ExamplesOfSymOntoClay;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,11 @@ public class NewBehaviourScript : MonoBehaviour
 
     private InputKeyHelper mInputKeyHelper;
 
+    public GameObject Gun;
+
+    public GameObject RightHandWP;
+    public GameObject LeftHandWP;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +32,8 @@ public class NewBehaviourScript : MonoBehaviour
 
         mInputKeyHelper = new InputKeyHelper(_playerCommonBus);
         mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
     }
 
     // Update is called once per frame
@@ -37,5 +45,27 @@ public class NewBehaviourScript : MonoBehaviour
     private void OnFPressAction()
     {
         Debug.Log("OnFPressAction");
+
+        mAnimator.SetBool("hasRifle", true);
+
+        var m4A1 = Gun;
+
+        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
+
+        gunComponent.SetToHandsOfHumanoid(this);
+    }
+
+    private void OnGPressAction()
+    {
+        Debug.Log("OnGPressAction");
+
+        mAnimator.SetBool("isAim", true);
+    }
+
+    private void OnHPressAction()
+    {
+        Debug.Log("OnHPressAction");
+
+        mAnimator.SetBool("isAim", false);
     }
 }

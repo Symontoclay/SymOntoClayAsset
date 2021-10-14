@@ -71,6 +71,7 @@
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3AndWayPointValueConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\SobjFile.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyAdvancedSettings.cs" />
+    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\WorldFileImporter.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldEditor.cs" />
     <Compile Include="Assets\SymOntoClay\Helpers\FileHelper.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\FirstPersonController.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
-    <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Scripts\TstRapidFireGun.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />
