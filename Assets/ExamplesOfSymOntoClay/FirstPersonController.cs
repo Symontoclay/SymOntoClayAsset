@@ -141,7 +141,12 @@ namespace ExamplesOfSymOntoClay
                 y = _playerCommonBus.GetAxis("Vertical")
             };
             movementSettings.UpdateDesiredTargetSpeed(input);
-            return input;
+
+#if DEBUG
+            //Debug.Log($"GetInput() input = {input}");
+#endif
+
+            return input;//if (0.0, 0.0) player stands otherwise walks.
         }
 
         private void RotateView()
