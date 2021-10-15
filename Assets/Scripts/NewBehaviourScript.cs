@@ -36,6 +36,7 @@ public class NewBehaviourScript : MonoBehaviour
         mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.E, OnEPressAction);
     }
 
     // Update is called once per frame
@@ -107,5 +108,46 @@ public class NewBehaviourScript : MonoBehaviour
 
         mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
         mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunComponent.AddWP.transform.position);
+    }
+
+    private void OnEPressAction()
+    {
+        Debug.Log("OnEPressAction");
+
+        var aimPosition = Aim.transform.position;
+
+        var myPosition = transform.position;
+
+#if UNITY_EDITOR
+        Debug.Log($"aimPosition = {aimPosition}");
+        Debug.Log($"myPosition = {myPosition}");
+#endif
+
+        var heading = aimPosition - myPosition;
+
+#if UNITY_EDITOR
+        Debug.Log($"heading = {heading}");
+#endif
+
+        var distance = heading.magnitude;
+
+        var direction = heading / distance;
+
+#if UNITY_EDITOR
+        Debug.Log($"distance = {distance}");
+        Debug.Log($"direction = {direction}");
+#endif
+
+        var rotation = Quaternion.FromToRotation(Vector3.forward, direction);
+
+#if UNITY_EDITOR
+        Debug.Log($"rotation = {rotation}");
+#endif
+
+        var agle = Quaternion.Angle(transform.rotation, rotation);
+
+#if UNITY_EDITOR
+        Debug.Log($"agle = {agle}");
+#endif
     }
 }

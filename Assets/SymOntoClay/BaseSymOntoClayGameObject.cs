@@ -95,8 +95,8 @@ namespace SymOntoClay
             var angle = relativeCoordinate.HorizontalAngle;
 
 #if DEBUG
-            //Debug.Log($"HumanoidNPC ConvertFromRelativeToAbsolute angle = {angle}");
-            //Debug.Log($"HumanoidNPC ConvertFromRelativeToAbsolute distance = {distance}");
+            //Debug.Log($"BaseSymOntoClayGameObject ConvertFromRelativeToAbsolute angle = {angle}");
+            //Debug.Log($"BaseSymOntoClayGameObject ConvertFromRelativeToAbsolute distance = {distance}");
 #endif
 
             var radAngle = angle * Mathf.Deg2Rad;
@@ -105,7 +105,7 @@ namespace SymOntoClay
             var localDirection = new Vector3(x * distance, 0f, y * distance);
 
 #if DEBUG
-            //Debug.Log($"HumanoidNPC ConvertFromRelativeToAbsolute localDirection = {localDirection}");
+            //Debug.Log($"BaseSymOntoClayGameObject ConvertFromRelativeToAbsolute localDirection = {localDirection}");
 #endif
 
             var globalDirection = transform.TransformDirection(localDirection);
@@ -124,7 +124,47 @@ namespace SymOntoClay
 
         float IPlatformSupport.GetDirectionToPosition(System.Numerics.Vector3 position)
         {
-            throw new NotImplementedException();
+#if DEBUG
+            //Debug.Log($"BaseSymOntoClayGameObject ConvertFromRelativeToAbsolute position = {position}");
+#endif
+
+            var aimPosition = new Vector3(position.X, position.Y, position.Z);
+
+            var myPosition = transform.position;
+
+#if UNITY_EDITOR
+            //Debug.Log($"aimPosition = {aimPosition}");
+            //Debug.Log($"myPosition = {myPosition}");
+#endif
+
+            var heading = aimPosition - myPosition;
+
+#if UNITY_EDITOR
+            //Debug.Log($"heading = {heading}");
+#endif
+
+            var distance = heading.magnitude;
+
+            var direction = heading / distance;
+
+#if UNITY_EDITOR
+            //Debug.Log($"distance = {distance}");
+            //Debug.Log($"direction = {direction}");
+#endif
+
+            var rotation = Quaternion.FromToRotation(Vector3.forward, direction);
+
+#if UNITY_EDITOR
+            //Debug.Log($"rotation = {rotation}");
+#endif
+
+            var angle = Quaternion.Angle(transform.rotation, rotation);
+
+#if UNITY_EDITOR
+            //Debug.Log($"angle = {angle}");
+#endif
+
+            return angle;
         }
     }
 }
