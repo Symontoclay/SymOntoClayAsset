@@ -14,6 +14,11 @@ app MyNPC
         go();
 	    "End" >> @>log;
     }
+	
+	on {: hear(I, M16) :} => 
+    {
+        'M16!!!!' >> @>log;
+    }
 }
 
 action Go

@@ -3,6 +3,7 @@ using SymOntoClay.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SymOntoClay
@@ -86,7 +87,7 @@ namespace SymOntoClay
 
         public void PushSoundFact(float power, string text)
         {
-            _worldComponent.PushSoundFact(power, text);
+            Task.Run(() => { _worldComponent.PushSoundFact(power, text); });            
         }
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(SymOntoClay.Core.RelativeCoordinate relativeCoordinate)

@@ -35,12 +35,16 @@ namespace SymOntoClay
     /// </summary>
     public abstract class BaseBehavior : MonoBehaviour, IUHostListener
     {
-        private IUSocGameObject _uSocGameObject;
+        protected IUSocGameObject _uSocGameObject;
         private string _idForFacts;
         private object _lockObj = new object();
 
-        void Start()
+        protected virtual void Start()
         {
+#if DEBUG
+            Debug.Log($"BaseBehavior Start");
+#endif
+
             OnStart();
         }
 
@@ -49,7 +53,12 @@ namespace SymOntoClay
         /// </summary>
         protected virtual void OnStart()
         {
-            _uSocGameObject = GetComponent<IUHumanoidNPC>();
+            _uSocGameObject = GetComponent<IUSocGameObject>();
+
+#if DEBUG
+            Debug.Log($"_uSocGameObject = {_uSocGameObject}");
+#endif
+
             _idForFacts = _uSocGameObject.IdForFacts;
         }
 

@@ -64,6 +64,7 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\PlayerCommonBus.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\PlayerInputMode.cs" />
     <Compile Include="Assets\SymOntoClay\IUHumanoidNPC.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\ExampleSymOntoClayPlayer.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\IPlayerCommonBus.cs" />
     <Compile Include="Assets\SymOntoClay\Thing.cs" />
     <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
