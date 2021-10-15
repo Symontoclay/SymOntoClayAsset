@@ -23,6 +23,7 @@ SOFTWARE.*/
 using Assets.SymOntoClay.Convertors;
 using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.Scriptables;
+using SymOntoClay.SoundBuses;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
@@ -79,6 +80,8 @@ namespace SymOntoClay
             settings.HostFile = worldFullFileName;
 
             settings.InvokerInMainThread = _invokerInMainThread;
+
+            settings.SoundBus = new SimpleSoundBus();
 
             settings.Logging = new LoggingSettings()
             {

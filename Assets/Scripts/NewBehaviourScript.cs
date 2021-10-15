@@ -33,7 +33,6 @@ public class NewBehaviourScript : MonoBehaviour
 
         mInputKeyHelper = new InputKeyHelper(_playerCommonBus);
         mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.R, OnRPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
         mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
@@ -56,19 +55,6 @@ public class NewBehaviourScript : MonoBehaviour
         var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
 
         gunComponent.SetToHandsOfHumanoid(this);
-    }
-
-    private void OnRPressAction()
-    {
-        Debug.Log("OnRPressAction");
-
-        mAnimator.SetBool("hasRifle", true);
-
-        var m4A1 = Gun;
-
-        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
-
-        gunComponent.SetToHandsOfHumanoid_2(this);
     }
 
     private void OnGPressAction()

@@ -29,10 +29,9 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay
 {
-    public interface IUHumanoidNPC
+    public interface IUHumanoidNPC: IUSocGameObject
     {
         IHumanoidNPC NPC { get; }
-        string IdForFacts { get; }
         void Die();
     }
 }

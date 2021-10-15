@@ -29,54 +29,8 @@ using SymOntoClay.UnityAsset.Core;
 namespace SymOntoClay
 {
     [AddComponentMenu("SymOntoClay/Thing")]
-    public class Thing : MonoBehaviour
+    public class Thing : BaseSymOntoClayGameObject
     {
-        public SobjFile SobjFile;
-        public string Id;
-
-        private string _oldName;
-        private string _idForFacts;
-
-        public string IdForFacts => _idForFacts;
-
-        void OnValidate()
-        {
-            if (string.IsNullOrWhiteSpace(Id))
-            {
-                Id = GetIdByName();
-            }
-            else
-            {
-                var id = GetIdByName();
-
-                if (Id == GetIdByName(_oldName))
-                {
-                    Id = id;
-                }
-            }
-
-            if (Id.StartsWith("#`"))
-            {
-                _idForFacts = Id;
-            }
-            else
-            {
-                _idForFacts = $"{Id.Insert(1, "`")}`";
-            }
-
-            _oldName = name;
-        }
-
-        private string GetIdByName()
-        {
-            return GetIdByName(name);
-        }
-
-        private string GetIdByName(string nameStr)
-        {
-            return $"#{nameStr}";
-        }
-
         private object GetHostListener()
         {
             var hostListener = GetComponent<IUHostListener>();
@@ -114,6 +68,8 @@ namespace SymOntoClay
 #endif
 
             _thing = WorldFactory.WorldInstance.GetGameObject(settings);
+
+            SetSelfWorldComponent(_thing);
         }
 
         private IGameObject _thing;

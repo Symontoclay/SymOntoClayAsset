@@ -35,8 +35,7 @@ namespace SymOntoClay
     /// </summary>
     public abstract class BaseBehavior : MonoBehaviour, IUHostListener
     {
-        private IUHumanoidNPC _uHumanoidNPC;
-        private IHumanoidNPC _npc;
+        private IUSocGameObject _uSocGameObject;
         private string _idForFacts;
         private object _lockObj = new object();
 
@@ -50,9 +49,8 @@ namespace SymOntoClay
         /// </summary>
         protected virtual void OnStart()
         {
-            _uHumanoidNPC = GetComponent<IUHumanoidNPC>();
-            _npc = _uHumanoidNPC.NPC;
-            _idForFacts = _uHumanoidNPC.IdForFacts;
+            _uSocGameObject = GetComponent<IUHumanoidNPC>();
+            _idForFacts = _uSocGameObject.IdForFacts;
         }
 
         private string _walkingFactId;
@@ -65,14 +63,14 @@ namespace SymOntoClay
             var factStr = $"act({_idForFacts}, stop)";
 
 #if DEBUG
-            //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact factStr = '{factStr}'");
+            //Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
 #endif
 
-            _npc.RemovePublicFact(_walkingFactId);
-            _walkingFactId = _npc.InsertPublicFact(factStr);
+            _uSocGameObject.RemovePublicFact(_walkingFactId);
+            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if DEBUG
-            //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddStopFact _walkingFactId = {_walkingFactId}");
+            //Debug.Log($"BaseBehavior AddStopFact _walkingFactId = {_walkingFactId}");
 #endif
         }
 
@@ -84,14 +82,14 @@ namespace SymOntoClay
             var factStr = $"act({_idForFacts}, walk)";
 
 #if DEBUG
-            //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact factStr = '{factStr}'");
+            //Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
 #endif
 
-            _npc.RemovePublicFact(_walkingFactId);
-            _walkingFactId = _npc.InsertPublicFact(factStr);
+            _uSocGameObject.RemovePublicFact(_walkingFactId);
+            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if DEBUG
-            //Debug.Log($"ExampleSymOntoClayHumanoidNPC AddWalkingFact _walkingFactId = {_walkingFactId}");
+            //Debug.Log($"BaseBehavior AddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
         }
 
@@ -117,7 +115,7 @@ namespace SymOntoClay
         /// <param name="function">Handler which should be executed in main thread context.</param>
         protected void RunInMainThread(Action function)
         {
-            _npc.RunInMainThread(function);
+            _uSocGameObject.RunInMainThread(function);
         }
 
         /// <summary>
@@ -128,7 +126,7 @@ namespace SymOntoClay
         /// <returns>Result of the execution.</returns>
         protected TResult RunInMainThread<TResult>(Func<TResult> function)
         {
-            return _npc.RunInMainThread(function);
+            return _uSocGameObject.RunInMainThread(function);
         }
     }
 }
