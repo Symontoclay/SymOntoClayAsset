@@ -1,11 +1,10 @@
-using Assets.Scripts;
 using ExamplesOfSymOntoClay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
 {
     private Rigidbody mRigidbody;
     public Animator mAnimator;
@@ -18,12 +17,21 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject Gun;
     public GameObject Aim;
 
+
+
     public GameObject RightHandWP;
     public GameObject LeftHandWP;
+
+    GameObject IUBipedHumanoid.RightHandWP => RightHandWP;
+    GameObject IUBipedHumanoid.LeftHandWP => LeftHandWP;
+
+    private IUTwoHandGun _twoHandGun;
 
     // Start is called before the first frame update
     void Start()
     {
+        _twoHandGun = Gun?.GetComponent<IUTwoHandGun>();
+
         _playerCommonBus = PlayerCommonBus.GetBus();
 
         mAnimator = GetComponent<Animator>();
@@ -51,11 +59,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         mAnimator.SetBool("hasRifle", true);
 
-        var m4A1 = Gun;
-
-        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
-
-        gunComponent.SetToHandsOfHumanoid(this);
+        _twoHandGun.SetToHandsOfHumanoid(this);
     }
 
     private void OnGPressAction()
@@ -72,7 +76,7 @@ public class NewBehaviourScript : MonoBehaviour
         mAnimator.SetBool("isAim", false);
     }
 
-    private bool _enableIK;
+    private bool _enableTwoHandGunIK;
 
     private void OnJPressAction()
     {
@@ -80,7 +84,7 @@ public class NewBehaviourScript : MonoBehaviour
 
         var m4A1 = Gun;
 
-        _enableIK = true;
+        _enableTwoHandGunIK = true;
 
         //var gunForvard = m4A1.transform.forward;
 
@@ -92,22 +96,18 @@ public class NewBehaviourScript : MonoBehaviour
 
         //m4A1.transform.rotation = towards * m4A1.transform.rotation;
 
-        m4A1.transform.LookAt(Aim.transform);
+        _twoHandGun.LookAt(Aim.transform);
     }
 
     void OnAnimatorIK(int layerIndex)
     {
-        if (!_enableIK)
+        if (!_enableTwoHandGunIK)
         {
             return;
         }
 
-        var m4A1 = Gun;
-
-        var gunComponent = m4A1.GetComponent<TstRapidFireGun>();
-
         mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
-        mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunComponent.AddWP.transform.position);
+        mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, _twoHandGun.AddWP.transform.position);
     }
 
     private void OnEPressAction()

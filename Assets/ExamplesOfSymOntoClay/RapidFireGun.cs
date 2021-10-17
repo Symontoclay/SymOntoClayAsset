@@ -1,19 +1,23 @@
-﻿using System;
+﻿using ExamplesOfSymOntoClay;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace ExamplesOfSymOntoClay
 {
-    public class TstRapidFireGun : MonoBehaviour
+    public class RapidFireGun : MonoBehaviour, IUTwoHandGun
     {
         private Collider mBodyCollider;
         private Rigidbody mBodyRigidbody;
 
         public GameObject MainWP;
         public GameObject AddWP;
+
+        GameObject IUTwoHandGun.MainWP => MainWP;
+        GameObject IUTwoHandGun.AddWP => AddWP;
 
         void Start()
         {
@@ -26,7 +30,7 @@ namespace Assets.Scripts
 
         }
 
-        public bool SetToHandsOfHumanoid(NewBehaviourScript humanoid)
+        public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)
         {
             var targetParent = humanoid.RightHandWP.transform;
 
@@ -62,6 +66,11 @@ namespace Assets.Scripts
 #endif
 
             return true;
+        }
+
+        public void LookAt(Transform target)
+        {
+            transform.LookAt(target);
         }
     }
 }

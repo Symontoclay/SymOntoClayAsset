@@ -19,6 +19,12 @@ app MyNPC
     {
         'M16!!!!' >> @>log;
     }
+	
+	on {: see(I, $x) & MyNPC($x) :}($x >> @a) => 
+	{
+	    'MyNPC!!!!' >> @>log;
+		@a >> @>log;
+	}
 }
 
 action Go
