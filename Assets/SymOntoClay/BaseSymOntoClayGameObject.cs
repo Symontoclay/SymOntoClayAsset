@@ -1,4 +1,5 @@
-﻿using SymOntoClay.CoreHelper.DebugHelpers;
+﻿using SymOntoClay.Core;
+using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using System;
@@ -166,6 +167,16 @@ namespace SymOntoClay
 #endif
 
             return angle;
+        }
+
+        bool IPlatformSupport.CanBeTakenBy(IEntity subject)
+        {
+            return CanBeTakenBy(subject);
+        }
+        
+        protected virtual bool CanBeTakenBy(IEntity subject)
+        {
+            return false;
         }
     }
 }

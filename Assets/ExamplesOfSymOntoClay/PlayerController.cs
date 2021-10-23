@@ -9,7 +9,7 @@ using UnityEngine;
 namespace ExamplesOfSymOntoClay
 {
     [RequireComponent(typeof(IUSocGameObject))]
-    public class ExampleSymOntoClayPlayer : BaseBehavior
+    public class PlayerController : BaseBehavior
     {
         private IPlayerCommonBus _playerCommonBus;
         private InputKeyHelper mInputKeyHelper;

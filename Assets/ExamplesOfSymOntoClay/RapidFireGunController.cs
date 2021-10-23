@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ExamplesOfSymOntoClay
 {
-    public class RapidFireGun : MonoBehaviour, IUTwoHandGun
+    public class RapidFireGunController : MonoBehaviour, IUTwoHandGun
     {
         private Collider mBodyCollider;
         private Rigidbody mBodyRigidbody;

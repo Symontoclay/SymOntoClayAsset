@@ -29,54 +29,7 @@ using SymOntoClay.UnityAsset.Core;
 namespace SymOntoClay
 {
     [AddComponentMenu("SymOntoClay/Thing")]
-    public class Thing : BaseSymOntoClayGameObject
+    public class Thing : BaseThing
     {
-        private object GetHostListener()
-        {
-            var hostListener = GetComponent<IUHostListener>();
-
-            if (hostListener == null)
-            {
-                return this;
-            }
-
-            return hostListener;
-        }
-
-        void Awake()
-        {
-#if DEBUG
-            //Debug.Log("Thing Awake");
-#endif
-
-            var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
-
-#if DEBUG
-            //Debug.Log($"Thing Awake fullFileName = {fullFileName}");
-#endif
-
-            var settings = new GameObjectSettings();
-            settings.Id = Id;
-            settings.InstanceId = gameObject.GetInstanceID();
-
-            settings.HostFile = fullFileName;
-
-            settings.HostListener = GetHostListener();
-
-#if DEBUG
-            //Debug.Log($"Thing Awake settings = {settings}");
-#endif
-
-            _thing = WorldFactory.WorldInstance.GetGameObject(settings);
-
-            SetSelfWorldComponent(_thing);
-        }
-
-        private IGameObject _thing;
-
-        void Stop()
-        {
-            _thing.Dispose();
-        }
     }
 }

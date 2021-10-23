@@ -36,9 +36,9 @@ action Go
 	
 	on {: see(I, $x) & $x is barrel & distance(I, $x, $y) & $y is near :} ($y >> @y, $x >> @x) => 
 	{
-	    "I see" >> @>log;
-		@x >> @>log;
-		@y >> @>log;
+	    //"I see" >> @>log;
+		//@x >> @>log;
+		//@y >> @>log;
 		complete action;
 	}
 }

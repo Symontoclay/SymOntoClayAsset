@@ -7,26 +7,22 @@ using System.Text;
 using System.Threading.Tasks;
 #if UNITY_EDITOR
 using UnityEditor;
-#endif
 using UnityEngine;
+#endif
 
 namespace SymOntoClay.Editors
 {
 #if UNITY_EDITOR
-    [CustomEditor(typeof(Player))]
+    [CustomEditor(typeof(HandThing))]
     [CanEditMultipleObjects]
-    public class PlayerEditor : Editor
+    public class HandThingEditor : Editor
     {
-        private Player _target;
+        private HandThing _target;
 
         private void OnEnable()
         {
-            _boldLabelStyle = new GUIStyle() { fontStyle = FontStyle.Bold };
-
-            _target = (Player)target;
+            _target = (HandThing)target;
         }
-
-        private GUIStyle _boldLabelStyle;
 
         public override void OnInspectorGUI()
         {
