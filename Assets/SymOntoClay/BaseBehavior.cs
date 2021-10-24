@@ -42,21 +42,13 @@ namespace SymOntoClay
         protected virtual void Start()
         {
 #if DEBUG
-            Debug.Log($"BaseBehavior Start");
+            //Debug.Log($"BaseBehavior Start");
 #endif
 
-            OnStart();
-        }
-
-        /// <summary>
-        /// Initializes component instead of private method <b>Start</b>.
-        /// </summary>
-        protected virtual void OnStart()
-        {
             _uSocGameObject = GetComponent<IUSocGameObject>();
 
 #if DEBUG
-            Debug.Log($"_uSocGameObject = {_uSocGameObject}");
+            //Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
             _idForFacts = _uSocGameObject.IdForFacts;

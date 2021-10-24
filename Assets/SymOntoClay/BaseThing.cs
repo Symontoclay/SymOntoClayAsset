@@ -26,7 +26,7 @@ namespace SymOntoClay
         protected virtual void Awake()
         {
 #if DEBUG
-            //Debug.Log("Thing Awake");
+            Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
 #endif
 
             var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);

@@ -9,10 +9,14 @@ using UnityEngine;
 namespace SymOntoClay
 {
     [AddComponentMenu("SymOntoClay/HandThing")]
-    public class HandThing : BaseThing
+    public class HandThing : BaseThing, IUHandThing
     {
         protected override bool CanBeTakenBy(IEntity subject)
         {
+#if DEBUG
+            UnityEngine.Debug.Log($"HandThing CanBeTakenBy.");
+#endif
+
             throw new NotImplementedException();
         }
     }

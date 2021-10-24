@@ -7,6 +7,7 @@ using SymOntoClay.UnityAsset.Core.Helpers;
 using UnityEngine.AI;
 using System.Diagnostics;
 using Assets.SymOntoClay;
+using SymOntoClay.Core;
 
 namespace ExamplesOfSymOntoClay
 {
@@ -25,18 +26,18 @@ namespace ExamplesOfSymOntoClay
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
 
-        protected override void OnStart()
+        protected override void Start()
         {
 #if DEBUG
-            //Debug.Log("HumanoidNPCController OnStart Begin");
+            //UnityEngine.Debug.Log("HumanoidNPCController OnStart Begin");
 #endif
 
-            base.OnStart();
+            base.Start();
 
             AddStopFact();
 
 #if DEBUG
-            //Debug.Log("HumanoidNPCController OnStart End");
+            //UnityEngine.Debug.Log("HumanoidNPCController OnStart End");
 #endif
         }
 
@@ -140,6 +141,29 @@ namespace ExamplesOfSymOntoClay
 
 #if DEBUG
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
+#endif
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
+        {
+#if DEBUG
+            var name = GetMethodId();
+
+            UnityEngine.Debug.Log($"Begin {name}");
+#endif
+
+            entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+
+#if DEBUG
+            UnityEngine.Debug.Log($"{name} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"{name} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"{name} entity.Position = {entity.Position}");
+#endif
+
+#if DEBUG
+            UnityEngine.Debug.Log($"End {name}");
 #endif
         }
     }

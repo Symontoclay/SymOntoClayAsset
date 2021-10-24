@@ -66,6 +66,7 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\IUBipedHumanoid.cs" />
     <Compile Include="Assets\SymOntoClay\Thing.cs" />
     <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
+    <Compile Include="Assets\SymOntoClay\Editors\HandThingEditor.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMouseLook.cs" />
     <Compile Include="Assets\SymOntoClay\IUHostListener.cs" />
     <Compile Include="Assets\SymOntoClay\BaseSymOntoClayGameObject.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\SymOntoClay\Scriptables\SobjFile.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyAdvancedSettings.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\SymOntoClay\IUHandThing.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\IUTwoHandGun.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\WorldFileImporter.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldEditor.cs" />
@@ -90,12 +92,13 @@
     <Compile Include="Assets\SymOntoClay\Editors\HumanoidNPCEditor.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\SobjFileImporterEditor.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\FirstPersonController.cs" />
+    <Compile Include="Assets\SymOntoClay\BaseThing.cs" />
+    <Compile Include="Assets\SymOntoClay\HandThing.cs" />
     <Compile Include="Assets\SymOntoClay\IUSocHumanoid.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
-    <Compile Include="Assets\SymOntoClay\BaseThing.cs" />
-    <Compile Include="Assets\SymOntoClay\Editors\HandThingEditor.cs" />
-    <Compile Include="Assets\SymOntoClay\HandThing.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\IHumanoidHealth.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidHealthController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />

@@ -3353,6 +3353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687108095}
   - component: {fileID: 1687108096}
+  - component: {fileID: 1687108097}
   m_Layer: 0
   m_Name: M4A1
   m_TagString: Untagged
@@ -3389,6 +3390,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainWP: {fileID: 347090753}
   AddWP: {fileID: 1935791150}
+--- !u!114 &1687108097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687108094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b8a9900d31e1542b88e75bd152038b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SobjFile: {fileID: -6750239444755058063, guid: c93c80ba35a7ac24b93f7244b57d125c, type: 3}
+  Id: '#M4A1'
 --- !u!1 &1722845534
 GameObject:
   m_ObjectHideFlags: 0
@@ -17996,6 +18011,7 @@ GameObject:
   - component: {fileID: 1434802578738722067}
   - component: {fileID: 14611543}
   - component: {fileID: 6030519418766110242}
+  - component: {fileID: 6030519418766110243}
   m_Layer: 0
   m_Name: MyNPC
   m_TagString: Untagged
@@ -18013,6 +18029,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14d84a0cc1de9cb458cdf961b0e2c5a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6030519418766110243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6030519418766110241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 831600d4be76a164ba9a211afe6df07d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8071071976512525469

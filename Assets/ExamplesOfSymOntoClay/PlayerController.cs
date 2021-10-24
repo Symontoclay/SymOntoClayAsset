@@ -38,7 +38,7 @@ namespace ExamplesOfSymOntoClay
         {
             Debug.Log("OnRPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(m16, shoot)");
+            _uSocGameObject.PushSoundFact(60, "act(q1, shoot)");
             
             Debug.Log("End OnRPressAction");
         }
