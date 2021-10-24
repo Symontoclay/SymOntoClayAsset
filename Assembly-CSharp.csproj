@@ -80,6 +80,7 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\IUTwoHandGun.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\WorldFileImporter.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldEditor.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidHealthController.cs" />
     <Compile Include="Assets\SymOntoClay\Helpers\FileHelper.cs" />
     <Compile Include="Assets\SymOntoClay\Data\UVisibleItem.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidNPCController.cs" />
@@ -94,11 +95,10 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\FirstPersonController.cs" />
     <Compile Include="Assets\SymOntoClay\BaseThing.cs" />
     <Compile Include="Assets\SymOntoClay\HandThing.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\IHumanoidHealth.cs" />
     <Compile Include="Assets\SymOntoClay\IUSocHumanoid.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IHumanoidHealth.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidHealthController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />

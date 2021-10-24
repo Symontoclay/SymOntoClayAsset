@@ -16,8 +16,8 @@ namespace SymOntoClay
 #if DEBUG
             UnityEngine.Debug.Log($"HandThing CanBeTakenBy.");
 #endif
-
-            throw new NotImplementedException();
+            return true;//tmp
+            //throw new NotImplementedException();
         }
     }
 }
