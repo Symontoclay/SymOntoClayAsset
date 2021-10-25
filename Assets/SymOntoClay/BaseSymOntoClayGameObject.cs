@@ -19,6 +19,11 @@ namespace SymOntoClay
 
         public string IdForFacts => _idForFacts;
 
+        protected virtual void Awake()
+        {
+            GameObjectsRegistry.AddGameObject(gameObject);
+        }
+
         protected virtual void OnValidate()
         {
             if (string.IsNullOrWhiteSpace(Id))

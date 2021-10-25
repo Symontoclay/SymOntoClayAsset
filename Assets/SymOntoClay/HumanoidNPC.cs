@@ -54,8 +54,10 @@ namespace SymOntoClay
         //public bool IsResurrected;
         //public bool IsInitiallyDead;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
 #if DEBUG
             //Debug.Log("HumanoidNPC Awake");
 #endif

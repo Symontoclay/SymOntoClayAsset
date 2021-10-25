@@ -12,8 +12,18 @@ using SymOntoClay.Core;
 namespace ExamplesOfSymOntoClay
 {
     [RequireComponent(typeof(IUHumanoidNPC))]
-    public class HumanoidNPCController : BaseBehavior
-    {
+    public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid
+    {// 
+
+        public GameObject RightHandWP;
+        public GameObject LeftHandWP;
+
+        private GameObject _rightHandWP;
+        private GameObject _leftHandWP;
+
+        GameObject IUBipedHumanoid.RightHandWP => _rightHandWP;
+        GameObject IUBipedHumanoid.LeftHandWP => _leftHandWP;
+
         void Awake()
         {
 #if DEBUG
@@ -35,6 +45,26 @@ namespace ExamplesOfSymOntoClay
             base.Start();
 
             AddStopFact();
+
+            if(RightHandWP == null)
+            {
+                var locator = GetComponentInChildren<RightHandWPLocator>();
+                _rightHandWP = locator.gameObject;
+            }
+            else
+            {
+                _rightHandWP = RightHandWP;
+            }
+
+            if(LeftHandWP == null)
+            {
+                var locator = GetComponentInChildren<LeftHandWPLocator>();
+                _leftHandWP = locator.gameObject;
+            }
+            else
+            {
+                _leftHandWP = LeftHandWP;
+            }
 
 #if DEBUG
             //UnityEngine.Debug.Log("HumanoidNPCController OnStart End");
@@ -151,19 +181,34 @@ namespace ExamplesOfSymOntoClay
 #if DEBUG
             var name = GetMethodId();
 
-            UnityEngine.Debug.Log($"Begin {name}");
+            UnityEngine.Debug.Log($"TakeImpl Begin {name}");
 #endif
 
             entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
 
-#if DEBUG
-            UnityEngine.Debug.Log($"{name} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"{name} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"{name} entity.Position = {entity.Position}");
-#endif
+            entity.Resolve();
 
 #if DEBUG
-            UnityEngine.Debug.Log($"End {name}");
+            UnityEngine.Debug.Log($"TakeImpl {name} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeImpl {name} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeImpl {name} entity.Position = {entity.Position}");
+#endif
+
+            RunInMainThread(() => {
+                var gun = GameObjectsRegistry.GetComponent<IUTwoHandGun>(entity.InstanceId);
+
+#if DEBUG
+                UnityEngine.Debug.Log($"TakeImpl {name} (gun != null) = {gun != null}");
+#endif
+
+                _hasRifle = true;
+                UpdateAnimator();
+
+                gun.SetToHandsOfHumanoid(this);
+            });
+
+#if DEBUG
+            UnityEngine.Debug.Log($"TakeImpl End {name}");
 #endif
         }
     }

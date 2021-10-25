@@ -99,6 +99,9 @@
     <Compile Include="Assets\SymOntoClay\IUSocHumanoid.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
+    <Compile Include="Assets\SymOntoClay\GameObjectsRegistry.cs" />
+    <Compile Include="Assets\SymOntoClay\LeftHandWPLocator.cs" />
+    <Compile Include="Assets\SymOntoClay\RightHandWPLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />

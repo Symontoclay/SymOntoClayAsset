@@ -13,8 +13,9 @@ namespace SymOntoClay
     {
         protected IUHostListener _hostListener;
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
 #if DEBUG
             Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
 #endif
