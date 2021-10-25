@@ -11,17 +11,7 @@ namespace SymOntoClay
 {
     public class BaseThing : BaseSymOntoClayGameObject
     {
-        private object GetHostListener()
-        {
-            var hostListener = GetComponent<IUHostListener>();
-
-            if (hostListener == null)
-            {
-                return this;
-            }
-
-            return hostListener;
-        }
+        protected IUHostListener _hostListener;
 
         protected virtual void Awake()
         {
@@ -41,7 +31,17 @@ namespace SymOntoClay
 
             settings.HostFile = fullFileName;
 
-            settings.HostListener = GetHostListener();
+            var hostListener = GetComponent<IUHostListener>();
+
+            if (hostListener == null)
+            {
+                settings.HostListener = this;
+            }
+            else
+            {
+                settings.HostListener = hostListener;
+                _hostListener = hostListener;
+            }
 
             settings.PlatformSupport = this;
 

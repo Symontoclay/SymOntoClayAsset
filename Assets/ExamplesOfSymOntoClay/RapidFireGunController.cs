@@ -1,4 +1,6 @@
 ﻿using ExamplesOfSymOntoClay;
+using SymOntoClay;
+using SymOntoClay.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using UnityEngine;
 
 namespace ExamplesOfSymOntoClay
 {
-    public class RapidFireGunController : MonoBehaviour, IUTwoHandGun
+    public class RapidFireGunController : BaseBehavior, IUTwoHandGun
     {
         private Collider mBodyCollider;
         private Rigidbody mBodyRigidbody;
@@ -28,6 +30,15 @@ namespace ExamplesOfSymOntoClay
         void Update()
         {
 
+        }
+
+        public override bool CanBeTakenBy(IEntity subject)
+        {
+#if UNITY_EDITOR
+            Debug.Log("RapidFireGunController CanBeTakenBy");
+#endif
+
+            return true;//tmp
         }
 
         public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)

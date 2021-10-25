@@ -16,8 +16,10 @@ namespace SymOntoClay
 #if DEBUG
             UnityEngine.Debug.Log($"HandThing CanBeTakenBy.");
 #endif
-            return true;//tmp
-            //throw new NotImplementedException();
+
+            //Please! Write here code for controlling too far interaction!
+
+            return _hostListener.CanBeTakenBy(subject);
         }
     }
 }
