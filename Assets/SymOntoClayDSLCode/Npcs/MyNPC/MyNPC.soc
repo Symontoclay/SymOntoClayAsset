@@ -1,5 +1,11 @@
 app MyNPC
 {	
+    on {: see(I, $x) & MyNPC($x) :} ($x >> @x)
+	{
+	    'MyNPC!!!!' >> @>log;
+		@x >> @>log;
+	}
+	
 	on {: hear(I, q1) :} => 
     {
         'q1!!!!' >> @>log;

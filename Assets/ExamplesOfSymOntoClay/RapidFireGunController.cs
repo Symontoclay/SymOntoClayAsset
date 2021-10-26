@@ -20,11 +20,13 @@ namespace ExamplesOfSymOntoClay
         public GameObject MainWP;
         public GameObject AddWP;
 
-        GameObject IUTwoHandGun.MainWP => MainWP;
-        GameObject IUTwoHandGun.AddWP => AddWP;
+        GameObject IRifle.MainWP => MainWP;
+        GameObject IRifle.AddWP => AddWP;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             mBodyCollider = GetComponentInChildren<Collider>();
             mBodyRigidbody = GetComponentInChildren<Rigidbody>();
         }

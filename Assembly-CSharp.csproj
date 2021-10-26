@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{A67DAB00-B4B7-D014-5BEE-5258FA15A814}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -54,8 +53,6 @@
     <UnityVersion>2021.1.20f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IHandThing.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\KindOfHandThing.cs" />
     <Compile Include="Assets\SymOntoClay\HumanoidNPC.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3UnityAndSystemNumericConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Build\BuildProcessor.cs" />
@@ -72,21 +69,26 @@
     <Compile Include="Assets\SymOntoClay\Editors\HandThingEditor.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMouseLook.cs" />
     <Compile Include="Assets\SymOntoClay\IUHostListener.cs" />
+    <Compile Include="Assets\SymOntoClay\LeftHandWPLocator.cs" />
     <Compile Include="Assets\SymOntoClay\BaseSymOntoClayGameObject.cs" />
     <Compile Include="Assets\SymOntoClay\World.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMovementSettings.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\KindOfHandThing.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3AndWayPointValueConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\SobjFile.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyAdvancedSettings.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\IHandThing.cs" />
     <Compile Include="Assets\SymOntoClay\IUHandThing.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\IRifle.cs" />
+    <Compile Include="Assets\SymOntoClay\RightHandWPLocator.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\WorldFileImporter.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldEditor.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidHealthController.cs" />
     <Compile Include="Assets\SymOntoClay\Helpers\FileHelper.cs" />
     <Compile Include="Assets\SymOntoClay\Data\UVisibleItem.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidNPCController.cs" />
+    <Compile Include="Assets\SymOntoClay\GameObjectsRegistry.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\PlayerEditor.cs" />
     <Compile Include="Assets\SymOntoClay\IUSocGameObject.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\InputKeyHelper.cs" />
@@ -102,9 +104,6 @@
     <Compile Include="Assets\SymOntoClay\IUSocHumanoid.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
-    <Compile Include="Assets\SymOntoClay\GameObjectsRegistry.cs" />
-    <Compile Include="Assets\SymOntoClay\LeftHandWPLocator.cs" />
-    <Compile Include="Assets\SymOntoClay\RightHandWPLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />

@@ -53,7 +53,7 @@ namespace SymOntoClay
             _uSocGameObject = GetComponent<IUSocGameObject>();
 
 #if DEBUG
-            //Debug.Log($"_uSocGameObject = {_uSocGameObject}");
+            Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
             _idForFacts = _uSocGameObject.IdForFacts;

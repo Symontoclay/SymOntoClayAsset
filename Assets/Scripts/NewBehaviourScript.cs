@@ -25,12 +25,12 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
     GameObject IUBipedHumanoid.RightHandWP => RightHandWP;
     GameObject IUBipedHumanoid.LeftHandWP => LeftHandWP;
 
-    private IUTwoHandGun _twoHandGun;
+    private IRifle _twoHandGun;
 
     // Start is called before the first frame update
     void Start()
     {
-        _twoHandGun = Gun?.GetComponent<IUTwoHandGun>();
+        _twoHandGun = Gun?.GetComponent<IRifle>();
 
         _playerCommonBus = PlayerCommonBus.GetBus();
 
