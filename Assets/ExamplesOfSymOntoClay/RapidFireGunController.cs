@@ -10,8 +10,10 @@ using UnityEngine;
 
 namespace ExamplesOfSymOntoClay
 {
-    public class RapidFireGunController : BaseBehavior, IUTwoHandGun
+    public class RapidFireGunController : BaseBehavior, IRifle
     {
+        public KindOfHandThing Kind => KindOfHandThing.Rifle;
+
         private Collider mBodyCollider;
         private Rigidbody mBodyRigidbody;
 
@@ -32,13 +34,15 @@ namespace ExamplesOfSymOntoClay
 
         }
 
+        private bool _isTaken;
+
         public override bool CanBeTakenBy(IEntity subject)
         {
 #if UNITY_EDITOR
             Debug.Log("RapidFireGunController CanBeTakenBy");
 #endif
 
-            return true;//tmp
+            return !_isTaken;
         }
 
         public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)
@@ -54,6 +58,8 @@ namespace ExamplesOfSymOntoClay
                 return true;
             }
 
+            _isTaken = true;
+
             if (mBodyCollider != null)
             {
                 mBodyCollider.enabled = false;
@@ -62,7 +68,7 @@ namespace ExamplesOfSymOntoClay
             if (mBodyRigidbody != null)
             {
                 mBodyRigidbody.isKinematic = true;
-            }
+            }            
 
             transform.rotation = Quaternion.Euler(0, 0, 0);
 

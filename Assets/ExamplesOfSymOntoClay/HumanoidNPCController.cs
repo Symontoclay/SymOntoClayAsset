@@ -8,6 +8,7 @@ using UnityEngine.AI;
 using System.Diagnostics;
 using Assets.SymOntoClay;
 using SymOntoClay.Core;
+using System;
 
 namespace ExamplesOfSymOntoClay
 {
@@ -82,6 +83,17 @@ namespace ExamplesOfSymOntoClay
             _position = transform.position;
         }
 
+        void OnAnimatorIK(int layerIndex)
+        {
+            if (!_enableRifleIK)
+            {
+                return;
+            }
+
+            _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
+            _animator.SetIKPosition(AvatarIKGoal.LeftHand, _rifle.AddWP.transform.position);
+        }
+
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
         private Rigidbody _rigidbody;
@@ -91,7 +103,11 @@ namespace ExamplesOfSymOntoClay
         private bool _isAim;
         private bool _isDead;
 
+        private bool _enableRifleIK;
+
         private Vector3 _position;
+
+        private IRifle _rifle; 
 
         private void UpdateAnimator()
         {
@@ -195,21 +211,38 @@ namespace ExamplesOfSymOntoClay
 #endif
 
             RunInMainThread(() => {
-                var gun = GameObjectsRegistry.GetComponent<IUTwoHandGun>(entity.InstanceId);
+                var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
 
 #if DEBUG
-                UnityEngine.Debug.Log($"TakeImpl {name} (gun != null) = {gun != null}");
+                UnityEngine.Debug.Log($"TakeImpl {name} (handThing != null) = {handThing != null}");
 #endif
 
-                _hasRifle = true;
-                UpdateAnimator();
+                switch(handThing.Kind)
+                {
+                    case KindOfHandThing.Rifle:
+                        TakeRifle(cancellationToken, handThing as IRifle);
+                        break;
 
-                gun.SetToHandsOfHumanoid(this);
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(handThing.Kind), handThing.Kind, null);
+                }
             });
 
 #if DEBUG
             UnityEngine.Debug.Log($"TakeImpl End {name}");
 #endif
+        }
+
+        private void TakeRifle(CancellationToken cancellationToken, IRifle rifle)
+        {
+            _rifle = rifle;
+
+            _hasRifle = true;
+            UpdateAnimator();
+
+            rifle.SetToHandsOfHumanoid(this);
+
+            AddHoldFact(rifle.IdForFacts);
         }
     }
 }

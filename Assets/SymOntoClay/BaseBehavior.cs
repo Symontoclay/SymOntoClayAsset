@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core;
+using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,9 @@ namespace SymOntoClay
         private string _idForFacts;
         private object _lockObj = new object();
 
+        public string IdForFacts => _idForFacts;
+        public IEntityLogger Logger => _uSocGameObject.Logger;
+
         protected virtual void Start()
         {
 #if DEBUG
@@ -58,7 +62,7 @@ namespace SymOntoClay
         private string _walkingFactId;
 
         /// <summary>
-        /// Adds fact what the NPC has stopped itself.
+        /// Adds fact that the NPC has stopped itself.
         /// </summary>
         protected void AddStopFact()
         {
@@ -68,7 +72,11 @@ namespace SymOntoClay
             //Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
 #endif
 
-            _uSocGameObject.RemovePublicFact(_walkingFactId);
+            if (!string.IsNullOrWhiteSpace(_walkingFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_walkingFactId);
+            }
+            
             _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if DEBUG
@@ -77,7 +85,7 @@ namespace SymOntoClay
         }
 
         /// <summary>
-        /// Adds fact what the NPC has started walking.
+        /// Adds fact that the NPC has started walking.
         /// </summary>
         protected void AddWalkingFact()
         {
@@ -86,13 +94,45 @@ namespace SymOntoClay
 #if DEBUG
             //Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
 #endif
-
-            _uSocGameObject.RemovePublicFact(_walkingFactId);
+            if(!string.IsNullOrWhiteSpace(_walkingFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_walkingFactId);
+            }
+            
             _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if DEBUG
             //Debug.Log($"BaseBehavior AddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
+        }
+
+        private string _holdFactId;
+
+        /// <summary>
+        /// Adds fact that the NPC holds something in his hands.
+        /// </summary>
+        /// <param name="heldId">Id of held thing.</param>
+        protected void AddHoldFact(string heldId)
+        {
+            var factStr = $"hold({_idForFacts}, {heldId})";
+
+            if (!string.IsNullOrWhiteSpace(_holdFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_holdFactId);
+            }
+
+            _holdFactId = _uSocGameObject.InsertPublicFact(factStr);
+        }
+
+        /// <summary>
+        /// Removes fact that the NPC holds something in his hands.
+        /// </summary>
+        protected void RemoveHoldFact()
+        {
+            if (!string.IsNullOrWhiteSpace(_holdFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_holdFactId);
+            }
         }
 
         private static int _methodId;
@@ -131,7 +171,11 @@ namespace SymOntoClay
             return _uSocGameObject.RunInMainThread(function);
         }
 
-
+        /// <summary>
+        /// Checks that It can be taken by the subject.
+        /// </summary>
+        /// <param name="subject">The subject that takes this.</param>
+        /// <returns>true - if It can be taken, otherwise - false.</returns>
         public virtual bool CanBeTakenBy(IEntity subject)
         {
             return false;

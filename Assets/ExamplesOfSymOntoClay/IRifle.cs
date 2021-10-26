@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ExamplesOfSymOntoClay
 {
-    public interface IUTwoHandGun
+    public interface IRifle: IHandThing
     {
         GameObject MainWP { get; }
         GameObject AddWP { get; }
