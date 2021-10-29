@@ -146,6 +146,28 @@ namespace ExamplesOfSymOntoClay
             //Debug.Log($"GetInput() input = {input}");
 #endif
 
+            if(input == Vector2.zero)
+            {
+#if DEBUG
+                Debug.Log($"GetInput() Stops");
+#endif
+            }
+            else
+            {
+                if(movementSettings.Running)
+                {
+#if DEBUG
+                    Debug.Log($"GetInput() Runs");
+#endif
+                }
+                else
+                {
+#if DEBUG
+                    Debug.Log($"GetInput() Walkes");
+#endif
+                }
+            }
+
             return input;//if (0.0, 0.0) player stands otherwise walks.
         }
 

@@ -1,4 +1,6 @@
-﻿using SymOntoClay.CoreHelper.DebugHelpers;
+﻿using SymOntoClay;
+using SymOntoClay.CoreHelper.DebugHelpers;
+using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,6 @@ namespace ExamplesOfSymOntoClay
 
         string IdForFacts { get; }
         IEntityLogger Logger { get; }
+        IUSocGameObject USocGameObject { get; }
     }
 }

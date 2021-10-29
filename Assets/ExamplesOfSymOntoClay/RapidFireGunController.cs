@@ -23,6 +23,8 @@ namespace ExamplesOfSymOntoClay
         GameObject IRifle.MainWP => MainWP;
         GameObject IRifle.AddWP => AddWP;
 
+        IUSocGameObject IHandThing.USocGameObject => _uSocGameObject;
+
         protected override void Start()
         {
             base.Start();

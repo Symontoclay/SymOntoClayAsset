@@ -65,9 +65,14 @@ namespace SymOntoClay
         protected void SetSelfWorldComponent(IWorldComponent worldComponent)
         {
             _worldComponent = worldComponent;
+
+            _socGameObject = _worldComponent as IGameObject;
         }
 
         private IWorldComponent _worldComponent;
+        private IGameObject _socGameObject;
+
+        public IGameObject SocGameObject => _socGameObject;
 
         public IEntityLogger Logger => _worldComponent?.Logger;
 

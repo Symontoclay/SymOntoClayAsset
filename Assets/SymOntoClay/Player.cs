@@ -15,7 +15,7 @@ namespace SymOntoClay
     {
         private IPlayer _player;
 
-        void Awake()
+        protected override void Awake()
         {
             var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
 

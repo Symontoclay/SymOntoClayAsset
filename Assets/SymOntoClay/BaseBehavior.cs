@@ -38,6 +38,9 @@ namespace SymOntoClay
     public abstract class BaseBehavior : MonoBehaviour, IUHostListener
     {
         protected IUSocGameObject _uSocGameObject;
+
+        private IUHumanoidNPC _uHumanoidNPC;
+        private IHumanoidNPC _humanoidNPC;
         private string _idForFacts;
         private object _lockObj = new object();
 
@@ -55,6 +58,12 @@ namespace SymOntoClay
 #if DEBUG
             Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
+
+            if(_uSocGameObject is IUHumanoidNPC)
+            {
+                _uHumanoidNPC = _uSocGameObject as IUHumanoidNPC;
+                _humanoidNPC = _uHumanoidNPC.NPC;
+            }
 
             _idForFacts = _uSocGameObject.IdForFacts;
         }
@@ -179,6 +188,21 @@ namespace SymOntoClay
         public virtual bool CanBeTakenBy(IEntity subject)
         {
             return false;
+        }
+
+        protected void AddToManualControl(IUSocGameObject obj, DeviceOfBiped device)
+        {
+            _humanoidNPC.AddToManualControl(obj.SocGameObject, device);
+        }
+
+        protected void AddToManualControl(IUSocGameObject obj, IList<DeviceOfBiped> devices)
+        {
+            _humanoidNPC.AddToManualControl(obj.SocGameObject, devices);
+        }
+
+        protected void RemoveFromManualControl(IUSocGameObject obj)
+        {
+            _humanoidNPC.RemoveFromManualControl(obj.SocGameObject);
         }
     }
 }

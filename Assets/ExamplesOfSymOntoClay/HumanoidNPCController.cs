@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Assets.SymOntoClay;
 using SymOntoClay.Core;
 using System;
+using System.Collections.Generic;
 
 namespace ExamplesOfSymOntoClay
 {
@@ -241,6 +242,8 @@ namespace ExamplesOfSymOntoClay
             UpdateAnimator();
 
             rifle.SetToHandsOfHumanoid(this);
+
+            AddToManualControl(_rifle.USocGameObject, new List<DeviceOfBiped>() {  DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand });
 
             AddHoldFact(rifle.IdForFacts);
         }
