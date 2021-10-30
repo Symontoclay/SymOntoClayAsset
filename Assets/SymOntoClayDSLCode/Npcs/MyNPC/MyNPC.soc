@@ -12,4 +12,11 @@ app MyNPC
 		@@host.take(#@(gun));
 		'End' >> @>log;
     }
+	
+	on {: hear(I, q2) :} => 
+    {
+        'q1!!!!' >> @>log;
+		@@host.`start fire`();
+		'End' >> @>log;
+    }
 }
