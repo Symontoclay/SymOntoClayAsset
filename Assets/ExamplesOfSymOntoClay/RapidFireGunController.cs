@@ -30,6 +30,12 @@ namespace ExamplesOfSymOntoClay
 
         private GameObject _gunEnd;
 
+        public float EffectsDisplayTime = 0.1f;
+        public float TimeBetweenBullets = 0.1f;
+
+        public int DamagePerShot = 20;
+        public float DamageDistance = 400f;        
+
         IUSocGameObject IHandThing.USocGameObject => _uSocGameObject;
 
         private Light mGunLight;
@@ -66,7 +72,6 @@ namespace ExamplesOfSymOntoClay
         }
 
         private bool _isTaken;
-        private bool _isOn;
 
         public override bool CanBeTakenBy(IEntity subject)
         {
@@ -117,6 +122,14 @@ namespace ExamplesOfSymOntoClay
             return true;
         }
 
+        private enum InternalStateOfRapidFireGun
+        {
+            TurnedOf,
+            TurnedOnShot,
+            TurnedOnWasShot,
+            BeforeOffIfSingle
+        }
+
         [DebuggerHidden]
         [BipedEndpoint("Start Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StartFireImpl(CancellationToken cancellationToken)
@@ -127,12 +140,15 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"StartFireImpl Begin {name}");
 #endif
 
-            _isOn = true;
-
             var timer = 0f;
+            var state = InternalStateOfRapidFireGun.TurnedOf;
 
             while (true)
             {
+#if DEBUG
+                UnityEngine.Debug.Log($"StartFireImpl {name} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+#endif
+
                 if (cancellationToken.IsCancellationRequested)
                 {
                     RunInMainThread(() =>
@@ -142,14 +158,86 @@ namespace ExamplesOfSymOntoClay
 
                     break;
                 }
-                
 
+#if DEBUG
+                UnityEngine.Debug.Log($"StartFireImpl {name} state = {state}; timer = {timer}");
+#endif
+
+                switch (state)
+                {
+                    case InternalStateOfRapidFireGun.TurnedOf:
+                        timer = 0f;
+                        RunInMainThread(() => { ProcessShoot(); });
+                        ProcessShoot();
+                        state = InternalStateOfRapidFireGun.TurnedOnShot;
+                        break;
+
+                    case InternalStateOfRapidFireGun.TurnedOnShot:
+                        timer += Time.deltaTime;
+                        if (timer >= EffectsDisplayTime)
+                        {
+                            timer = 0f;
+                            state = InternalStateOfRapidFireGun.TurnedOnWasShot;
+                            RunInMainThread(() => { DisableEffects(); });
+                        }
+                        break;
+
+                    case InternalStateOfRapidFireGun.TurnedOnWasShot:
+                        timer += Time.deltaTime;
+                        if (timer >= TimeBetweenBullets)
+                        {
+                            RunInMainThread(() => { ProcessShoot(); });
+                        }
+                        break;
+
+                    default: 
+                        throw new ArgumentOutOfRangeException(nameof(state), state, null);
+                }
 
                 Thread.Sleep(10);
             }
 
 #if DEBUG
             UnityEngine.Debug.Log($"StartFireImpl End {name}");
+#endif
+        }
+
+        private void ProcessShoot()
+        {
+#if DEBUG
+            UnityEngine.Debug.Log($"Begin ProcessShoot");
+#endif
+
+            mGunAudio.Play();
+
+            // Turn on light
+            mGunLight.enabled = true;
+            //FaceLight.enabled = true;
+
+            mGunParticles.Stop();
+            mGunParticles.Play();
+
+            // Fire line
+            //mGunLine.enabled = true;
+            //mGunLine.SetPosition(0, mGunEndTransform.position);
+            //Ray settings
+
+            var shootRay = new Ray();
+
+            shootRay.origin = mGunEndTransform.position;
+            shootRay.direction = mGunEndTransform.forward;
+
+            RaycastHit shootHit;
+
+            if (Physics.Raycast(shootRay, out shootHit, DamageDistance))
+            {
+#if DEBUG
+                UnityEngine.Debug.Log($"ProcessShoot Hit");
+#endif
+            }
+
+#if DEBUG
+            UnityEngine.Debug.Log($"End ProcessShoot");
 #endif
         }
 

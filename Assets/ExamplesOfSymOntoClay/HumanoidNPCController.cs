@@ -247,5 +247,25 @@ namespace ExamplesOfSymOntoClay
 
             AddHoldFact(rifle.IdForFacts);
         }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Ready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void ReadyForFireImpl(CancellationToken cancellationToken)
+        {
+#if DEBUG
+            var name = GetMethodId();
+
+            UnityEngine.Debug.Log($"ReadyForFireImpl Begin {name}");
+#endif
+
+            RunInMainThread(() => { 
+                _isAim = true;
+                UpdateAnimator();
+            });
+
+#if DEBUG
+            UnityEngine.Debug.Log($"ReadyForFireImpl End {name}");
+#endif
+        }
     }
 }

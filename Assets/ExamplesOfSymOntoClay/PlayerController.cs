@@ -28,6 +28,7 @@ namespace ExamplesOfSymOntoClay
 
             mInputKeyHelper.AddPressListener(KeyCode.R, OnRPressAction);
             mInputKeyHelper.AddPressListener(KeyCode.T, OnTPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.Y, OnYPressAction);
         }
 
         void Update()
@@ -51,6 +52,15 @@ namespace ExamplesOfSymOntoClay
             _uSocGameObject.PushSoundFact(60, "act(q2, shoot)");
 
             Debug.Log("End OnTPressAction");
+        }
+
+        private void OnYPressAction()
+        {
+            Debug.Log("OnYPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q3, shoot)");
+
+            Debug.Log("End OnYPressAction");
         }
     }
 }
