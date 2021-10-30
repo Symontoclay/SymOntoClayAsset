@@ -143,16 +143,22 @@ namespace ExamplesOfSymOntoClay
             var timer = 0f;
             var state = InternalStateOfRapidFireGun.TurnedOf;
 
+            //RunInMainThread(() =>
+            //{
+                //mGunAudio.Play();
+            //});            
+
             while (true)
             {
 #if DEBUG
-                UnityEngine.Debug.Log($"StartFireImpl {name} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                //UnityEngine.Debug.Log($"StartFireImpl {name} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
                 if (cancellationToken.IsCancellationRequested)
                 {
                     RunInMainThread(() =>
                     {
+                        //mGunAudio.Stop();
                         DisableEffects();
                     });
 
@@ -160,7 +166,7 @@ namespace ExamplesOfSymOntoClay
                 }
 
 #if DEBUG
-                UnityEngine.Debug.Log($"StartFireImpl {name} state = {state}; timer = {timer}");
+                //UnityEngine.Debug.Log($"StartFireImpl {name} state = {state}; timer = {timer}");
 #endif
 
                 switch (state)
@@ -168,33 +174,42 @@ namespace ExamplesOfSymOntoClay
                     case InternalStateOfRapidFireGun.TurnedOf:
                         timer = 0f;
                         RunInMainThread(() => { ProcessShoot(); });
-                        ProcessShoot();
                         state = InternalStateOfRapidFireGun.TurnedOnShot;
                         break;
 
                     case InternalStateOfRapidFireGun.TurnedOnShot:
-                        timer += Time.deltaTime;
-                        if (timer >= EffectsDisplayTime)
+#if DEBUG
+                        //UnityEngine.Debug.Log($"StartFireImpl {name} timer (2) = {timer}");
+#endif
+
+                        RunInMainThread(() =>
                         {
-                            timer = 0f;
-                            state = InternalStateOfRapidFireGun.TurnedOnWasShot;
-                            RunInMainThread(() => { DisableEffects(); });
-                        }
+                            timer += Time.deltaTime;
+                            if (timer >= EffectsDisplayTime)
+                            {
+                                timer = 0f;
+                                DisableEffects();
+                                state = InternalStateOfRapidFireGun.TurnedOnWasShot;
+                            }
+                        });
                         break;
 
                     case InternalStateOfRapidFireGun.TurnedOnWasShot:
-                        timer += Time.deltaTime;
-                        if (timer >= TimeBetweenBullets)
-                        {
-                            RunInMainThread(() => { ProcessShoot(); });
-                        }
+                        RunInMainThread(() => {
+                            timer += Time.deltaTime;
+                            if (timer >= TimeBetweenBullets)
+                            {
+                                ProcessShoot();
+                                state = InternalStateOfRapidFireGun.TurnedOnShot;
+                            }
+                        });
                         break;
 
                     default: 
                         throw new ArgumentOutOfRangeException(nameof(state), state, null);
                 }
 
-                Thread.Sleep(10);
+                //Thread.Sleep(10);
             }
 
 #if DEBUG
@@ -205,7 +220,7 @@ namespace ExamplesOfSymOntoClay
         private void ProcessShoot()
         {
 #if DEBUG
-            UnityEngine.Debug.Log($"Begin ProcessShoot");
+            //UnityEngine.Debug.Log($"Begin ProcessShoot");
 #endif
 
             mGunAudio.Play();
@@ -232,20 +247,28 @@ namespace ExamplesOfSymOntoClay
             if (Physics.Raycast(shootRay, out shootHit, DamageDistance))
             {
 #if DEBUG
-                UnityEngine.Debug.Log($"ProcessShoot Hit");
+                //UnityEngine.Debug.Log($"ProcessShoot Hit");
 #endif
             }
 
 #if DEBUG
-            UnityEngine.Debug.Log($"End ProcessShoot");
+            //UnityEngine.Debug.Log($"End ProcessShoot");
 #endif
         }
 
         private void DisableEffects()
         {
+#if DEBUG
+            //UnityEngine.Debug.Log($"Begin DisableEffects");
+#endif
+
             mGunLight.enabled = false;
             mGunParticles.Stop();
             mGunAudio.Stop();
+
+#if DEBUG
+            //UnityEngine.Debug.Log($"End DisableEffects");
+#endif
         }
 
         public void LookAt(Transform target)

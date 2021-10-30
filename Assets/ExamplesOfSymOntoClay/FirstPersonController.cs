@@ -149,7 +149,7 @@ namespace ExamplesOfSymOntoClay
             if(input == Vector2.zero)
             {
 #if DEBUG
-                Debug.Log($"GetInput() Stops");
+                //Debug.Log($"GetInput() Stops");
 #endif
             }
             else
@@ -157,13 +157,13 @@ namespace ExamplesOfSymOntoClay
                 if(movementSettings.Running)
                 {
 #if DEBUG
-                    Debug.Log($"GetInput() Runs");
+                    //Debug.Log($"GetInput() Runs");
 #endif
                 }
                 else
                 {
 #if DEBUG
-                    Debug.Log($"GetInput() Walkes");
+                    //Debug.Log($"GetInput() Walkes");
 #endif
                 }
             }

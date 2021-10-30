@@ -3331,6 +3331,10 @@ MonoBehaviour:
   MainWP: {fileID: 347090753}
   AddWP: {fileID: 1935791150}
   GunEnd: {fileID: 0}
+  EffectsDisplayTime: 0.2
+  TimeBetweenBullets: 0.01
+  DamagePerShot: 20
+  DamageDistance: 400
 --- !u!114 &1687108097
 MonoBehaviour:
   m_ObjectHideFlags: 0
