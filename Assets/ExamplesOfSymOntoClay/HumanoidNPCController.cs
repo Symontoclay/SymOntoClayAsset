@@ -208,13 +208,30 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public void RotateImpl(CancellationToken cancellationToken, float direction)
+        {
+#if DEBUG
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
+#endif
+
+
+
+#if DEBUG
+            UnityEngine.Debug.Log($"RotateImpl End {methodId}");
+#endif
+        }
+
+        [DebuggerHidden]
         [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if DEBUG
-            var name = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"TakeImpl Begin {name}");
+            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
             entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
@@ -222,16 +239,16 @@ namespace ExamplesOfSymOntoClay
             entity.Resolve();
 
 #if DEBUG
-            UnityEngine.Debug.Log($"TakeImpl {name} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"TakeImpl {name} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"TakeImpl {name} entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             RunInMainThread(() => {
                 var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
 
 #if DEBUG
-                UnityEngine.Debug.Log($"TakeImpl {name} (handThing != null) = {handThing != null}");
+                UnityEngine.Debug.Log($"TakeImpl {methodId} (handThing != null) = {handThing != null}");
 #endif
 
                 switch(handThing.Kind)
@@ -246,7 +263,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if DEBUG
-            UnityEngine.Debug.Log($"TakeImpl End {name}");
+            UnityEngine.Debug.Log($"TakeImpl End {methodId}");
 #endif
         }
 
@@ -265,13 +282,37 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [BipedEndpoint("Start Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void StartFireImpl(CancellationToken cancellationToken)
+        {
+            if (_rifle == null)
+            {
+                return;
+            }
+
+            _rifle.StartFire(cancellationToken);
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Stop Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void StopFireImpl(CancellationToken cancellationToken)
+        {
+            if(_rifle == null)
+            {
+                return;
+            }
+
+            _rifle.StopFire();
+        }
+
+        [DebuggerHidden]
         [BipedEndpoint("Ready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void ReadyForFireImpl(CancellationToken cancellationToken)
         {
 #if DEBUG
-            var name = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"ReadyForFireImpl Begin {name}");
+            UnityEngine.Debug.Log($"ReadyForFireImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => { 
@@ -280,7 +321,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if DEBUG
-            UnityEngine.Debug.Log($"ReadyForFireImpl End {name}");
+            UnityEngine.Debug.Log($"ReadyForFireImpl End {methodId}");
 #endif
         }
 
@@ -289,9 +330,9 @@ namespace ExamplesOfSymOntoClay
         public void UnReadyForFireImpl(CancellationToken cancellationToken)
         {
 #if DEBUG
-            var name = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"UnReadyForFireImpl Begin {name}");
+            UnityEngine.Debug.Log($"UnReadyForFireImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => {
@@ -301,7 +342,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if DEBUG
-            UnityEngine.Debug.Log($"UnReadyForFireImpl End {name}");
+            UnityEngine.Debug.Log($"UnReadyForFireImpl End {methodId}");
 #endif
         }
 
@@ -310,9 +351,9 @@ namespace ExamplesOfSymOntoClay
         public void ThrowOutImpl(CancellationToken cancellationToken)
         {
 #if DEBUG
-            var name = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"ThrowOutImpl Begin {name}");
+            UnityEngine.Debug.Log($"ThrowOutImpl Begin {methodId}");
 #endif
 
             if (_rifle != null)
@@ -349,9 +390,9 @@ namespace ExamplesOfSymOntoClay
         public void AimToImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if DEBUG
-            var methodName = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"AimToImpl Begin {methodName}");
+            UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
 #endif
 
             entity.Specify(EntityConstraints.OnlyVisible);
@@ -359,9 +400,9 @@ namespace ExamplesOfSymOntoClay
             entity.Resolve();
 
 #if DEBUG
-            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             RunInMainThread(() => {

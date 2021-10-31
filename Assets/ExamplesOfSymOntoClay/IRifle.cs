@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -15,5 +16,7 @@ namespace ExamplesOfSymOntoClay
         bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid);
         void LookAt(Transform target);
         bool ThrowOut();
+        void StartFire(CancellationToken cancellationToken);
+        void StopFire();
     }
 }

@@ -130,14 +130,12 @@ namespace ExamplesOfSymOntoClay
             BeforeOffIfSingle
         }
 
-        [DebuggerHidden]
-        [BipedEndpoint("Start Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StartFireImpl(CancellationToken cancellationToken)
+        public void StartFire(CancellationToken cancellationToken)
         {
 #if DEBUG
-            var name = GetMethodId();
+            var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"StartFireImpl Begin {name}");
+            UnityEngine.Debug.Log($"StartFire Begin {methodId}");
 #endif
 
             var timer = 0f;
@@ -151,7 +149,7 @@ namespace ExamplesOfSymOntoClay
             while (true)
             {
 #if DEBUG
-                //UnityEngine.Debug.Log($"StartFireImpl {name} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                //UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
                 if (cancellationToken.IsCancellationRequested)
@@ -166,7 +164,7 @@ namespace ExamplesOfSymOntoClay
                 }
 
 #if DEBUG
-                //UnityEngine.Debug.Log($"StartFireImpl {name} state = {state}; timer = {timer}");
+                //UnityEngine.Debug.Log($"StartFire {methodId} state = {state}; timer = {timer}");
 #endif
 
                 switch (state)
@@ -179,7 +177,7 @@ namespace ExamplesOfSymOntoClay
 
                     case InternalStateOfRapidFireGun.TurnedOnShot:
 #if DEBUG
-                        //UnityEngine.Debug.Log($"StartFireImpl {name} timer (2) = {timer}");
+                        //UnityEngine.Debug.Log($"StartFire {methodId} timer (2) = {timer}");
 #endif
 
                         RunInMainThread(() =>
@@ -213,7 +211,7 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if DEBUG
-            UnityEngine.Debug.Log($"StartFireImpl End {name}");
+            UnityEngine.Debug.Log($"StartFireImpl End {methodId}");
 #endif
         }
 
@@ -282,9 +280,7 @@ namespace ExamplesOfSymOntoClay
 #endif
         }
 
-        [DebuggerHidden]
-        [BipedEndpoint("Stop Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StopFireImpl(CancellationToken cancellationToken)
+        public void StopFire()
         {
             RunInMainThread(() =>
             {

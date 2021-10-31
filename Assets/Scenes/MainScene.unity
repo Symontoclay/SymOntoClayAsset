@@ -2207,9 +2207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d2cf8a27d8968478f20df60c020ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mAnimator: {fileID: 0}
   Gun: {fileID: 1687108094}
   Aim: {fileID: 6030519418766110241}
+  Head: {fileID: 1904448440}
   RightHandWP: {fileID: 1836613821}
   LeftHandWP: {fileID: 1450261837}
 --- !u!1 &908796924

@@ -78,7 +78,7 @@ namespace SymOntoClay
             var factStr = $"act({_idForFacts}, stop)";
 
 #if DEBUG
-            //Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
+            Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
 #endif
 
             if (!string.IsNullOrWhiteSpace(_walkingFactId))
@@ -101,7 +101,7 @@ namespace SymOntoClay
             var factStr = $"act({_idForFacts}, walk)";
 
 #if DEBUG
-            //Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
+            Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
 #endif
             if(!string.IsNullOrWhiteSpace(_walkingFactId))
             {
@@ -112,6 +112,25 @@ namespace SymOntoClay
 
 #if DEBUG
             //Debug.Log($"BaseBehavior AddWalkingFact _walkingFactId = {_walkingFactId}");
+#endif
+        }
+
+        protected void AddRunningFact()
+        {
+            var factStr = $"act({_idForFacts}, run)";
+
+#if DEBUG
+            Debug.Log($"BaseBehavior AddRunningFact factStr = '{factStr}'");
+#endif
+            if (!string.IsNullOrWhiteSpace(_walkingFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_walkingFactId);
+            }
+
+            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+
+#if DEBUG
+            //Debug.Log($"BaseBehavior AddRunningFact _walkingFactId = {_walkingFactId}");
 #endif
         }
 

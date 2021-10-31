@@ -1,4 +1,5 @@
 ﻿using ExamplesOfSymOntoClay.Internal;
+using SymOntoClay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ExamplesOfSymOntoClay
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : BaseBehavior
     {
         public Camera cam;
         public MyMovementSettings movementSettings = new MyMovementSettings();
@@ -45,8 +46,10 @@ namespace ExamplesOfSymOntoClay
             }
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             _playerCommonBus = PlayerCommonBus.GetBus();
             mRigidBody = GetComponent<Rigidbody>();
             mCapsule = GetComponent<CapsuleCollider>();
@@ -133,6 +136,16 @@ namespace ExamplesOfSymOntoClay
             }
         }
 
+        private enum MovementState
+        {
+            Unknown,
+            Stops,
+            Walks,
+            Runs
+        }
+
+        private MovementState _movementState;
+
         private Vector2 GetInput()
         {
             var input = new Vector2
@@ -148,23 +161,43 @@ namespace ExamplesOfSymOntoClay
 
             if(input == Vector2.zero)
             {
+                if(_movementState != MovementState.Stops)
+                {
+                    _movementState = MovementState.Stops;
+
 #if DEBUG
-                //Debug.Log($"GetInput() Stops");
+                    Debug.Log($"GetInput() Stops");
 #endif
+                    AddStopFact();
+                }
             }
             else
             {
                 if(movementSettings.Running)
                 {
+                    if(_movementState != MovementState.Runs)
+                    {
+                        _movementState = MovementState.Runs;
+
 #if DEBUG
-                    //Debug.Log($"GetInput() Runs");
+                        Debug.Log($"GetInput() Runs");
 #endif
+
+                        AddRunningFact();
+                    }
                 }
                 else
                 {
+                    if(_movementState != MovementState.Walks)
+                    {
+                        _movementState = MovementState.Walks;
+
 #if DEBUG
-                    //Debug.Log($"GetInput() Walkes");
+                        Debug.Log($"GetInput() Walkes");
 #endif
+
+                        AddWalkingFact();
+                    }
                 }
             }
 

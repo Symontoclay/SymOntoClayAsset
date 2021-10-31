@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
 {
     private Rigidbody mRigidbody;
-    public Animator mAnimator;
+    private Animator mAnimator;
     private NavMeshAgent mNavMeshAgent;
 
     private IPlayerCommonBus _playerCommonBus;
@@ -17,7 +17,7 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
     public GameObject Gun;
     public GameObject Aim;
 
-
+    public GameObject Head;
 
     public GameObject RightHandWP;
     public GameObject LeftHandWP;
@@ -45,6 +45,8 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
         //mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
         //mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
         //mInputKeyHelper.AddPressListener(KeyCode.E, OnEPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);
+        mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
     }
 
     // Update is called once per frame
@@ -77,6 +79,7 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
     }
 
     private bool _enableTwoHandGunIK;
+    private bool _enableRotateHeadIK;
 
     private void OnJPressAction()
     {
@@ -101,13 +104,43 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
 
     void OnAnimatorIK(int layerIndex)
     {
-        if (!_enableTwoHandGunIK)
+        if (_enableTwoHandGunIK)
         {
-            return;
+            mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
+            mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, _twoHandGun.AddWP.transform.position);
         }
 
-        mAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
-        mAnimator.SetIKPosition(AvatarIKGoal.LeftHand, _twoHandGun.AddWP.transform.position);
+        if(_enableRotateHeadIK)
+        {
+            mAnimator.SetLookAtWeight(1);
+            mAnimator.SetLookAtPosition(mCurrentHeadPosition);
+            Head.transform.LookAt(mCurrentHeadPosition);
+        }
+    }
+
+    private float mCurrentHeadAngle = 30f;
+    private Vector3 mCurrentHeadPosition;
+
+    private void OnLPressAction()
+    {
+        Debug.Log("OnLPressAction");
+
+        var radAngle = mCurrentHeadAngle * Mathf.Deg2Rad;
+        var x = Mathf.Sin(radAngle);
+        var y = Mathf.Cos(radAngle);
+        var localDirection = new Vector3(x, 0f, y);
+        var globalDirection = transform.TransformDirection(localDirection);
+        var oldY = Head.transform.position.y;
+
+        var newPosition = globalDirection + transform.position;
+        mCurrentHeadPosition = new Vector3(newPosition.x, oldY, newPosition.z);
+
+        _enableRotateHeadIK = true;
+    }
+
+    private void OnKPressAction()
+    {
+        Debug.Log("OnKPressAction");
     }
 
     private void OnEPressAction()
