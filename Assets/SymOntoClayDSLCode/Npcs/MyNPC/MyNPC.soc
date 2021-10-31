@@ -47,4 +47,11 @@ app MyNPC
 		@@host.`throw out`();
 		'End' >> @>log;
     }
+	
+	on {: hear(I, q7) :} => 
+    {
+        'q5!!!!' >> @>log;
+		@@host.`aim to`(#@(hipster));
+		'End' >> @>log;
+    }
 }

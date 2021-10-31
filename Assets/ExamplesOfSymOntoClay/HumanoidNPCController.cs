@@ -295,6 +295,7 @@ namespace ExamplesOfSymOntoClay
 #endif
 
             RunInMainThread(() => {
+                _enableRifleIK = false;
                 _isAim = false;
                 UpdateAnimator();
             });
@@ -328,6 +329,8 @@ namespace ExamplesOfSymOntoClay
 #endif
 
             RunInMainThread(() => {
+                _enableRifleIK = false;
+
                 _rifle.ThrowOut();
 
                 _isAim = false;
@@ -339,6 +342,35 @@ namespace ExamplesOfSymOntoClay
             RemoveFromManualControl(_rifle.USocGameObject);
 
             RemoveHoldFact();
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Aim to", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void AimToImpl(CancellationToken cancellationToken, IEntity entity)
+        {
+#if DEBUG
+            var methodName = GetMethodId();
+
+            UnityEngine.Debug.Log($"AimToImpl Begin {methodName}");
+#endif
+
+            entity.Specify(EntityConstraints.OnlyVisible);
+
+            entity.Resolve();
+
+#if DEBUG
+            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"AimToImpl {methodName} entity.Position = {entity.Position}");
+#endif
+
+            RunInMainThread(() => {
+                var targetGameObject = GameObjectsRegistry.GetGameObject(entity.InstanceId);
+
+                _enableRifleIK = true;
+
+                _rifle.LookAt(targetGameObject.transform);
+            });                
         }
     }
 }
