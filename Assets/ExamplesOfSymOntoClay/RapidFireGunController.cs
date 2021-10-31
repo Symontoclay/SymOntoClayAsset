@@ -66,10 +66,10 @@ namespace ExamplesOfSymOntoClay
             mGunEndTransform = _gunEnd.transform;
         }
 
-        void Update()
-        {
+        //void Update()
+        //{
 
-        }
+        //}
 
         private bool _isTaken;
 
@@ -249,6 +249,17 @@ namespace ExamplesOfSymOntoClay
 #if DEBUG
                 //UnityEngine.Debug.Log($"ProcessShoot Hit");
 #endif
+
+                var targetOfShoot = shootHit.collider.GetComponentInParent<ITargetOfDamage>();
+
+#if UNITY_EDITOR
+                //UnityEngine.Debug.Log($"ProcessShoot targetOfShoot == null = {targetOfShoot == null}");
+#endif
+
+                if (targetOfShoot != null)
+                {
+                    targetOfShoot.SetHit(shootHit, DamagePerShot);
+                }
             }
 
 #if DEBUG

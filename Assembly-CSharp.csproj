@@ -70,6 +70,7 @@
     <Compile Include="Assets\SymOntoClay\Thing.cs" />
     <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\HandThingEditor.cs" />
+    <Compile Include="Assets\ExamplesOfSymOntoClay\ITargetOfDamage.cs" />
     <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMouseLook.cs" />
     <Compile Include="Assets\SymOntoClay\IUHostListener.cs" />
     <Compile Include="Assets\SymOntoClay\LeftHandWPLocator.cs" />

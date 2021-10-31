@@ -7,8 +7,13 @@ using UnityEngine;
 
 namespace ExamplesOfSymOntoClay
 {
-    public class HumanoidHealthController: MonoBehaviour, IHumanoidHealth
+    public class HumanoidHealthController: MonoBehaviour, IHumanoidHealth, ITargetOfDamage
     {
-
+        public void SetHit(RaycastHit shootHit, int damagePerShot)
+        {
+#if DEBUG
+            Debug.Log($"ProcessShoot damagePerShot = {damagePerShot}");
+#endif
+        }
     }
 }
