@@ -15,15 +15,36 @@ app MyNPC
 	
 	on {: hear(I, q2) :} => 
     {
-        'q1!!!!' >> @>log;
+        'q2!!!!' >> @>log;
 		@@host.`ready for fire`();
 		'End' >> @>log;
     }
 	
 	on {: hear(I, q3) :} => 
     {
-        'q1!!!!' >> @>log;
+        'q3!!!!' >> @>log;
 		@@host.`start fire`();
+		'End' >> @>log;
+    }
+	
+	on {: hear(I, q4) :} => 
+    {
+        'q4!!!!' >> @>log;
+		@@host.`stop fire`();
+		'End' >> @>log;
+    }
+	
+	on {: hear(I, q5) :} => 
+    {
+        'q5!!!!' >> @>log;
+		@@host.`unready for fire`();
+		'End' >> @>log;
+    }
+	
+	on {: hear(I, q6) :} => 
+    {
+        'q5!!!!' >> @>log;
+		@@host.`throw out`();
 		'End' >> @>log;
     }
 }

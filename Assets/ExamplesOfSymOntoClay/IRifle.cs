@@ -14,5 +14,6 @@ namespace ExamplesOfSymOntoClay
 
         bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid);
         void LookAt(Transform target);
+        bool ThrowOut();
     }
 }

@@ -283,5 +283,62 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"ReadyForFireImpl End {name}");
 #endif
         }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Unready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void UnReadyForFireImpl(CancellationToken cancellationToken)
+        {
+#if DEBUG
+            var name = GetMethodId();
+
+            UnityEngine.Debug.Log($"UnReadyForFireImpl Begin {name}");
+#endif
+
+            RunInMainThread(() => {
+                _isAim = false;
+                UpdateAnimator();
+            });
+
+#if DEBUG
+            UnityEngine.Debug.Log($"UnReadyForFireImpl End {name}");
+#endif
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Throw out", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void ThrowOutImpl(CancellationToken cancellationToken)
+        {
+#if DEBUG
+            var name = GetMethodId();
+
+            UnityEngine.Debug.Log($"ThrowOutImpl Begin {name}");
+#endif
+
+            if (_rifle != null)
+            {
+                ThrowOutRifle(cancellationToken);
+                return;
+            }
+        }
+
+        public void ThrowOutRifle(CancellationToken cancellationToken)
+        {
+#if DEBUG
+            UnityEngine.Debug.Log($"ThrowOutRifle");
+#endif
+
+            RunInMainThread(() => {
+                _rifle.ThrowOut();
+
+                _isAim = false;
+                _hasRifle = false;
+
+                UpdateAnimator();
+            });
+
+            RemoveFromManualControl(_rifle.USocGameObject);
+
+            RemoveHoldFact();
+        }
     }
 }

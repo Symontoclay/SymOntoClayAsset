@@ -40,11 +40,11 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
         mNavMeshAgent = GetComponent<NavMeshAgent>();
 
         mInputKeyHelper = new InputKeyHelper(_playerCommonBus);
-        mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.E, OnEPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.G, OnGPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.E, OnEPressAction);
     }
 
     // Update is called once per frame

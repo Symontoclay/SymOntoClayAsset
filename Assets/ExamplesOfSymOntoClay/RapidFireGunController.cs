@@ -282,9 +282,49 @@ namespace ExamplesOfSymOntoClay
 #endif
         }
 
+        [DebuggerHidden]
+        [BipedEndpoint("Stop Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void StopFireImpl(CancellationToken cancellationToken)
+        {
+            RunInMainThread(() =>
+            {
+                DisableEffects();
+            });
+        }
+
         public void LookAt(Transform target)
         {
             transform.LookAt(target);
+        }
+
+        public bool ThrowOut()
+        {
+            if (transform.parent == null)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log("transform.parent == null");
+#endif
+
+                return true;
+            }
+
+            transform.SetParent(null);
+            //gameObject.SetActive(false);
+
+            if (mBodyCollider != null)
+            {
+                mBodyCollider.enabled = true;
+            }
+
+            if (mBodyRigidbody != null)
+            {
+                mBodyRigidbody.isKinematic = false;
+                mBodyRigidbody.AddForce(UnityEngine.Random.insideUnitSphere * 200);
+            }
+
+            _isTaken = false;
+
+            return true;
         }
     }
 }

@@ -26,9 +26,12 @@ namespace ExamplesOfSymOntoClay
 
             mInputKeyHelper = new InputKeyHelper(_playerCommonBus);
 
-            mInputKeyHelper.AddPressListener(KeyCode.R, OnRPressAction);
-            mInputKeyHelper.AddPressListener(KeyCode.T, OnTPressAction);
-            mInputKeyHelper.AddPressListener(KeyCode.Y, OnYPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.R, OnRPressAction);//NPC takes gun from ground
+            mInputKeyHelper.AddPressListener(KeyCode.T, OnTPressAction);//NPC becomes ready for fire
+            mInputKeyHelper.AddPressListener(KeyCode.Y, OnYPressAction);//NPC starts fire
+            mInputKeyHelper.AddPressListener(KeyCode.U, OnUPressAction);//NPC stops fire
+            mInputKeyHelper.AddPressListener(KeyCode.I, OnIPressAction);//NPC becomes not ready for fire
+            mInputKeyHelper.AddPressListener(KeyCode.O, OnOPressAction);//NPC throws gun to ground
         }
 
         void Update()
@@ -61,6 +64,33 @@ namespace ExamplesOfSymOntoClay
             _uSocGameObject.PushSoundFact(60, "act(q3, shoot)");
 
             Debug.Log("End OnYPressAction");
+        }
+
+        private void OnUPressAction()
+        {
+            Debug.Log("OnUPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q4, shoot)");
+
+            Debug.Log("End OnUPressAction");
+        }
+
+        private void OnIPressAction()
+        {
+            Debug.Log("OnIPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q5, shoot)");
+
+            Debug.Log("End OnIPressAction");
+        }
+
+        private void OnOPressAction()
+        {
+            Debug.Log("OnOPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q6, shoot)");
+
+            Debug.Log("End OnOPressAction");
         }
     }
 }
