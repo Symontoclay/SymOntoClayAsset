@@ -1,0 +1,7 @@
+app Hipster
+{
+    on Init =>
+    {
+	    //@@host.`go`(to: #@[200, -45]);
+    }
+}

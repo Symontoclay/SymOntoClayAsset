@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -222,6 +223,8 @@ namespace SymOntoClay
         public void Die()
         {
             _isDead = true;
+
+            _npc.Die();
         }
 
         void Stop()

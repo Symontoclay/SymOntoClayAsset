@@ -146,6 +146,11 @@ namespace SymOntoClay
 
         private static int _methodId;
 
+        protected void ProcessDie()
+        {
+            _uHumanoidNPC.Die();
+        }
+
         /// <summary>
         /// Returns integer id which is unique for the component.
         /// It can be helpful for debugging host methods.

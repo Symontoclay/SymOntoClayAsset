@@ -10,12 +10,13 @@ using Assets.SymOntoClay;
 using SymOntoClay.Core;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ExamplesOfSymOntoClay
 {
     [RequireComponent(typeof(IUHumanoidNPC))]
-    public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid
-    {// 
+    public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid, IDieProvider
+    {
 
         public GameObject RightHandWP;
         public GameObject LeftHandWP;
@@ -51,7 +52,7 @@ namespace ExamplesOfSymOntoClay
             if(RightHandWP == null)
             {
                 var locator = GetComponentInChildren<RightHandWPLocator>();
-                _rightHandWP = locator.gameObject;
+                _rightHandWP = locator?.gameObject;
             }
             else
             {
@@ -61,7 +62,7 @@ namespace ExamplesOfSymOntoClay
             if(LeftHandWP == null)
             {
                 var locator = GetComponentInChildren<LeftHandWPLocator>();
-                _leftHandWP = locator.gameObject;
+                _leftHandWP = locator?.gameObject;
             }
             else
             {
@@ -124,6 +125,21 @@ namespace ExamplesOfSymOntoClay
             _isWalking = false;
             UpdateAnimator();
             AddStopFact();
+        }
+
+        public void Die()
+        {
+#if DEBUG
+            UnityEngine.Debug.Log("HumanoidNPCController Die");
+#endif
+
+            _isDead = true;
+
+            UpdateAnimator();
+
+            Task.Run(() => {
+                ProcessDie();
+            });            
         }
 
         [DebuggerHidden]
