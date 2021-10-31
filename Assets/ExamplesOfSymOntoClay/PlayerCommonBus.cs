@@ -36,6 +36,10 @@ namespace ExamplesOfSymOntoClay
         /// <inheritdoc/>
         public float GetAxis(string name)
         {
+#if DEBUG
+            //Debug.Log($"GetAxis name = {name}; _playerInputMode = {_playerInputMode}");
+#endif
+
             if (_playerInputMode == PlayerInputMode.Window)
             {
                 return 0f;
@@ -160,6 +164,10 @@ namespace ExamplesOfSymOntoClay
         {
             if (GetKeyUp(KeyCode.Escape))
             {
+#if DEBUG
+                //Debug.Log("InternalLockUpdate GetKeyUp(KeyCode.Escape)");
+#endif
+
                 _playerInputMode = PlayerInputMode.Window;
             }
             else
