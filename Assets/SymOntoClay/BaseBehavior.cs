@@ -49,13 +49,13 @@ namespace SymOntoClay
 
         protected virtual void Start()
         {
-#if DEBUG
+#if UNITY_EDITOR
             //Debug.Log($"BaseBehavior Start");
 #endif
 
             _uSocGameObject = GetComponent<IUSocGameObject>();
 
-#if DEBUG
+#if UNITY_EDITOR
             Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
@@ -66,9 +66,18 @@ namespace SymOntoClay
             }
 
             _idForFacts = _uSocGameObject.IdForFacts;
+
+            SetAliveFact();
         }
 
         private string _walkingFactId;
+
+        protected void SetAliveFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior SetAliveFact");
+#endif
+        }
 
         /// <summary>
         /// Adds fact that the NPC has stopped itself.
@@ -77,7 +86,7 @@ namespace SymOntoClay
         {
             var factStr = $"act({_idForFacts}, stop)";
 
-#if DEBUG
+#if UNITY_EDITOR
             Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
 #endif
 
@@ -88,7 +97,7 @@ namespace SymOntoClay
             
             _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
-#if DEBUG
+#if UNITY_EDITOR
             //Debug.Log($"BaseBehavior AddStopFact _walkingFactId = {_walkingFactId}");
 #endif
         }
@@ -100,7 +109,7 @@ namespace SymOntoClay
         {
             var factStr = $"act({_idForFacts}, walk)";
 
-#if DEBUG
+#if UNITY_EDITOR
             Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
 #endif
             if(!string.IsNullOrWhiteSpace(_walkingFactId))
@@ -110,7 +119,7 @@ namespace SymOntoClay
             
             _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
-#if DEBUG
+#if UNITY_EDITOR
             //Debug.Log($"BaseBehavior AddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
         }
@@ -119,7 +128,7 @@ namespace SymOntoClay
         {
             var factStr = $"act({_idForFacts}, run)";
 
-#if DEBUG
+#if UNITY_EDITOR
             Debug.Log($"BaseBehavior AddRunningFact factStr = '{factStr}'");
 #endif
             if (!string.IsNullOrWhiteSpace(_walkingFactId))
@@ -129,7 +138,7 @@ namespace SymOntoClay
 
             _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
-#if DEBUG
+#if UNITY_EDITOR
             //Debug.Log($"BaseBehavior AddRunningFact _walkingFactId = {_walkingFactId}");
 #endif
         }
@@ -163,12 +172,56 @@ namespace SymOntoClay
             }
         }
 
-        private static int _methodId;
+        protected void StartRepeatingWalkingStepsSound()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingWalkingStepsSound");
+#endif
+        }
+
+        protected void StartRepeatingRunningStepsSound()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingRunningStepsSound");
+#endif
+        }
+
+        protected void StopRepeatingStepsSound()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior StopRepeatingStepsSound");
+#endif
+        }
+
+        protected void StartRepeatingShotSound()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingShotSound");
+#endif
+        }
+
+        protected void StopRepeatingShotSound()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior StopRepeatingShotSound");
+#endif
+        }
+
+        protected void SetDeadFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("FIX ME!!!!! BaseBehavior SetDeadFact");
+#endif
+        }
 
         protected void ProcessDie()
         {
+            SetDeadFact();
+
             _uHumanoidNPC.Die();
         }
+
+        private static int _methodId;
 
         /// <summary>
         /// Returns integer id which is unique for the component.

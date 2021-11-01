@@ -29,7 +29,7 @@ namespace ExamplesOfSymOntoClay
 
         void Awake()
         {
-#if DEBUG
+#if UNITY_EDITOR
             //Debug.Log("HumanoidNPCController Awake");
 #endif
 
@@ -41,7 +41,7 @@ namespace ExamplesOfSymOntoClay
 
         protected override void Start()
         {
-#if DEBUG
+#if UNITY_EDITOR
             //UnityEngine.Debug.Log("HumanoidNPCController OnStart Begin");
 #endif
 
@@ -69,7 +69,7 @@ namespace ExamplesOfSymOntoClay
                 _leftHandWP = LeftHandWP;
             }
 
-#if DEBUG
+#if UNITY_EDITOR
             //UnityEngine.Debug.Log("HumanoidNPCController OnStart End");
 #endif
         }
@@ -129,7 +129,7 @@ namespace ExamplesOfSymOntoClay
 
         public void Die()
         {
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log("HumanoidNPCController Die");
 #endif
 
@@ -153,7 +153,7 @@ namespace ExamplesOfSymOntoClay
                 return;
             }
 
-#if DEBUG
+#if UNITY_EDITOR
             //var methodId = GetMethodId();
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] point = {point}");
 #endif
@@ -165,7 +165,7 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
-#if DEBUG
+#if UNITY_EDITOR
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
 #endif
 
@@ -178,14 +178,14 @@ namespace ExamplesOfSymOntoClay
                         PerformStop();
                     });
 
-#if DEBUG
+#if UNITY_EDITOR
                     //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
 
                     break;
                 }
 
-#if DEBUG
+#if UNITY_EDITOR
                 //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
@@ -202,7 +202,7 @@ namespace ExamplesOfSymOntoClay
                 Thread.Sleep(10);
             }
 
-#if DEBUG
+#if UNITY_EDITOR
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
         }
@@ -211,7 +211,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void RotateImpl(CancellationToken cancellationToken, float direction)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
@@ -219,7 +219,7 @@ namespace ExamplesOfSymOntoClay
 
 
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateImpl End {methodId}");
 #endif
         }
@@ -228,7 +228,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
@@ -238,7 +238,7 @@ namespace ExamplesOfSymOntoClay
 
             entity.Resolve();
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"TakeImpl {methodId} entity.InstanceId = {entity.InstanceId}");
             UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Id = {entity.Id}");
             UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Position = {entity.Position}");
@@ -247,7 +247,7 @@ namespace ExamplesOfSymOntoClay
             RunInMainThread(() => {
                 var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
 
-#if DEBUG
+#if UNITY_EDITOR
                 UnityEngine.Debug.Log($"TakeImpl {methodId} (handThing != null) = {handThing != null}");
 #endif
 
@@ -262,7 +262,7 @@ namespace ExamplesOfSymOntoClay
                 }
             });
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"TakeImpl End {methodId}");
 #endif
         }
@@ -276,7 +276,8 @@ namespace ExamplesOfSymOntoClay
 
             rifle.SetToHandsOfHumanoid(this);
 
-            AddToManualControl(_rifle.USocGameObject, new List<DeviceOfBiped>() {  DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand });
+            //I have moved endpoins here from RapidFireGunController
+            //AddToManualControl(_rifle.USocGameObject, new List<DeviceOfBiped>() {  DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand });
 
             AddHoldFact(rifle.IdForFacts);
         }
@@ -309,7 +310,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Ready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void ReadyForFireImpl(CancellationToken cancellationToken)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"ReadyForFireImpl Begin {methodId}");
@@ -320,7 +321,7 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"ReadyForFireImpl End {methodId}");
 #endif
         }
@@ -329,7 +330,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Unready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void UnReadyForFireImpl(CancellationToken cancellationToken)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"UnReadyForFireImpl Begin {methodId}");
@@ -341,7 +342,7 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"UnReadyForFireImpl End {methodId}");
 #endif
         }
@@ -350,7 +351,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Throw out", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void ThrowOutImpl(CancellationToken cancellationToken)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"ThrowOutImpl Begin {methodId}");
@@ -365,7 +366,7 @@ namespace ExamplesOfSymOntoClay
 
         public void ThrowOutRifle(CancellationToken cancellationToken)
         {
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"ThrowOutRifle");
 #endif
 
@@ -380,7 +381,8 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
-            RemoveFromManualControl(_rifle.USocGameObject);
+            //I have moved endpoins here from RapidFireGunController
+            //RemoveFromManualControl(_rifle.USocGameObject);
 
             RemoveHoldFact();
         }
@@ -389,7 +391,7 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Aim to", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void AimToImpl(CancellationToken cancellationToken, IEntity entity)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
@@ -399,7 +401,7 @@ namespace ExamplesOfSymOntoClay
 
             entity.Resolve();
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
             UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Id = {entity.Id}");
             UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");

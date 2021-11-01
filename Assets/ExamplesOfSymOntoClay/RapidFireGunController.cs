@@ -132,7 +132,7 @@ namespace ExamplesOfSymOntoClay
 
         public void StartFire(CancellationToken cancellationToken)
         {
-#if DEBUG
+#if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"StartFire Begin {methodId}");
@@ -143,12 +143,14 @@ namespace ExamplesOfSymOntoClay
 
             //RunInMainThread(() =>
             //{
-                //mGunAudio.Play();
+            //mGunAudio.Play();
             //});            
+
+            StartRepeatingShotSound();
 
             while (true)
             {
-#if DEBUG
+#if UNITY_EDITOR
                 //UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
 #endif
 
@@ -160,10 +162,12 @@ namespace ExamplesOfSymOntoClay
                         DisableEffects();
                     });
 
+                    StopRepeatingShotSound();
+
                     break;
                 }
 
-#if DEBUG
+#if UNITY_EDITOR
                 //UnityEngine.Debug.Log($"StartFire {methodId} state = {state}; timer = {timer}");
 #endif
 
@@ -176,7 +180,7 @@ namespace ExamplesOfSymOntoClay
                         break;
 
                     case InternalStateOfRapidFireGun.TurnedOnShot:
-#if DEBUG
+#if UNITY_EDITOR
                         //UnityEngine.Debug.Log($"StartFire {methodId} timer (2) = {timer}");
 #endif
 
@@ -210,7 +214,7 @@ namespace ExamplesOfSymOntoClay
                 //Thread.Sleep(10);
             }
 
-#if DEBUG
+#if UNITY_EDITOR
             UnityEngine.Debug.Log($"StartFireImpl End {methodId}");
 #endif
         }
