@@ -72,11 +72,38 @@ namespace SymOntoClay
 
         private string _walkingFactId;
 
+        private string _vitalFactId;
+
         protected void SetAliveFact()
         {
+            var factStr = $"state({_idForFacts}, alive)";
+
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior SetAliveFact");
+            Debug.Log($"BaseBehavior SetAliveFact factStr = '{factStr}'");
 #endif
+
+            if (!string.IsNullOrWhiteSpace(_vitalFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_vitalFactId);
+            }
+
+            _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
+        }
+
+        protected void SetDeadFact()
+        {
+            var factStr = $"state({_idForFacts}, dead)";
+
+#if UNITY_EDITOR
+            Debug.Log($"BaseBehavior SetDeadFact factStr = '{factStr}'");
+#endif
+
+            if (!string.IsNullOrWhiteSpace(_vitalFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_vitalFactId);
+            }
+
+            _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
         }
 
         /// <summary>
@@ -204,13 +231,6 @@ namespace SymOntoClay
         {
 #if UNITY_EDITOR
             Debug.Log("FIX ME!!!!! BaseBehavior StopRepeatingShotSound");
-#endif
-        }
-
-        protected void SetDeadFact()
-        {
-#if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior SetDeadFact");
 #endif
         }
 
