@@ -107,8 +107,6 @@
     <Compile Include="Assets\ExamplesOfSymOntoClay\GunEndLocator.cs" />
     <Compile Include="Assets\SymOntoClay\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
-    <Compile Include="Assets\SymOntoClay\Helpers\CoroutineObject.cs" />
-    <Compile Include="Assets\SymOntoClay\Helpers\CoroutineObjectBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SymOntoClay\SymOntoClay.UnityAsset.Core.dll" />

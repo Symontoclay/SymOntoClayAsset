@@ -22,8 +22,10 @@ SOFTWARE.*/
 
 using SymOntoClay.Core;
 using SymOntoClay.CoreHelper.DebugHelpers;
+using SymOntoClay.Helpers;
 using SymOntoClay.UnityAsset.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,6 +48,11 @@ namespace SymOntoClay
 
         public string IdForFacts => _idForFacts;
         public IEntityLogger Logger => _uSocGameObject.Logger;
+
+        protected virtual void Awake()
+        {
+            //_stepsSoundRoutine = new CoroutineObject<float, string>(this, StepsSoundRoutine);
+        }
 
         protected virtual void Start()
         {
@@ -172,11 +179,31 @@ namespace SymOntoClay
             }
         }
 
+        //private CoroutineObject<float, string> _stepsSoundRoutine;
+
+        private IEnumerator StepsSoundRoutine(float power, string text)
+        {
+            while (true)
+            {
+#if UNITY_EDITOR
+                Debug.Log($"FIX ME!!!!! BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
+#endif
+
+                yield return null;
+            }
+                //yield return new WaitForSeconds(0.1f);
+        }
+
+        private IEnumerator coroutine;
+
         protected void StartRepeatingWalkingStepsSound()
         {
 #if UNITY_EDITOR
             Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingWalkingStepsSound");
 #endif
+            coroutine = StepsSoundRoutine(50, "act(someone, walk)");
+            StartCoroutine(coroutine);
+            //_stepsSoundRoutine.Start(50, "act(someone, walk)");
         }
 
         protected void StartRepeatingRunningStepsSound()
