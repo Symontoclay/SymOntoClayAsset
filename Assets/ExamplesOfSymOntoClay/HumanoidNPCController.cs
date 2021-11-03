@@ -133,6 +133,11 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log("HumanoidNPCController Die");
 #endif
 
+            if(_isDead)
+            {
+                return;
+            }
+
             _isDead = true;
 
             UpdateAnimator();

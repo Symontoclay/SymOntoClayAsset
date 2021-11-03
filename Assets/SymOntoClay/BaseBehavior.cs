@@ -78,6 +78,11 @@ namespace SymOntoClay
             {
                 StopCoroutine(_repeatingStepsSoundCoroutine);
             }
+
+            if (_repeatingShotSound != null)
+            {
+                StopCoroutine(_repeatingShotSound);
+            }
         }
 
         private string _walkingFactId;
@@ -209,14 +214,12 @@ namespace SymOntoClay
             }
         }
 
-        //private CoroutineObject<float, string> _stepsSoundRoutine;
-
         private IEnumerator StepsSoundRoutine(float power, string text)
         {
             while (true)
             {
 #if UNITY_EDITOR
-                Debug.Log($"FIX ME!!!!! BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
+                Debug.Log($"BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
 #endif
 
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
@@ -270,18 +273,47 @@ namespace SymOntoClay
             }
         }
 
+        private IEnumerator ShotSoundRoutine(float power, string text)
+        {
+            while (true)
+            {
+#if UNITY_EDITOR
+                Debug.Log($"BaseBehavior ShotSoundRoutine power = {power}; text = {text}");
+#endif
+
+                Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
+
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        private IEnumerator _repeatingShotSound;
+
         protected void StartRepeatingShotSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingShotSound");
+            Debug.Log("BaseBehavior StartRepeatingShotSound");
 #endif
+
+            if (_repeatingShotSound != null)
+            {
+                StopCoroutine(_repeatingShotSound);
+            }
+
+            _repeatingShotSound = ShotSoundRoutine(70, $"act({_idForFacts}, shoot)");
+            StartCoroutine(_repeatingShotSound);
         }
 
         protected void StopRepeatingShotSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior StopRepeatingShotSound");
+            Debug.Log("BaseBehavior StopRepeatingShotSound");
 #endif
+
+            if(_repeatingShotSound != null)
+            {
+                StopCoroutine(_repeatingShotSound);
+            }
         }
 
         protected void ProcessDie()
