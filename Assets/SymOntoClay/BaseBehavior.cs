@@ -219,6 +219,8 @@ namespace SymOntoClay
                 Debug.Log($"FIX ME!!!!! BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
 #endif
 
+                Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
+
                 //yield return null;
                 yield return new WaitForSeconds(0.5f);
             }
