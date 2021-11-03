@@ -49,11 +49,6 @@ namespace SymOntoClay
         public string IdForFacts => _idForFacts;
         public IEntityLogger Logger => _uSocGameObject.Logger;
 
-        protected virtual void Awake()
-        {
-            //_stepsSoundRoutine = new CoroutineObject<float, string>(this, StepsSoundRoutine);
-        }
-
         protected virtual void Start()
         {
 #if UNITY_EDITOR
@@ -75,6 +70,14 @@ namespace SymOntoClay
             _idForFacts = _uSocGameObject.IdForFacts;
 
             SetAliveFact();
+        }
+
+        protected virtual void Stop()
+        {
+            if (_repeatingStepsSoundCoroutine != null)
+            {
+                StopCoroutine(_repeatingStepsSoundCoroutine);
+            }
         }
 
         private string _walkingFactId;
@@ -216,35 +219,53 @@ namespace SymOntoClay
                 Debug.Log($"FIX ME!!!!! BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
 #endif
 
-                yield return null;
+                //yield return null;
+                yield return new WaitForSeconds(0.5f);
             }
-                //yield return new WaitForSeconds(0.1f);
         }
 
-        private IEnumerator coroutine;
+        private IEnumerator _repeatingStepsSoundCoroutine;
 
         protected void StartRepeatingWalkingStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingWalkingStepsSound");
+            Debug.Log("BaseBehavior StartRepeatingWalkingStepsSound");
 #endif
-            coroutine = StepsSoundRoutine(50, "act(someone, walk)");
-            StartCoroutine(coroutine);
-            //_stepsSoundRoutine.Start(50, "act(someone, walk)");
+
+            if(_repeatingStepsSoundCoroutine != null)
+            {
+                StopCoroutine(_repeatingStepsSoundCoroutine);
+            }
+
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, "act(someone, walk)");
+            StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
         protected void StartRepeatingRunningStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior StartRepeatingRunningStepsSound");
+            Debug.Log("BaseBehavior StartRepeatingRunningStepsSound");
 #endif
+
+            if (_repeatingStepsSoundCoroutine != null)
+            {
+                StopCoroutine(_repeatingStepsSoundCoroutine);
+            }
+
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, "act(someone, run)");
+            StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
         protected void StopRepeatingStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("FIX ME!!!!! BaseBehavior StopRepeatingStepsSound");
+            Debug.Log("BaseBehavior StopRepeatingStepsSound");
 #endif
+
+            if (_repeatingStepsSoundCoroutine != null)
+            {
+                StopCoroutine(_repeatingStepsSoundCoroutine);
+            }
         }
 
         protected void StartRepeatingShotSound()

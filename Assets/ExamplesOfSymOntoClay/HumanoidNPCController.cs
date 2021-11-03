@@ -27,7 +27,7 @@ namespace ExamplesOfSymOntoClay
         GameObject IUBipedHumanoid.RightHandWP => _rightHandWP;
         GameObject IUBipedHumanoid.LeftHandWP => _leftHandWP;
 
-        void Awake()
+        protected void Awake()
         {
 #if UNITY_EDITOR
             //Debug.Log("HumanoidNPCController Awake");
