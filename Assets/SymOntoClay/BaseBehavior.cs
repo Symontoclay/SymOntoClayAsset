@@ -316,10 +316,71 @@ namespace SymOntoClay
             }
         }
 
+        private string _heShootsFactId;
+
+        protected void AddHeShootsFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("BaseBehavior AddHeShootsFact");
+#endif
+
+            var factStr = $"act({_idForFacts}, shoot)";
+
+            if (!string.IsNullOrWhiteSpace(_heShootsFactId))
+            {
+                return;
+            }
+
+            _heShootsFactId = _uSocGameObject.InsertPublicFact(factStr);
+        }
+
+        protected void RemoveHeShootsFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("BaseBehavior RemoveHeShootsFact");
+#endif
+
+            if (!string.IsNullOrWhiteSpace(_heShootsFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_heShootsFactId);
+            }
+        }
+
+        private string _heIsReadyForShootFactId;
+
+        protected void AddHeIsReadyForShootFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("BaseBehavior AddHeIsReadyForShootFact");
+#endif
+
+            var factStr = $"ready({_idForFacts}, shoot)";
+
+            if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
+            {
+                return;
+            }
+
+            _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(factStr);
+        }
+
+        protected void RemoveHeIsReadyForShootFact()
+        {
+#if UNITY_EDITOR
+            Debug.Log("BaseBehavior RemoveHeIsReadyForShootFact");
+#endif
+
+            if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
+            {
+                _uSocGameObject.RemovePublicFact(_heIsReadyForShootFactId);
+            }
+        }
+
         protected void ProcessDie()
         {
             SetDeadFact();
-
+            RemoveHeIsReadyForShootFact();
+            ff
             _uHumanoidNPC.Die();
         }
 

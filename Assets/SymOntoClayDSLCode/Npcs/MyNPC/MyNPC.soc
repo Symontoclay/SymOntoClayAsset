@@ -16,28 +16,28 @@ app MyNPC
 	on {: hear(I, q2) :} => 
     {
         'q2!!!!' >> @>log;
-		@@host.`ready for fire`();
+		@@host.`ready for shoot`();
 		'End' >> @>log;
     }
 	
 	on {: hear(I, q3) :} => 
     {
         'q3!!!!' >> @>log;
-		@@host.`start fire`();
+		@@host.`start shoot`();
 		'End' >> @>log;
     }
 	
 	on {: hear(I, q4) :} => 
     {
         'q4!!!!' >> @>log;
-		@@host.`stop fire`();
+		@@host.`stop shoot`();
 		'End' >> @>log;
     }
 	
 	on {: hear(I, q5) :} => 
     {
         'q5!!!!' >> @>log;
-		@@host.`unready for fire`();
+		@@host.`unready for shoot`();
 		'End' >> @>log;
     }
 	

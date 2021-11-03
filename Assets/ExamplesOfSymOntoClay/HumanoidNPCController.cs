@@ -144,7 +144,7 @@ namespace ExamplesOfSymOntoClay
 
             Task.Run(() => {
                 ProcessDie();
-            });            
+            });
         }
 
         [DebuggerHidden]
@@ -288,37 +288,41 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
-        [BipedEndpoint("Start Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StartFireImpl(CancellationToken cancellationToken)
+        [BipedEndpoint("Start Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void StartShootImpl(CancellationToken cancellationToken)
         {
             if (_rifle == null)
             {
                 return;
             }
 
+            AddHeShootsFact();
+
             _rifle.StartFire(cancellationToken);
         }
 
         [DebuggerHidden]
-        [BipedEndpoint("Stop Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StopFireImpl(CancellationToken cancellationToken)
+        [BipedEndpoint("Stop Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void StopShootImpl(CancellationToken cancellationToken)
         {
             if(_rifle == null)
             {
                 return;
             }
 
+            RemoveHeShootsFact();
+
             _rifle.StopFire();
         }
 
         [DebuggerHidden]
-        [BipedEndpoint("Ready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void ReadyForFireImpl(CancellationToken cancellationToken)
+        [BipedEndpoint("Ready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void ReadyForShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"ReadyForFireImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"ReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => { 
@@ -326,19 +330,21 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
+            AddHeIsReadyForShootFact();
+
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"ReadyForFireImpl End {methodId}");
+            UnityEngine.Debug.Log($"ReadyForShootImpl End {methodId}");
 #endif
         }
 
         [DebuggerHidden]
-        [BipedEndpoint("Unready For Fire", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void UnReadyForFireImpl(CancellationToken cancellationToken)
+        [BipedEndpoint("Unready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void UnReadyForShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"UnReadyForFireImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"UnReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => {
@@ -347,8 +353,10 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
+            RemoveHeIsReadyForShootFact();
+
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"UnReadyForFireImpl End {methodId}");
+            UnityEngine.Debug.Log($"UnReadyForShootImpl End {methodId}");
 #endif
         }
 
