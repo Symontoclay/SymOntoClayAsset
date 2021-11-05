@@ -49,6 +49,9 @@ namespace SymOntoClay
         public string IdForFacts => _idForFacts;
         public IEntityLogger Logger => _uSocGameObject.Logger;
 
+        public bool DeleteAliveFactsAfterDie = true;
+
+        #region Unity handlers
         protected virtual void Start()
         {
 #if UNITY_EDITOR
@@ -69,144 +72,165 @@ namespace SymOntoClay
 
             _idForFacts = _uSocGameObject.IdForFacts;
 
-            SetAliveFact();
+            NSetAliveFact();
         }
 
         protected virtual void Stop()
         {
-            if (_repeatingStepsSoundCoroutine != null)
-            {
-                StopCoroutine(_repeatingStepsSoundCoroutine);
-            }
+            NStopStepsSoundRoutine();
 
-            if (_repeatingShotSound != null)
-            {
-                StopCoroutine(_repeatingShotSound);
-            }
+            NStopShotSoundRoutine();
+        }
+        #endregion
+
+        private string _vitalFactId;
+
+        private void NSetAliveFact()
+        {
+            Task.Run(() => {
+                var factStr = $"state({_idForFacts}, alive)";
+
+#if UNITY_EDITOR
+                Debug.Log($"BaseBehavior NSetAliveFact factStr = '{factStr}'");
+#endif
+
+                if (!string.IsNullOrWhiteSpace(_vitalFactId))
+                {
+                    _uSocGameObject.RemovePublicFact(_vitalFactId);
+                }
+
+                _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
+            });
+        }
+
+        private void NSetDeadFact()
+        {
+            Task.Run(() => {
+                var factStr = $"state({_idForFacts}, dead)";
+
+#if UNITY_EDITOR
+                Debug.Log($"BaseBehavior NSetDeadFact factStr = '{factStr}'");
+#endif
+
+                if (!string.IsNullOrWhiteSpace(_vitalFactId))
+                {
+                    _uSocGameObject.RemovePublicFact(_vitalFactId);
+                }
+
+                _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
+            });
         }
 
         private string _walkingFactId;
 
-        private string _vitalFactId;
-
-        protected void SetAliveFact()
-        {
-            var factStr = $"state({_idForFacts}, alive)";
-
-#if UNITY_EDITOR
-            Debug.Log($"BaseBehavior SetAliveFact factStr = '{factStr}'");
-#endif
-
-            if (!string.IsNullOrWhiteSpace(_vitalFactId))
-            {
-                _uSocGameObject.RemovePublicFact(_vitalFactId);
-            }
-
-            _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
-        }
-
-        protected void SetDeadFact()
-        {
-            var factStr = $"state({_idForFacts}, dead)";
-
-#if UNITY_EDITOR
-            Debug.Log($"BaseBehavior SetDeadFact factStr = '{factStr}'");
-#endif
-
-            if (!string.IsNullOrWhiteSpace(_vitalFactId))
-            {
-                _uSocGameObject.RemovePublicFact(_vitalFactId);
-            }
-
-            _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
-        }
-
         /// <summary>
         /// Adds fact that the NPC has stopped itself.
+        /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
         protected void AddStopFact()
         {
-            var factStr = $"act({_idForFacts}, stop)";
+            Task.Run(() => {
+                var factStr = $"act({_idForFacts}, stop)";
 
 #if UNITY_EDITOR
-            Debug.Log($"BaseBehavior AddStopFact factStr = '{factStr}'");
+                Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
 #endif
 
+                NRemoveCurrWalkingFactId();
+
+                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+
+#if UNITY_EDITOR
+                //Debug.Log($"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
+#endif
+            });
+        }
+
+        private void NRemoveCurrWalkingFactId()
+        {
             if (!string.IsNullOrWhiteSpace(_walkingFactId))
             {
                 _uSocGameObject.RemovePublicFact(_walkingFactId);
             }
-            
-            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
-
-#if UNITY_EDITOR
-            //Debug.Log($"BaseBehavior AddStopFact _walkingFactId = {_walkingFactId}");
-#endif
         }
 
         /// <summary>
         /// Adds fact that the NPC has started walking.
+        /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
         protected void AddWalkingFact()
         {
-            var factStr = $"act({_idForFacts}, walk)";
+            Task.Run(() => {
+                var factStr = $"act({_idForFacts}, walk)";
 
 #if UNITY_EDITOR
-            Debug.Log($"BaseBehavior AddWalkingFact factStr = '{factStr}'");
+                Debug.Log($"BaseBehavior NAddWalkingFact factStr = '{factStr}'");
 #endif
-            if(!string.IsNullOrWhiteSpace(_walkingFactId))
-            {
-                _uSocGameObject.RemovePublicFact(_walkingFactId);
-            }
-            
-            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+
+                NRemoveCurrWalkingFactId();
+
+
+                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if UNITY_EDITOR
-            //Debug.Log($"BaseBehavior AddWalkingFact _walkingFactId = {_walkingFactId}");
+                //Debug.Log($"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
+            });
         }
 
+        /// <summary>
+        /// Adds fact that the NPC has started running.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
         protected void AddRunningFact()
         {
-            var factStr = $"act({_idForFacts}, run)";
+            Task.Run(() => {
+                var factStr = $"act({_idForFacts}, run)";
 
 #if UNITY_EDITOR
-            Debug.Log($"BaseBehavior AddRunningFact factStr = '{factStr}'");
+                Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
 #endif
-            if (!string.IsNullOrWhiteSpace(_walkingFactId))
-            {
-                _uSocGameObject.RemovePublicFact(_walkingFactId);
-            }
 
-            _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+                NRemoveCurrWalkingFactId();
+
+                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
 
 #if UNITY_EDITOR
-            //Debug.Log($"BaseBehavior AddRunningFact _walkingFactId = {_walkingFactId}");
+                //Debug.Log($"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
 #endif
+            });
         }
 
         private string _holdFactId;
 
         /// <summary>
         /// Adds fact that the NPC holds something in his hands.
+        /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
         /// <param name="heldId">Id of held thing.</param>
         protected void AddHoldFact(string heldId)
         {
-            var factStr = $"hold({_idForFacts}, {heldId})";
+            Task.Run(() => {
+                var factStr = $"hold({_idForFacts}, {heldId})";
 
-            if (!string.IsNullOrWhiteSpace(_holdFactId))
-            {
-                _uSocGameObject.RemovePublicFact(_holdFactId);
-            }
+                NRemoveCurrHoldFactId();
 
-            _holdFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _holdFactId = _uSocGameObject.InsertPublicFact(factStr);
+            });
         }
 
         /// <summary>
         /// Removes fact that the NPC holds something in his hands.
+        /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
         protected void RemoveHoldFact()
+        {
+            Task.Run(() => {
+                NRemoveCurrHoldFactId();
+            });
+        }
+
+        private void NRemoveCurrHoldFactId()
         {
             if (!string.IsNullOrWhiteSpace(_holdFactId))
             {
@@ -224,53 +248,114 @@ namespace SymOntoClay
 
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
 
-                //yield return null;
                 yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        private void NStopStepsSoundRoutine()
+        {
+            if (_repeatingStepsSoundCoroutine != null)
+            {
+                StopCoroutine(_repeatingStepsSoundCoroutine);
+
+                _repeatingStepsSoundCoroutine = null;
             }
         }
 
         private IEnumerator _repeatingStepsSoundCoroutine;
 
-        protected void StartRepeatingWalkingStepsSound()
+        /// <summary>
+        /// Starts pushing sound facts that the NPS is walking.
+        /// This method should be called only in main thread.
+        /// </summary>
+        protected void StartRepeatingWalkingStepsSoundInMainThread()
+        {
+            NStartRepeatingWalkingStepsSound();
+        }
+
+        /// <summary>
+        /// Starts pushing sound facts that the NPS is walking.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        protected void StartRepeatingWalkingStepsSoundInUsualThread()
+        {
+            RunInMainThread(() =>
+            {
+                NStartRepeatingWalkingStepsSound();
+            });            
+        }
+
+        private void NStartRepeatingWalkingStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior StartRepeatingWalkingStepsSound");
+            Debug.Log("BaseBehavior NStartRepeatingWalkingStepsSound");
 #endif
 
-            if(_repeatingStepsSoundCoroutine != null)
-            {
-                StopCoroutine(_repeatingStepsSoundCoroutine);
-            }
+            NStopStepsSoundRoutine();
 
             _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, "act(someone, walk)");
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
-        protected void StartRepeatingRunningStepsSound()
+        /// <summary>
+        /// Starts pushing sound facts that the NPS is running.
+        /// This method should be called only in main thread.
+        /// </summary>
+        protected void StartRepeatingRunningStepsSoundInMainThread()
+        {
+            NStartRepeatingRunningStepsSound();
+        }
+
+        /// <summary>
+        /// Starts pushing sound facts that the NPS is running.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        protected void StartRepeatingRunningStepsSoundInUsualThread()
+        {
+            RunInMainThread(() => {
+                NStartRepeatingRunningStepsSound();
+            });            
+        }
+
+        private void NStartRepeatingRunningStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior StartRepeatingRunningStepsSound");
+            Debug.Log("BaseBehavior NStartRepeatingRunningStepsSound");
 #endif
 
-            if (_repeatingStepsSoundCoroutine != null)
-            {
-                StopCoroutine(_repeatingStepsSoundCoroutine);
-            }
+            NStopStepsSoundRoutine();
 
             _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, "act(someone, run)");
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
-        protected void StopRepeatingStepsSound()
+        /// <summary>
+        /// Stops pushing sound facts that the NPS is walking or running.
+        /// This method should be called only in main thread.
+        /// </summary>
+        protected void StopRepeatingStepsSoundInMainThread()
+        {
+            NStopRepeatingStepsSound();
+        }
+
+        /// <summary>
+        /// Stops pushing sound facts that the NPS is walking or running.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        protected void StopRepeatingStepsSoundInUsualThread()
+        {
+            RunInMainThread(() => { 
+                NStopRepeatingStepsSound();
+            });            
+        }
+
+        private void NStopRepeatingStepsSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior StopRepeatingStepsSound");
+            Debug.Log("BaseBehavior NStopRepeatingStepsSound");
 #endif
 
-            if (_repeatingStepsSoundCoroutine != null)
-            {
-                StopCoroutine(_repeatingStepsSoundCoroutine);
-            }
+            NStopStepsSoundRoutine();
         }
 
         private IEnumerator ShotSoundRoutine(float power, string text)
@@ -289,99 +374,204 @@ namespace SymOntoClay
 
         private IEnumerator _repeatingShotSound;
 
-        protected void StartRepeatingShotSound()
+        /// <summary>
+        /// Starts pushing sound facts that something is shooting.
+        /// This method should be called only in main thread.
+        /// </summary>
+        protected void StartRepeatingShotSoundInMainThread()
+        {
+            NStartRepeatingShotSound();
+        }
+
+        /// <summary>
+        /// Starts pushing sound facts that something is shooting.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        protected void StartRepeatingShotSoundInUsualThread()
+        {
+            RunInMainThread(() => {
+                NStartRepeatingShotSound();
+            });            
+        }
+
+        private void NStartRepeatingShotSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior StartRepeatingShotSound");
+            Debug.Log("BaseBehavior NStartRepeatingShotSound");
 #endif
 
-            if (_repeatingShotSound != null)
-            {
-                StopCoroutine(_repeatingShotSound);
-            }
+            NStopShotSoundRoutine();
 
             _repeatingShotSound = ShotSoundRoutine(70, $"act({_idForFacts}, shoot)");
             StartCoroutine(_repeatingShotSound);
         }
 
-        protected void StopRepeatingShotSound()
+        /// <summary>
+        /// Stops pushing sound facts that something is shooting.
+        /// This method should be called only in main thread.
+        /// </summary>
+        protected void StopRepeatingShotSoundInMainThread()
+        {
+            NStopRepeatingShotSound();
+        }
+
+        /// <summary>
+        /// Stops pushing sound facts that something is shooting.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        protected void StopRepeatingShotSoundInUsualThread()
+        {
+            RunInMainThread(() => {
+                NStopRepeatingShotSound();
+            });            
+        }
+
+        private void NStopRepeatingShotSound()
         {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior StopRepeatingShotSound");
+            Debug.Log("BaseBehavior NStopRepeatingShotSound");
 #endif
 
-            if(_repeatingShotSound != null)
+            NStopShotSoundRoutine();
+        }
+
+        private void NStopShotSoundRoutine()
+        {
+            if (_repeatingShotSound != null)
             {
                 StopCoroutine(_repeatingShotSound);
+
+                _repeatingShotSound = null;
             }
         }
 
         private string _heShootsFactId;
 
+        /// <summary>
+        /// Adds fact that the NPC shoots.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
         protected void AddHeShootsFact()
         {
+            Task.Run(() => {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior AddHeShootsFact");
+                Debug.Log("BaseBehavior NAddHeShootsFact");
 #endif
 
-            var factStr = $"act({_idForFacts}, shoot)";
+                if (!string.IsNullOrWhiteSpace(_heShootsFactId))
+                {
+                    return;
+                }
 
-            if (!string.IsNullOrWhiteSpace(_heShootsFactId))
-            {
-                return;
-            }
+                var factStr = $"act({_idForFacts}, shoot)";
 
-            _heShootsFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _heShootsFactId = _uSocGameObject.InsertPublicFact(factStr);
+            });
         }
 
+        /// <summary>
+        /// Removes fact that the NPC shoots.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
         protected void RemoveHeShootsFact()
         {
+            Task.Run(() => {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior RemoveHeShootsFact");
+                Debug.Log("BaseBehavior NRemoveHeShootsFact");
 #endif
 
+                NRemoveCurrHeShootsFactId();
+            });
+        }
+
+        private void NRemoveCurrHeShootsFactId()
+        {
             if (!string.IsNullOrWhiteSpace(_heShootsFactId))
             {
                 _uSocGameObject.RemovePublicFact(_heShootsFactId);
+
+                _heShootsFactId = string.Empty;
             }
         }
 
         private string _heIsReadyForShootFactId;
 
+        /// <summary>
+        /// Adds fact that the NPC is ready for shooting.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
         protected void AddHeIsReadyForShootFact()
         {
+            Task.Run(() => {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior AddHeIsReadyForShootFact");
+                Debug.Log("BaseBehavior NAddHeIsReadyForShootFact");
 #endif
 
-            var factStr = $"ready({_idForFacts}, shoot)";
+                if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
+                {
+                    return;
+                }
 
-            if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
-            {
-                return;
-            }
+                var factStr = $"ready({_idForFacts}, shoot)";
 
-            _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(factStr);
+            });
         }
 
+        /// <summary>
+        /// Removes fact that the NPC is ready for shooting.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
         protected void RemoveHeIsReadyForShootFact()
         {
+            Task.Run(() => {
 #if UNITY_EDITOR
-            Debug.Log("BaseBehavior RemoveHeIsReadyForShootFact");
+                Debug.Log("BaseBehavior NRemoveHeIsReadyForShootFact");
 #endif
 
+                NRemoveCurrHeIsReadyForShootFactId();
+            });
+        }
+
+        private void NRemoveCurrHeIsReadyForShootFactId()
+        {
             if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
             {
                 _uSocGameObject.RemovePublicFact(_heIsReadyForShootFactId);
+
+                _heIsReadyForShootFactId = string.Empty;
             }
         }
 
-        protected void ProcessDie()
+        /// <summary>
+        /// Proceses death for NPC.
+        /// This method can be called both in main and in usual (not main) thread.
+        /// </summary>
+        protected void ProcessDeath()
         {
-            SetDeadFact();
-            RemoveHeIsReadyForShootFact();
-            ff
-            _uHumanoidNPC.Die();
+            NProcessDeath();
+        }
+
+        private void NProcessDeath()
+        {
+            Task.Run(() => {
+                NSetDeadFact();
+
+                if(DeleteAliveFactsAfterDie)
+                {
+                    NRemoveCurrWalkingFactId();
+                    NRemoveCurrHoldFactId();
+                    NRemoveCurrHeShootsFactId();
+                    NRemoveCurrHeIsReadyForShootFactId();
+
+                    RunInMainThread(() => {
+                        NStopStepsSoundRoutine();
+                        NStopShotSoundRoutine();
+                    });
+
+                    _uHumanoidNPC.Die();
+                }
+            });
         }
 
         private static int _methodId;

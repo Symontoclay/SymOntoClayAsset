@@ -146,7 +146,7 @@ namespace ExamplesOfSymOntoClay
             //mGunAudio.Play();
             //});            
 
-            RunInMainThread(() => { StartRepeatingShotSound(); });            
+            StartRepeatingShotSoundInUsualThread();
 
             while (true)
             {
@@ -160,7 +160,7 @@ namespace ExamplesOfSymOntoClay
                     {
                         //mGunAudio.Stop();
                         DisableEffects();
-                        StopRepeatingShotSound();
+                        StopRepeatingShotSoundInMainThread();
                     });                    
 
                     break;

@@ -169,7 +169,7 @@ namespace ExamplesOfSymOntoClay
                     Debug.Log($"GetInput() Stops");
 #endif
                     AddStopFact();
-                    StopRepeatingStepsSound();
+                    StopRepeatingStepsSoundInMainThread();
                 }
             }
             else
@@ -185,7 +185,7 @@ namespace ExamplesOfSymOntoClay
 #endif
 
                         AddRunningFact();
-                        StartRepeatingRunningStepsSound();
+                        StartRepeatingRunningStepsSoundInMainThread();
                     }
                 }
                 else
@@ -199,7 +199,7 @@ namespace ExamplesOfSymOntoClay
 #endif
 
                         AddWalkingFact();
-                        StartRepeatingWalkingStepsSound();
+                        StartRepeatingWalkingStepsSoundInMainThread();
                     }
                 }
             }
