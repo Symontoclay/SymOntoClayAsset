@@ -17,6 +17,7 @@ namespace ExamplesOfSymOntoClay
     [RequireComponent(typeof(IUHumanoidNPC))]
     public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid, IDieProvider
     {
+        public GameObject Head;
 
         public GameObject RightHandWP;
         public GameObject LeftHandWP;
@@ -26,6 +27,8 @@ namespace ExamplesOfSymOntoClay
 
         GameObject IUBipedHumanoid.RightHandWP => _rightHandWP;
         GameObject IUBipedHumanoid.LeftHandWP => _leftHandWP;
+
+        private Transform _targetHeadTransform;
 
         protected void Awake()
         {
@@ -49,7 +52,18 @@ namespace ExamplesOfSymOntoClay
 
             AddStopFact();
 
-            if(RightHandWP == null)
+            if (Head == null)
+            {
+                var headLocator = GetComponentInChildren<HeadLocator>();
+                var head = headLocator.gameObject;
+                _targetHeadTransform = head.transform;
+            }
+            else
+            {
+                _targetHeadTransform = Head.transform;
+            }
+
+            if (RightHandWP == null)
             {
                 var locator = GetComponentInChildren<RightHandWPLocator>();
                 _rightHandWP = locator?.gameObject;
@@ -87,13 +101,18 @@ namespace ExamplesOfSymOntoClay
 
         void OnAnimatorIK(int layerIndex)
         {
-            if (!_enableRifleIK)
+            if (_enableRifleIK)
             {
-                return;
+                _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
+                _animator.SetIKPosition(AvatarIKGoal.LeftHand, _rifle.AddWP.transform.position);
             }
 
-            _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0.3f);
-            _animator.SetIKPosition(AvatarIKGoal.LeftHand, _rifle.AddWP.transform.position);
+            if (_enableRotateHeadIK)
+            {
+                _animator.SetLookAtWeight(1);
+                _animator.SetLookAtPosition(_currentHeadPosition);
+                _targetHeadTransform.LookAt(_currentHeadPosition);
+            }
         }
 
         private NavMeshAgent _navMeshAgent;
@@ -106,6 +125,9 @@ namespace ExamplesOfSymOntoClay
         private bool _isDead;
 
         private bool _enableRifleIK;
+        private bool _enableRotateHeadIK;
+
+        private Vector3 _currentHeadPosition;
 
         private Vector3 _position;
 
@@ -237,7 +259,24 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
 #endif
 
+            if(direction == 0)
+            {
+                _enableRotateHeadIK = false;
+                return;
+            }
 
+            RunInMainThread(() => {
+                var radAngle = direction * Mathf.Deg2Rad;
+                var x = Mathf.Sin(radAngle);
+                var y = Mathf.Cos(radAngle);
+                var localDirection = new Vector3(x, 0f, y);
+                var globalDirection = transform.TransformDirection(localDirection);
+                var oldY = _targetHeadTransform.position.y;
+                var newPosition = globalDirection + transform.position;
+                _currentHeadPosition = new Vector3(newPosition.x, oldY, newPosition.z);
+
+                _enableRotateHeadIK = true;
+            });
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
