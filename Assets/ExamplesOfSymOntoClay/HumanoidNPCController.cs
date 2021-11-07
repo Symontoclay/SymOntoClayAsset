@@ -242,7 +242,22 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
 #endif
 
+            RunInMainThread(() => {
+                var radAngle = direction * Mathf.Deg2Rad;
+                var x = Mathf.Sin(radAngle);
+                var y = Mathf.Cos(radAngle);
+                var localDirection = new Vector3(x, 0f, y);
 
+                var globalDirection = transform.TransformDirection(localDirection);
+
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) globalDirection = {globalDirection}");
+#endif
+
+                var lookRotation = Quaternion.LookRotation(globalDirection);
+
+                transform.rotation = lookRotation;//make It more slow!!!
+            });
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateImpl End {methodId}");
