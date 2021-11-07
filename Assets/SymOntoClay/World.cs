@@ -27,6 +27,7 @@ using SymOntoClay.SoundBuses;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
+using SymOntoClay.UnityAsset.Core.Internal.TypesConvertors.DefaultConvertors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,7 +56,8 @@ namespace SymOntoClay
             _world = WorldFactory.WorldInstance;
 
             _world.AddConvertor(new Vector3UnityAndSystemNumericConvertor());
-            _world.AddConvertor(new Vector3AndWayPointValueConvertor());
+            _world.AddConvertor(new Assets.SymOntoClay.Convertors.Vector3AndWayPointValueConvertor());
+            _world.AddConvertor(new FloatAndNumberValueConvertor());
 
             var worldFullFileName = Path.Combine(Application.dataPath, WorldFile.FullName);
 

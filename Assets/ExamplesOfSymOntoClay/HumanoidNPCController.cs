@@ -142,9 +142,7 @@ namespace ExamplesOfSymOntoClay
 
             UpdateAnimator();
 
-            Task.Run(() => {
-                ProcessDie();
-            });
+            ProcessDeath();
         }
 
         [DebuggerHidden]
