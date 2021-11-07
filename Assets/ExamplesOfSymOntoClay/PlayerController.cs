@@ -33,7 +33,8 @@ namespace ExamplesOfSymOntoClay
             mInputKeyHelper.AddPressListener(KeyCode.I, OnIPressAction);//NPC becomes not ready for fire
             mInputKeyHelper.AddPressListener(KeyCode.O, OnOPressAction);//NPC throws gun to ground
             mInputKeyHelper.AddPressListener(KeyCode.F, OnFPressAction);//NPC aims to something
-            mInputKeyHelper.AddPressListener(KeyCode.Z, OnZPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.Z, OnZPressAction);//NPC rotates
+            mInputKeyHelper.AddPressListener(KeyCode.X, OnXPressAction);//NPC rotates head
         }
 
         void Update()
@@ -111,6 +112,15 @@ namespace ExamplesOfSymOntoClay
             _uSocGameObject.PushSoundFact(60, "act(q8, shoot)");
 
             Debug.Log("End OnZPressAction");
+        }
+
+        private void OnXPressAction()
+        {
+            Debug.Log("OnXPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q9, shoot)");
+
+            Debug.Log("End OnXPressAction");
         }
     }
 }

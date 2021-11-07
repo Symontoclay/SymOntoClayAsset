@@ -228,6 +228,23 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public void RotateHeadImpl(CancellationToken cancellationToken, float direction)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
+#endif
+
+
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
+#endif
+        }
+
+        [DebuggerHidden]
         [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {

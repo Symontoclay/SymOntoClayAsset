@@ -61,4 +61,11 @@ app MyNPC
 		@@host.`rotate`(30);
 		'End' >> @>log;
     }
+	
+	on {: hear(I, q9) :} => 
+    {
+        'q9!!!!' >> @>log;
+		@@host.`rotate head`(30);
+		'End' >> @>log;
+    }
 }
