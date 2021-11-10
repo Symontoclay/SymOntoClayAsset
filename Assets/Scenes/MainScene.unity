@@ -3342,6 +3342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1755fb176831bfd40b758a8d4381b9e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteAliveFactsAfterDie: 1
   MainWP: {fileID: 347090753}
   AddWP: {fileID: 1935791150}
   GunEnd: {fileID: 0}
@@ -15476,8 +15477,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d84a0cc1de9cb458cdf961b0e2c5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteAliveFactsAfterDie: 1
+  Head: {fileID: 0}
   RightHandWP: {fileID: 0}
   LeftHandWP: {fileID: 0}
+  RotationSpeed: 5
 --- !u!114 &6030519418766110243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15524,6 +15528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb598f5615e7dfd4baaa93c70e5f4949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteAliveFactsAfterDie: 1
   cam: {fileID: 478994977}
   movementSettings:
     ForwardSpeed: 8
@@ -15573,6 +15578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30dbdc700864b904e997db9d01412a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteAliveFactsAfterDie: 1
 --- !u!4 &9085053193390789715
 Transform:
   m_ObjectHideFlags: 0
@@ -15645,8 +15651,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d84a0cc1de9cb458cdf961b0e2c5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteAliveFactsAfterDie: 1
+  Head: {fileID: 0}
   RightHandWP: {fileID: 0}
   LeftHandWP: {fileID: 0}
+  RotationSpeed: 2
 --- !u!114 &9170094138085161981
 MonoBehaviour:
   m_ObjectHideFlags: 0

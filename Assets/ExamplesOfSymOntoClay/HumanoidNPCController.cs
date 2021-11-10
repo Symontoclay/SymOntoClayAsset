@@ -30,6 +30,8 @@ namespace ExamplesOfSymOntoClay
 
         private Transform _targetHeadTransform;
 
+        public float MaxHeadRotationAngle = 30;
+
         protected void Awake()
         {
 #if UNITY_EDITOR
@@ -234,13 +236,17 @@ namespace ExamplesOfSymOntoClay
 
         [DebuggerHidden]
         [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateImpl(CancellationToken cancellationToken, float direction)
+        public void RotateImpl(CancellationToken cancellationToken, float direction,
+            float speed = 2)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
 #endif
+
+            var lookRotation = Quaternion.identity;
+            var initialRotation = Quaternion.identity;
 
             RunInMainThread(() => {
                 var radAngle = direction * Mathf.Deg2Rad;
@@ -251,13 +257,32 @@ namespace ExamplesOfSymOntoClay
                 var globalDirection = transform.TransformDirection(localDirection);
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) globalDirection = {globalDirection}");
+                UnityEngine.Debug.Log($"RotateImpl {methodId} (1) globalDirection = {globalDirection}");
 #endif
 
-                var lookRotation = Quaternion.LookRotation(globalDirection);
+                lookRotation = Quaternion.LookRotation(globalDirection);
 
-                transform.rotation = lookRotation;//make It more slow!!!
+                initialRotation = transform.rotation;
             });
+
+            var timeCount = 0.0f;            
+
+            while (true)
+            {
+#if UNITY_EDITOR
+                //UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) timeCount = {timeCount}");
+#endif
+
+                if (timeCount >= 1)
+                {
+                    break;
+                }
+
+                RunInMainThread(() => {
+                    transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, timeCount);
+                    timeCount += speed * Time.deltaTime;
+                });                
+            }
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateImpl End {methodId}");
@@ -277,6 +302,12 @@ namespace ExamplesOfSymOntoClay
             if(direction == 0)
             {
                 _enableRotateHeadIK = false;
+                return;
+            }
+
+            if(Math.Abs(direction) > MaxHeadRotationAngle)
+            {
+                RotateImpl(cancellationToken, direction);
                 return;
             }
 
