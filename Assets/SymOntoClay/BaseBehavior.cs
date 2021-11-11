@@ -51,6 +51,8 @@ namespace SymOntoClay
 
         public bool DeleteAliveFactsAfterDie = true;
 
+        protected IStorage BackpackStorage => _humanoidNPC.BackpackStorage;
+
         #region Unity handlers
         protected virtual void Start()
         {
@@ -633,6 +635,16 @@ namespace SymOntoClay
         protected void RemoveFromManualControl(IUSocGameObject obj)
         {
             _humanoidNPC.RemoveFromManualControl(obj.SocGameObject);
+        }
+
+        protected void AddToBackpack(IGameObject obj)
+        {
+            _humanoidNPC.AddToBackpack(obj);
+        }
+
+        protected void RemoveFromBackpack(IGameObject obj)
+        {
+            _humanoidNPC.RemoveFromBackpack(obj);
         }
     }
 }

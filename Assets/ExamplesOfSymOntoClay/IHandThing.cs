@@ -16,5 +16,7 @@ namespace ExamplesOfSymOntoClay
         string IdForFacts { get; }
         IEntityLogger Logger { get; }
         IUSocGameObject USocGameObject { get; }
+
+        void HideForBackpack();
     }
 }

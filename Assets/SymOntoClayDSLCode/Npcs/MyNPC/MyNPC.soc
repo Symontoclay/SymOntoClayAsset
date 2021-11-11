@@ -68,4 +68,18 @@ app MyNPC
 		@@host.`rotate head`(90);
 		'End' >> @>log;
     }
+	
+	on {: hear(I, q10) :} => 
+    {
+        'q10!!!!' >> @>log;
+		@@host.`rotate`(#@(hipster));
+		'End' >> @>log;
+    }
+	
+	on {: hear(I, q12) :} => 
+    {
+        'q10!!!!' >> @>log;
+		@@host.`put in backpack`();
+		'End' >> @>log;
+    }
 }

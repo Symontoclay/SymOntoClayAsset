@@ -133,7 +133,9 @@ namespace ExamplesOfSymOntoClay
 
         private Vector3 _position;
 
-        private IRifle _rifle; 
+        private IHandThing _currentHandThing;
+
+        private IRifle _rifle;        
 
         private void UpdateAnimator()
         {
@@ -290,6 +292,30 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public void RotateToEntityImpl(CancellationToken cancellationToken, IEntity entity,
+            float speed = 2)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
+#endif
+
+            entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
+
+            entity.Resolve();
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
+#endif
+
+
+        }
+
+        [DebuggerHidden]
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void RotateHeadImpl(CancellationToken cancellationToken, float direction)
         {
@@ -375,6 +401,7 @@ namespace ExamplesOfSymOntoClay
         private void TakeRifle(CancellationToken cancellationToken, IRifle rifle)
         {
             _rifle = rifle;
+            _currentHandThing = rifle;
 
             _hasRifle = true;
             UpdateAnimator();
@@ -473,6 +500,8 @@ namespace ExamplesOfSymOntoClay
             if (_rifle != null)
             {
                 ThrowOutRifle(cancellationToken);
+                _currentHandThing = null;
+                _rifle = null;
                 return;
             }
         }
@@ -527,6 +556,30 @@ namespace ExamplesOfSymOntoClay
 
                 _rifle.LookAt(targetGameObject.transform);
             });                
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("put in backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void PutInBackpackImpl(CancellationToken cancellationToken)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} Begin");
+#endif
+
+            if(_currentHandThing == null)
+            {
+                return;
+            }
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
+#endif
+
+            _currentHandThing.HideForBackpack();
+
+            AddToBackpack(_currentHandThing.USocGameObject.SocGameObject);
         }
     }
 }
