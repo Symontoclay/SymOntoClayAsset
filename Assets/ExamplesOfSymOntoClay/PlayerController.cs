@@ -37,6 +37,7 @@ namespace ExamplesOfSymOntoClay
             mInputKeyHelper.AddPressListener(KeyCode.X, OnXPressAction);//NPC rotates head
             mInputKeyHelper.AddPressListener(KeyCode.C, OnCPressAction);//NPC rotates to entity
             mInputKeyHelper.AddPressListener(KeyCode.B, OnBPressAction);//NPC puts to backpack
+            mInputKeyHelper.AddPressListener(KeyCode.N, OnNPressAction);//NPC takes gun from backpack
         }
 
         void Update()
