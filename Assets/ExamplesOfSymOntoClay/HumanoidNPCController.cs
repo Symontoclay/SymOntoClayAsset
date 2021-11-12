@@ -526,7 +526,7 @@ namespace ExamplesOfSymOntoClay
             //I have moved endpoins here from RapidFireGunController
             //RemoveFromManualControl(_rifle.USocGameObject);
 
-            RemoveHoldFact();
+            RemoveAllShootFacts();
         }
 
         [DebuggerHidden]
@@ -579,7 +579,16 @@ namespace ExamplesOfSymOntoClay
 
             _currentHandThing.HideForBackpack();
 
+            RunInMainThread(() => {
+                _enableRifleIK = false;
+                _hasRifle = false;
+                _isAim = false;
+                UpdateAnimator();
+            });
+
             AddToBackpack(_currentHandThing.USocGameObject.SocGameObject);
+
+            RemoveAllShootFacts();
         }
     }
 }

@@ -545,6 +545,15 @@ namespace SymOntoClay
             }
         }
 
+        public void RemoveAllShootFacts()
+        {
+            Task.Run(() => {
+                NRemoveCurrHoldFactId();
+                NRemoveCurrHeShootsFactId();
+                NRemoveCurrHeIsReadyForShootFactId();
+            });
+        }
+
         /// <summary>
         /// Proceses death for NPC.
         /// This method can be called both in main and in usual (not main) thread.

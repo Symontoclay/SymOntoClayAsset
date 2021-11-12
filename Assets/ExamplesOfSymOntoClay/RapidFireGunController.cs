@@ -122,6 +122,16 @@ namespace ExamplesOfSymOntoClay
             return true;
         }
 
+        public void HideForBackpack()
+        {
+            StopFire();
+
+            RunInMainThread(() => {
+                transform.SetParent(null);
+                gameObject.SetActive(false);
+            });
+        }
+
         private enum InternalStateOfRapidFireGun
         {
             TurnedOf,
