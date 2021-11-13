@@ -143,5 +143,14 @@ namespace ExamplesOfSymOntoClay
 
             Debug.Log("End OnBPressAction");
         }
+
+        private void OnNPressAction()
+        {
+            Debug.Log("OnNPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q13, shoot)");
+
+            Debug.Log("End OnNPressAction");
+        }
     }
 }
