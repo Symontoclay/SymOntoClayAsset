@@ -78,15 +78,15 @@ app MyNPC
 	
 	on {: hear(I, q12) :} => 
     {
-        'q10!!!!' >> @>log;
+        'q12!!!!' >> @>log;
 		@@host.`put in backpack`();
 		'End' >> @>log;
     }
 	
 	on {: hear(I, q13) :} => 
     {
-        'q10!!!!' >> @>log;
-		@@host.`take from backpack`();
+        'q13!!!!' >> @>log;
+		@@host.`take from backpack`(#@(gun));
 		'End' >> @>log;
     }
 }

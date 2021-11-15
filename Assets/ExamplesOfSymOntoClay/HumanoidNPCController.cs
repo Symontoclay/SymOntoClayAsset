@@ -311,8 +311,6 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
             UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
-
-
         }
 
         [DebuggerHidden]
@@ -365,24 +363,105 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
-            entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+            entity.SpecifyOnce(BackpackStorage);
 
             entity.Resolve();
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"TakeImpl {methodId} entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeImpl entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
+#endif
+
+            if (entity.IsEmpty)
+            {
+                entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+
+                entity.Resolve();
+
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
+                UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
+                UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
+                UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (after) = {entity.IsEmpty}");
+#endif
+            }
+
+            NTake(cancellationToken, entity);
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"TakeImpl End {methodId}");
+#endif
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Take from surface", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IEntity entity)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
+#endif
+
+            entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+
+            entity.Resolve();
+
+            NTake(cancellationToken, entity);
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"TakeFromSurfaceImpl End {methodId}");
+#endif
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Take from backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
+        public void TakeFromBackpackImpl(CancellationToken cancellationToken, IEntity entity)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
+#endif
+
+            entity.SpecifyOnce(BackpackStorage);
+
+            entity.Resolve();
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
+#endif
+
+            NTake(cancellationToken, entity);
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
+#endif
+        }
+
+        private void NTake(CancellationToken cancellationToken, IEntity entity)
+        {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
 #endif
 
             RunInMainThread(() => {
                 var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"TakeImpl {methodId} (handThing != null) = {handThing != null}");
+                UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
 #endif
 
-                switch(handThing.Kind)
+                RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
+
+                switch (handThing.Kind)
                 {
                     case KindOfHandThing.Rifle:
                         TakeRifle(cancellationToken, handThing as IRifle);
@@ -394,7 +473,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl End {methodId}");
+            UnityEngine.Debug.Log("NTake End");
 #endif
         }
 
