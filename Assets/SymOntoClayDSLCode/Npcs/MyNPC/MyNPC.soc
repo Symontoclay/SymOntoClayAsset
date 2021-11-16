@@ -89,4 +89,11 @@ app MyNPC
 		@@host.`take from backpack`(#@(gun));
 		'End' >> @>log;
     }
+	
+	on {: hear(I, q14) :} => 
+    {
+        'q14!!!!' >> @>log;
+		@@host.`aim to`(NULL);
+		'End' >> @>log;
+    }
 }

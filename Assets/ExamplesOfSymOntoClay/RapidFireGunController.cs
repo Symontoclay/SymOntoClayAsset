@@ -301,9 +301,19 @@ namespace ExamplesOfSymOntoClay
             });
         }
 
-        public void LookAt(Transform target)
+        private Quaternion _oldLocalRotation;
+
+        public void LookAt(Vector3? target)
         {
-            transform.LookAt(target);
+            if(!target.HasValue)
+            {
+                transform.localRotation = _oldLocalRotation;
+                return;
+            }
+
+            _oldLocalRotation = transform.localRotation;
+
+            transform.LookAt(target.Value);
         }
 
         public bool ThrowOut()

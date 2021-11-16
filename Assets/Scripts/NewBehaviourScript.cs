@@ -99,7 +99,7 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
 
         //m4A1.transform.rotation = towards * m4A1.transform.rotation;
 
-        _twoHandGun.LookAt(Aim.transform);
+        _twoHandGun.LookAt(Aim.transform.position);
     }
 
     void OnAnimatorIK(int layerIndex)

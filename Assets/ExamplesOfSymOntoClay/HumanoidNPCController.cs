@@ -618,6 +618,30 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
 #endif
 
+            if(entity == null)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null");
+#endif
+
+                /*
+                                 var globalDirection = transform.TransformDirection(localDirection);
+                var oldY = _targetHeadTransform.position.y;
+                var newPosition = globalDirection + transform.position;
+                _currentHeadPosition = new Vector3(newPosition.x, oldY, newPosition.z);
+                 */
+
+                RunInMainThread(() => {
+                    _rifle.LookAt(null);
+                });
+
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null return;");
+#endif
+
+                return;
+            }
+
             entity.Specify(EntityConstraints.OnlyVisible);
 
             entity.Resolve();
@@ -633,8 +657,12 @@ namespace ExamplesOfSymOntoClay
 
                 _enableRifleIK = true;
 
-                _rifle.LookAt(targetGameObject.transform);
-            });                
+                _rifle.LookAt(targetGameObject.transform.position);
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"AimToImpl {methodId} End");
+#endif
         }
 
         [DebuggerHidden]

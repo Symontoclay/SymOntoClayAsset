@@ -14,7 +14,7 @@ namespace ExamplesOfSymOntoClay
         GameObject AddWP { get; }
 
         bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid);
-        void LookAt(Transform target);
+        void LookAt(Vector3? target);
         bool ThrowOut();
         void StartFire(CancellationToken cancellationToken);
         void StopFire();
