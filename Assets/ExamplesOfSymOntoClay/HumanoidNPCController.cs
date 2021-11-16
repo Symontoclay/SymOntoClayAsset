@@ -624,13 +624,6 @@ namespace ExamplesOfSymOntoClay
                 UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null");
 #endif
 
-                /*
-                                 var globalDirection = transform.TransformDirection(localDirection);
-                var oldY = _targetHeadTransform.position.y;
-                var newPosition = globalDirection + transform.position;
-                _currentHeadPosition = new Vector3(newPosition.x, oldY, newPosition.z);
-                 */
-
                 RunInMainThread(() => {
                     _rifle.LookAt(null);
                 });
