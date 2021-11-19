@@ -301,17 +301,35 @@ namespace ExamplesOfSymOntoClay
             });
         }
 
-        private Quaternion _oldLocalRotation;
+        private Quaternion? _oldLocalRotation;
+
+        public void LookAt(GameObject target)
+        {
+            LookAt(target.transform.position);
+        }
+
+        public void LookAt(Transform target)
+        {
+            LookAt(target.position);
+        }
 
         public void LookAt(Vector3? target)
         {
             if(!target.HasValue)
             {
-                transform.localRotation = _oldLocalRotation;
+                if(_oldLocalRotation.HasValue)
+                {
+                    transform.localRotation = _oldLocalRotation;
+                    _oldLocalRotation = null;
+                }
+
                 return;
             }
 
-            _oldLocalRotation = transform.localRotation;
+            if(!_oldLocalRotation.HasValue)
+            {
+                _oldLocalRotation = transform.localRotation;
+            }            
 
             transform.LookAt(target.Value);
         }

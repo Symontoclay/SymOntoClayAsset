@@ -302,9 +302,12 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
-            entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
+            if (entity.IsEmpty)
+            {
+                entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
 
-            entity.Resolve();
+                entity.Resolve();
+            }
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
@@ -313,9 +316,11 @@ namespace ExamplesOfSymOntoClay
 #endif
         }
 
+        private Quaternion? _oldLocalHeadRotation;
+
         [DebuggerHidden]
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateHeadImpl(CancellationToken cancellationToken, float direction)
+        public void RotateHeadImpl(CancellationToken cancellationToken, float? direction)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
@@ -323,9 +328,18 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
 #endif
 
-            if(direction == 0)
+            if(!direction.HasValue || direction == 0)
             {
                 _enableRotateHeadIK = false;
+
+                if(_oldLocalHeadRotation.HasValue)
+                {
+                    RunInMainThread(() => {
+                        _targetHeadTransform.localRotation = _oldLocalHeadRotation;
+                        _oldLocalHeadRotation = null;
+                    });
+                }
+
                 return;
             }
 
@@ -336,6 +350,11 @@ namespace ExamplesOfSymOntoClay
             }
 
             RunInMainThread(() => {
+                if(!_oldLocalHeadRotation.HasValue)
+                {
+                    _oldLocalHeadRotation = _targetHeadTransform.localRotation;
+                }
+
                 var radAngle = direction * Mathf.Deg2Rad;
                 var x = Mathf.Sin(radAngle);
                 var y = Mathf.Cos(radAngle);
@@ -363,9 +382,12 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
-            entity.SpecifyOnce(BackpackStorage);
+            if(entity.IsEmpty)
+            {
+                entity.SpecifyOnce(BackpackStorage);
 
-            entity.Resolve();
+                entity.Resolve();
+            }
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"TakeImpl entity.InstanceId = {entity.InstanceId}");
@@ -405,9 +427,12 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
 #endif
 
-            entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+            if (entity.IsEmpty)
+            {
+                entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
 
-            entity.Resolve();
+                entity.Resolve();
+            }
 
             NTake(cancellationToken, entity);
 
@@ -426,9 +451,12 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
 #endif
 
-            entity.SpecifyOnce(BackpackStorage);
+            if (entity.IsEmpty)
+            {
+                entity.SpecifyOnce(BackpackStorage);
 
-            entity.Resolve();
+                entity.Resolve();
+            }
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
@@ -635,9 +663,21 @@ namespace ExamplesOfSymOntoClay
                 return;
             }
 
-            entity.Specify(EntityConstraints.OnlyVisible);
+            if (entity.IsEmpty)
+            {
+                entity.Specify(EntityConstraints.OnlyVisible);
 
-            entity.Resolve();
+                entity.Resolve();
+            }
+
+            if(entity.IsEmpty)
+            {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"AimToImpl {methodId} entity.IsEmpty End");
+#endif
+
+                return;
+            }
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
@@ -650,7 +690,7 @@ namespace ExamplesOfSymOntoClay
 
                 _enableRifleIK = true;
 
-                _rifle.LookAt(targetGameObject.transform.position);
+                _rifle.LookAt(targetGameObject);
             });
 
 #if UNITY_EDITOR
