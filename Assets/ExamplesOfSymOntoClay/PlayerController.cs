@@ -36,9 +36,12 @@ namespace ExamplesOfSymOntoClay
             mInputKeyHelper.AddPressListener(KeyCode.Z, OnZPressAction);//NPC rotates
             mInputKeyHelper.AddPressListener(KeyCode.X, OnXPressAction);//NPC rotates head
             mInputKeyHelper.AddPressListener(KeyCode.C, OnCPressAction);//NPC rotates to entity
+            mInputKeyHelper.AddPressListener(KeyCode.V, OnVPressAction);//NPC rotates head to entitys
             mInputKeyHelper.AddPressListener(KeyCode.B, OnBPressAction);//NPC puts to backpack
             mInputKeyHelper.AddPressListener(KeyCode.N, OnNPressAction);//NPC takes gun from backpack
             mInputKeyHelper.AddPressListener(KeyCode.M, OnMPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);//rotate to npc
+            //mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
         }
 
         void Update()
@@ -136,6 +139,15 @@ namespace ExamplesOfSymOntoClay
             Debug.Log("End OnCPressAction");
         }
 
+        private void OnVPressAction()
+        {
+            Debug.Log("OnVPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q11, shoot)");
+
+            Debug.Log("End OnVPressAction");
+        }
+
         private void OnBPressAction()
         {
             Debug.Log("OnBPressAction");
@@ -161,6 +173,15 @@ namespace ExamplesOfSymOntoClay
             _uSocGameObject.PushSoundFact(60, "act(q14, shoot)");
 
             Debug.Log("End OnMPressAction");
+        }
+
+        private void OnLPressAction()
+        {
+            Debug.Log("OnLPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q15, shoot)");
+
+            Debug.Log("End OnLPressAction");
         }
     }
 }

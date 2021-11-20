@@ -45,8 +45,8 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
         //mInputKeyHelper.AddPressListener(KeyCode.H, OnHPressAction);
         //mInputKeyHelper.AddPressListener(KeyCode.J, OnJPressAction);
         //mInputKeyHelper.AddPressListener(KeyCode.E, OnEPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);
-        mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);
+        //mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
     }
 
     // Update is called once per frame

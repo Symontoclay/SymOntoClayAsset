@@ -76,6 +76,13 @@ app MyNPC
 		'End' >> @>log;
     }
 	
+	on {: hear(I, q9) :} => 
+    {
+        'q9!!!!' >> @>log;
+		@@host.`rotate head`(#@(hipster));
+		'End' >> @>log;
+    }
+	
 	on {: hear(I, q12) :} => 
     {
         'q12!!!!' >> @>log;
@@ -96,4 +103,11 @@ app MyNPC
 		@@host.`aim to`(NULL);
 		'End' >> @>log;
     }
+	
+	//on {: hear(I, q15) :} => 
+    //{
+    //    'q14!!!!' >> @>log;
+	//	@@host.`aim to`(NULL);
+	//	'End' >> @>log;
+    //}
 }

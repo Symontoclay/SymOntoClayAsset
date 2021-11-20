@@ -15,6 +15,7 @@ namespace ExamplesOfSymOntoClay
 
         bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid);
 
+        void LookAt();
         void LookAt(GameObject target);
         void LookAt(Transform target);
         void LookAt(Vector3? target);

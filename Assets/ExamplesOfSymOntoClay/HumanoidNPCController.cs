@@ -31,6 +31,7 @@ namespace ExamplesOfSymOntoClay
         private Transform _targetHeadTransform;
 
         public float MaxHeadRotationAngle = 30;
+        public float MaxWeaponRotationAngle = 10;
 
         protected void Awake()
         {
@@ -248,8 +249,7 @@ namespace ExamplesOfSymOntoClay
 #endif
 
             var lookRotation = Quaternion.identity;
-            var initialRotation = Quaternion.identity;
-
+            
             RunInMainThread(() => {
                 var radAngle = direction * Mathf.Deg2Rad;
                 var x = Mathf.Sin(radAngle);
@@ -263,28 +263,9 @@ namespace ExamplesOfSymOntoClay
 #endif
 
                 lookRotation = Quaternion.LookRotation(globalDirection);
-
-                initialRotation = transform.rotation;
             });
 
-            var timeCount = 0.0f;            
-
-            while (true)
-            {
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) timeCount = {timeCount}");
-#endif
-
-                if (timeCount >= 1)
-                {
-                    break;
-                }
-
-                RunInMainThread(() => {
-                    transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, timeCount);
-                    timeCount += speed * Time.deltaTime;
-                });                
-            }
+            NRotate(cancellationToken, lookRotation, speed);
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateImpl End {methodId}");
@@ -299,7 +280,7 @@ namespace ExamplesOfSymOntoClay
 #if UNITY_EDITOR
             var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -314,6 +295,53 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
             UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
+
+            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
+
+            RunInMainThread(() => {
+#if UNITY_EDITOR
+                UnityEngine.Debug.Log($"RotateToEntityImpl Quaternion.Angle(transform.rotation, lookRotation) = {Quaternion.Angle(transform.rotation, lookRotation)}");
+#endif
+            });
+
+            NRotate(cancellationToken, lookRotation, speed);
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateToEntityImpl End {methodId}");
+#endif
+        }
+
+        private void NRotate(CancellationToken cancellationToken, Quaternion targetRotation, float speed)
+        {
+            var initialRotation = Quaternion.identity;
+
+            RunInMainThread(() => {
+                initialRotation = transform.rotation;
+            });
+
+            var timeCount = 0.0f;
+
+            while (true)
+            {
+#if UNITY_EDITOR
+                //UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) timeCount = {timeCount}");
+#endif
+
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                if (timeCount >= 1)
+                {
+                    break;
+                }
+
+                RunInMainThread(() => {
+                    transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, timeCount);
+                    timeCount += speed * Time.deltaTime;
+                });
+            }
         }
 
         private Quaternion? _oldLocalHeadRotation;
@@ -335,7 +363,7 @@ namespace ExamplesOfSymOntoClay
                 if(_oldLocalHeadRotation.HasValue)
                 {
                     RunInMainThread(() => {
-                        _targetHeadTransform.localRotation = _oldLocalHeadRotation;
+                        _targetHeadTransform.localRotation = _oldLocalHeadRotation.Value;
                         _oldLocalHeadRotation = null;
                     });
                 }
@@ -343,9 +371,9 @@ namespace ExamplesOfSymOntoClay
                 return;
             }
 
-            if(Math.Abs(direction) > MaxHeadRotationAngle)
+            if(Math.Abs(direction.Value) > MaxHeadRotationAngle)
             {
-                RotateImpl(cancellationToken, direction);
+                RotateImpl(cancellationToken, direction.Value);
                 return;
             }
 
@@ -355,7 +383,7 @@ namespace ExamplesOfSymOntoClay
                     _oldLocalHeadRotation = _targetHeadTransform.localRotation;
                 }
 
-                var radAngle = direction * Mathf.Deg2Rad;
+                var radAngle = direction.Value * Mathf.Deg2Rad;
                 var x = Mathf.Sin(radAngle);
                 var y = Mathf.Cos(radAngle);
                 var localDirection = new Vector3(x, 0f, y);
@@ -369,6 +397,36 @@ namespace ExamplesOfSymOntoClay
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
+#endif
+        }
+
+        [DebuggerHidden]
+        [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IEntity entity)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
+#endif
+
+            if (entity.IsEmpty)
+            {
+                entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
+
+                entity.Resolve();
+            }
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
+#endif
+
+
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
 #endif
         }
 
@@ -653,7 +711,7 @@ namespace ExamplesOfSymOntoClay
 #endif
 
                 RunInMainThread(() => {
-                    _rifle.LookAt(null);
+                    _rifle.LookAt();
                 });
 
 #if UNITY_EDITOR
@@ -685,9 +743,24 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
-            RunInMainThread(() => {
-                var targetGameObject = GameObjectsRegistry.GetGameObject(entity.InstanceId);
+            var targetGameObject = RunInMainThread(() => { return GameObjectsRegistry.GetGameObject(entity.InstanceId); });
 
+            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
+
+            var anlge = RunInMainThread(() => {
+                return Quaternion.Angle(transform.rotation, lookRotation);
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"AimToImpl {methodId} anlge = {anlge}");
+#endif
+
+            if(Math.Abs(anlge) > MaxWeaponRotationAngle)
+            {
+                NRotate(cancellationToken, lookRotation, 2);
+            }
+
+            RunInMainThread(() => {
                 _enableRifleIK = true;
 
                 _rifle.LookAt(targetGameObject);

@@ -655,5 +655,33 @@ namespace SymOntoClay
         {
             _humanoidNPC.RemoveFromBackpack(obj);
         }
+
+        protected Quaternion GetRotationToPositionInUsualThread(System.Numerics.Vector3 targetPosition)
+        {
+            return GetRotationToPositionInUsualThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
+        }
+
+        protected Quaternion GetRotationToPositionInUsualThread(Vector3 targetPosition)
+        {
+            return RunInMainThread<Quaternion>(() => {
+                return GetRotationToPositionInMainThread(targetPosition);
+            });
+        }
+
+        protected Quaternion GetRotationToPositionInMainThread(System.Numerics.Vector3 targetPosition)
+        {
+            return GetRotationToPositionInMainThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
+        }
+
+        protected Quaternion GetRotationToPositionInMainThread(Vector3 targetPosition)
+        {
+            var heading = targetPosition - transform.position;
+
+            var distance = heading.magnitude;
+
+            var direction = heading / distance;
+
+            return Quaternion.LookRotation(direction);
+        }
     }
 }

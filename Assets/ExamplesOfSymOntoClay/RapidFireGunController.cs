@@ -303,6 +303,11 @@ namespace ExamplesOfSymOntoClay
 
         private Quaternion? _oldLocalRotation;
 
+        public void LookAt()
+        {
+            LookAt((Vector3?)null);
+        }
+
         public void LookAt(GameObject target)
         {
             LookAt(target.transform.position);
@@ -319,7 +324,7 @@ namespace ExamplesOfSymOntoClay
             {
                 if(_oldLocalRotation.HasValue)
                 {
-                    transform.localRotation = _oldLocalRotation;
+                    transform.localRotation = _oldLocalRotation.Value;
                     _oldLocalRotation = null;
                 }
 
