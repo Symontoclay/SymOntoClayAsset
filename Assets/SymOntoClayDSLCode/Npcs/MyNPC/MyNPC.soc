@@ -76,9 +76,9 @@ app MyNPC
 		'End' >> @>log;
     }
 	
-	on {: hear(I, q9) :} => 
+	on {: hear(I, q11) :} => 
     {
-        'q9!!!!' >> @>log;
+        'q11!!!!' >> @>log;
 		@@host.`rotate head`(#@(hipster));
 		'End' >> @>log;
     }

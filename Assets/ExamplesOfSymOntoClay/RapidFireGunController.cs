@@ -43,6 +43,8 @@ namespace ExamplesOfSymOntoClay
         private AudioSource mGunAudio;
         private Transform mGunEndTransform;
 
+        private bool _isFired;
+
         protected override void Start()
         {
             base.Start();
@@ -147,6 +149,13 @@ namespace ExamplesOfSymOntoClay
 
             UnityEngine.Debug.Log($"StartFire Begin {methodId}");
 #endif
+
+            if(_isFired)
+            {
+                return;
+            }
+
+            _isFired = true;
 
             var timer = 0f;
             var state = InternalStateOfRapidFireGun.TurnedOf;
@@ -295,6 +304,13 @@ namespace ExamplesOfSymOntoClay
 
         public void StopFire()
         {
+            if(!_isFired)
+            {
+                return;
+            }
+
+            _isFired = false;
+
             RunInMainThread(() =>
             {
                 DisableEffects();

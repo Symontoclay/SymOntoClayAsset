@@ -358,16 +358,7 @@ namespace ExamplesOfSymOntoClay
 
             if(!direction.HasValue || direction == 0)
             {
-                _enableRotateHeadIK = false;
-
-                if(_oldLocalHeadRotation.HasValue)
-                {
-                    RunInMainThread(() => {
-                        _targetHeadTransform.localRotation = _oldLocalHeadRotation.Value;
-                        _oldLocalHeadRotation = null;
-                    });
-                }
-
+                NResetHeadRotation();
                 return;
             }
 
@@ -410,6 +401,12 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
 #endif
 
+            if(entity == null)
+            {
+                NResetHeadRotation();
+                return;
+            }
+
             if (entity.IsEmpty)
             {
                 entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
@@ -423,11 +420,39 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
+            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
 
+            var anlge = RunInMainThread(() => {
+                return Quaternion.Angle(transform.rotation, lookRotation);
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} anlge = {anlge}");
+#endif
+
+            if (Math.Abs(anlge) > MaxHeadRotationAngle)
+            {
+                NRotate(cancellationToken, lookRotation, 2);
+            }
+
+            RotateHeadImpl(cancellationToken, anlge);
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
 #endif
+        }
+
+        private void NResetHeadRotation()
+        {
+            _enableRotateHeadIK = false;
+
+            if (_oldLocalHeadRotation.HasValue)
+            {
+                RunInMainThread(() => {
+                    _targetHeadTransform.localRotation = _oldLocalHeadRotation.Value;
+                    _oldLocalHeadRotation = null;
+                });
+            }
         }
 
         [DebuggerHidden]
@@ -580,6 +605,7 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [FriendsEndpoints("Aim to")]
         [BipedEndpoint("Start Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StartShootImpl(CancellationToken cancellationToken)
         {
@@ -594,6 +620,7 @@ namespace ExamplesOfSymOntoClay
         }
 
         [DebuggerHidden]
+        [FriendsEndpoints("Aim to")]
         [BipedEndpoint("Stop Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StopShootImpl(CancellationToken cancellationToken)
         {
