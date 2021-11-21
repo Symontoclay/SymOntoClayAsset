@@ -63,7 +63,7 @@ namespace SymOntoClay
             _uSocGameObject = GetComponent<IUSocGameObject>();
 
 #if UNITY_EDITOR
-            Debug.Log($"_uSocGameObject = {_uSocGameObject}");
+            //Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
             if(_uSocGameObject is IUHumanoidNPC)
@@ -93,7 +93,7 @@ namespace SymOntoClay
                 var factStr = $"state({_idForFacts}, alive)";
 
 #if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NSetAliveFact factStr = '{factStr}'");
+                //Debug.Log($"BaseBehavior NSetAliveFact factStr = '{factStr}'");
 #endif
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -111,7 +111,7 @@ namespace SymOntoClay
                 var factStr = $"state({_idForFacts}, dead)";
 
 #if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NSetDeadFact factStr = '{factStr}'");
+                //Debug.Log($"BaseBehavior NSetDeadFact factStr = '{factStr}'");
 #endif
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -135,7 +135,7 @@ namespace SymOntoClay
                 var factStr = $"act({_idForFacts}, stop)";
 
 #if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
+                //Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
 #endif
 
                 NRemoveCurrWalkingFactId();
@@ -166,7 +166,7 @@ namespace SymOntoClay
                 var factStr = $"act({_idForFacts}, walk)";
 
 #if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NAddWalkingFact factStr = '{factStr}'");
+                //Debug.Log($"BaseBehavior NAddWalkingFact factStr = '{factStr}'");
 #endif
 
                 NRemoveCurrWalkingFactId();
@@ -190,7 +190,7 @@ namespace SymOntoClay
                 var factStr = $"act({_idForFacts}, run)";
 
 #if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
+                //Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
 #endif
 
                 NRemoveCurrWalkingFactId();
@@ -244,10 +244,6 @@ namespace SymOntoClay
         {
             while (true)
             {
-#if UNITY_EDITOR
-                Debug.Log($"BaseBehavior StepsSoundRoutine power = {power}; text = {text}");
-#endif
-
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
 
                 yield return new WaitForSeconds(0.5f);
@@ -289,10 +285,6 @@ namespace SymOntoClay
 
         private void NStartRepeatingWalkingStepsSound()
         {
-#if UNITY_EDITOR
-            Debug.Log("BaseBehavior NStartRepeatingWalkingStepsSound");
-#endif
-
             NStopStepsSoundRoutine();
 
             _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, "act(someone, walk)");
@@ -321,10 +313,6 @@ namespace SymOntoClay
 
         private void NStartRepeatingRunningStepsSound()
         {
-#if UNITY_EDITOR
-            Debug.Log("BaseBehavior NStartRepeatingRunningStepsSound");
-#endif
-
             NStopStepsSoundRoutine();
 
             _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, "act(someone, run)");
@@ -353,10 +341,6 @@ namespace SymOntoClay
 
         private void NStopRepeatingStepsSound()
         {
-#if UNITY_EDITOR
-            Debug.Log("BaseBehavior NStopRepeatingStepsSound");
-#endif
-
             NStopStepsSoundRoutine();
         }
 
@@ -364,10 +348,6 @@ namespace SymOntoClay
         {
             while (true)
             {
-#if UNITY_EDITOR
-                Debug.Log($"BaseBehavior ShotSoundRoutine power = {power}; text = {text}");
-#endif
-
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
 
                 yield return new WaitForSeconds(0.5f);
@@ -398,10 +378,6 @@ namespace SymOntoClay
 
         private void NStartRepeatingShotSound()
         {
-#if UNITY_EDITOR
-            Debug.Log("BaseBehavior NStartRepeatingShotSound");
-#endif
-
             NStopShotSoundRoutine();
 
             _repeatingShotSound = ShotSoundRoutine(70, $"act({_idForFacts}, shoot)");
@@ -430,10 +406,6 @@ namespace SymOntoClay
 
         private void NStopRepeatingShotSound()
         {
-#if UNITY_EDITOR
-            Debug.Log("BaseBehavior NStopRepeatingShotSound");
-#endif
-
             NStopShotSoundRoutine();
         }
 
@@ -456,10 +428,6 @@ namespace SymOntoClay
         protected void AddHeShootsFact()
         {
             Task.Run(() => {
-#if UNITY_EDITOR
-                Debug.Log("BaseBehavior NAddHeShootsFact");
-#endif
-
                 if (!string.IsNullOrWhiteSpace(_heShootsFactId))
                 {
                     return;
@@ -478,10 +446,6 @@ namespace SymOntoClay
         protected void RemoveHeShootsFact()
         {
             Task.Run(() => {
-#if UNITY_EDITOR
-                Debug.Log("BaseBehavior NRemoveHeShootsFact");
-#endif
-
                 NRemoveCurrHeShootsFactId();
             });
         }
@@ -505,10 +469,6 @@ namespace SymOntoClay
         protected void AddHeIsReadyForShootFact()
         {
             Task.Run(() => {
-#if UNITY_EDITOR
-                Debug.Log("BaseBehavior NAddHeIsReadyForShootFact");
-#endif
-
                 if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
                 {
                     return;
@@ -527,10 +487,6 @@ namespace SymOntoClay
         protected void RemoveHeIsReadyForShootFact()
         {
             Task.Run(() => {
-#if UNITY_EDITOR
-                Debug.Log("BaseBehavior NRemoveHeIsReadyForShootFact");
-#endif
-
                 NRemoveCurrHeIsReadyForShootFactId();
             });
         }

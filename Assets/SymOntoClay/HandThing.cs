@@ -17,10 +17,6 @@ namespace SymOntoClay
 
         protected override bool CanBeTakenBy(IEntity subject)
         {
-#if DEBUG
-            UnityEngine.Debug.Log($"HandThing CanBeTakenBy.");
-#endif
-
             switch(TakingPolicy)
             {
                 case TakingPolicy.EveryWhere:
@@ -31,10 +27,6 @@ namespace SymOntoClay
 
                 case TakingPolicy.ByDistance:
                     {
-#if DEBUG
-                        UnityEngine.Debug.Log($"HandThing CanBeTakenBy subject.Position = {subject.Position}");
-#endif
-
                         if(!subject.Position.HasValue)
                         {
                             return false;
@@ -47,10 +39,6 @@ namespace SymOntoClay
                         var distance = RunInMainThread(() => {
                             return Vector3.Distance(transform.position, subjectPos);
                         });
-
-#if DEBUG
-                        UnityEngine.Debug.Log($"HandThing CanBeTakenBy distance = {distance}");
-#endif
 
                         if(distance > TakingDistance)
                         {

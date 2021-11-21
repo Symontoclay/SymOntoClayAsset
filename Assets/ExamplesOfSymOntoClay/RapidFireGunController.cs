@@ -79,10 +79,6 @@ namespace ExamplesOfSymOntoClay
 
         public override bool CanBeTakenBy(IEntity subject)
         {
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("RapidFireGunController CanBeTakenBy");
-#endif
-
             return !_isTaken;
         }
 
@@ -92,10 +88,6 @@ namespace ExamplesOfSymOntoClay
 
             if (transform.parent == targetParent)
             {
-#if UNITY_EDITOR
-                UnityEngine.Debug.Log("transform.parent == targetParent");
-#endif
-
                 return true;
             }
 
@@ -118,10 +110,6 @@ namespace ExamplesOfSymOntoClay
             transform.localPosition = new Vector3(0, 0, 0);
 
             gameObject.SetActive(true);
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("SetToHandsOfHumanoid ^)");
-#endif
 
             return true;
         }
@@ -156,11 +144,6 @@ namespace ExamplesOfSymOntoClay
 
         public void StartFire(CancellationToken cancellationToken)
         {
-#if UNITY_EDITOR
-            var methodId = GetMethodId();
-
-            UnityEngine.Debug.Log($"StartFire Begin {methodId}");
-#endif
             lock (_lockObl)
             {
                 if (_isFired)
@@ -183,20 +166,8 @@ namespace ExamplesOfSymOntoClay
 
             while (true)
             {
-                //#if UNITY_EDITOR
-                //                UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
-                //#endif
-
-//#if UNITY_EDITOR
-//                UnityEngine.Debug.Log($"StartFire {methodId} _isFired = {_isFired}");
-//#endif
-
                 if (cancellationToken.IsCancellationRequested || !_isFired)
                 {
-#if UNITY_EDITOR
-                    UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}; _isFired = {_isFired}");
-#endif
-
                     RunInMainThread(() =>
                     {
                         //mGunAudio.Stop();
@@ -207,10 +178,6 @@ namespace ExamplesOfSymOntoClay
                     break;
                 }
 
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"StartFire {methodId} state = {state}; timer = {timer}");
-#endif
-
                 switch (state)
                 {
                     case InternalStateOfRapidFireGun.TurnedOf:
@@ -220,10 +187,6 @@ namespace ExamplesOfSymOntoClay
                         break;
 
                     case InternalStateOfRapidFireGun.TurnedOnShot:
-#if UNITY_EDITOR
-                        //UnityEngine.Debug.Log($"StartFire {methodId} timer (2) = {timer}");
-#endif
-
                         RunInMainThread(() =>
                         {
                             timer += Time.deltaTime;
@@ -253,18 +216,10 @@ namespace ExamplesOfSymOntoClay
 
                 //Thread.Sleep(10);
             }
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log($"StartFireImpl End {methodId}");
-#endif
         }
 
         private void ProcessShoot()
         {
-#if DEBUG
-            //UnityEngine.Debug.Log($"Begin ProcessShoot");
-#endif
-
             mGunAudio.Play();
 
             // Turn on light
@@ -288,48 +243,24 @@ namespace ExamplesOfSymOntoClay
 
             if (Physics.Raycast(shootRay, out shootHit, DamageDistance))
             {
-#if DEBUG
-                //UnityEngine.Debug.Log($"ProcessShoot Hit");
-#endif
-
                 var targetOfShoot = shootHit.collider.GetComponentInParent<ITargetOfDamage>();
-
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"ProcessShoot targetOfShoot == null = {targetOfShoot == null}");
-#endif
 
                 if (targetOfShoot != null)
                 {
                     targetOfShoot.SetHit(shootHit, DamagePerShot);
                 }
             }
-
-#if DEBUG
-            //UnityEngine.Debug.Log($"End ProcessShoot");
-#endif
         }
 
         private void DisableEffects()
         {
-#if DEBUG
-            //UnityEngine.Debug.Log($"Begin DisableEffects");
-#endif
-
             mGunLight.enabled = false;
             mGunParticles.Stop();
             mGunAudio.Stop();
-
-#if DEBUG
-            //UnityEngine.Debug.Log($"End DisableEffects");
-#endif
         }
 
         public void StopFire()
         {
-#if DEBUG
-            UnityEngine.Debug.Log($"StopFire Begin");
-#endif
-
             lock (_lockObl)
             {
                 if (!_isFired)
@@ -340,20 +271,12 @@ namespace ExamplesOfSymOntoClay
                 _isFired = false;
             }
 
-#if DEBUG
-            UnityEngine.Debug.Log($"StopFire Next");
-#endif
-
             RunInMainThread(() =>
             {
                 DisableEffects();
             });
 
             StopRepeatingShotSoundInUsualThread();
-
-#if DEBUG
-            UnityEngine.Debug.Log($"StopFire End");
-#endif
         }
 
         private Quaternion? _oldLocalRotation;
@@ -398,10 +321,6 @@ namespace ExamplesOfSymOntoClay
         {
             if (transform.parent == null)
             {
-#if UNITY_EDITOR
-                UnityEngine.Debug.Log("transform.parent == null");
-#endif
-
                 return true;
             }
 

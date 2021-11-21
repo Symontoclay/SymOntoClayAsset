@@ -157,7 +157,7 @@ namespace ExamplesOfSymOntoClay
         public void Die()
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log("HumanoidNPCController Die");
+            //UnityEngine.Debug.Log("HumanoidNPCController Die");
 #endif
 
             if(_isDead)
@@ -243,9 +243,9 @@ namespace ExamplesOfSymOntoClay
             float speed = 2)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
+            //UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
 #endif
 
             var lookRotation = Quaternion.identity;
@@ -259,7 +259,7 @@ namespace ExamplesOfSymOntoClay
                 var globalDirection = transform.TransformDirection(localDirection);
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"RotateImpl {methodId} (1) globalDirection = {globalDirection}");
+                //UnityEngine.Debug.Log($"RotateImpl {methodId} (1) globalDirection = {globalDirection}");
 #endif
 
                 lookRotation = Quaternion.LookRotation(globalDirection);
@@ -268,7 +268,7 @@ namespace ExamplesOfSymOntoClay
             NRotate(cancellationToken, lookRotation, speed);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateImpl End {methodId}");
+            //UnityEngine.Debug.Log($"RotateImpl End {methodId}");
 #endif
         }
 
@@ -278,9 +278,9 @@ namespace ExamplesOfSymOntoClay
             float speed = 2)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -291,23 +291,17 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
+            //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
+            //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
 
-            RunInMainThread(() => {
-#if UNITY_EDITOR
-                UnityEngine.Debug.Log($"RotateToEntityImpl Quaternion.Angle(transform.rotation, lookRotation) = {Quaternion.Angle(transform.rotation, lookRotation)}");
-#endif
-            });
-
             NRotate(cancellationToken, lookRotation, speed);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateToEntityImpl End {methodId}");
+            //UnityEngine.Debug.Log($"RotateToEntityImpl End {methodId}");
 #endif
         }
 
@@ -351,9 +345,9 @@ namespace ExamplesOfSymOntoClay
         public void RotateHeadImpl(CancellationToken cancellationToken, float? direction)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
+            //UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
 #endif
 
             if(!direction.HasValue || direction == 0)
@@ -387,7 +381,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
+            //UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
 #endif
         }
 
@@ -396,9 +390,9 @@ namespace ExamplesOfSymOntoClay
         public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
 #endif
 
             if(entity == null)
@@ -415,9 +409,9 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Id = {entity.Id}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
@@ -427,7 +421,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} anlge = {anlge}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} anlge = {anlge}");
 #endif
 
             if (Math.Abs(anlge) > MaxHeadRotationAngle)
@@ -438,7 +432,7 @@ namespace ExamplesOfSymOntoClay
             RotateHeadImpl(cancellationToken, anlge);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
+            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
 #endif
         }
 
@@ -460,13 +454,13 @@ namespace ExamplesOfSymOntoClay
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
+            //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
             if (entity.IsEmpty)
@@ -477,10 +471,10 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
-            UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
-            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (2) = {entity.IsEmpty}");
+            //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
+            //UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
+            //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (2) = {entity.IsEmpty}");
 #endif
 
             if (entity.IsEmpty)
@@ -490,17 +484,17 @@ namespace ExamplesOfSymOntoClay
                 entity.Resolve();
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
-                UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
-                UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
-                UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (after) = {entity.IsEmpty}");
+                //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
+                //UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
+                //UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
+                //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (after) = {entity.IsEmpty}");
 #endif
             }
 
             NTake(cancellationToken, entity);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl End {methodId}");
+            //UnityEngine.Debug.Log($"TakeImpl End {methodId}");
 #endif
         }
 
@@ -509,9 +503,9 @@ namespace ExamplesOfSymOntoClay
         public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -524,7 +518,7 @@ namespace ExamplesOfSymOntoClay
             NTake(cancellationToken, entity);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeFromSurfaceImpl End {methodId}");
+            //UnityEngine.Debug.Log($"TakeFromSurfaceImpl End {methodId}");
 #endif
         }
 
@@ -533,9 +527,9 @@ namespace ExamplesOfSymOntoClay
         public void TakeFromBackpackImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -546,32 +540,32 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
             NTake(cancellationToken, entity);
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
+            //UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
 #endif
         }
 
         private void NTake(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
+            //UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
+            //UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
 #endif
 
             RunInMainThread(() => {
                 var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
+                //UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
 #endif
 
                 RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
@@ -588,7 +582,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log("NTake End");
+            //UnityEngine.Debug.Log("NTake End");
 #endif
         }
 
@@ -629,9 +623,9 @@ namespace ExamplesOfSymOntoClay
         public void StopShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
 #endif
 
             if (_rifle == null)
@@ -644,7 +638,7 @@ namespace ExamplesOfSymOntoClay
             _rifle.StopFire();
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
+            //UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
 #endif
         }
 
@@ -653,9 +647,9 @@ namespace ExamplesOfSymOntoClay
         public void ReadyForShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"ReadyForShootImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"ReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => { 
@@ -666,7 +660,7 @@ namespace ExamplesOfSymOntoClay
             AddHeIsReadyForShootFact();
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"ReadyForShootImpl End {methodId}");
+            //UnityEngine.Debug.Log($"ReadyForShootImpl End {methodId}");
 #endif
         }
 
@@ -675,9 +669,9 @@ namespace ExamplesOfSymOntoClay
         public void UnReadyForShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"UnReadyForShootImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"UnReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => {
@@ -689,7 +683,7 @@ namespace ExamplesOfSymOntoClay
             RemoveHeIsReadyForShootFact();
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"UnReadyForShootImpl End {methodId}");
+            //UnityEngine.Debug.Log($"UnReadyForShootImpl End {methodId}");
 #endif
         }
 
@@ -698,9 +692,9 @@ namespace ExamplesOfSymOntoClay
         public void ThrowOutImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"ThrowOutImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"ThrowOutImpl Begin {methodId}");
 #endif
 
             if (_rifle != null)
@@ -715,7 +709,7 @@ namespace ExamplesOfSymOntoClay
         public void ThrowOutRifle(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"ThrowOutRifle");
+            //UnityEngine.Debug.Log($"ThrowOutRifle");
 #endif
 
             RunInMainThread(() => {
@@ -729,9 +723,6 @@ namespace ExamplesOfSymOntoClay
                 UpdateAnimator();
             });
 
-            //I have moved endpoins here from RapidFireGunController
-            //RemoveFromManualControl(_rifle.USocGameObject);
-
             RemoveAllShootFacts();
         }
 
@@ -740,15 +731,15 @@ namespace ExamplesOfSymOntoClay
         public void AimToImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
+            //UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
 #endif
 
             if(entity == null)
             {
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null");
+                //UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null");
 #endif
 
                 RunInMainThread(() => {
@@ -756,7 +747,7 @@ namespace ExamplesOfSymOntoClay
                 });
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null return;");
+                //UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null return;");
 #endif
 
                 return;
@@ -772,16 +763,16 @@ namespace ExamplesOfSymOntoClay
             if(entity.IsEmpty)
             {
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"AimToImpl {methodId} entity.IsEmpty End");
+                //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.IsEmpty End");
 #endif
 
                 return;
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");
+            //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Id = {entity.Id}");
+            //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             var targetGameObject = RunInMainThread(() => { return GameObjectsRegistry.GetGameObject(entity.InstanceId); });
@@ -793,7 +784,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"AimToImpl {methodId} anlge = {anlge}");
+            //UnityEngine.Debug.Log($"AimToImpl {methodId} anlge = {anlge}");
 #endif
 
             if(Math.Abs(anlge) > MaxWeaponRotationAngle)
@@ -808,7 +799,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"AimToImpl {methodId} End");
+            //UnityEngine.Debug.Log($"AimToImpl {methodId} End");
 #endif
         }
 
@@ -817,9 +808,9 @@ namespace ExamplesOfSymOntoClay
         public void PutInBackpackImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            var methodId = GetMethodId();
+            //var methodId = GetMethodId();
 
-            UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} Begin");
+            //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} Begin");
 #endif
 
             if(_currentHandThing == null)
@@ -828,7 +819,7 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
+            //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
 #endif
 
             _currentHandThing.HideForBackpack();

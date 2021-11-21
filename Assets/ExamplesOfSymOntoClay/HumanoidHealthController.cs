@@ -21,10 +21,6 @@ namespace ExamplesOfSymOntoClay
 
         public void SetHit(RaycastHit shootHit, int damagePerShot)
         {
-#if DEBUG
-            Debug.Log($"HumanoidHealthController name = {name}; damagePerShot = {damagePerShot}");
-#endif
-
             Health -= damagePerShot;
 
             if(Health < 0)

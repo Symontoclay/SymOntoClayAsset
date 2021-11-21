@@ -155,19 +155,12 @@ namespace ExamplesOfSymOntoClay
             };
             movementSettings.UpdateDesiredTargetSpeed(input);
 
-#if DEBUG
-            //Debug.Log($"GetInput() input = {input}");
-#endif
-
             if(input == Vector2.zero)
             {
                 if(_movementState != MovementState.Stops)
                 {
                     _movementState = MovementState.Stops;
 
-#if DEBUG
-                    Debug.Log($"GetInput() Stops");
-#endif
                     AddStopFact();
                     StopRepeatingStepsSoundInMainThread();
                 }
@@ -180,10 +173,6 @@ namespace ExamplesOfSymOntoClay
                     {
                         _movementState = MovementState.Runs;
 
-#if DEBUG
-                        Debug.Log($"GetInput() Runs");
-#endif
-
                         AddRunningFact();
                         StartRepeatingRunningStepsSoundInMainThread();
                     }
@@ -193,10 +182,6 @@ namespace ExamplesOfSymOntoClay
                     if(_movementState != MovementState.Walks)
                     {
                         _movementState = MovementState.Walks;
-
-#if DEBUG
-                        Debug.Log($"GetInput() Walkes");
-#endif
 
                         AddWalkingFact();
                         StartRepeatingWalkingStepsSoundInMainThread();
