@@ -465,7 +465,11 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
-            if(entity.IsEmpty)
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
+#endif
+
+            if (entity.IsEmpty)
             {
                 entity.SpecifyOnce(BackpackStorage);
 
@@ -473,10 +477,10 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"TakeImpl entity.InstanceId = {entity.InstanceId}");
-            UnityEngine.Debug.Log($"TakeImpl entity.Id = {entity.Id}");
-            UnityEngine.Debug.Log($"TakeImpl entity.Position = {entity.Position}");
-            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
+            UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (2) = {entity.IsEmpty}");
 #endif
 
             if (entity.IsEmpty)

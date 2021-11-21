@@ -40,6 +40,13 @@ namespace SymOntoClay.Editors
                 _target.Id = newIdValue;
             }
 
+            _target.TakingPolicy = (TakingPolicy)EditorGUILayout.EnumPopup("Taking Policy", _target.TakingPolicy);
+
+            if (_target.TakingPolicy == TakingPolicy.ByDistance)
+            {
+                _target.TakingDistance = EditorGUILayout.FloatField("Taking Distance", _target.TakingDistance);
+            }
+
             GUILayout.EndVertical();
 
             if (GUI.changed)

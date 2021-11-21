@@ -3364,6 +3364,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: -6750239444755058063, guid: c93c80ba35a7ac24b93f7244b57d125c, type: 3}
   Id: '#M4A1'
+  TakingPolicy: 2
+  TakingDistance: 20
 --- !u!54 &1687108098
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15482,6 +15484,7 @@ MonoBehaviour:
   RightHandWP: {fileID: 0}
   LeftHandWP: {fileID: 0}
   MaxHeadRotationAngle: 30
+  MaxWeaponRotationAngle: 10
 --- !u!114 &6030519418766110243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15656,6 +15659,7 @@ MonoBehaviour:
   RightHandWP: {fileID: 0}
   LeftHandWP: {fileID: 0}
   MaxHeadRotationAngle: 30
+  MaxWeaponRotationAngle: 10
 --- !u!114 &9170094138085161981
 MonoBehaviour:
   m_ObjectHideFlags: 0
