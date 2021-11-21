@@ -624,7 +624,13 @@ namespace ExamplesOfSymOntoClay
         [BipedEndpoint("Stop Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StopShootImpl(CancellationToken cancellationToken)
         {
-            if(_rifle == null)
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
+#endif
+
+            if (_rifle == null)
             {
                 return;
             }
@@ -632,6 +638,10 @@ namespace ExamplesOfSymOntoClay
             RemoveHeShootsFact();
 
             _rifle.StopFire();
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
+#endif
         }
 
         [DebuggerHidden]

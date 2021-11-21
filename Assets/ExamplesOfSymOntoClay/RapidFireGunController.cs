@@ -15,6 +15,8 @@ namespace ExamplesOfSymOntoClay
 {
     public class RapidFireGunController : BaseBehavior, IRifle
     {
+        private object _lockObl = new object();
+
         public KindOfHandThing Kind => KindOfHandThing.Rifle;
 
         private Collider mBodyCollider;
@@ -126,6 +128,16 @@ namespace ExamplesOfSymOntoClay
 
         public void HideForBackpack()
         {
+            lock (_lockObl)
+            {
+                if (!_isFired)
+                {
+                    return;
+                }
+
+                _isFired = false;
+            }
+
             StopFire();
 
             RunInMainThread(() => {
@@ -149,13 +161,15 @@ namespace ExamplesOfSymOntoClay
 
             UnityEngine.Debug.Log($"StartFire Begin {methodId}");
 #endif
-
-            if(_isFired)
+            lock (_lockObl)
             {
-                return;
-            }
+                if (_isFired)
+                {
+                    return;
+                }
 
-            _isFired = true;
+                _isFired = true;
+            }
 
             var timer = 0f;
             var state = InternalStateOfRapidFireGun.TurnedOf;
@@ -169,18 +183,26 @@ namespace ExamplesOfSymOntoClay
 
             while (true)
             {
+                //#if UNITY_EDITOR
+                //                UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                //#endif
+
+//#if UNITY_EDITOR
+//                UnityEngine.Debug.Log($"StartFire {methodId} _isFired = {_isFired}");
+//#endif
+
+                if (cancellationToken.IsCancellationRequested || !_isFired)
+                {
 #if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}");
+                    UnityEngine.Debug.Log($"StartFire {methodId} cancellationToken.IsCancellationRequested = {cancellationToken.IsCancellationRequested}; _isFired = {_isFired}");
 #endif
 
-                if (cancellationToken.IsCancellationRequested)
-                {
                     RunInMainThread(() =>
                     {
                         //mGunAudio.Stop();
                         DisableEffects();
                         StopRepeatingShotSoundInMainThread();
-                    });                    
+                    });
 
                     break;
                 }
@@ -304,17 +326,34 @@ namespace ExamplesOfSymOntoClay
 
         public void StopFire()
         {
-            if(!_isFired)
+#if DEBUG
+            UnityEngine.Debug.Log($"StopFire Begin");
+#endif
+
+            lock (_lockObl)
             {
-                return;
+                if (!_isFired)
+                {
+                    return;
+                }
+
+                _isFired = false;
             }
 
-            _isFired = false;
+#if DEBUG
+            UnityEngine.Debug.Log($"StopFire Next");
+#endif
 
             RunInMainThread(() =>
             {
                 DisableEffects();
             });
+
+            StopRepeatingShotSoundInUsualThread();
+
+#if DEBUG
+            UnityEngine.Debug.Log($"StopFire End");
+#endif
         }
 
         private Quaternion? _oldLocalRotation;
