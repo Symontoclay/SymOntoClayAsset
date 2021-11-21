@@ -66,7 +66,7 @@ namespace SymOntoClay
             //Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
-            if(_uSocGameObject is IUHumanoidNPC)
+            if (_uSocGameObject is IUHumanoidNPC)
             {
                 _uHumanoidNPC = _uSocGameObject as IUHumanoidNPC;
                 _humanoidNPC = _uHumanoidNPC.NPC;

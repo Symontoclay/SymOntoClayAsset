@@ -144,6 +144,8 @@ MonoBehaviour:
   FocusRaysAngle: 40
   FocusRaysInterval: 5
   ShowRayCastGizmo: 0
+  Backpack:
+  - {fileID: 1687108094}
 --- !u!1 &40287277
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,6 +2214,8 @@ MonoBehaviour:
   Head: {fileID: 1904448440}
   RightHandWP: {fileID: 1836613821}
   LeftHandWP: {fileID: 1450261837}
+  Backpack:
+  - {fileID: 6030519418766110241}
 --- !u!1 &908796924
 GameObject:
   m_ObjectHideFlags: 0
@@ -15642,6 +15646,7 @@ MonoBehaviour:
   FocusRaysAngle: 30
   FocusRaysInterval: 10
   ShowRayCastGizmo: 0
+  Backpack: []
 --- !u!114 &9170094138085161980
 MonoBehaviour:
   m_ObjectHideFlags: 0

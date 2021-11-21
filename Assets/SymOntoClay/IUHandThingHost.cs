@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay
 {
-    public interface IUHandThing: IUSocGameObject
+    public interface IUHandThingHost
     {
         void HideForBackpackInMainThread();
         void HideForBackpackInUsualThread();

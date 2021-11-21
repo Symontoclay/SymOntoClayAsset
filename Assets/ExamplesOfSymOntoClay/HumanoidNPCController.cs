@@ -33,8 +33,9 @@ namespace ExamplesOfSymOntoClay
         public float MaxHeadRotationAngle = 30;
         public float MaxWeaponRotationAngle = 10;
 
-        protected void Awake()
+        private void Awake()
         {
+
 #if UNITY_EDITOR
             //Debug.Log("HumanoidNPCController Awake");
 #endif
@@ -454,13 +455,13 @@ namespace ExamplesOfSymOntoClay
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
+            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
             if (entity.IsEmpty)
@@ -471,10 +472,10 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
-            //UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
-            //UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
-            //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (2) = {entity.IsEmpty}");
+            UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (2) = {entity.IsEmpty}");
 #endif
 
             if (entity.IsEmpty)
@@ -484,17 +485,17 @@ namespace ExamplesOfSymOntoClay
                 entity.Resolve();
 
 #if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
-                //UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
-                //UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
-                //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (after) = {entity.IsEmpty}");
+                UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
+                UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
+                UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
+                UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty (after) = {entity.IsEmpty}");
 #endif
             }
 
             NTake(cancellationToken, entity);
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"TakeImpl End {methodId}");
+            UnityEngine.Debug.Log($"TakeImpl End {methodId}");
 #endif
         }
 
@@ -556,20 +557,24 @@ namespace ExamplesOfSymOntoClay
         private void NTake(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
-            //UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
-            //UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
+#endif
+
+            var handThing = RunInMainThread(() => { return GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId); });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
+#endif
+
+            RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
 #endif
 
             RunInMainThread(() => {
-                var handThing = GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId);
-
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
-#endif
-
-                RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
-
                 switch (handThing.Kind)
                 {
                     case KindOfHandThing.Rifle:
@@ -582,7 +587,7 @@ namespace ExamplesOfSymOntoClay
             });
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log("NTake End");
+            UnityEngine.Debug.Log("NTake End");
 #endif
         }
 
@@ -822,7 +827,7 @@ namespace ExamplesOfSymOntoClay
             //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
 #endif
 
-            _currentHandThing.HideForBackpack();
+            _currentHandThing.HideForBackpackInUsualThread();
 
             RunInMainThread(() => {
                 _enableRifleIK = false;

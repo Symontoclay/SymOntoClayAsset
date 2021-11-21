@@ -84,12 +84,22 @@ namespace ExamplesOfSymOntoClay
 
         public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)
         {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("SetToHandsOfHumanoid Begin");
+#endif
+
             var targetParent = humanoid.RightHandWP.transform;
 
             if (transform.parent == targetParent)
             {
                 return true;
             }
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("SetToHandsOfHumanoid NEXT");
+#endif
+
+            gameObject.SetActive(true);
 
             _isTaken = true;
 
@@ -109,23 +119,25 @@ namespace ExamplesOfSymOntoClay
 
             transform.localPosition = new Vector3(0, 0, 0);
 
-            gameObject.SetActive(true);
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("SetToHandsOfHumanoid End");
+#endif
 
             return true;
         }
 
-        public void HideForBackpack()
+        public void HideForBackpackInMainThread()
         {
-            lock (_lockObl)
-            {
-                if (!_isFired)
-                {
-                    return;
-                }
+            Task.Run(() => {
+                StopFire();
+            });
 
-                _isFired = false;
-            }
+            transform.SetParent(null);
+            gameObject.SetActive(false);
+        }
 
+        public void HideForBackpackInUsualThread()
+        {
             StopFire();
 
             RunInMainThread(() => {

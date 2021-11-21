@@ -47,9 +47,13 @@ namespace SymOntoClay
         public int TotalRaysInterval = 30;
         public int FocusRaysAngle = 30;
         public int FocusRaysInterval = 10;
+
 #if UNITY_EDITOR
         public bool ShowRayCastGizmo;
 #endif
+
+        public List<GameObject> Backpack;
+
         //public bool IsImmortal;
         //public int Health = 100;
         //public bool IsResurrected;
@@ -121,6 +125,28 @@ namespace SymOntoClay
             else
             {
                 _targetHeadTransform = Head.transform;
+            }
+
+            if (Backpack != null)
+            {
+                foreach(var gObj in Backpack)
+                {
+#if DEBUG
+                    Debug.Log($"HumanoidNPC Start gObj.name = {gObj.name}");
+#endif
+
+                    var targetHandThingComponent = gObj.GetComponent<IUHandThing>();
+
+#if DEBUG
+                    Debug.Log($"HumanoidNPC Start targetHandThingComponent == null = {targetHandThingComponent == null}");
+                    Debug.Log($"HumanoidNPC Start targetHandThingComponent.SocGameObject == null = {targetHandThingComponent.SocGameObject == null}");
+                    Debug.Log($"HumanoidNPC Start targetHandThingComponent.SocGameObject.PublicFactsStorage == null = {targetHandThingComponent.SocGameObject.PublicFactsStorage == null}");
+#endif
+
+                    _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
+
+                    targetHandThingComponent.HideForBackpackInMainThread();
+                }
             }
         }
 

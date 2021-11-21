@@ -15,6 +15,19 @@ namespace SymOntoClay
 
         public float TakingDistance = 2;
 
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _uHandThingHost = GetComponent<IUHandThingHost>();
+
+#if DEBUG
+            Debug.Log($"HandThing Awake _uHandThingHost == null = {_uHandThingHost == null}");
+#endif
+        }
+
+        private IUHandThingHost _uHandThingHost;
+
         protected override bool CanBeTakenBy(IEntity subject)
         {
             switch(TakingPolicy)
@@ -51,6 +64,24 @@ namespace SymOntoClay
                 default:
                     throw new ArgumentOutOfRangeException(nameof(TakingPolicy), TakingPolicy, null);
             }
+        }
+
+        void IUHandThing.HideForBackpackInMainThread()
+        {
+#if DEBUG
+            Debug.Log("HandThing HideForBackpackInMainThread");
+#endif
+
+            _uHandThingHost?.HideForBackpackInMainThread();
+        }
+
+        void IUHandThing.HideForBackpackInUsualThread()
+        {
+#if DEBUG
+            Debug.Log("HandThing HideForBackpackInUsualThread");
+#endif
+
+            _uHandThingHost?.HideForBackpackInUsualThread();
         }
     }
 }

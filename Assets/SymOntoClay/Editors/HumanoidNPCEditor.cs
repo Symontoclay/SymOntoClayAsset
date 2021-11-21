@@ -47,6 +47,9 @@ namespace SymOntoClay.Editors
             _boldLabelStyle = new GUIStyle() { fontStyle = FontStyle.Bold };
 
             _target = (HumanoidNPC)target;
+
+            _so = new SerializedObject(target);
+            _backPackProperty = _so.FindProperty("Backpack");
         }
 
         //protected override void OnHeaderGUI()
@@ -57,6 +60,9 @@ namespace SymOntoClay.Editors
         //private bool _showHealthPosition = true;
         private bool _showGizmosPosition = true;
         private GUIStyle _boldLabelStyle;
+
+        private SerializedObject _so;
+        private SerializedProperty _backPackProperty;
 
         public override void OnInspectorGUI()
         {
@@ -73,6 +79,10 @@ namespace SymOntoClay.Editors
 
                 _target.Id = newIdValue;
             }
+
+            EditorGUILayout.PropertyField(_backPackProperty, true);
+
+            _so.ApplyModifiedProperties();
 
             _showVisionPosition = EditorGUILayout.BeginFoldoutHeaderGroup(_showVisionPosition, "Vision");
 
@@ -105,7 +115,7 @@ namespace SymOntoClay.Editors
             if(_showGizmosPosition)
             {
                 _target.ShowRayCastGizmo = EditorGUILayout.Toggle("Show RayCast Gizmo", _target.ShowRayCastGizmo);
-            }            
+            }
 
             GUILayout.EndVertical();
 

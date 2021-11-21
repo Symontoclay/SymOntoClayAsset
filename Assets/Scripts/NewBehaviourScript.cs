@@ -27,6 +27,8 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
 
     private IRifle _twoHandGun;
 
+    public List<GameObject> Backpack;
+
     // Start is called before the first frame update
     void Start()
     {
