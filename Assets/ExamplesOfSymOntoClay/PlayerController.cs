@@ -17,7 +17,7 @@ namespace ExamplesOfSymOntoClay
         protected override void Start()
         {
 #if DEBUG
-            Debug.Log($"ExampleSymOntoClayPlayer Start");
+            //Debug.Log($"ExampleSymOntoClayPlayer Start");
 #endif
 
             base.Start();

@@ -116,10 +116,6 @@ namespace SymOntoClay
 
         void Start()
         {
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("HumanoidNPC Start Begin");
-#endif
-
             CalculateRaysAngles();
 
             if(Head == null)
@@ -137,10 +133,6 @@ namespace SymOntoClay
             {
                 _needInitilizeBackpack = true;
             }
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("HumanoidNPC Start End");
-#endif
         }
 
         void Update()
@@ -210,17 +202,7 @@ namespace SymOntoClay
         {
             foreach (var gObj in Backpack)
             {
-#if DEBUG
-                Debug.Log($"HumanoidNPC InitilizeBackpack gObj.name = {gObj.name}");
-#endif
-
                 var targetHandThingComponent = gObj.GetComponent<IUHandThing>();
-
-#if DEBUG
-                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent == null = {targetHandThingComponent == null}");
-                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent.SocGameObject == null = {targetHandThingComponent.SocGameObject == null}");
-                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent.SocGameObject.PublicFactsStorage == null = {targetHandThingComponent.SocGameObject.PublicFactsStorage == null}");
-#endif
 
                 _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
 

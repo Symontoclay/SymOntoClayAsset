@@ -49,10 +49,6 @@ namespace ExamplesOfSymOntoClay
 
         protected override void Start()
         {
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("RapidFireGunController Start Begin");
-#endif
-
             base.Start();
 
             mBodyCollider = GetComponentInChildren<Collider>();
@@ -72,10 +68,6 @@ namespace ExamplesOfSymOntoClay
             }
 
             mGunEndTransform = _gunEnd.transform;
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("RapidFireGunController End Begin");
-#endif
         }
 
         //void Update()
@@ -92,20 +84,12 @@ namespace ExamplesOfSymOntoClay
 
         public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)
         {
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("SetToHandsOfHumanoid Begin");
-#endif
-
             var targetParent = humanoid.RightHandWP.transform;
 
             if (transform.parent == targetParent)
             {
                 return true;
             }
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("SetToHandsOfHumanoid NEXT");
-#endif
 
             _isTaken = true;
 
@@ -126,10 +110,6 @@ namespace ExamplesOfSymOntoClay
             transform.localPosition = new Vector3(0, 0, 0);
 
             gameObject.SetActive(true);
-
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("SetToHandsOfHumanoid End");
-#endif
 
             return true;
         }

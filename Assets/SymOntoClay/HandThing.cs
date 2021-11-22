@@ -20,10 +20,6 @@ namespace SymOntoClay
             base.Awake();
 
             _uHandThingHost = GetComponent<IUHandThingHost>();
-
-#if DEBUG
-            Debug.Log($"HandThing Awake _uHandThingHost == null = {_uHandThingHost == null}");
-#endif
         }
 
         private IUHandThingHost _uHandThingHost;
@@ -68,19 +64,11 @@ namespace SymOntoClay
 
         void IUHandThing.HideForBackpackInMainThread()
         {
-#if DEBUG
-            Debug.Log("HandThing HideForBackpackInMainThread");
-#endif
-
             _uHandThingHost?.HideForBackpackInMainThread();
         }
 
         void IUHandThing.HideForBackpackInUsualThread()
         {
-#if DEBUG
-            Debug.Log("HandThing HideForBackpackInUsualThread");
-#endif
-
             _uHandThingHost?.HideForBackpackInUsualThread();
         }
     }
