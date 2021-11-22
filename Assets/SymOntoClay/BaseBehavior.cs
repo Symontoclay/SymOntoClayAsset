@@ -609,7 +609,15 @@ namespace SymOntoClay
 
         protected void RemoveFromBackpack(IGameObject obj)
         {
+#if UNITY_EDITOR
+            Debug.Log($"BaseBehavior RemoveFromBackpack _humanoidNPC == null = {_humanoidNPC == null}");
+#endif
+
             _humanoidNPC.RemoveFromBackpack(obj);
+
+#if UNITY_EDITOR
+            Debug.Log($"BaseBehavior RemoveFromBackpack End");
+#endif
         }
 
         protected Quaternion GetRotationToPositionInUsualThread(System.Numerics.Vector3 targetPosition)

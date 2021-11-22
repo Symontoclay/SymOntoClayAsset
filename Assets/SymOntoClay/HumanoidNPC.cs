@@ -54,6 +54,8 @@ namespace SymOntoClay
 
         public List<GameObject> Backpack;
 
+        private bool _needInitilizeBackpack;
+
         //public bool IsImmortal;
         //public int Health = 100;
         //public bool IsResurrected;
@@ -114,6 +116,10 @@ namespace SymOntoClay
 
         void Start()
         {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("HumanoidNPC Start Begin");
+#endif
+
             CalculateRaysAngles();
 
             if(Head == null)
@@ -127,27 +133,14 @@ namespace SymOntoClay
                 _targetHeadTransform = Head.transform;
             }
 
-            if (Backpack != null)
+            if (Backpack != null && Backpack.Any())
             {
-                foreach(var gObj in Backpack)
-                {
-#if DEBUG
-                    Debug.Log($"HumanoidNPC Start gObj.name = {gObj.name}");
-#endif
-
-                    var targetHandThingComponent = gObj.GetComponent<IUHandThing>();
-
-#if DEBUG
-                    Debug.Log($"HumanoidNPC Start targetHandThingComponent == null = {targetHandThingComponent == null}");
-                    Debug.Log($"HumanoidNPC Start targetHandThingComponent.SocGameObject == null = {targetHandThingComponent.SocGameObject == null}");
-                    Debug.Log($"HumanoidNPC Start targetHandThingComponent.SocGameObject.PublicFactsStorage == null = {targetHandThingComponent.SocGameObject.PublicFactsStorage == null}");
-#endif
-
-                    _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
-
-                    targetHandThingComponent.HideForBackpackInMainThread();
-                }
+                _needInitilizeBackpack = true;
             }
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("HumanoidNPC Start End");
+#endif
         }
 
         void Update()
@@ -155,6 +148,13 @@ namespace SymOntoClay
             if (_isDead)
             {
                 return;
+            }
+
+            if(_needInitilizeBackpack)
+            {
+                _needInitilizeBackpack = false;
+
+                InitilizeBackpack();
             }
 
             var newRawVisibleItemsList = new List<UVisibleItem>();
@@ -203,6 +203,28 @@ namespace SymOntoClay
             {
                 _rawVisibleItemsList = newRawVisibleItemsList;
                 _isRawVisibleItemsListChanged = true;
+            }
+        }
+
+        private void InitilizeBackpack()
+        {
+            foreach (var gObj in Backpack)
+            {
+#if DEBUG
+                Debug.Log($"HumanoidNPC InitilizeBackpack gObj.name = {gObj.name}");
+#endif
+
+                var targetHandThingComponent = gObj.GetComponent<IUHandThing>();
+
+#if DEBUG
+                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent == null = {targetHandThingComponent == null}");
+                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent.SocGameObject == null = {targetHandThingComponent.SocGameObject == null}");
+                Debug.Log($"HumanoidNPC InitilizeBackpack targetHandThingComponent.SocGameObject.PublicFactsStorage == null = {targetHandThingComponent.SocGameObject.PublicFactsStorage == null}");
+#endif
+
+                _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
+
+                targetHandThingComponent.HideForBackpackInMainThread();
             }
         }
 

@@ -49,7 +49,7 @@ namespace ExamplesOfSymOntoClay
         protected override void Start()
         {
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log("HumanoidNPCController OnStart Begin");
+            UnityEngine.Debug.Log("HumanoidNPCController Start Begin");
 #endif
 
             base.Start();
@@ -88,7 +88,7 @@ namespace ExamplesOfSymOntoClay
             }
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log("HumanoidNPCController OnStart End");
+            UnityEngine.Debug.Log("HumanoidNPCController Start End");
 #endif
         }
 
@@ -568,7 +568,7 @@ namespace ExamplesOfSymOntoClay
             UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
 #endif
 
-            RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
+            //RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
