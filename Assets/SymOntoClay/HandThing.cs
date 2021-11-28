@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace SymOntoClay
 {
-    [AddComponentMenu("SymOntoClay/HandThing")]
+    [AddComponentMenu("SymOntoClay/Hand Thing")]
     public class HandThing : BaseThing, IUHandThing
     {
         public TakingPolicy TakingPolicy;

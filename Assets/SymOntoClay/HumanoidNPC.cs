@@ -36,7 +36,7 @@ using UnityEngine.AI;
 
 namespace SymOntoClay
 {
-    [AddComponentMenu("SymOntoClay/HumanoidNPC")]
+    [AddComponentMenu("SymOntoClay/Humanoid NPC")]
     public class HumanoidNPC : BaseSymOntoClayGameObject, IPlatformSupport, IUHumanoidNPC, IVisionProvider
     {
         private bool _isDead;

@@ -29,7 +29,7 @@ namespace SymOntoClay
     /// Head locator.
     /// It allows us to detect head for scanner of visible object without explicit linking Head to HumanoidNPC.
     /// </summary>
-    [AddComponentMenu("SymOntoClay/HeadLocator")]
+    [AddComponentMenu("SymOntoClay/Head Locator")]
     public class HeadLocator : MonoBehaviour
     {
     }

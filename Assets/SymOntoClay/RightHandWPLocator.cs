@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SymOntoClay
 {
-    [AddComponentMenu("SymOntoClay/RightHandWPLocator")]
+    [AddComponentMenu("SymOntoClay/Right Hand WP Locator")]
     public class RightHandWPLocator : MonoBehaviour
     {
     }
