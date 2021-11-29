@@ -35,6 +35,11 @@ namespace SymOntoClay
     /// </summary>
     public interface IUHostListener
     {
+        /// <summary>
+        /// Checks could the game object be taken by an NPC.
+        /// </summary>
+        /// <param name="subject">The NPC that takes this.</param>
+        /// <returns><b>true</b> if the game object can be be taken by an NPC, otherwise <b>flase</b></returns>
         bool CanBeTakenBy(IEntity subject);
     }
 }

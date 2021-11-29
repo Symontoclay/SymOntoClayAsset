@@ -29,8 +29,14 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay
 {
+    /// <summary>
+    /// Represents SymOntoClay's humanoid NPC component.
+    /// </summary>
     public interface IUHumanoidNPC: IUSocHumanoid
     {
+        /// <summary>
+        /// Gets instance of SymOntoClay core.
+        /// </summary>
         IHumanoidNPC NPC { get; }
     }
 }

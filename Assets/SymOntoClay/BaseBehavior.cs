@@ -501,7 +501,10 @@ namespace SymOntoClay
             }
         }
 
-        public void RemoveAllShootFacts()
+        /// <summary>
+        /// Removes all facts related to shooting.
+        /// </summary>
+        protected void RemoveAllShootFacts()
         {
             Task.Run(() => {
                 NRemoveCurrHoldFactId();
@@ -578,45 +581,81 @@ namespace SymOntoClay
         }
 
         /// <summary>
-        /// Checks that It can be taken by the subject.
+        /// Checks that It can be taken by the NPC.
         /// </summary>
-        /// <param name="subject">The subject that takes this.</param>
-        /// <returns>true - if It can be taken, otherwise - false.</returns>
+        /// <param name="subject">The NPC that takes this.</param>
+        /// <returns><b>true</b> - if It can be taken, otherwise - <b>false</b>.</returns>
         public virtual bool CanBeTakenBy(IEntity subject)
         {
             return false;
         }
 
+        /// <summary>
+        /// Adds a game object into manual controlled area of the NPC.
+        /// </summary>
+        /// <param name="obj">Instance of the game object.</param>
+        /// <param name="device">Describes biped device which will be using the game object.</param>
         protected void AddToManualControl(IUSocGameObject obj, DeviceOfBiped device)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, device);
         }
 
+        /// <summary>
+        /// Adds a game object into manual controlled area of the NPC.
+        /// </summary>
+        /// <param name="obj">Instance of the game object.</param>
+        /// <param name="devices">Describes list of biped devices which will be using the game object.</param>
         protected void AddToManualControl(IUSocGameObject obj, IList<DeviceOfBiped> devices)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, devices);
         }
 
+        /// <summary>
+        /// Removes a game object from manual controlled area of an NPC.
+        /// </summary>
+        /// <param name="obj">Instance of the game object.</param>
         protected void RemoveFromManualControl(IUSocGameObject obj)
         {
             _humanoidNPC.RemoveFromManualControl(obj.SocGameObject);
         }
 
+        /// <summary>
+        /// Adds a game object into backpack.
+        /// </summary>
+        /// <param name="obj">Instance of the game object.</param>
         protected void AddToBackpack(IGameObject obj)
         {
             _humanoidNPC.AddToBackpack(obj);
         }
 
+        /// <summary>
+        /// Removes game object from backpack.
+        /// </summary>
+        /// <param name="obj">Instance of the game object.</param>
         protected void RemoveFromBackpack(IGameObject obj)
         {
             _humanoidNPC.RemoveFromBackpack(obj);
         }
 
+        /// <summary>
+        /// Creates a rotation with the specified forward and upwards directions.
+        /// It is a wrapper on Quaternion.LookRotation.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        /// <param name="targetPosition">Position that is looked at.</param>
+        /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInUsualThread(System.Numerics.Vector3 targetPosition)
         {
             return GetRotationToPositionInUsualThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
         }
 
+        /// <summary>
+        /// Creates a rotation with the specified forward and upwards directions.
+        /// It is a wrapper on Quaternion.LookRotation.
+        /// This method should be called only in usual (not main) thread.
+        /// </summary>
+        /// <param name="targetPosition">Position that is looked at.</param>
+        /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInUsualThread(Vector3 targetPosition)
         {
             return RunInMainThread<Quaternion>(() => {
@@ -624,11 +663,25 @@ namespace SymOntoClay
             });
         }
 
+        /// <summary>
+        /// Creates a rotation with the specified forward and upwards directions.
+        /// It is a wrapper on Quaternion.LookRotation.
+        /// This method should be called only in main thread.
+        /// </summary>
+        /// <param name="targetPosition">Position that is looked at.</param>
+        /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInMainThread(System.Numerics.Vector3 targetPosition)
         {
             return GetRotationToPositionInMainThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
         }
 
+        /// <summary>
+        /// Creates a rotation with the specified forward and upwards directions.
+        /// It is a wrapper on Quaternion.LookRotation.
+        /// This method should be called only in main thread.
+        /// </summary>
+        /// <param name="targetPosition">Position that is looked at.</param>
+        /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInMainThread(Vector3 targetPosition)
         {
             var heading = targetPosition - transform.position;
