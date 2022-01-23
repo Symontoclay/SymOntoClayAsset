@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.12</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.14</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2021.2.8f1</UnityVersion>
@@ -56,61 +56,61 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\SymOntoClay\HumanoidNPC.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\HumanoidNPC.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3UnityAndSystemNumericConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Build\BuildProcessor.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\ThingEditor.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldFileImporterEditor.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\PlayerCommonBus.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\PlayerInputMode.cs" />
-    <Compile Include="Assets\SymOntoClay\IUHumanoidNPC.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\PlayerController.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IPlayerCommonBus.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IUBipedHumanoid.cs" />
-    <Compile Include="Assets\SymOntoClay\Thing.cs" />
-    <Compile Include="Assets\SymOntoClay\BaseBehavior.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\PlayerCommonBus.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\Internal\PlayerInputMode.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUHumanoidNPC.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\PlayerController.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IPlayerCommonBus.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IUBipedHumanoid.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\Thing.cs" />
+    <Compile Include="Assets\SymOntoClay\BaseBehaviors\BaseBehavior.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\HandThingEditor.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\ITargetOfDamage.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMouseLook.cs" />
-    <Compile Include="Assets\SymOntoClay\IUHandThingHost.cs" />
-    <Compile Include="Assets\SymOntoClay\IUHostListener.cs" />
-    <Compile Include="Assets\SymOntoClay\LeftHandWPLocator.cs" />
-    <Compile Include="Assets\SymOntoClay\BaseSymOntoClayGameObject.cs" />
-    <Compile Include="Assets\SymOntoClay\World.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyMovementSettings.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\KindOfHandThing.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\ITargetOfDamage.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\Internal\MyMouseLook.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUHandThingHost.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUHostListener.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\LeftHandWPLocator.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\BaseSymOntoClayGameObject.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\World.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\Internal\MyMovementSettings.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\KindOfHandThing.cs" />
     <Compile Include="Assets\SymOntoClay\Convertors\Vector3AndWayPointValueConvertor.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\SobjFile.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\Internal\MyAdvancedSettings.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\Internal\MyAdvancedSettings.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IHandThing.cs" />
-    <Compile Include="Assets\SymOntoClay\IUHandThing.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IRifle.cs" />
-    <Compile Include="Assets\SymOntoClay\RightHandWPLocator.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IDieProvider.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IHandThing.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUHandThing.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IRifle.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\RightHandWPLocator.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IDieProvider.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\WorldFileImporter.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\WorldEditor.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidHealthController.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\HumanoidHealthController.cs" />
     <Compile Include="Assets\SymOntoClay\Helpers\FileHelper.cs" />
     <Compile Include="Assets\SymOntoClay\Data\UVisibleItem.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\HumanoidNPCController.cs" />
-    <Compile Include="Assets\SymOntoClay\GameObjectsRegistry.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\HumanoidNPCController.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\GameObjectsRegistry.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\PlayerEditor.cs" />
-    <Compile Include="Assets\SymOntoClay\IUSocGameObject.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\InputKeyHelper.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUSocGameObject.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\InputKeyHelper.cs" />
     <Compile Include="Assets\SymOntoClay\Importers\SObjFileImporter.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\RapidFireGunController.cs" />
-    <Compile Include="Assets\SymOntoClay\HeadLocator.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\RapidFireGunController.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\HeadLocator.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\HumanoidNPCEditor.cs" />
     <Compile Include="Assets\SymOntoClay\Editors\SobjFileImporterEditor.cs" />
-    <Compile Include="Assets\SymOntoClay\TakingPolicy.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\FirstPersonController.cs" />
-    <Compile Include="Assets\SymOntoClay\BaseThing.cs" />
-    <Compile Include="Assets\SymOntoClay\HandThing.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\IHumanoidHealth.cs" />
-    <Compile Include="Assets\SymOntoClay\IUSocHumanoid.cs" />
-    <Compile Include="Assets\ExamplesOfSymOntoClay\GunEndLocator.cs" />
-    <Compile Include="Assets\SymOntoClay\Player.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\TakingPolicy.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\FirstPersonController.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\BaseThing.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\HandThing.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\IHumanoidHealth.cs" />
+    <Compile Include="Assets\SymOntoClay\Interfaces\IUSocHumanoid.cs" />
+    <Compile Include="Assets\SymOntoClaySamles\GunEndLocator.cs" />
+    <Compile Include="Assets\SymOntoClay\Components\Player.cs" />
     <Compile Include="Assets\SymOntoClay\Scriptables\WorldFile.cs" />
   </ItemGroup>
   <ItemGroup>
