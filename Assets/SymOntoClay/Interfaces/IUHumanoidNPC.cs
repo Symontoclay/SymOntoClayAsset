@@ -27,7 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Interfaces
 {
     /// <summary>
     /// Represents SymOntoClay's humanoid NPC component.

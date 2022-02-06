@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     public enum TakingPolicy
     {

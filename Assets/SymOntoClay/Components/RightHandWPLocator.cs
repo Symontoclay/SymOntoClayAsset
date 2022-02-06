@@ -23,7 +23,7 @@ SOFTWARE.*/
 using System.Collections;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     /// <summary>
     /// Helps to find NPC's right hand weapon point.

@@ -20,9 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using Assets.SymOntoClay.Convertors;
 using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Scriptables;
 using SymOntoClay.SoundBuses;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
@@ -33,8 +32,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SymOntoClay.UnityAsset.Converters;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/World")]
     public class World : MonoBehaviour
@@ -55,8 +55,8 @@ namespace SymOntoClay
 
             _world = WorldFactory.WorldInstance;
 
-            _world.AddConvertor(new Vector3UnityAndSystemNumericConvertor());
-            _world.AddConvertor(new Assets.SymOntoClay.Convertors.Vector3AndWayPointValueConvertor());
+            _world.AddConvertor(new Vector3UnityAndSystemNumericConverter());
+            _world.AddConvertor(new Vector3AndWayPointValueConverter());
             _world.AddConvertor(new FloatAndNumberValueConvertor());
 
             var worldFullFileName = Path.Combine(Application.dataPath, WorldFile.FullName);

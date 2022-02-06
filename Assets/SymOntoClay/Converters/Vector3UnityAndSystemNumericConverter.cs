@@ -20,7 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.UnityAsset.Core;
 using System;
@@ -28,17 +27,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 
-namespace Assets.SymOntoClay.Convertors
+namespace SymOntoClay.UnityAsset.Converters
 {
-    public class Vector3AndWayPointValueConvertor : IPlatformTypesConvertor
+    public class Vector3UnityAndSystemNumericConverter: IPlatformTypesConvertor
     {
         /// <inheritdoc/>
-        public Type PlatformType => typeof(Vector3);
+        public Type PlatformType => typeof(UnityEngine.Vector3);
 
         /// <inheritdoc/>
-        public Type CoreType => typeof(WaypointValue);
+        public Type CoreType => typeof(System.Numerics.Vector3);
 
         /// <inheritdoc/>
         public bool CanConvertToPlatformType => true;
@@ -49,17 +47,17 @@ namespace Assets.SymOntoClay.Convertors
         /// <inheritdoc/>
         public object ConvertToCoreType(object platformObject, IEntityLogger logger)
         {
-            throw new NotImplementedException();
+            var targetObject = (UnityEngine.Vector3)platformObject;
+
+            return new System.Numerics.Vector3(targetObject.x, targetObject.y, targetObject.z);
         }
 
         /// <inheritdoc/>
         public object ConvertToPlatformType(object coreObject, IEntityLogger logger)
         {
-            var targetObject = (WaypointValue)coreObject;
+            var targetObject = (System.Numerics.Vector3)coreObject;
 
-            var absoluteCoordinates = targetObject.AbcoluteCoordinates;
-
-            return new Vector3(absoluteCoordinates.X, absoluteCoordinates.Y, absoluteCoordinates.Z);
+            return new UnityEngine.Vector3(targetObject.X, targetObject.Y, targetObject.Z);
         }
 
         /// <inheritdoc/>

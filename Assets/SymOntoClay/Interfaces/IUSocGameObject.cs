@@ -28,7 +28,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Interfaces
 {
     /// <summary>
     /// Represents base SymOntoClay's game object component.

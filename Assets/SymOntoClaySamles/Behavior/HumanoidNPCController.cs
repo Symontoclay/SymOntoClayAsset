@@ -6,13 +6,16 @@ using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using UnityEngine.AI;
 using System.Diagnostics;
-using Assets.SymOntoClay;
 using SymOntoClay.Core;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.UnityAsset.BaseBehaviors;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
+using SymOntoClay.UnityAsset.Components;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [RequireComponent(typeof(IUHumanoidNPC))]
     public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid, IDieProvider

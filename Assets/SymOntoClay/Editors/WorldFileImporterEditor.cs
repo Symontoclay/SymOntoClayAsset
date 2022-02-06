@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.Importers;
+using SymOntoClay.UnityAsset.Importers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ using UnityEditor;
 using UnityEditor.AssetImporters;
 #endif
 
-namespace SymOntoClay.Editors
+namespace SymOntoClay.UnityAsset.Editors
 {
 #if UNITY_EDITOR
     [CustomEditor(typeof(WorldFileImporter))]

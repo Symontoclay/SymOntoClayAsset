@@ -27,7 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SymOntoClay.Helpers
+namespace SymOntoClay.UnityAsset.Helpers
 {
     public static class FileHelper
     {

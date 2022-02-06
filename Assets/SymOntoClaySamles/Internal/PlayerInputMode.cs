@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamplesOfSymOntoClay.Internal
+namespace SymOntoClay.UnityAsset.Samles.Internal
 {
     public enum PlayerInputMode
     {

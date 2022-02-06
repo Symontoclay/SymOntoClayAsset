@@ -28,7 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.SymOntoClay.Data
+namespace SymOntoClay.UnityAsset.Data
 {
     public struct UVisibleItem : IObjectToString
     {

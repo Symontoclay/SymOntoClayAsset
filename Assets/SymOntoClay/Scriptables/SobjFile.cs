@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay.Scriptables
+namespace SymOntoClay.UnityAsset.Scriptables
 {
     public class SobjFile : ScriptableObject
     {

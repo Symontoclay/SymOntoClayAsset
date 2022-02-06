@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Player")]
     public class Player : BaseSymOntoClayGameObject

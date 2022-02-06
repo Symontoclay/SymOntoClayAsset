@@ -21,19 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay;
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SymOntoClay.UnityAsset.Components;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using UnityEngine;
 
-namespace SymOntoClay.Editors
+namespace SymOntoClay.UnityAsset.Editors
 {
 #if UNITY_EDITOR
     [CustomEditor(typeof(HumanoidNPC))]

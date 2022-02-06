@@ -20,8 +20,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.Helpers;
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Helpers;
+using SymOntoClay.UnityAsset.Scriptables;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,7 +34,7 @@ using UnityEditor.AssetImporters;
 #endif
 using UnityEngine;
 
-namespace SymOntoClay.Importers
+namespace SymOntoClay.UnityAsset.Importers
 {
 #if UNITY_EDITOR
     [ScriptedImporter(0, ".sobj")]

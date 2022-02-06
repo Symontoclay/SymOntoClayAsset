@@ -21,12 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using UnityEngine;
-using System.Collections;
-using SymOntoClay.Scriptables;
-using System.IO;
-using SymOntoClay.UnityAsset.Core;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Thing")]
     public class Thing : BaseThing

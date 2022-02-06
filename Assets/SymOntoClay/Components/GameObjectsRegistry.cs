@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     public static class GameObjectsRegistry
     {

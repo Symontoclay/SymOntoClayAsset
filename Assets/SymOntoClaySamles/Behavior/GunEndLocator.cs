@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     public class GunEndLocator : MonoBehaviour
     {

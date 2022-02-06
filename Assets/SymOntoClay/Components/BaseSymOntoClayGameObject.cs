@@ -22,14 +22,15 @@ SOFTWARE.*/
 
 using SymOntoClay.Core;
 using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
+using SymOntoClay.UnityAsset.Interfaces;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IUSocGameObject
     {

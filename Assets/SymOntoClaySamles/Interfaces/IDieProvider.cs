@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
     public interface IDieProvider
     {

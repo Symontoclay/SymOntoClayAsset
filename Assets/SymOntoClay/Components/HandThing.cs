@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core;
+using SymOntoClay.UnityAsset.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Hand Thing")]
     public class HandThing : BaseThing, IUHandThing

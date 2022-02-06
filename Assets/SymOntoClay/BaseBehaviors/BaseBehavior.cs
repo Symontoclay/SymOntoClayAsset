@@ -22,7 +22,7 @@ SOFTWARE.*/
 
 using SymOntoClay.Core;
 using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.Helpers;
+using SymOntoClay.UnityAsset.Helpers;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections;
@@ -31,8 +31,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using SymOntoClay.UnityAsset.Interfaces;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.BaseBehaviors
 {
     /// <summary>
     /// Contains base recommended behavior.

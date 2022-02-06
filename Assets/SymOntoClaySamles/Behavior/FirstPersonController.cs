@@ -1,4 +1,4 @@
-﻿using ExamplesOfSymOntoClay.Internal;
+﻿using SymOntoClay.UnityAsset.Samles.Internal;
 using SymOntoClay;
 using System;
 using System.Collections.Generic;
@@ -6,8 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using SymOntoClay.UnityAsset.BaseBehaviors;
+using SymOntoClay.UnityAsset.Samles.Environment;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]

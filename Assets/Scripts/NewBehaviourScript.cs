@@ -1,5 +1,6 @@
-using ExamplesOfSymOntoClay;
-using System.Collections;
+using SymOntoClay.UnityAsset.Samles.Environment;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
+using SymOntoClay.UnityAsset.Samles.Internal;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;

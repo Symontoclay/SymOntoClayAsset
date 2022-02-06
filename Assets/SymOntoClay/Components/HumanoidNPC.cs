@@ -20,9 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using Assets.SymOntoClay.Data;
+using SymOntoClay.UnityAsset.Data;
 using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.Scriptables;
+using SymOntoClay.UnityAsset.Scriptables;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using System;
@@ -33,8 +33,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using SymOntoClay.UnityAsset.Interfaces;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Humanoid NPC")]
     public class HumanoidNPC : BaseSymOntoClayGameObject, IPlatformSupport, IUHumanoidNPC, IVisionProvider

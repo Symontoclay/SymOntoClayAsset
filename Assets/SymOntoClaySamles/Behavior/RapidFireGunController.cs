@@ -1,7 +1,9 @@
-﻿using ExamplesOfSymOntoClay;
-using SymOntoClay;
+﻿using SymOntoClay;
 using SymOntoClay.Core;
+using SymOntoClay.UnityAsset.BaseBehaviors;
 using SymOntoClay.UnityAsset.Core;
+using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     public class RapidFireGunController : BaseBehavior, IRifle
     {

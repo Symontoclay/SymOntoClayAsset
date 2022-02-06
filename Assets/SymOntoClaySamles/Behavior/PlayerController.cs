@@ -1,4 +1,9 @@
 ﻿using SymOntoClay;
+using SymOntoClay.UnityAsset.BaseBehaviors;
+using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.UnityAsset.Samles.Environment;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
+using SymOntoClay.UnityAsset.Samles.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [RequireComponent(typeof(IUSocGameObject))]
     public class PlayerController : BaseBehavior

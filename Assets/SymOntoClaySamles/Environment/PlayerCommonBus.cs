@@ -1,4 +1,5 @@
-﻿using ExamplesOfSymOntoClay.Internal;
+﻿using SymOntoClay.UnityAsset.Samles.Interfaces;
+using SymOntoClay.UnityAsset.Samles.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ExamplesOfSymOntoClay
+namespace SymOntoClay.UnityAsset.Samles.Environment
 {
     public class PlayerCommonBus : MonoBehaviour, IPlayerCommonBus
     {

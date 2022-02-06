@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.UnityAsset.Core;
+using SymOntoClay.UnityAsset.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +30,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     public class BaseThing : BaseSymOntoClayGameObject
     {

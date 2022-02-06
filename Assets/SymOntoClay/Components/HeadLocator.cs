@@ -23,7 +23,7 @@ SOFTWARE.*/
 using System.Collections;
 using UnityEngine;
 
-namespace SymOntoClay
+namespace SymOntoClay.UnityAsset.Components
 {
     /// <summary>
     /// Head locator.
