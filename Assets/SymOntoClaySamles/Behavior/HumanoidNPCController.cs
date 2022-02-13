@@ -17,6 +17,7 @@ using SymOntoClay.UnityAsset.Components;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
+    [AddComponentMenu("SymOntoClaySamles/HumanoidNPCController")]
     [RequireComponent(typeof(IUHumanoidNPC))]
     public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid, IDieProvider
     {

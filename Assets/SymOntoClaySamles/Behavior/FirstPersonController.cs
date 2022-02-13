@@ -12,6 +12,7 @@ using SymOntoClay.UnityAsset.Samles.Interfaces;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
+    [AddComponentMenu("SymOntoClaySamles/FirstPersonController")]
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(CapsuleCollider))]
     public class FirstPersonController : BaseBehavior

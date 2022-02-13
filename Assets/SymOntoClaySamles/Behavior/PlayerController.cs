@@ -13,6 +13,7 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
+    [AddComponentMenu("SymOntoClaySamles/PlayerController")]
     [RequireComponent(typeof(IUSocGameObject))]
     public class PlayerController : BaseBehavior
     {

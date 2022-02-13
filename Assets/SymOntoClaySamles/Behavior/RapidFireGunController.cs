@@ -15,6 +15,7 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
+    [AddComponentMenu("SymOntoClaySamles/RapidFireGunController")]
     public class RapidFireGunController : BaseBehavior, IRifle
     {
         private object _lockObl = new object();

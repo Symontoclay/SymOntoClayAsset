@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
+    [AddComponentMenu("SymOntoClaySamles/HumanoidHealthController")]
     public class HumanoidHealthController: MonoBehaviour, IHumanoidHealth, ITargetOfDamage
     {
         private IDieProvider _dieProvider;
