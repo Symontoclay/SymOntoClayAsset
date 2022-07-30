@@ -33,6 +33,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SymOntoClay.UnityAsset.Converters;
+using SymOntoClay.StandardFacts;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -84,6 +85,7 @@ namespace SymOntoClay.UnityAsset.Components
             settings.InvokerInMainThread = _invokerInMainThread;
 
             settings.SoundBus = new SimpleSoundBus();
+            settings.StandardFactsBuilder = new StandardFactsBuilder();
 
             settings.Logging = new LoggingSettings()
             {
