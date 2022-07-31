@@ -288,7 +288,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, "act(someone, walk)");
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, $"act({_idForFacts}, walk)");
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
@@ -316,7 +316,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, "act(someone, run)");
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, $"act({_idForFacts}, run)");
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
