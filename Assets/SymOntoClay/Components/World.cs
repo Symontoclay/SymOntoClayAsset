@@ -93,7 +93,8 @@ namespace SymOntoClay.UnityAsset.Components
                 RootContractName = Application.productName,
                 //PlatformLoggers = new List<IPlatformLogger>() { ConsoleLogger.Instance, CommonNLogLogger.Instance },
                 Enable = true,
-                EnableRemoteConnection = true
+                EnableRemoteConnection = true,
+                KindOfLogicalSearchExplain = SymOntoClay.Core.KindOfLogicalSearchExplain.DumpIfError
             };
 
 #if DEBUG            
