@@ -29,6 +29,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.Core.Internal.CodeModel;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -97,6 +98,8 @@ namespace SymOntoClay.UnityAsset.Components
 
         public IGameObject SocGameObject => _socGameObject;
 
+        public IStandardFactsBuilder StandardFactsBuilder => _worldComponent.StandardFactsBuilder;
+
         public IEntityLogger Logger => _worldComponent?.Logger;
 
         public void RunInMainThread(Action function)
@@ -114,6 +117,11 @@ namespace SymOntoClay.UnityAsset.Components
             return _worldComponent.InsertPublicFact(text);
         }
 
+        public string InsertPublicFact(RuleInstance fact)
+        {
+            return _worldComponent.InsertPublicFact(fact);
+        }
+
         public void RemovePublicFact(string id)
         {
             _worldComponent.RemovePublicFact(id);
@@ -122,6 +130,11 @@ namespace SymOntoClay.UnityAsset.Components
         public void PushSoundFact(float power, string text)
         {
             Task.Run(() => { _worldComponent.PushSoundFact(power, text); });            
+        }
+
+        public void PushSoundFact(float power, RuleInstance fact)
+        {
+            Task.Run(() => { _worldComponent.PushSoundFact(power, fact); });
         }
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(SymOntoClay.Core.RelativeCoordinate relativeCoordinate)

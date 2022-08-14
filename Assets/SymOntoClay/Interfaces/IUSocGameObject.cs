@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.UnityAsset.Core;
 using System;
@@ -64,6 +65,8 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// <returns>Id of inserted fact.</returns>
         string InsertPublicFact(string text);
 
+        string InsertPublicFact(RuleInstance fact);
+
         /// <summary>
         /// Remove public fact from storage.
         /// Another NPCs can not percept the fact.
@@ -76,6 +79,10 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// </summary>
         /// <param name="power">Power of sound.</param>
         /// <param name="text">String that represents the fact.</param>
-        void PushSoundFact(float power, string text);        
+        void PushSoundFact(float power, string text);
+
+        void PushSoundFact(float power, RuleInstance fact);
+
+        IStandardFactsBuilder StandardFactsBuilder { get; }
     }
 }

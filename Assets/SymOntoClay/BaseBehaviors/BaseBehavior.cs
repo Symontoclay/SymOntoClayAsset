@@ -32,6 +32,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.Core.Internal.CodeModel;
 
 namespace SymOntoClay.UnityAsset.BaseBehaviors
 {
@@ -45,6 +46,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private IUHumanoidNPC _uHumanoidNPC;
         private IHumanoidNPC _humanoidNPC;
         private string _idForFacts;
+        private IStandardFactsBuilder _standardFactsBuilder;
         private object _lockObj = new object();
 
         public string IdForFacts => _idForFacts;
@@ -74,6 +76,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             }
 
             _idForFacts = _uSocGameObject.IdForFacts;
+            _standardFactsBuilder = _uSocGameObject.StandardFactsBuilder;
 
             NSetAliveFact();
         }
@@ -91,7 +94,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private void NSetAliveFact()
         {
             Task.Run(() => {
-                var factStr = $"state({_idForFacts}, alive)";
+                var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NSetAliveFact factStr = '{factStr}'");
@@ -102,14 +105,14 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _uSocGameObject.RemovePublicFact(_vitalFactId);
                 }
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _vitalFactId = _uSocGameObject.InsertPublicFact(fact);
             });
         }
 
         private void NSetDeadFact()
         {
             Task.Run(() => {
-                var factStr = $"state({_idForFacts}, dead)";
+                var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NSetDeadFact factStr = '{factStr}'");
@@ -120,7 +123,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _uSocGameObject.RemovePublicFact(_vitalFactId);
                 }
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _vitalFactId = _uSocGameObject.InsertPublicFact(fact);
             });
         }
 
@@ -133,7 +136,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected void AddStopFact()
         {
             Task.Run(() => {
-                var factStr = $"act({_idForFacts}, stop)";
+                var fact = _standardFactsBuilder.BuildStopFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
@@ -141,7 +144,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 NRemoveCurrWalkingFactId();
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
@@ -164,7 +167,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected void AddWalkingFact()
         {
             Task.Run(() => {
-                var factStr = $"act({_idForFacts}, walk)";
+                var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddWalkingFact factStr = '{factStr}'");
@@ -173,7 +176,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 NRemoveCurrWalkingFactId();
 
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
@@ -188,7 +191,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected void AddRunningFact()
         {
             Task.Run(() => {
-                var factStr = $"act({_idForFacts}, run)";
+                var fact = _standardFactsBuilder.BuildRunFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
@@ -196,7 +199,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 NRemoveCurrWalkingFactId();
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
@@ -214,11 +217,11 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected void AddHoldFact(string heldId)
         {
             Task.Run(() => {
-                var factStr = $"hold({_idForFacts}, {heldId})";
+                var fact = _standardFactsBuilder.BuildHoldFactInstance(_idForFacts, heldId);
 
                 NRemoveCurrHoldFactId();
 
-                _holdFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _holdFactId = _uSocGameObject.InsertPublicFact(fact);
             });
         }
 
@@ -246,6 +249,16 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             while (true)
             {
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
+
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
+        private IEnumerator StepsSoundRoutine(float power, RuleInstance fact)
+        {
+            while (true)
+            {
+                Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
 
                 yield return new WaitForSeconds(0.5f);
             }
@@ -288,7 +301,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, $"act({_idForFacts}, walk)");
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, _standardFactsBuilder.BuildWalkSoundFactInstance());
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
@@ -316,7 +329,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, $"act({_idForFacts}, run)");
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, _standardFactsBuilder.BuildRunSoundFactInstance());
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
@@ -355,6 +368,16 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             }
         }
 
+        private IEnumerator ShotSoundRoutine(float power, RuleInstance fact)
+        {
+            while (true)
+            {
+                Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
+
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+
         private IEnumerator _repeatingShotSound;
 
         /// <summary>
@@ -381,7 +404,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             NStopShotSoundRoutine();
 
-            _repeatingShotSound = ShotSoundRoutine(70, $"act({_idForFacts}, shoot)");
+            _repeatingShotSound = ShotSoundRoutine(70, _standardFactsBuilder.BuildShootSoundFactInstance());
             StartCoroutine(_repeatingShotSound);
         }
 
@@ -434,9 +457,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     return;
                 }
 
-                var factStr = $"act({_idForFacts}, shoot)";
+                var fact = _standardFactsBuilder.BuildShootFactInstance(_idForFacts);
 
-                _heShootsFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _heShootsFactId = _uSocGameObject.InsertPublicFact(fact);
             });
         }
 
@@ -475,9 +498,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     return;
                 }
 
-                var factStr = $"ready({_idForFacts}, shoot)";
+                var fact = _standardFactsBuilder.BuildReadyForShootFactInstance(_idForFacts);
 
-                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(factStr);
+                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(fact);
             });
         }
 
