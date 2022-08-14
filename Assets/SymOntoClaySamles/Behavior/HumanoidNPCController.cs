@@ -181,8 +181,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
 
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] point = {point}");
+            var methodId = GetMethodId();
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] point = {point}");
 #endif
             AddWalkingFact();
 
@@ -240,9 +240,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             float speed = 2)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
+            UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
 #endif
 
             var lookRotation = Quaternion.identity;
@@ -275,9 +275,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             float speed = 2)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -342,9 +342,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void RotateHeadImpl(CancellationToken cancellationToken, float? direction)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
+            UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
 #endif
 
             if(!direction.HasValue || direction == 0)
@@ -387,9 +387,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
 #endif
 
             if(entity == null)
@@ -451,9 +451,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
 #if UNITY_EDITOR
@@ -500,9 +500,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
@@ -524,9 +524,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void TakeFromBackpackImpl(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
 #endif
 
             if (entity.IsEmpty)
