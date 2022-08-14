@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Core;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Scriptables;
 using System;
@@ -50,7 +51,13 @@ namespace SymOntoClay.UnityAsset.Editors
         {
             GUILayout.BeginVertical();
             _target.WorldFile = (WorldFile)EditorGUILayout.ObjectField("World File", _target.WorldFile, typeof(WorldFile), false);
+            _target.KindOfLogicalSearchExplain = (KindOfLogicalSearchExplain)EditorGUILayout.EnumPopup("Logical explain mode", _target.KindOfLogicalSearchExplain);
             GUILayout.EndVertical();
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(_target);
+            }
         }
     }
 #endif

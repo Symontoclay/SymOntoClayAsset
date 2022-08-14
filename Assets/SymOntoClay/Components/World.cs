@@ -34,6 +34,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using SymOntoClay.UnityAsset.Converters;
 using SymOntoClay.StandardFacts;
+using SymOntoClay.Core;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -41,6 +42,7 @@ namespace SymOntoClay.UnityAsset.Components
     public class World : MonoBehaviour
     {
         public WorldFile WorldFile;
+        public KindOfLogicalSearchExplain KindOfLogicalSearchExplain;
 
         private bool _isStarded;
 
@@ -94,7 +96,7 @@ namespace SymOntoClay.UnityAsset.Components
                 //PlatformLoggers = new List<IPlatformLogger>() { ConsoleLogger.Instance, CommonNLogLogger.Instance },
                 Enable = true,
                 EnableRemoteConnection = true,
-                KindOfLogicalSearchExplain = SymOntoClay.Core.KindOfLogicalSearchExplain.DumpIfError
+                KindOfLogicalSearchExplain = KindOfLogicalSearchExplain
             };
 
 #if DEBUG            
