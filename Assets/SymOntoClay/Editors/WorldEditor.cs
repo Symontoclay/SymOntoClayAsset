@@ -42,6 +42,8 @@ namespace SymOntoClay.UnityAsset.Editors
     {
         private World _target;
 
+        private bool _showLoggingSection = true;
+
         private void OnEnable()
         {
             _target = (World)target;
@@ -51,7 +53,15 @@ namespace SymOntoClay.UnityAsset.Editors
         {
             GUILayout.BeginVertical();
             _target.WorldFile = (WorldFile)EditorGUILayout.ObjectField("World File", _target.WorldFile, typeof(WorldFile), false);
-            _target.KindOfLogicalSearchExplain = (KindOfLogicalSearchExplain)EditorGUILayout.EnumPopup("Logical explain mode", _target.KindOfLogicalSearchExplain);
+
+            _showLoggingSection = EditorGUILayout.BeginFoldoutHeaderGroup(_showLoggingSection, "Logging");
+
+            if(_showLoggingSection)
+            {
+                _target.EnableAddingRemovingFactLoggingInStorages = EditorGUILayout.Toggle("Adding or removing facts", _target.EnableAddingRemovingFactLoggingInStorages);
+                _target.KindOfLogicalSearchExplain = (KindOfLogicalSearchExplain)EditorGUILayout.EnumPopup("Logical explain mode", _target.KindOfLogicalSearchExplain);
+            }
+            
             GUILayout.EndVertical();
 
             if (GUI.changed)

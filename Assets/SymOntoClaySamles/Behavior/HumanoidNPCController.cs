@@ -537,39 +537,39 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
             NTake(cancellationToken, entity);
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
+            UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
 #endif
         }
 
         private void NTake(CancellationToken cancellationToken, IEntity entity)
         {
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
-            //UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
-            //UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
+            UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
+            UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
+            UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
 #endif
 
             var handThing = RunInMainThread(() => { return GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId); });
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
-            //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject != null) = {handThing.USocGameObject != null}");
-            //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject.SocGameObject != null) = {handThing.USocGameObject.SocGameObject != null}");
+            UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
+            UnityEngine.Debug.Log($"NTake (handThing.USocGameObject != null) = {handThing.USocGameObject != null}");
+            UnityEngine.Debug.Log($"NTake (handThing.USocGameObject.SocGameObject != null) = {handThing.USocGameObject.SocGameObject != null}");
 #endif
 
             RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
+            UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
 #endif
 
             RunInMainThread(() => {
@@ -585,7 +585,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log("NTake End");
+            UnityEngine.Debug.Log("NTake End");
 #endif
         }
 

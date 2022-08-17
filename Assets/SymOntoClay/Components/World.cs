@@ -43,6 +43,7 @@ namespace SymOntoClay.UnityAsset.Components
     {
         public WorldFile WorldFile;
         public KindOfLogicalSearchExplain KindOfLogicalSearchExplain;
+        public bool EnableAddingRemovingFactLoggingInStorages;
 
         private bool _isStarded;
 
@@ -96,7 +97,8 @@ namespace SymOntoClay.UnityAsset.Components
                 //PlatformLoggers = new List<IPlatformLogger>() { ConsoleLogger.Instance, CommonNLogLogger.Instance },
                 Enable = true,
                 EnableRemoteConnection = true,
-                KindOfLogicalSearchExplain = KindOfLogicalSearchExplain
+                KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
+                EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
             };
 
 #if DEBUG            
