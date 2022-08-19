@@ -2127,8 +2127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldFile: {fileID: -6750239444755058063, guid: 668f3d12172c0804a98a57f2f2dd1337, type: 3}
-  KindOfLogicalSearchExplain: 1
-  EnableAddingRemovingFactLoggingInStorages: 1
+  KindOfLogicalSearchExplain: 0
+  EnableAddingRemovingFactLoggingInStorages: 0
 --- !u!114 &891105195
 MonoBehaviour:
   m_ObjectHideFlags: 0
