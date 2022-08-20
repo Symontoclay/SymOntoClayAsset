@@ -54,6 +54,8 @@ namespace SymOntoClay.UnityAsset.Editors
             GUILayout.BeginVertical();
             _target.WorldFile = (WorldFile)EditorGUILayout.ObjectField("World File", _target.WorldFile, typeof(WorldFile), false);
 
+            _target.EnableNLP = EditorGUILayout.Toggle("Enable NLP", _target.EnableNLP);
+
             _showLoggingSection = EditorGUILayout.BeginFoldoutHeaderGroup(_showLoggingSection, "Logging");
 
             if(_showLoggingSection)

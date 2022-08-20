@@ -35,6 +35,7 @@ using UnityEngine.SceneManagement;
 using SymOntoClay.UnityAsset.Converters;
 using SymOntoClay.StandardFacts;
 using SymOntoClay.Core;
+using SymOntoClay.NLP;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -44,6 +45,7 @@ namespace SymOntoClay.UnityAsset.Components
         public WorldFile WorldFile;
         public KindOfLogicalSearchExplain KindOfLogicalSearchExplain;
         public bool EnableAddingRemovingFactLoggingInStorages;
+        public bool EnableNLP;
 
         private bool _isStarded;
 
@@ -89,6 +91,33 @@ namespace SymOntoClay.UnityAsset.Components
 
             settings.SoundBus = new SimpleSoundBus();
             settings.StandardFactsBuilder = new StandardFactsBuilder();
+
+#if DEBUG
+            //Debug.Log($"World Awake EnableNLP = {EnableNLP}");
+#endif
+
+            if (EnableNLP)
+            {
+                var nlpConverterProviderSettings = new NLPConverterProviderSettings();
+
+                var mainDictPath = Path.Combine(Application.dataPath, "SymOntoClay", "Dicts", "BigMainDictionary.dict");
+
+#if DEBUG
+                //Debug.Log($"World Awake mainDictPath = {mainDictPath}");
+#endif
+
+                nlpConverterProviderSettings.DictsPaths = new List<string>() { mainDictPath };
+
+                nlpConverterProviderSettings.CreationStrategy = CreationStrategy.Singleton;
+
+#if DEBUG
+                //Debug.Log($"World Awake nlpConverterProviderSettings = {nlpConverterProviderSettings}");
+#endif
+
+                var nlpConverterProvider = new NLPConverterProvider(nlpConverterProviderSettings);
+
+                settings.NLPConverterProvider = nlpConverterProvider;
+            }
 
             settings.Logging = new LoggingSettings()
             {
