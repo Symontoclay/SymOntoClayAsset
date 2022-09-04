@@ -10,15 +10,15 @@ using UnityEngine;
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [AddComponentMenu("SymOntoClaySamles/HumanoidHealthController")]
-    public class HumanoidHealthController: MonoBehaviour, IHumanoidHealth, ITargetOfDamage
+    public class HumanoidHealthController: MonoBehaviour, IHumanoidHealthCustomBehavior, ITargetOfDamageCustomBehavior
     {
-        private IDieProvider _dieProvider;
+        private IDieCustomBehavior _dieProvider;
 
         public int Health = 10;
 
         void Start()
         {
-            _dieProvider = GetComponent<IDieProvider>();
+            _dieProvider = GetComponent<IDieCustomBehavior>();
         }
 
         public void SetHit(RaycastHit shootHit, int damagePerShot)

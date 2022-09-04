@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
-    public interface IDieProvider
+    public interface IHumanoidHealthCustomBehavior
     {
-        void Die();
     }
 }

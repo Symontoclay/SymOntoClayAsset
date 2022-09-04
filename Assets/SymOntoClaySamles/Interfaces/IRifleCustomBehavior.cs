@@ -8,12 +8,12 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
-    public interface IRifle: IHandThing
+    public interface IRifleCustomBehavior: IHandThingCustomBehavior
     {
         GameObject MainWP { get; }
         GameObject AddWP { get; }
 
-        bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid);
+        bool SetToHandsOfHumanoid(IBipedHumanoidCustomBehavior humanoid);
 
         void LookAt();
         void LookAt(GameObject target);

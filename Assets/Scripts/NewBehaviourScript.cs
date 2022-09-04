@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
+public class NewBehaviourScript : MonoBehaviour, IBipedHumanoidCustomBehavior
 {
     private Rigidbody mRigidbody;
     private Animator mAnimator;
@@ -23,17 +23,17 @@ public class NewBehaviourScript : MonoBehaviour, IUBipedHumanoid
     public GameObject RightHandWP;
     public GameObject LeftHandWP;
 
-    GameObject IUBipedHumanoid.RightHandWP => RightHandWP;
-    GameObject IUBipedHumanoid.LeftHandWP => LeftHandWP;
+    GameObject IBipedHumanoidCustomBehavior.RightHandWP => RightHandWP;
+    GameObject IBipedHumanoidCustomBehavior.LeftHandWP => LeftHandWP;
 
-    private IRifle _twoHandGun;
+    private IRifleCustomBehavior _twoHandGun;
 
     public List<GameObject> Backpack;
 
     // Start is called before the first frame update
     void Start()
     {
-        _twoHandGun = Gun?.GetComponent<IRifle>();
+        _twoHandGun = Gun?.GetComponent<IRifleCustomBehavior>();
 
         _playerCommonBus = PlayerCommonBus.GetBus();
 

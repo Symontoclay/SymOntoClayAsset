@@ -34,7 +34,7 @@ namespace SymOntoClay.UnityAsset.Interfaces
     /// <summary>
     /// Represents base SymOntoClay's game object component.
     /// </summary>
-    public interface IUSocGameObject
+    public interface IGameObjectBehavior
     {
         /// <summary>
         /// Gets unique Id which is prepared to using in building fact string.

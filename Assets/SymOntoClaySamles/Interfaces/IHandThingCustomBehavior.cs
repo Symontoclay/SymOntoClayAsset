@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
-    public interface IHandThing: IUHandThingHost
+    public interface IHandThingCustomBehavior: IHandThingHostBehavior
     {
         KindOfHandThing Kind { get; }
 
         string IdForFacts { get; }
         IEntityLogger Logger { get; }
-        IUSocGameObject USocGameObject { get; }
+        IGameObjectBehavior USocGameObject { get; }
     }
 }

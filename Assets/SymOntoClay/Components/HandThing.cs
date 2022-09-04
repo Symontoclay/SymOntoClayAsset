@@ -32,7 +32,7 @@ using UnityEngine;
 namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Hand Thing")]
-    public class HandThing : BaseThing, IUHandThing
+    public class HandThing : BaseThing, IHandThingBehavior
     {
         public TakingPolicy TakingPolicy;
 
@@ -42,10 +42,10 @@ namespace SymOntoClay.UnityAsset.Components
         {
             base.Awake();
 
-            _uHandThingHost = GetComponent<IUHandThingHost>();
+            _uHandThingHost = GetComponent<IHandThingHostBehavior>();
         }
 
-        private IUHandThingHost _uHandThingHost;
+        private IHandThingHostBehavior _uHandThingHost;
 
         protected override bool CanBeTakenBy(IEntity subject)
         {
@@ -85,12 +85,12 @@ namespace SymOntoClay.UnityAsset.Components
             }
         }
 
-        void IUHandThing.HideForBackpackInMainThread()
+        void IHandThingBehavior.HideForBackpackInMainThread()
         {
             _uHandThingHost?.HideForBackpackInMainThread();
         }
 
-        void IUHandThing.HideForBackpackInUsualThread()
+        void IHandThingBehavior.HideForBackpackInUsualThread()
         {
             _uHandThingHost?.HideForBackpackInUsualThread();
         }

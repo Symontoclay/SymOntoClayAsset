@@ -18,8 +18,8 @@ using SymOntoClay.UnityAsset.Components;
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [AddComponentMenu("SymOntoClaySamles/HumanoidNPCController")]
-    [RequireComponent(typeof(IUHumanoidNPC))]
-    public class HumanoidNPCController : BaseBehavior, IUBipedHumanoid, IDieProvider
+    [RequireComponent(typeof(IHumanoidNPCBehavior))]
+    public class HumanoidNPCController : BaseBehavior, IBipedHumanoidCustomBehavior, IDieCustomBehavior
     {
         public GameObject Head;
 
@@ -29,8 +29,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         private GameObject _rightHandWP;
         private GameObject _leftHandWP;
 
-        GameObject IUBipedHumanoid.RightHandWP => _rightHandWP;
-        GameObject IUBipedHumanoid.LeftHandWP => _leftHandWP;
+        GameObject IBipedHumanoidCustomBehavior.RightHandWP => _rightHandWP;
+        GameObject IBipedHumanoidCustomBehavior.LeftHandWP => _leftHandWP;
 
         private Transform _targetHeadTransform;
 
@@ -131,9 +131,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         private Vector3 _position;
 
-        private IHandThing _currentHandThing;
+        private IHandThingCustomBehavior _currentHandThing;
 
-        private IRifle _rifle;        
+        private IRifleCustomBehavior _rifle;        
 
         private void UpdateAnimator()
         {
@@ -558,7 +558,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
 #endif
 
-            var handThing = RunInMainThread(() => { return GameObjectsRegistry.GetComponent<IHandThing>(entity.InstanceId); });
+            var handThing = RunInMainThread(() => { return GameObjectsRegistry.GetComponent<IHandThingCustomBehavior>(entity.InstanceId); });
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
@@ -576,7 +576,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 switch (handThing.Kind)
                 {
                     case KindOfHandThing.Rifle:
-                        TakeRifle(cancellationToken, handThing as IRifle);
+                        TakeRifle(cancellationToken, handThing as IRifleCustomBehavior);
                         break;
 
                     default:
@@ -589,7 +589,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void TakeRifle(CancellationToken cancellationToken, IRifle rifle)
+        private void TakeRifle(CancellationToken cancellationToken, IRifleCustomBehavior rifle)
         {
             _rifle = rifle;
             _currentHandThing = rifle;

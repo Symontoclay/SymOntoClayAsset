@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,16 +30,13 @@ using System.Threading.Tasks;
 namespace SymOntoClay.UnityAsset.Interfaces
 {
     /// <summary>
-    /// Represents SymOntoClay's humanoid component.
-    /// It can be both NPC and Player.
+    /// Represents SymOntoClay's humanoid NPC component.
     /// </summary>
-    public interface IUSocHumanoid : IUSocGameObject
+    public interface IHumanoidNPCBehavior: IHumanoidBehavior
     {
         /// <summary>
-        /// Performs death of humanoid.
-        /// All active processes will have been stopped.
-        /// Another NPCs will percept the humanoid as died.
+        /// Gets instance of SymOntoClay core.
         /// </summary>
-        void Die();
+        IHumanoidNPC NPC { get; }
     }
 }

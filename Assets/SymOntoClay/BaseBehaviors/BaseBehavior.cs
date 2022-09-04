@@ -39,11 +39,11 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
     /// <summary>
     /// Contains base recommended behavior.
     /// </summary>
-    public abstract class BaseBehavior : MonoBehaviour, IUHostListener
+    public abstract class BaseBehavior : MonoBehaviour, IHostListenerBehavior
     {
-        protected IUSocGameObject _uSocGameObject;
+        protected IGameObjectBehavior _uSocGameObject;
 
-        private IUHumanoidNPC _uHumanoidNPC;
+        private IHumanoidNPCBehavior _uHumanoidNPC;
         private IHumanoidNPC _humanoidNPC;
         private string _idForFacts;
         private IStandardFactsBuilder _standardFactsBuilder;
@@ -63,15 +63,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             //Debug.Log($"BaseBehavior Start");
 #endif
 
-            _uSocGameObject = GetComponent<IUSocGameObject>();
+            _uSocGameObject = GetComponent<IGameObjectBehavior>();
 
 #if UNITY_EDITOR
             //Debug.Log($"_uSocGameObject = {_uSocGameObject}");
 #endif
 
-            if (_uSocGameObject is IUHumanoidNPC)
+            if (_uSocGameObject is IHumanoidNPCBehavior)
             {
-                _uHumanoidNPC = _uSocGameObject as IUHumanoidNPC;
+                _uHumanoidNPC = _uSocGameObject as IHumanoidNPCBehavior;
                 _humanoidNPC = _uHumanoidNPC.NPC;
             }
 
@@ -619,7 +619,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="device">Describes biped device which will be using the game object.</param>
-        protected void AddToManualControl(IUSocGameObject obj, DeviceOfBiped device)
+        protected void AddToManualControl(IGameObjectBehavior obj, DeviceOfBiped device)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, device);
         }
@@ -629,7 +629,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="devices">Describes list of biped devices which will be using the game object.</param>
-        protected void AddToManualControl(IUSocGameObject obj, IList<DeviceOfBiped> devices)
+        protected void AddToManualControl(IGameObjectBehavior obj, IList<DeviceOfBiped> devices)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, devices);
         }
@@ -638,7 +638,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Removes a game object from manual controlled area of an NPC.
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
-        protected void RemoveFromManualControl(IUSocGameObject obj)
+        protected void RemoveFromManualControl(IGameObjectBehavior obj)
         {
             _humanoidNPC.RemoveFromManualControl(obj.SocGameObject);
         }

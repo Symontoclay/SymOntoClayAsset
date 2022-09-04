@@ -31,7 +31,7 @@ namespace SymOntoClay.UnityAsset.Interfaces
     /// <summary>
     /// Represents SymOntoClay's thing component which can be taken by NPC's hands.
     /// </summary>
-    public interface IUHandThing: IUSocGameObject
+    public interface IHandThingBehavior: IGameObjectBehavior
     {
         /// <summary>
         /// Hides the thing as part of placing in backpack.

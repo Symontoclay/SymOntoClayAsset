@@ -16,7 +16,7 @@ using UnityEngine;
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [AddComponentMenu("SymOntoClaySamles/RapidFireGunController")]
-    public class RapidFireGunController : BaseBehavior, IRifle
+    public class RapidFireGunController : BaseBehavior, IRifleCustomBehavior
     {
         private object _lockObl = new object();
 
@@ -28,8 +28,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public GameObject MainWP;
         public GameObject AddWP;
 
-        GameObject IRifle.MainWP => MainWP;
-        GameObject IRifle.AddWP => AddWP;
+        GameObject IRifleCustomBehavior.MainWP => MainWP;
+        GameObject IRifleCustomBehavior.AddWP => AddWP;
 
         public GameObject GunEnd;
 
@@ -41,7 +41,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public int DamagePerShot = 20;
         public float DamageDistance = 400f;        
 
-        IUSocGameObject IHandThing.USocGameObject => _uSocGameObject;
+        IGameObjectBehavior IHandThingCustomBehavior.USocGameObject => _uSocGameObject;
 
         private Light mGunLight;
         private ParticleSystem mGunParticles;
@@ -85,7 +85,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             return !_isTaken;
         }
 
-        public bool SetToHandsOfHumanoid(IUBipedHumanoid humanoid)
+        public bool SetToHandsOfHumanoid(IBipedHumanoidCustomBehavior humanoid)
         {
             var targetParent = humanoid.RightHandWP.transform;
 
@@ -246,7 +246,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (Physics.Raycast(shootRay, out shootHit, DamageDistance))
             {
-                var targetOfShoot = shootHit.collider.GetComponentInParent<ITargetOfDamage>();
+                var targetOfShoot = shootHit.collider.GetComponentInParent<ITargetOfDamageCustomBehavior>();
 
                 if (targetOfShoot != null)
                 {

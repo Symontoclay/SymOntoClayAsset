@@ -33,7 +33,7 @@ using SymOntoClay.Core.Internal.CodeModel;
 
 namespace SymOntoClay.UnityAsset.Components
 {
-    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IUSocGameObject
+    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IGameObjectBehavior
     {
         public SobjFile SobjFile;
         public string Id;

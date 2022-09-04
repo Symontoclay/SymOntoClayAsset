@@ -34,7 +34,7 @@ namespace SymOntoClay.UnityAsset.Components
 {
     public class BaseThing : BaseSymOntoClayGameObject
     {
-        protected IUHostListener _hostListener;
+        protected IHostListenerBehavior _hostListener;
 
         protected override void Awake()
         {
@@ -55,7 +55,7 @@ namespace SymOntoClay.UnityAsset.Components
 
             settings.HostFile = fullFileName;
 
-            var hostListener = GetComponent<IUHostListener>();
+            var hostListener = GetComponent<IHostListenerBehavior>();
 
             if (hostListener == null)
             {

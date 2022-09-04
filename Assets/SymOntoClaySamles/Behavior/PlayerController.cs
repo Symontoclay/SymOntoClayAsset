@@ -14,7 +14,7 @@ using UnityEngine;
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
     [AddComponentMenu("SymOntoClaySamles/PlayerController")]
-    [RequireComponent(typeof(IUSocGameObject))]
+    [RequireComponent(typeof(IGameObjectBehavior))]
     public class PlayerController : BaseBehavior
     {
         private IPlayerCommonBus _playerCommonBus;

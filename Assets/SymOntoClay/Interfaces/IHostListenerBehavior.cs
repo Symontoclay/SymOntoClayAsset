@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,20 +30,16 @@ using System.Threading.Tasks;
 namespace SymOntoClay.UnityAsset.Interfaces
 {
     /// <summary>
-    /// Provides interaction with user defined scripts/components.
+    /// Host listener locator. 
+    /// Each NPC's behavior with host methods' endpoint should implement this interface.
     /// </summary>
-    public interface IUHandThingHost
+    public interface IHostListenerBehavior
     {
         /// <summary>
-        /// Hides the thing as part of placing in backpack.
-        /// This method should be called only in main thread.
+        /// Checks could the game object be taken by an NPC.
         /// </summary>
-        void HideForBackpackInMainThread();
-
-        /// <summary>
-        /// Hides the thing as part of placing in backpack.
-        /// This method should be called only in usual (not main) thread.
-        /// </summary>
-        void HideForBackpackInUsualThread();
+        /// <param name="subject">The NPC that takes this.</param>
+        /// <returns><b>true</b> if the game object can be be taken by an NPC, otherwise <b>flase</b></returns>
+        bool CanBeTakenBy(IEntity subject);
     }
 }

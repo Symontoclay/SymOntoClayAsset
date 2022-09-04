@@ -38,7 +38,7 @@ using SymOntoClay.UnityAsset.Interfaces;
 namespace SymOntoClay.UnityAsset.Components
 {
     [AddComponentMenu("SymOntoClay/Humanoid NPC")]
-    public class HumanoidNPC : BaseSymOntoClayGameObject, IPlatformSupport, IUHumanoidNPC, IVisionProvider
+    public class HumanoidNPC : BaseSymOntoClayGameObject, IPlatformSupport, IHumanoidNPCBehavior, IVisionProvider
     {
         private bool _isDead;
 
@@ -99,7 +99,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         private object GetHostListener()
         {
-            var hostListener = GetComponent<IUHostListener>();
+            var hostListener = GetComponent<IHostListenerBehavior>();
 
             if (hostListener == null)
             {
@@ -203,7 +203,7 @@ namespace SymOntoClay.UnityAsset.Components
         {
             foreach (var gObj in Backpack)
             {
-                var targetHandThingComponent = gObj.GetComponent<IUHandThing>();
+                var targetHandThingComponent = gObj.GetComponent<IHandThingBehavior>();
 
                 _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
 

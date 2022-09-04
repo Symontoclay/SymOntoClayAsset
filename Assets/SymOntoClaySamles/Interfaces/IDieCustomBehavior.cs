@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
-    public interface IUBipedHumanoid
+    public interface IDieCustomBehavior
     {
-        GameObject RightHandWP { get; }
-        GameObject LeftHandWP { get; }
+        void Die();
     }
 }

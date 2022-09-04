@@ -7,8 +7,9 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
-    public interface ITargetOfDamage
+    public interface IBipedHumanoidCustomBehavior
     {
-        void SetHit(RaycastHit shootHit, int damagePerShot);
+        GameObject RightHandWP { get; }
+        GameObject LeftHandWP { get; }
     }
 }
