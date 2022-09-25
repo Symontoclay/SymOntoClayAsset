@@ -32,7 +32,7 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Converters
 {
-    public class Vector3AndWayPointValueConverter : IPlatformTypesConvertor
+    public class Vector3AndWayPointValueConverter : IPlatformTypesConverter
     {
         /// <inheritdoc/>
         public Type PlatformType => typeof(Vector3);

@@ -52,6 +52,7 @@ namespace SymOntoClay.UnityAsset.Components
             _player = WorldFactory.WorldInstance.GetPlayer(settings);
 
             SetSelfWorldComponent(_player);
+
 #if DEBUG
             //Debug.Log($"Player Awake settings = {settings}");
 #endif

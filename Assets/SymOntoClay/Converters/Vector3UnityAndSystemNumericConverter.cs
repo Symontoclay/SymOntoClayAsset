@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay.UnityAsset.Converters
 {
-    public class Vector3UnityAndSystemNumericConverter: IPlatformTypesConvertor
+    public class Vector3UnityAndSystemNumericConverter: IPlatformTypesConverter
     {
         /// <inheritdoc/>
         public Type PlatformType => typeof(UnityEngine.Vector3);
