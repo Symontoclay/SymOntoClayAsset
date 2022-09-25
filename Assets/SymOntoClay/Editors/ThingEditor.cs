@@ -28,6 +28,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SymOntoClay.UnityAsset.Components;
+using SymOntoClay.UnityAsset.Helpers;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -55,7 +56,7 @@ namespace SymOntoClay.UnityAsset.Editors
 
             var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
 
-            if (_target.Id != newIdValue && IsValidId(newIdValue))
+            if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
             {
                 UniqueIdRegistry.RemoveId(_target.Id);
                 UniqueIdRegistry.AddId(newIdValue);
@@ -69,26 +70,6 @@ namespace SymOntoClay.UnityAsset.Editors
             {
                 EditorUtility.SetDirty(_target);
             }
-        }
-
-        private bool IsValidId(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return false;
-            }
-
-            if (!id.StartsWith("#"))
-            {
-                return false;
-            }
-
-            if (UniqueIdRegistry.ContainsId(id))
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 #endif

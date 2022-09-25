@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.SymOntoClay.Helpers
+namespace SymOntoClay.UnityAsset.Helpers
 {
     public class NavHelper
     {

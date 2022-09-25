@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace SymOntoClay.Navigation
+namespace SymOntoClay.UnityAsset.Navigation
 {
     [AddComponentMenu("SymOntoClay/Navigation/Waypoint")]
     public class Waypoint : BaseElementaryArea
