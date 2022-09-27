@@ -14,6 +14,7 @@ using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.UnityAsset.BaseBehaviors;
 using SymOntoClay.UnityAsset.Samles.Interfaces;
 using SymOntoClay.UnityAsset.Components;
+using SymOntoClay.UnityAsset.Helpers;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
@@ -48,6 +49,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+
+            _navHelper = new NavHelper(transform, _navMeshAgent);
         }
 
         protected override void Start()
@@ -118,6 +121,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
         private Rigidbody _rigidbody;
+
+        private NavHelper _navHelper;
 
         private bool _hasRifle;
         private bool _isWalking;
