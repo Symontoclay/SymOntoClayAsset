@@ -70,17 +70,20 @@ namespace SymOntoClay.UnityAsset.Components
             //Debug.Log("HumanoidNPC Awake");
 #endif
 
-            var npcFullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
-
-#if DEBUG
-            //Debug.Log($"HumanoidNPC Awake npcFullFileName = {npcFullFileName}");
-#endif
-
             var npcSettings = new HumanoidNPCSettings();
             npcSettings.Id = Id;
             npcSettings.InstanceId = gameObject.GetInstanceID();
 
-            npcSettings.LogicFile = npcFullFileName;
+            if(SobjFile != null)
+            {
+                var npcFullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
+
+#if DEBUG
+                //Debug.Log($"HumanoidNPC Awake npcFullFileName = {npcFullFileName}");
+#endif
+
+                npcSettings.LogicFile = npcFullFileName;
+            }
 
             npcSettings.HostListener = GetHostListener();
             npcSettings.PlatformSupport = this;

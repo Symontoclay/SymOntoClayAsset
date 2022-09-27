@@ -39,14 +39,16 @@ namespace SymOntoClay.UnityAsset.Components
 
         protected override void Awake()
         {
-            var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
-
             var settings = new PlayerSettings();
             settings.Id = Id;
             settings.InstanceId = gameObject.GetInstanceID();
 
-            settings.HostFile = fullFileName;
-
+            if(SobjFile != null)
+            {
+                var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
+                settings.HostFile = fullFileName;
+            }
+            
             settings.PlatformSupport = this;
 
             _player = WorldFactory.WorldInstance.GetPlayer(settings);

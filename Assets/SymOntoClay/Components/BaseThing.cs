@@ -43,17 +43,20 @@ namespace SymOntoClay.UnityAsset.Components
             //Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
 #endif
 
-            var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
-
-#if DEBUG
-            //Debug.Log($"Thing Awake fullFileName = {fullFileName}");
-#endif
-
             var settings = new GameObjectSettings();
             settings.Id = Id;
             settings.InstanceId = gameObject.GetInstanceID();
 
-            settings.HostFile = fullFileName;
+            if(SobjFile != null)
+            {
+                var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
+
+#if DEBUG
+                //Debug.Log($"Thing Awake fullFileName = {fullFileName}");
+#endif
+
+                settings.HostFile = fullFileName;
+            }
 
             var hostListener = GetComponent<IHostListenerBehavior>();
 
