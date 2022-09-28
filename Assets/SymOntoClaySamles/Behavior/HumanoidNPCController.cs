@@ -49,8 +49,6 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-
-            _navHelper = new NavHelper(transform, _navMeshAgent);
         }
 
         protected override void Start()
@@ -89,6 +87,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             {
                 _leftHandWP = LeftHandWP;
             }
+
+            _navHelper = new NavHelper(transform, _navMeshAgent, this);
         }
 
         // Update is called once per frame

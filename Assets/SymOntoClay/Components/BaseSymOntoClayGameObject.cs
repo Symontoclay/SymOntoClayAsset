@@ -34,7 +34,7 @@ using SymOntoClay.UnityAsset.Helpers;
 
 namespace SymOntoClay.UnityAsset.Components
 {
-    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IGameObjectBehavior
+    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IGameObjectBehavior, IExecutorInMainThread
     {
         public SobjFile SobjFile;
         public string Id;

@@ -39,7 +39,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
     /// <summary>
     /// Contains base recommended behavior.
     /// </summary>
-    public abstract class BaseBehavior : MonoBehaviour, IHostListenerBehavior
+    public abstract class BaseBehavior : MonoBehaviour, IHostListenerBehavior, IExecutorInMainThread
     {
         protected IGameObjectBehavior _uSocGameObject;
 
@@ -582,6 +582,18 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 _methodId++;
                 return _methodId;
             }
+        }
+
+        /// <inheritdoc/>
+        void IExecutorInMainThread.RunInMainThread(Action function)
+        {
+            RunInMainThread(function);
+        }
+
+        /// <inheritdoc/>
+        TResult IExecutorInMainThread.RunInMainThread<TResult>(Func<TResult> function)
+        {
+            return RunInMainThread(function);
         }
 
         /// <summary>
