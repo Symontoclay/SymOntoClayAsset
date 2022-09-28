@@ -10,104 +10,104 @@ app MyNPC
     {
         'q1!!!!' >> @>log;
 		@@host.take(#@(gun));
-		'End' >> @>log;
+		'End q1!!!!' >> @>log;
     }
 	
 	on {: hear(I, q2) :} => 
     {
         'q2!!!!' >> @>log;
 		@@host.`ready for shoot`();
-		'End' >> @>log;
+		'End q2!!!!' >> @>log;
     }
 	
 	on {: hear(I, q3) :} => 
     {
         'q3!!!!' >> @>log;
 		@@host.`start shoot`();
-		'End' >> @>log;
+		'End q3!!!!' >> @>log;
     }
 	
 	on {: hear(I, q4) :} => 
     {
         'q4!!!!' >> @>log;
 		@@host.`stop shoot`();
-		'End' >> @>log;
+		'End q4!!!!' >> @>log;
     }
 	
 	on {: hear(I, q5) :} => 
     {
         'q5!!!!' >> @>log;
 		@@host.`unready for shoot`();
-		'End' >> @>log;
+		'End q5!!!!' >> @>log;
     }
 	
 	on {: hear(I, q6) :} => 
     {
         'q6!!!!' >> @>log;
 		@@host.`throw out`();
-		'End' >> @>log;
+		'End q6!!!!' >> @>log;
     }
 	
 	on {: hear(I, q7) :} => 
     {
         'q7!!!!' >> @>log;
 		@@host.`aim to`(#@(hipster));
-		'End' >> @>log;
+		'End q7!!!!' >> @>log;
     }
 	
 	on {: hear(I, q8) :} => 
     {
         'q8!!!!' >> @>log;
 		@@host.`rotate`(30);
-		'End' >> @>log;
+		'End q8!!!!' >> @>log;
     }
 	
 	on {: hear(I, q9) :} => 
     {
         'q9!!!!' >> @>log;
 		@@host.`rotate head`(90);
-		'End' >> @>log;
+		'End q9!!!!' >> @>log;
     }
 	
 	on {: hear(I, q10) :} => 
     {
         'q10!!!!' >> @>log;
 		@@host.`rotate`(#@(hipster));
-		'End' >> @>log;
+		'End q10!!!!' >> @>log;
     }
 	
 	on {: hear(I, q11) :} => 
     {
         'q11!!!!' >> @>log;
 		@@host.`rotate head`(#@(hipster));
-		'End' >> @>log;
+		'End q11!!!!' >> @>log;
     }
 	
 	on {: hear(I, q12) :} => 
     {
         'q12!!!!' >> @>log;
 		@@host.`put in backpack`();
-		'End' >> @>log;
+		'End q12!!!!' >> @>log;
     }
 	
 	on {: hear(I, q13) :} => 
     {
         'q13!!!!' >> @>log;
 		@@host.`take from backpack`(#@(gun));
-		'End' >> @>log;
+		'End q13!!!!' >> @>log;
     }
 	
 	on {: hear(I, q14) :} => 
     {
         'q14!!!!' >> @>log;
 		@@host.`aim to`(NULL);
-		'End' >> @>log;
+		'End q14!!!!' >> @>log;
     }
 	
-	//on {: hear(I, q15) :} => 
-    //{
-    //    'q14!!!!' >> @>log;
-	//	@@host.`aim to`(NULL);
-	//	'End' >> @>log;
-    //}
+    on {: hear(I, q15) :} => 
+    {
+        'q14!!!!' >> @>log;
+		@@host.`go`(to: #@[20, -45]);
+		'End q14!!!!' >> @>log;
+    }
 }
