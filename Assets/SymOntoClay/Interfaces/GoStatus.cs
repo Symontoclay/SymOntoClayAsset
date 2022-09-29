@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SymOntoClay.UnityAsset.Interfaces
 {
-    public interface IGoResult
+    public enum GoStatus
     {
-        GoStatus GoStatus { get; }
+        Success,
+        BrokenByObsticle,
+        Cancelled
     }
 }

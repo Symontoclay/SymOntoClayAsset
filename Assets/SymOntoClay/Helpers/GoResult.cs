@@ -9,5 +9,6 @@ namespace Assets.SymOntoClay.Helpers
 {
     public class GoResult: IGoResult
     {
+        public GoStatus GoStatus { get; set; }
     }
 }

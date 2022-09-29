@@ -271,6 +271,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             var result = await task;
 
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
+#endif
+
             RunInMainThread(() =>
             {
                 PerformStop();

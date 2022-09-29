@@ -59,7 +59,7 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
                 {
-                    return new GoResult();
+                    return new GoResult() { GoStatus = GoStatus.Success };
                 }
 
                 n++;
@@ -88,7 +88,12 @@ namespace SymOntoClay.UnityAsset.Helpers
                             UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
 #endif
 
-                            return new GoResult();
+                            if(distanceBetweenTarget > 2)
+                            {
+                                return new GoResult() { GoStatus = GoStatus.BrokenByObsticle };
+                            }
+
+                            return new GoResult() { GoStatus = GoStatus.Success };
                         }
                     }
 
@@ -97,7 +102,7 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                 if (cancellationToken.IsCancellationRequested)
                 {
-                    return new GoResult();
+                    return new GoResult() { GoStatus = GoStatus.Cancelled };
                 }
 
                 Thread.Sleep(10);
