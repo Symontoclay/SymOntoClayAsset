@@ -174,7 +174,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             ProcessDeath();
         }
 
-        [DebuggerHidden]
+        /*
+                 [DebuggerHidden]
         [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void GoToImpl(CancellationToken cancellationToken,
         [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
@@ -236,6 +237,47 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
+#endif
+        }
+         */
+
+        [DebuggerHidden]
+        [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public async void GoToImpl(CancellationToken cancellationToken,
+        [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
+        float speed = 12)
+        {
+            if (_isDead)
+            {
+                return;
+            }
+
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] point = {point}");
+#endif
+            AddWalkingFact();
+
+            var task = _navHelper.Go(point, cancellationToken);
+
+            RunInMainThread(() => {
+                _isWalking = true;
+                UpdateAnimator();
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
+#endif
+
+            var result = await task;
+
+            RunInMainThread(() =>
+            {
+                PerformStop();
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
         }
 
