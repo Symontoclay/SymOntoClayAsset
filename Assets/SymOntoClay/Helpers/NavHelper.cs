@@ -42,6 +42,10 @@ namespace SymOntoClay.UnityAsset.Helpers
                 _navMeshAgent.SetDestination(targetPosition);
             });
 
+            Vector3? oldPosition = null;
+
+            var n = 0;
+
             while (true)
             {
                 var position = RunInMainThread(() => { 
@@ -50,11 +54,45 @@ namespace SymOntoClay.UnityAsset.Helpers
 
 #if UNITY_EDITOR
                 UnityEngine.Debug.Log($"NavHelper NGo position = {position}");
+                UnityEngine.Debug.Log($"NavHelper NGo oldPosition = {oldPosition}");
 #endif
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
                 {
                     return new GoResult();
+                }
+
+                n++;
+
+                if (n > 50)
+                {
+                    n = 0;
+
+                    if (oldPosition.HasValue)
+                    {
+                        var delta = Vector3.Distance(position, oldPosition.Value);
+
+#if UNITY_EDITOR
+                        UnityEngine.Debug.Log($"NavHelper NGo delta = {delta}");
+#endif
+
+                        if(delta < 1)
+                        {
+#if UNITY_EDITOR
+                            UnityEngine.Debug.Log("NavHelper NGo delta < 0.1");
+#endif
+
+                            var distanceBetweenTarget = Vector3.Distance(position, targetPosition);
+
+#if UNITY_EDITOR
+                            UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
+#endif
+
+                            return new GoResult();
+                        }
+                    }
+
+                    oldPosition = position;
                 }
 
                 if (cancellationToken.IsCancellationRequested)
