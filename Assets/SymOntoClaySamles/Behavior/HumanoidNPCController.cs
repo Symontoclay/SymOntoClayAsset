@@ -241,7 +241,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         }
          */
 
-        [DebuggerHidden]
+        /*
+                 [DebuggerHidden]
         [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public async void GoToImpl(CancellationToken cancellationToken,
         [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
@@ -261,6 +262,55 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             var task = _navHelper.Go(point, cancellationToken);
 
             RunInMainThread(() => {
+                _isWalking = true;
+                UpdateAnimator();
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
+#endif
+
+            var result = await task;
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
+#endif
+
+            RunInMainThread(() =>
+            {
+                PerformStop();
+            });
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
+#endif
+        }
+         */
+
+        [DebuggerHidden]
+        [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public async void GoToImpl(CancellationToken cancellationToken,
+        [EndpointParam("To", KindOfEndpointParam.Position)] INavTarget target,
+        float speed = 12)
+        {
+            if (_isDead)
+            {
+                return;
+            }
+
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
+            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
+            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
+#endif
+            AddWalkingFact();
+
+            var task = _navHelper.Go(target, cancellationToken);
+
+            RunInMainThread(() =>
+            {
                 _isWalking = true;
                 UpdateAnimator();
             });

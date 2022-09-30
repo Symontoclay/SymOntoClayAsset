@@ -1,4 +1,5 @@
 ﻿using Assets.SymOntoClay.Helpers;
+using SymOntoClay.Core;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Interfaces;
 using System;
@@ -35,6 +36,28 @@ namespace SymOntoClay.UnityAsset.Helpers
         public Task<IGoResult> Go(Vector3 targetPosition, CancellationToken cancellationToken)
         {
             return Task.Run(() => { return NGo(targetPosition, cancellationToken); }, cancellationToken);
+        }
+
+        public Task<IGoResult> Go(INavTarget target, CancellationToken cancellationToken)
+        {
+            return Task.Run(() => { return NGo(target, cancellationToken); }, cancellationToken);
+        }
+
+        private IGoResult NGo(INavTarget target, CancellationToken cancellationToken)
+        {
+            var kind = target.Kind;
+
+            switch(kind)
+            {
+                case KindOfNavTarget.ByAbsoluteCoordinates:
+                    {
+                        var absoluteCoordinates = target.AbcoluteCoordinates;
+                        return NGo(new Vector3(absoluteCoordinates.X, absoluteCoordinates.Y, absoluteCoordinates.Z), cancellationToken);
+                    }                    
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
+            }
         }
 
         private IGoResult NGo(Vector3 targetPosition, CancellationToken cancellationToken)
