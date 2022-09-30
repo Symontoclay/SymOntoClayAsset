@@ -27,6 +27,11 @@ namespace SymOntoClay.UnityAsset.Helpers
         private readonly NavMeshAgent _navMeshAgent;
         private readonly IExecutorInMainThread _executorInMainThread;
 
+        private const int DISTANCE_INTERVAL = 50;
+        private const float DISTANCE_DELTA_THRESHOLD = 1f;
+        private const float DISTANCE_BETWEEN_TARGET_THRESHOLD = 2f;
+        private const int ITERATION_TIMEOUT = 10;
+
         public Task<IGoResult> Go(Vector3 targetPosition, CancellationToken cancellationToken)
         {
             return Task.Run(() => { return NGo(targetPosition, cancellationToken); }, cancellationToken);
@@ -35,7 +40,7 @@ namespace SymOntoClay.UnityAsset.Helpers
         private IGoResult NGo(Vector3 targetPosition, CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log($"NavHelper NGo targetPosition = {targetPosition}");
+            //UnityEngine.Debug.Log($"NavHelper NGo targetPosition = {targetPosition}");
 #endif
 
             RunInMainThread(() => {
@@ -53,8 +58,8 @@ namespace SymOntoClay.UnityAsset.Helpers
                 });
 
 #if UNITY_EDITOR
-                UnityEngine.Debug.Log($"NavHelper NGo position = {position}");
-                UnityEngine.Debug.Log($"NavHelper NGo oldPosition = {oldPosition}");
+                //UnityEngine.Debug.Log($"NavHelper NGo position = {position}");
+                //UnityEngine.Debug.Log($"NavHelper NGo oldPosition = {oldPosition}");
 #endif
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
@@ -64,7 +69,7 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                 n++;
 
-                if (n > 50)
+                if (n > DISTANCE_INTERVAL)
                 {
                     n = 0;
 
@@ -73,22 +78,22 @@ namespace SymOntoClay.UnityAsset.Helpers
                         var delta = Vector3.Distance(position, oldPosition.Value);
 
 #if UNITY_EDITOR
-                        UnityEngine.Debug.Log($"NavHelper NGo delta = {delta}");
+                        //UnityEngine.Debug.Log($"NavHelper NGo delta = {delta}");
 #endif
 
-                        if(delta < 1)
+                        if(delta < DISTANCE_DELTA_THRESHOLD)
                         {
 #if UNITY_EDITOR
-                            UnityEngine.Debug.Log("NavHelper NGo delta < 0.1");
+                            //UnityEngine.Debug.Log("NavHelper NGo delta < 0.1");
 #endif
 
                             var distanceBetweenTarget = Vector3.Distance(position, targetPosition);
 
 #if UNITY_EDITOR
-                            UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
+                            //UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
 #endif
 
-                            if(distanceBetweenTarget > 2)
+                            if(distanceBetweenTarget > DISTANCE_BETWEEN_TARGET_THRESHOLD)
                             {
                                 return new GoResult() { GoStatus = GoStatus.BrokenByObsticle };
                             }
@@ -105,7 +110,7 @@ namespace SymOntoClay.UnityAsset.Helpers
                     return new GoResult() { GoStatus = GoStatus.Cancelled };
                 }
 
-                Thread.Sleep(10);
+                Thread.Sleep(ITERATION_TIMEOUT);
             }
         }
 
