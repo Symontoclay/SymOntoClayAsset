@@ -63,7 +63,10 @@ namespace SymOntoClay.UnityAsset.Components
 
             _world.AddConvertor(new Vector3UnityAndSystemNumericConverter());
             _world.AddConvertor(new SymOntoClay.UnityAsset.Converters.Vector3AndWayPointValueConverter());
+            _world.AddConvertor(new SymOntoClay.UnityAsset.Converters.Vector3AndStrongIdentifierValueConverter());
             _world.AddConvertor(new FloatAndNumberValueConverter());
+            _world.AddConvertor(new NavTargetAndStrongIdentifierValueConverter());
+            _world.AddConvertor(new EntityAndStrongIdentifierValueConverter());
 
             var worldFullFileName = Path.Combine(Application.dataPath, WorldFile.FullName);
 

@@ -20,9 +20,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Core.Internal.CodeExecution;
+using SymOntoClay.Core.Internal;
 using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.CoreHelper.DebugHelpers;
 using SymOntoClay.UnityAsset.Core;
+using SymOntoClay.UnityAsset.Core.Internal.TypesConverters.DefaultConverters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,112 +35,34 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Converters
 {
-    public class Vector3AndWayPointValueConverter : IPlatformTypesConverter
+    public class Vector3AndWayPointValueConverter : BasePlatformTypesConverter
     {
         /// <inheritdoc/>
-        public Type PlatformType => typeof(Vector3);
+        public override Type PlatformType => typeof(Vector3);
 
         /// <inheritdoc/>
-        public Type CoreType => typeof(WaypointValue);
+        public override Type CoreType => typeof(WaypointValue);
 
         /// <inheritdoc/>
-        public bool CanConvertToPlatformType => true;
+        public override bool CanConvertToPlatformType => true;
 
         /// <inheritdoc/>
-        public bool CanConvertToCoreType => false;
+        public override bool CanConvertToCoreType => false;
 
         /// <inheritdoc/>
-        public object ConvertToCoreType(object platformObject, IEntityLogger logger)
+        public override object ConvertToCoreType(object platformObject, IEngineContext context, LocalCodeExecutionContext localContext)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public object ConvertToPlatformType(object coreObject, IEntityLogger logger)
+        public override object ConvertToPlatformType(object coreObject, IEngineContext context, LocalCodeExecutionContext localContext)
         {
             var targetObject = (WaypointValue)coreObject;
 
             var absoluteCoordinates = targetObject.AbcoluteCoordinates;
 
             return new Vector3(absoluteCoordinates.X, absoluteCoordinates.Y, absoluteCoordinates.Z);
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return ToString(0u);
-        }
-
-        /// <inheritdoc/>
-        public string ToString(uint n)
-        {
-            return this.GetDefaultToStringInformation(n);
-        }
-
-        /// <inheritdoc/>
-        string IObjectToString.PropertiesToString(uint n)
-        {
-            var spaces = DisplayHelper.Spaces(n);
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"{spaces}{nameof(PlatformType)} = {PlatformType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CoreType)} = {CoreType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToPlatformType)} = {CanConvertToPlatformType}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToCoreType)} = {CanConvertToCoreType}");
-
-            return sb.ToString();
-        }
-
-        /// <inheritdoc/>
-        public string ToShortString()
-        {
-            return ToShortString(0u);
-        }
-
-        /// <inheritdoc/>
-        public string ToShortString(uint n)
-        {
-            return this.GetDefaultToShortStringInformation(n);
-        }
-
-        /// <inheritdoc/>
-        string IObjectToShortString.PropertiesToShortString(uint n)
-        {
-            var spaces = DisplayHelper.Spaces(n);
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"{spaces}{nameof(PlatformType)} = {PlatformType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CoreType)} = {CoreType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToPlatformType)} = {CanConvertToPlatformType}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToCoreType)} = {CanConvertToCoreType}");
-
-            return sb.ToString();
-        }
-
-        /// <inheritdoc/>
-        public string ToBriefString()
-        {
-            return ToBriefString(0u);
-        }
-
-        /// <inheritdoc/>
-        public string ToBriefString(uint n)
-        {
-            return this.GetDefaultToBriefStringInformation(n);
-        }
-
-        /// <inheritdoc/>
-        string IObjectToBriefString.PropertiesToBriefString(uint n)
-        {
-            var spaces = DisplayHelper.Spaces(n);
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"{spaces}{nameof(PlatformType)} = {PlatformType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CoreType)} = {CoreType.FullName}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToPlatformType)} = {CanConvertToPlatformType}");
-            sb.AppendLine($"{spaces}{nameof(CanConvertToCoreType)} = {CanConvertToCoreType}");
-
-            return sb.ToString();
         }
     }
 }
