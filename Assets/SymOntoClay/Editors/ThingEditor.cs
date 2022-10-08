@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Helpers;
+using SymOntoClay.UnityAsset.Navigation;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -63,6 +64,8 @@ namespace SymOntoClay.UnityAsset.Editors
 
                 _target.Id = newIdValue;
             }
+
+            _target.Waypoint = (Waypoint)EditorGUILayout.ObjectField("Waypoint", _target.Waypoint, typeof(Waypoint), true);
 
             GUILayout.EndVertical();
 

@@ -5579,6 +5579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: -6750239444755058063, guid: 8696e53c03865cf41954032f6370a66b, type: 3}
   Id: '#Cleaned Metal Barrel'
+  Waypoint: {fileID: 0}
 --- !u!1 &1024631125
 GameObject:
   m_ObjectHideFlags: 0
@@ -16173,6 +16174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: -6750239444755058063, guid: 8696e53c03865cf41954032f6370a66b, type: 3}
   Id: '#Cleaned Metal Barrel'
+  Waypoint: {fileID: 1685976604}
 --- !u!1 &2088317685
 GameObject:
   m_ObjectHideFlags: 0
