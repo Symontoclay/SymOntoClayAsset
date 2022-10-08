@@ -47,7 +47,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             mInputKeyHelper.AddPressListener(KeyCode.N, OnNPressAction);//NPC takes gun from backpack
             mInputKeyHelper.AddPressListener(KeyCode.M, OnMPressAction);//NPC rotates to npc
             mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);//NPS goes
-            //mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
         }
 
         void Update()
@@ -188,6 +188,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _uSocGameObject.PushSoundFact(60, "act(q15, shoot)");
 
             Debug.Log("End OnLPressAction");
+        }
+
+        private void OnKPressAction()
+        {
+            Debug.Log("OnKPressAction");
+
+            _uSocGameObject.PushSoundFact(60, "act(q16, shoot)");
+
+            Debug.Log("End OnKPressAction");
         }
     }
 }

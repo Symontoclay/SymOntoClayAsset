@@ -106,8 +106,15 @@ app MyNPC
 	
     on {: hear(I, q15) :} => 
     {
-        'q14!!!!' >> @>log;
+        'q15!!!!' >> @>log;
 		@@host.`go`(to: #@[20, -45]);
-		'End q14!!!!' >> @>log;
+		'End q15!!!!' >> @>log;
+    }
+	
+	on {: hear(I, q16) :} => 
+    {
+        'q16!!!!' >> @>log;
+		@@host.`go`(to: #WayPoint_123);
+		'End q16!!!!' >> @>log;
     }
 }

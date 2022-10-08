@@ -31,6 +31,8 @@ namespace SymOntoClay.UnityAsset.Navigation
             var settings = new PlaceSettings();
             settings.Id = Id;
             settings.InstanceId = gameObject.GetInstanceID();
+            settings.AllowPublicPosition = true;
+            settings.UseStaticPosition = new System.Numerics.Vector3(transform.position.x, transform.position.y, transform.position.z);
 
             if(SobjFile != null)
             {
@@ -82,6 +84,18 @@ namespace SymOntoClay.UnityAsset.Navigation
         void Stop()
         {
             _place.Dispose();
+        }
+
+        /// <inheritdoc/>
+        protected override void RunInMainThread(Action function)
+        {
+            _place.RunInMainThread(function);
+        }
+
+        /// <inheritdoc/>
+        protected override TResult RunInMainThread<TResult>(Func<TResult> function)
+        {
+            return _place.RunInMainThread<TResult>(function);
         }
     }
 }

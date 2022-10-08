@@ -302,6 +302,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             var methodId = GetMethodId();
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.InstanceId = {target?.Entity.InstanceId}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.Position = {target?.Entity.Position}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
 #endif
