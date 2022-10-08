@@ -6,6 +6,11 @@ app MyNPC
 		@x >> @>log;
 	}
 	
+	on {: see(I, #WayPoint_345) :}
+	{
+	    '#WayPoint_345!!!!' >> @>log;
+	}
+	
 	on {: hear(I, q1) :} => 
     {
         'q1!!!!' >> @>log;
