@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.UnityAsset.Helpers;
 using SymOntoClay.UnityAsset.Navigation;
 using UnityEngine;
 
@@ -29,5 +30,26 @@ namespace SymOntoClay.UnityAsset.Components
     public class Thing : BaseThing
     {
         public Waypoint Waypoint;
+
+        private InstancesRegistry _instancesRegistry;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if DEBUG
+            //Debug.Log($"Thing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
+#endif
+
+            var istanceId = gameObject.GetInstanceID();
+            _instancesRegistry = InstancesRegistry.GetRegistry();
+            _instancesRegistry.RegisterInstance(istanceId, Id, KindOfInstance.Thing);
+
+            if(Waypoint != null)
+            {
+                var waypointInstanceId = Waypoint.gameObject.GetInstanceID();
+                _instancesRegistry.RegisterLinkedWaypoint(istanceId, waypointInstanceId);
+            }
+        }
     }
 }

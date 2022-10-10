@@ -32,6 +32,7 @@ namespace SymOntoClay.UnityAsset.Interfaces
     {
         Success,
         BrokenByObsticle,
+        SystemError,
         Cancelled
     }
 }

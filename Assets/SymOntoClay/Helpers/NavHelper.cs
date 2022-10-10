@@ -45,11 +45,13 @@ namespace SymOntoClay.UnityAsset.Helpers
             _transform = transform;
             _navMeshAgent = navMeshAgent;
             _executorInMainThread = executorInMainThread;
+            _instancesRegistry = InstancesRegistry.GetRegistry();
         }
 
         private readonly Transform _transform;
         private readonly NavMeshAgent _navMeshAgent;
         private readonly IExecutorInMainThread _executorInMainThread;
+        private readonly InstancesRegistry _instancesRegistry;
 
         private const int DISTANCE_INTERVAL = 50;
         private const float DISTANCE_DELTA_THRESHOLD = 1f;
@@ -92,9 +94,9 @@ namespace SymOntoClay.UnityAsset.Helpers
 #if UNITY_EDITOR
                 UnityEngine.Debug.LogError(e);
 #endif
-            }
 
-            throw new NotImplementedException();
+                return new GoResult() { GoStatus = GoStatus.SystemError };
+            }
         }
 
         private IGoResult NGo(IEntity entity, CancellationToken cancellationToken)
@@ -104,6 +106,34 @@ namespace SymOntoClay.UnityAsset.Helpers
             //UnityEngine.Debug.Log($"NavHelper NGo entity.Position = {entity.Position}");
 #endif
             var entityInstanceId = entity.InstanceId;
+
+            var kindOfInstance = _instancesRegistry.GetKindOfInstance(entityInstanceId);
+
+            if(kindOfInstance == KindOfInstance.Thing)
+            {
+                var waypointInstanceId = _instancesRegistry.GetLinkedWaypoint(entityInstanceId);
+
+#if UNITY_EDITOR
+                //UnityEngine.Debug.Log($"NavHelper NGo waypointInstanceId = {waypointInstanceId}");
+#endif
+
+                if (waypointInstanceId.HasValue)
+                {
+                    var waypointEntityId = _instancesRegistry.GetId(waypointInstanceId.Value);
+
+#if UNITY_EDITOR
+                    //UnityEngine.Debug.Log($"NavHelper NGo waypointEntityId = '{waypointEntityId}'");
+#endif
+
+                    entity = entity.GetNewEntity(waypointEntityId);
+
+#if UNITY_EDITOR
+                    //UnityEngine.Debug.Log($"NavHelper NGo entity.InstanceId (2) = {entity.InstanceId}");
+                    //UnityEngine.Debug.Log($"NavHelper NGo entity.Position (2) = {entity.Position}");
+#endif
+                }
+            }
+
             var tpos = entity.Position.Value;
 
             var targetPosition = new Vector3(tpos.X, tpos.Y, tpos.Z);

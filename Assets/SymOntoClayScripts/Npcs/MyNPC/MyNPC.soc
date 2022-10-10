@@ -119,7 +119,8 @@ app MyNPC
 	on {: hear(I, q16) :} => 
     {
         'q16!!!!' >> @>log;
-		@@host.`go`(to: #WayPoint_123);
+		//@@host.`go`(to: #WayPoint_123);
+		@@host.`go`(to: #`Cleaned Metal Barrel`);
 		'End q16!!!!' >> @>log;
     }
 }

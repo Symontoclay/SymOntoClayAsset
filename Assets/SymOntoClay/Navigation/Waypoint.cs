@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.UnityAsset.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,5 +33,19 @@ namespace SymOntoClay.UnityAsset.Navigation
     [AddComponentMenu("SymOntoClay/Navigation/Waypoint")]
     public class Waypoint : BaseElementaryArea
     {
+        private InstancesRegistry _instancesRegistry;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+#if DEBUG
+            //Debug.Log($"Waypoint Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
+#endif
+
+            var istanceId = gameObject.GetInstanceID();
+            _instancesRegistry = InstancesRegistry.GetRegistry();
+            _instancesRegistry.RegisterInstance(istanceId, Id, KindOfInstance.Waypoint);
+        }
     }
 }
