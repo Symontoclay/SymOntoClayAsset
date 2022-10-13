@@ -120,7 +120,7 @@ app MyNPC
     {
         'q16!!!!' >> @>log;
 		//@@host.`go`(to: #WayPoint_123);
-		@@host.`go`(to: #`Cleaned Metal Barrel`);
+		@@host.`go`(to: #`Metal Barrel 1`);
 		'End q16!!!!' >> @>log;
     }
 }

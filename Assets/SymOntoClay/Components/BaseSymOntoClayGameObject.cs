@@ -31,6 +31,7 @@ using UnityEngine;
 using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.UnityAsset.Helpers;
+using UnityEditor.SceneManagement;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -49,31 +50,38 @@ namespace SymOntoClay.UnityAsset.Components
             GameObjectsRegistry.AddGameObject(gameObject);
         }
 
+#if UNITY_EDITOR
         protected virtual void OnValidate()
         {
-            if (string.IsNullOrWhiteSpace(Id))
+            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
+
+            if (isInstance)
             {
-                Id = GetIdByName();
-            }
-            else
-            {
-                if (Id == GetIdByName(_oldName))
+                if (string.IsNullOrWhiteSpace(Id))
                 {
                     Id = GetIdByName();
                 }
-            }
+                else
+                {
+                    if (Id == GetIdByName(_oldName))
+                    {
+                        Id = GetIdByName();
+                    }
+                }
 
-            if (Id.StartsWith("#`"))
-            {
-                _idForFacts = Id;
-            }
-            else
-            {
-                _idForFacts = $"{Id.Insert(1, "`")}`";
+                if (Id.StartsWith("#`"))
+                {
+                    _idForFacts = Id;
+                }
+                else
+                {
+                    _idForFacts = $"{Id.Insert(1, "`")}`";
+                }
             }
 
             _oldName = name;
         }
+#endif
 
         private string GetIdByName()
         {

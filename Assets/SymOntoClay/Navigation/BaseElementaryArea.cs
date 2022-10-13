@@ -67,6 +67,7 @@ namespace SymOntoClay.UnityAsset.Navigation
             _place = WorldFactory.WorldInstance.GetPlace(settings);
         }
 
+#if UNITY_EDITOR
         protected virtual void OnValidate()
         {
             if (string.IsNullOrWhiteSpace(Id))
@@ -92,6 +93,7 @@ namespace SymOntoClay.UnityAsset.Navigation
 
             _oldName = name;
         }
+#endif
 
         private string GetIdByName()
         {

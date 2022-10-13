@@ -31,6 +31,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Editors
@@ -55,11 +56,20 @@ namespace SymOntoClay.UnityAsset.Editors
 
             var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
 
-            if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
-            {
-                UniqueIdRegistry.RemoveId(_target.Id);
-                UniqueIdRegistry.AddId(newIdValue);
+            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
 
+            if (isInstance)
+            {
+                if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
+                {
+                    UniqueIdRegistry.RemoveId(_target.Id);
+                    UniqueIdRegistry.AddId(newIdValue);
+
+                    _target.Id = newIdValue;
+                }
+            }
+            else
+            {
                 _target.Id = newIdValue;
             }
 
