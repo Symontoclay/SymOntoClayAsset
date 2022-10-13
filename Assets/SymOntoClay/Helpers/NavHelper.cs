@@ -107,6 +107,8 @@ namespace SymOntoClay.UnityAsset.Helpers
 #endif
             var entityInstanceId = entity.InstanceId;
 
+            IEntity rotateToEntityAfterAction = null;
+
             var kindOfInstance = _instancesRegistry.GetKindOfInstance(entityInstanceId);
 
             if(kindOfInstance == KindOfInstance.Thing)
@@ -124,6 +126,8 @@ namespace SymOntoClay.UnityAsset.Helpers
 #if UNITY_EDITOR
                     //UnityEngine.Debug.Log($"NavHelper NGo waypointEntityId = '{waypointEntityId}'");
 #endif
+
+                    rotateToEntityAfterAction = entity;
 
                     entity = entity.GetNewEntity(waypointEntityId);
 
@@ -159,7 +163,11 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
                 {
-                    return new GoResult() { GoStatus = GoStatus.Success };
+                    return new GoResult() 
+                    { 
+                        GoStatus = GoStatus.Success, 
+                        RotateToEntityAfterAction = rotateToEntityAfterAction 
+                    };
                 }
 
                 n++;
@@ -207,7 +215,11 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                             if(isTargetPlace)
                             {
-                                return new GoResult() { GoStatus = GoStatus.Success };
+                                return new GoResult() 
+                                { 
+                                    GoStatus = GoStatus.Success,
+                                    RotateToEntityAfterAction = rotateToEntityAfterAction 
+                                };
                             }
 
                             var distanceBetweenTarget = Vector3.Distance(position, targetPosition);
@@ -221,7 +233,11 @@ namespace SymOntoClay.UnityAsset.Helpers
                                 return new GoResult() { GoStatus = GoStatus.BrokenByObsticle };
                             }
 
-                            return new GoResult() { GoStatus = GoStatus.Success };
+                            return new GoResult()
+                            {
+                                GoStatus = GoStatus.Success, 
+                                RotateToEntityAfterAction = rotateToEntityAfterAction 
+                            };
                         }
                     }
 

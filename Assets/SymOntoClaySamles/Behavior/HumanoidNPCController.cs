@@ -332,6 +332,11 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 PerformStop();
             });
 
+            if(result.RotateToEntityAfterAction != null)
+            {
+                RotateToEntityImpl(cancellationToken, result.RotateToEntityAfterAction, speed);
+            }
+
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
