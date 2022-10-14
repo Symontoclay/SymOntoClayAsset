@@ -166,7 +166,7 @@ namespace SymOntoClay.UnityAsset.Helpers
                     return new GoResult() 
                     { 
                         GoStatus = GoStatus.Success, 
-                        RotateToEntityAfterAction = rotateToEntityAfterAction 
+                        TargetEntity = rotateToEntityAfterAction 
                     };
                 }
 
@@ -218,7 +218,7 @@ namespace SymOntoClay.UnityAsset.Helpers
                                 return new GoResult() 
                                 { 
                                     GoStatus = GoStatus.Success,
-                                    RotateToEntityAfterAction = rotateToEntityAfterAction 
+                                    TargetEntity = rotateToEntityAfterAction 
                                 };
                             }
 
@@ -236,7 +236,7 @@ namespace SymOntoClay.UnityAsset.Helpers
                             return new GoResult()
                             {
                                 GoStatus = GoStatus.Success, 
-                                RotateToEntityAfterAction = rotateToEntityAfterAction 
+                                TargetEntity = rotateToEntityAfterAction 
                             };
                         }
                     }

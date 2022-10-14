@@ -33,6 +33,6 @@ namespace Assets.SymOntoClay.Helpers
     public class GoResult: IGoResult
     {
         public GoStatus GoStatus { get; set; }
-        public IEntity RotateToEntityAfterAction { get; set; }
+        public IEntity TargetEntity { get; set; }
     }
 }

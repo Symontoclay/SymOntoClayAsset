@@ -32,6 +32,6 @@ namespace SymOntoClay.UnityAsset.Interfaces
     public interface IGoResult
     {
         GoStatus GoStatus { get; }
-        IEntity RotateToEntityAfterAction { get; }
+        IEntity TargetEntity { get; }
     }
 }

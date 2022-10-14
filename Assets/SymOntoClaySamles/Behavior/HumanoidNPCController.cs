@@ -332,9 +332,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 PerformStop();
             });
 
-            if(result.RotateToEntityAfterAction != null)
+            if(result.TargetEntity != null)
             {
-                RotateToEntityImpl(cancellationToken, result.RotateToEntityAfterAction, speed);
+                RotateToEntityImpl(cancellationToken, result.TargetEntity, speed);
             }
 
 #if UNITY_EDITOR
