@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
-    [AddComponentMenu("SymOntoClaySamles/GunEndLocator")]
+    [AddComponentMenu("SymOntoClay Samles/GunEndLocator")]
     public class GunEndLocator : MonoBehaviour
     {
     }
