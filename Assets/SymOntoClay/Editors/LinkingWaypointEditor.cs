@@ -56,12 +56,12 @@ namespace SymOntoClay.UnityAsset.Editors
 
             _target.SobjFile = (SobjFile)EditorGUILayout.ObjectField("App File", _target.SobjFile, typeof(SobjFile), false);
 
-            var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
-
             var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
 
             if (isInstance)
             {
+                var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
+
                 if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
                 {
                     UniqueIdRegistry.RemoveId(_target.Id);
@@ -72,7 +72,7 @@ namespace SymOntoClay.UnityAsset.Editors
             }
             else
             {
-                _target.Id = newIdValue;
+                _target.Id = string.Empty;
             }
 
             GUILayout.EndVertical();

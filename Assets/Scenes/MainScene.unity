@@ -9042,7 +9042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5644024920194529123, guid: 7b35d01da4e871d4392f5c36d3874e2c, type: 3}
-  PropsToSpawn: []
+  PropsToSpawn:
+  - {fileID: 7236253704405362127, guid: d205803cda9739146b03e27f47fb348a, type: 3}
 --- !u!64 &1758151262
 MeshCollider:
   m_ObjectHideFlags: 0
