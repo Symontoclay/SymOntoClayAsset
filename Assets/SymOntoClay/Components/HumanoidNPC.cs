@@ -34,6 +34,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using SymOntoClay.UnityAsset.Interfaces;
+using UnityEditor.SceneManagement;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -66,8 +67,8 @@ namespace SymOntoClay.UnityAsset.Components
         {
             base.Awake();
 
-#if DEBUG
-            //Debug.Log("HumanoidNPC Awake");
+#if UNITY_EDITOR
+            //Debug.Log($"HumanoidNPC Awake ({name})");
 #endif
 
             var npcSettings = new HumanoidNPCSettings();
@@ -78,8 +79,8 @@ namespace SymOntoClay.UnityAsset.Components
             {
                 var npcFullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
 
-#if DEBUG
-                //Debug.Log($"HumanoidNPC Awake npcFullFileName = {npcFullFileName}");
+#if UNITY_EDITOR
+                //Debug.Log($"HumanoidNPC Awake ({name}) npcFullFileName = {npcFullFileName}");
 #endif
 
                 npcSettings.LogicFile = npcFullFileName;
@@ -89,11 +90,11 @@ namespace SymOntoClay.UnityAsset.Components
             npcSettings.PlatformSupport = this;
             npcSettings.VisionProvider = this;
 
-#if DEBUG
-            //Debug.Log($"HumanoidNPC Awake npcSettings = {npcSettings}");
+#if UNITY_EDITOR
+            //Debug.Log($"HumanoidNPC Awake  ({name}) npcSettings = {npcSettings}");
 #endif
 
-            //QuickLogger.Log($"HumanoidNPC Awake npcSettings = {npcSettings}");
+            //QuickLogger.Log($"HumanoidNPC Awake  ({name}) npcSettings = {npcSettings}");
 
             _npc = WorldFactory.WorldInstance.GetHumanoidNPC(npcSettings);
 

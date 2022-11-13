@@ -47,7 +47,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             mInputKeyHelper.AddPressListener(KeyCode.N, OnNPressAction);//NPC takes gun from backpack
             mInputKeyHelper.AddPressListener(KeyCode.M, OnMPressAction);//NPC rotates to npc
             mInputKeyHelper.AddPressListener(KeyCode.L, OnLPressAction);//NPS goes
-            mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);
+            mInputKeyHelper.AddPressListener(KeyCode.K, OnKPressAction);//NPS goes to #`Metal Barrel 1`
         }
 
         void Update()

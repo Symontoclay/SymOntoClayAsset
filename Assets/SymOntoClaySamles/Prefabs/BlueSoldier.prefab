@@ -133,8 +133,7 @@ MonoBehaviour:
   FocusRaysAngle: 40
   FocusRaysInterval: 5
   ShowRayCastGizmo: 0
-  Backpack:
-  - {fileID: 0}
+  Backpack: []
 --- !u!114 &3135011316161805785
 MonoBehaviour:
   m_ObjectHideFlags: 0
