@@ -47,7 +47,16 @@ namespace SymOntoClay.UnityAsset.Components
             settings.Id = Id;
             settings.InstanceId = gameObject.GetInstanceID();
 
-            if(SobjFile != null)
+#if DEBUG
+            Debug.Log($"Thing Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
+            if(UniqueIdRegistry.ContainsId(Id))
+            {
+                throw new NotImplementedException($"Id '{Id}' of '{name}' is duplicated.");
+            }
+            UniqueIdRegistry.AddId(Id);
+#endif
+
+            if (SobjFile != null)
             {
                 var fullFileName = Path.Combine(Application.dataPath, SobjFile.FullName);
 
@@ -73,7 +82,7 @@ namespace SymOntoClay.UnityAsset.Components
             settings.PlatformSupport = this;
 
 #if DEBUG
-            //Debug.Log($"Thing Awake settings = {settings}");
+            Debug.Log($"Thing Awake settings = {settings}");
 #endif
 
             _thing = WorldFactory.WorldInstance.GetGameObject(settings);
