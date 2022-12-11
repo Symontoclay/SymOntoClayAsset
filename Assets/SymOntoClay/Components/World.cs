@@ -36,6 +36,8 @@ using SymOntoClay.UnityAsset.Converters;
 using SymOntoClay.StandardFacts;
 using SymOntoClay.Core;
 using SymOntoClay.NLP;
+using UnityEngine.Windows;
+using SymOntoClay.ProjectFiles;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -82,7 +84,27 @@ namespace SymOntoClay.UnityAsset.Components
 
             var settings = new WorldSettings();
 
-            settings.SharedModulesDirs = new List<string>() { Path.Combine(wspaceDir, "Modules") };
+            var worldSpaceFilesSearcherOptions = new WorldSpaceFilesSearcherOptions()
+            {
+                InputDir = wspaceDir,
+                AppName = "tst"
+            };
+
+            var targetFiles = WorldSpaceFilesSearcher.Run(worldSpaceFilesSearcherOptions);
+
+            var libsDirs = new List<string>();
+
+            if (!string.IsNullOrWhiteSpace(targetFiles.SharedLibsDir))
+            {
+                libsDirs.Add(targetFiles.SharedLibsDir);
+            }
+
+            if (!string.IsNullOrWhiteSpace(targetFiles.LibsDir))
+            {
+                libsDirs.Add(targetFiles.LibsDir);
+            }
+
+            settings.LibsDirs = libsDirs;
 
             settings.ImagesRootDir = Path.Combine(supportBasePath, "Images");
 
