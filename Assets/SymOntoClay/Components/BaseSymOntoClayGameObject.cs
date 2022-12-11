@@ -106,7 +106,7 @@ namespace SymOntoClay.UnityAsset.Components
         public IGameObject SocGameObject => _socGameObject;
 
         public IStandardFactsBuilder StandardFactsBuilder => _worldComponent.StandardFactsBuilder;
-
+        
         public IEntityLogger Logger => _worldComponent?.Logger;
 
         public void RunInMainThread(Action function)

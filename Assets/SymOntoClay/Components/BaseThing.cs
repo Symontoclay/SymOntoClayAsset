@@ -51,7 +51,9 @@ namespace SymOntoClay.UnityAsset.Components
             Debug.Log($"Thing Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
             if(UniqueIdRegistry.ContainsId(Id))
             {
-                throw new NotImplementedException($"Id '{Id}' of '{name}' is duplicated.");
+                var oldId = Id;
+
+                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
             }
             UniqueIdRegistry.AddId(Id);
 #endif
