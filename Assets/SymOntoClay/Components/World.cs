@@ -79,7 +79,7 @@ namespace SymOntoClay.UnityAsset.Components
             var wspaceDir = WorldSpaceHelper.GetRootWorldSpaceDir(worldFullFileName);
 
 #if DEBUG
-            //Debug.Log($"World Awake wspaceDir = {wspaceDir}");
+            Debug.Log($"World Awake wspaceDir = {wspaceDir}");
 #endif
 
             var settings = new WorldSettings();
@@ -87,7 +87,8 @@ namespace SymOntoClay.UnityAsset.Components
             var worldSpaceFilesSearcherOptions = new WorldSpaceFilesSearcherOptions()
             {
                 InputDir = wspaceDir,
-                AppName = "tst"
+                AppName = "tst",
+                SearchMainNpcFile = false
             };
 
             var targetFiles = WorldSpaceFilesSearcher.Run(worldSpaceFilesSearcherOptions);
