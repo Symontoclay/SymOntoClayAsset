@@ -57,8 +57,9 @@ namespace SymOntoClay.UnityAsset.Components
 
             var supportBasePath = Path.Combine(Environment.GetEnvironmentVariable("APPDATA"), Application.productName);
 
-            QuickLogger.Log($"World Awake Application.supportBasePath = {supportBasePath}");
-
+#if DEBUG
+            //QuickLogger.Log($"World Awake Application.supportBasePath = {supportBasePath}");
+#endif
             var logDir = Path.Combine(supportBasePath, "NpcLogs");
 
             _world = WorldFactory.WorldInstance;
@@ -79,7 +80,7 @@ namespace SymOntoClay.UnityAsset.Components
             var wspaceDir = WorldSpaceHelper.GetRootWorldSpaceDir(worldFullFileName);
 
 #if DEBUG
-            Debug.Log($"World Awake wspaceDir = {wspaceDir}");
+            //Debug.Log($"World Awake wspaceDir = {wspaceDir}");
 #endif
 
             var settings = new WorldSettings();
