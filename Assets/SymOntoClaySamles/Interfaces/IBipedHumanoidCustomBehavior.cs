@@ -11,5 +11,6 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
     {
         GameObject RightHandWP { get; }
         GameObject LeftHandWP { get; }
+        void Take(IHandThingCustomBehavior handThing);
     }
 }

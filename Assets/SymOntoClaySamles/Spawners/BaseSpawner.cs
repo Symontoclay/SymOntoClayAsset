@@ -1,4 +1,5 @@
 ﻿using SymOntoClay.UnityAsset.Components;
+using SymOntoClay.UnityAsset.Samles.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Assets.SymOntoClaySamles.Spawners
         {
             var instance = Instantiate(Prefab, position, transform.rotation);
 
-            var humanoidNPC = instance.GetComponent<HumanoidNPC>();
+            var humanoidNPC = instance.GetComponent<IBipedHumanoidCustomBehavior>();
 
 #if DEBUG
             Debug.Log($"BaseSpawner Start humanoidNPC == null = {humanoidNPC == null}");
@@ -31,11 +32,13 @@ namespace Assets.SymOntoClaySamles.Spawners
                 {
                     var propInstance = Instantiate(propItem, position, transform.rotation);
 
-                    var handThing = propInstance.GetComponent<HandThing>();
+                    var handThing = propInstance.GetComponent<IHandThingCustomBehavior>();
 
 #if DEBUG
                     Debug.Log($"BaseSpawner Start handThing == null = {handThing == null}");
 #endif
+
+                    humanoidNPC.Take(handThing);
                 }
             }
         }

@@ -53,6 +53,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         protected override void Start()
         {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("HumanoidNPCController Start");
+#endif
+
             base.Start();
 
             AddStopFact();
@@ -684,7 +688,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 switch (handThing.Kind)
                 {
                     case KindOfHandThing.Rifle:
-                        TakeRifle(cancellationToken, handThing as IRifleCustomBehavior);
+                        TakeRifle(handThing as IRifleCustomBehavior);
                         break;
 
                     default:
@@ -697,7 +701,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void TakeRifle(CancellationToken cancellationToken, IRifleCustomBehavior rifle)
+        public void Take(IHandThingCustomBehavior handThing)
+        {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("Take is not fully implemented");
+#endif
+        }
+
+        private void TakeRifle(IRifleCustomBehavior rifle)
         {
             _rifle = rifle;
             _currentHandThing = rifle;

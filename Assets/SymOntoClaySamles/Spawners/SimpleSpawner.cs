@@ -13,6 +13,10 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
         // Use this for initialization
         void Start()
         {
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("SimpleSpawner Start");
+#endif
+
             ProcessInstantiate(transform.position);
         }
     }

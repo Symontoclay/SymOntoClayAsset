@@ -58,6 +58,10 @@ public class NewBehaviourScript : MonoBehaviour, IBipedHumanoidCustomBehavior
         mInputKeyHelper.Update();
     }
 
+    public void Take(IHandThingCustomBehavior handThing)
+    {
+    }
+
     private void OnFPressAction()
     {
         Debug.Log("OnFPressAction");
