@@ -19,11 +19,11 @@ namespace Assets.SymOntoClaySamles.Spawners
             var humanoidNPC = instance.GetComponent<IBipedHumanoidCustomBehavior>();
 
 #if DEBUG
-            Debug.Log($"BaseSpawner Start humanoidNPC == null = {humanoidNPC == null}");
+            //Debug.Log($"BaseSpawner Start humanoidNPC == null = {humanoidNPC == null}");
 #endif
 
 #if DEBUG
-            Debug.Log($"BaseSpawner Start PropsToSpawn?.Count = {PropsToSpawn?.Count}");
+            //Debug.Log($"BaseSpawner Start PropsToSpawn?.Count = {PropsToSpawn?.Count}");
 #endif
 
             if (PropsToSpawn.Any())
@@ -35,7 +35,7 @@ namespace Assets.SymOntoClaySamles.Spawners
                     var handThing = propInstance.GetComponent<IHandThingCustomBehavior>();
 
 #if DEBUG
-                    Debug.Log($"BaseSpawner Start handThing == null = {handThing == null}");
+                    //Debug.Log($"BaseSpawner Start handThing == null = {handThing == null}");
 #endif
 
                     humanoidNPC.Take(handThing);

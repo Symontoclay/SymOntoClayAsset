@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -46,9 +47,24 @@ namespace SymOntoClay.UnityAsset.Navigation
 
         private IPlace _place;
 
+        private int _mainThreadId;
+
         protected virtual void Awake()
         {
+            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
+
             GameObjectsRegistry.AddGameObject(gameObject);
+
+#if DEBUG
+            //Debug.Log($"BaseElementaryArea Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
+            if (UniqueIdRegistry.ContainsId(Id))
+            {
+                var oldId = Id;
+
+                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
+            }
+            UniqueIdRegistry.AddId(Id);
+#endif
 
             var settings = new PlaceSettings();
             settings.Id = Id;
@@ -113,12 +129,23 @@ namespace SymOntoClay.UnityAsset.Navigation
         /// <inheritdoc/>
         protected override void RunInMainThread(Action function)
         {
+            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                function();
+                return;
+            }
+
             _place.RunInMainThread(function);
         }
 
         /// <inheritdoc/>
         protected override TResult RunInMainThread<TResult>(Func<TResult> function)
         {
+            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                return function();
+            }
+
             return _place.RunInMainThread<TResult>(function);
         }
     }

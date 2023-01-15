@@ -43,13 +43,9 @@ namespace SymOntoClay.UnityAsset.Components
             //Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
 #endif
 
-            var settings = new GameObjectSettings();
-            settings.Id = Id;
-            settings.InstanceId = gameObject.GetInstanceID();
-
 #if DEBUG
             Debug.Log($"Thing Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
-            if(UniqueIdRegistry.ContainsId(Id))
+            if (UniqueIdRegistry.ContainsId(Id))
             {
                 var oldId = Id;
 
@@ -57,6 +53,10 @@ namespace SymOntoClay.UnityAsset.Components
             }
             UniqueIdRegistry.AddId(Id);
 #endif
+
+            var settings = new GameObjectSettings();
+            settings.Id = Id;
+            settings.InstanceId = gameObject.GetInstanceID();
 
             if (SobjFile != null)
             {

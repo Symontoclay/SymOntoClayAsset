@@ -5126,7 +5126,7 @@ MonoBehaviour:
   - {fileID: 7236253704405362127, guid: d205803cda9739146b03e27f47fb348a, type: 3}
   CellHeight: 1
   CellWidth: 1
-  Count: 2
+  Count: 30
 --- !u!1 &932117507
 GameObject:
   m_ObjectHideFlags: 0

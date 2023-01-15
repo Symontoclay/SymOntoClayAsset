@@ -3,6 +3,7 @@ using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Core;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Spawners
@@ -19,6 +20,9 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
         {
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("GridSpawner Start");
+
+            var thread = Thread.CurrentThread;
+            UnityEngine.Debug.Log($"GridSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
 #endif
 
             var meshFilter = GetComponent<MeshFilter>();
@@ -28,11 +32,11 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
             var bounds = mesh.bounds;
 
 #if DEBUG
-            Debug.Log($"GridSpawner Start bounds.size.x = {bounds.size.x}");
-            Debug.Log($"GridSpawner Start bounds.size.y = {bounds.size.y}");
-            Debug.Log($"GridSpawner Start bounds.size.z = {bounds.size.z}");
-            Debug.Log($"GridSpawner Start bounds.min = {bounds.min}");
-            Debug.Log($"GridSpawner Start bounds.max = {bounds.max}");
+            //Debug.Log($"GridSpawner Start bounds.size.x = {bounds.size.x}");
+            //Debug.Log($"GridSpawner Start bounds.size.y = {bounds.size.y}");
+            //Debug.Log($"GridSpawner Start bounds.size.z = {bounds.size.z}");
+            //Debug.Log($"GridSpawner Start bounds.min = {bounds.min}");
+            //Debug.Log($"GridSpawner Start bounds.max = {bounds.max}");
 #endif
 
             var bottomLeft = bounds.min;

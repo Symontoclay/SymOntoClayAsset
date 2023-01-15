@@ -32,6 +32,7 @@ using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.UnityAsset.Helpers;
 using UnityEditor.SceneManagement;
+using System.Threading;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -45,8 +46,12 @@ namespace SymOntoClay.UnityAsset.Components
 
         public string IdForFacts => _idForFacts;
 
+        private int _mainThreadId;
+
         protected virtual void Awake()
         {
+            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
+
             GameObjectsRegistry.AddGameObject(gameObject);
         }
 
@@ -111,11 +116,22 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void RunInMainThread(Action function)
         {
+            if(_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                function();
+                return;
+            }
+
             _worldComponent?.RunInMainThread(function);
         }
 
         public TResult RunInMainThread<TResult>(Func<TResult> function)
         {
+            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                return function();
+            }
+
             return _worldComponent.RunInMainThread(function);
         }
 

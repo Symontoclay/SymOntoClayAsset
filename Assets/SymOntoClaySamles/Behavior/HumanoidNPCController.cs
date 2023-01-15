@@ -38,9 +38,11 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public float MaxHeadRotationAngle = 30;
         public float MaxWeaponRotationAngle = 10;
 
-        private void Awake()
-        {
+        private bool _isAlreadyStarted;
+        private IHandThingCustomBehavior _takeAfterInitialization;
 
+        protected override void Awake()
+        {
 #if UNITY_EDITOR
             //Debug.Log("HumanoidNPCController Awake");
 #endif
@@ -93,6 +95,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
 
             _navHelper = new NavHelper(transform, _navMeshAgent, this);
+
+            _isAlreadyStarted = true;
         }
 
         // Update is called once per frame
@@ -101,6 +105,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             if (_isDead)
             {
                 return;
+            }
+
+            if(_takeAfterInitialization != null)
+            {
+                NTake(_takeAfterInitialization);
+
+                _takeAfterInitialization = null;
             }
 
             _position = transform.position;
@@ -303,6 +314,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
 
 #if UNITY_EDITOR
+            //var thread = Thread.CurrentThread;
+            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl thread.ManagedThreadId = {thread.ManagedThreadId}");
+
             //var methodId = GetMethodId();
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
@@ -678,6 +692,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject.SocGameObject != null) = {handThing.USocGameObject.SocGameObject != null}");
 #endif
 
+            NTake(handThing);
+
+#if UNITY_EDITOR
+            //UnityEngine.Debug.Log("NTake End");
+#endif
+        }
+
+        private void NTake(IHandThingCustomBehavior handThing)
+        {
             RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
 
 #if UNITY_EDITOR
@@ -695,17 +718,22 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                         throw new ArgumentOutOfRangeException(nameof(handThing.Kind), handThing.Kind, null);
                 }
             });
-
-#if UNITY_EDITOR
-            //UnityEngine.Debug.Log("NTake End");
-#endif
         }
 
         public void Take(IHandThingCustomBehavior handThing)
         {
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("Take is not fully implemented");
+            UnityEngine.Debug.Log($"HumanoidNPCController Take _isAlreadyStarted = {_isAlreadyStarted}");
 #endif
+
+            if(_isAlreadyStarted)
+            {
+                NTake(handThing);
+                return;
+            }
+
+            _takeAfterInitialization = handThing;
         }
 
         private void TakeRifle(IRifleCustomBehavior rifle)

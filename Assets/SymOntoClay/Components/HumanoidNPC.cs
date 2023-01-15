@@ -71,6 +71,17 @@ namespace SymOntoClay.UnityAsset.Components
             //Debug.Log($"HumanoidNPC Awake ({name})");
 #endif
 
+#if DEBUG
+            Debug.Log($"HumanoidNPC Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
+            if (UniqueIdRegistry.ContainsId(Id))
+            {
+                var oldId = Id;
+
+                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
+            }
+            UniqueIdRegistry.AddId(Id);
+#endif
+
             var npcSettings = new HumanoidNPCSettings();
             npcSettings.Id = Id;
             npcSettings.InstanceId = gameObject.GetInstanceID();

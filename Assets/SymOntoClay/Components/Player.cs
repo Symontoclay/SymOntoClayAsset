@@ -39,6 +39,17 @@ namespace SymOntoClay.UnityAsset.Components
 
         protected override void Awake()
         {
+#if DEBUG
+            //Debug.Log($"Player Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
+            if (UniqueIdRegistry.ContainsId(Id))
+            {
+                var oldId = Id;
+
+                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
+            }
+            UniqueIdRegistry.AddId(Id);
+#endif
+
             var settings = new PlayerSettings();
             settings.Id = Id;
             settings.InstanceId = gameObject.GetInstanceID();

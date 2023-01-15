@@ -33,6 +33,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
+using System.Threading;
 
 namespace SymOntoClay.UnityAsset.BaseBehaviors
 {
@@ -56,7 +57,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         protected IStorage BackpackStorage => _humanoidNPC.BackpackStorage;
 
+        private int _mainThreadId;
+
         #region Unity handlers
+
+        protected virtual void Awake()
+        {
+            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
+        }
+
         protected virtual void Start()
         {
 #if UNITY_EDITOR
@@ -250,7 +259,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             {
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
@@ -260,7 +269,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             {
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
@@ -358,13 +367,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             NStopStepsSoundRoutine();
         }
 
+        private float REPEAT_FACT_INTERVAL = 5f;
+
         private IEnumerator ShotSoundRoutine(float power, string text)
         {
             while (true)
             {
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
@@ -374,7 +385,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             {
                 Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
@@ -397,7 +408,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             RunInMainThread(() => {
                 NStartRepeatingShotSound();
-            });            
+            });
         }
 
         private void NStartRepeatingShotSound()
@@ -602,6 +613,12 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <param name="function">Handler which should be executed in main thread context.</param>
         protected void RunInMainThread(Action function)
         {
+            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                function();
+                return;
+            }
+
             _uSocGameObject.RunInMainThread(function);
         }
 
@@ -613,6 +630,11 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <returns>Result of the execution.</returns>
         protected TResult RunInMainThread<TResult>(Func<TResult> function)
         {
+            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            {
+                return function();
+            }
+
             return _uSocGameObject.RunInMainThread(function);
         }
 
