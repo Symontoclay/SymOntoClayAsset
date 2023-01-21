@@ -39,6 +39,8 @@ namespace SymOntoClay.UnityAsset.Components
 
         protected override void Awake()
         {
+            base.Awake();
+
 #if DEBUG
             //Debug.Log($"Player Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
             if (UniqueIdRegistry.ContainsId(Id))
