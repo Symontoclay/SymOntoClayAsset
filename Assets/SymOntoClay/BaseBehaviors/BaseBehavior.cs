@@ -367,7 +367,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             NStopStepsSoundRoutine();
         }
 
-        private float REPEAT_FACT_INTERVAL = 5f;
+        private float REPEAT_FACT_INTERVAL = 30f;
 
         private IEnumerator ShotSoundRoutine(float power, string text)
         {

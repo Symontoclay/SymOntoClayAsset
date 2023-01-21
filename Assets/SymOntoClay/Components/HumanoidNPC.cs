@@ -151,12 +151,14 @@ namespace SymOntoClay.UnityAsset.Components
             }
         }
 
-        void Update()
+        protected override void Update()
         {
             if (_isDead)
             {
                 return;
             }
+
+            base.Update();
 
             if(_needInitilizeBackpack)
             {

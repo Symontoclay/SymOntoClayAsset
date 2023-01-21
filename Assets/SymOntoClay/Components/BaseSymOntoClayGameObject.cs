@@ -33,6 +33,7 @@ using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.UnityAsset.Helpers;
 using UnityEditor.SceneManagement;
 using System.Threading;
+using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -48,8 +49,12 @@ namespace SymOntoClay.UnityAsset.Components
 
         private int _mainThreadId;
 
+        private InvokerInMainThread _invokerInMainThread;
+
         protected virtual void Awake()
         {
+            _invokerInMainThread = new InvokerInMainThread();
+
             _mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
             GameObjectsRegistry.AddGameObject(gameObject);
@@ -87,6 +92,15 @@ namespace SymOntoClay.UnityAsset.Components
             _oldName = name;
         }
 #endif
+
+        protected virtual void Update()
+        {
+            _currentAbsolutePosition = PlatformSupportHelper.GetCurrentAbsolutePosition(transform);
+
+            _invokerInMainThread.Update();
+        }
+
+        private System.Numerics.Vector3 _currentAbsolutePosition;
 
         private string GetIdByName()
         {
@@ -162,19 +176,19 @@ namespace SymOntoClay.UnityAsset.Components
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
         {
-            return PlatformSupportHelper.ConvertFromRelativeToAbsolute(transform, relativeCoordinate);
+            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.ConvertFromRelativeToAbsolute(transform, relativeCoordinate); });
         }
 
         System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition()
         {
-            return PlatformSupportHelper.GetCurrentAbsolutePosition(transform);
+            return _currentAbsolutePosition;
         }
 
         float IPlatformSupport.GetDirectionToPosition(System.Numerics.Vector3 position)
         {
-            return PlatformSupportHelper.GetDirectionToPosition(transform, position);
+            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.GetDirectionToPosition(transform, position); });  
         }
-
+        
         bool IPlatformSupport.CanBeTakenBy(IEntity subject)
         {
             return CanBeTakenBy(subject);
