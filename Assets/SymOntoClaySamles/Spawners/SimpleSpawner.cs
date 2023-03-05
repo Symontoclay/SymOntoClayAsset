@@ -17,6 +17,11 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("SimpleSpawner Start");
 
+            if(Prefab == null)
+            {
+                return;
+            }
+
             var thread = Thread.CurrentThread;
             UnityEngine.Debug.Log($"SimpleSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
 #endif
