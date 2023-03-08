@@ -19,11 +19,16 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
         void Start()
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log("GridSpawner Start");
+            //UnityEngine.Debug.Log("GridSpawner Start");
 
-            var thread = Thread.CurrentThread;
-            UnityEngine.Debug.Log($"GridSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
+            //var thread = Thread.CurrentThread;
+            //UnityEngine.Debug.Log($"GridSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
 #endif
+
+            if (IsEmptySpawner())
+            {
+                return;
+            }
 
             var meshFilter = GetComponent<MeshFilter>();
 

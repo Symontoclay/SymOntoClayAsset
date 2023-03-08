@@ -15,16 +15,16 @@ namespace SymOntoClay.UnityAsset.Samles.Spawners
         void Start()
         {
 #if UNITY_EDITOR
-            UnityEngine.Debug.Log("SimpleSpawner Start");
+            //UnityEngine.Debug.Log("SimpleSpawner Start");
 
-            if(Prefab == null)
+            //var thread = Thread.CurrentThread;
+            //UnityEngine.Debug.Log($"SimpleSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
+#endif
+
+            if (IsEmptySpawner())
             {
                 return;
             }
-
-            var thread = Thread.CurrentThread;
-            UnityEngine.Debug.Log($"SimpleSpawner Start thread.ManagedThreadId = {thread.ManagedThreadId}");
-#endif
 
             ProcessInstantiate(transform.position);
         }
