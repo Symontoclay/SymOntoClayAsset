@@ -13494,7 +13494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bafcdc0cafc13947946ebff2c3cc52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5644024920194529123, guid: 7b35d01da4e871d4392f5c36d3874e2c, type: 3}
+  Prefab: {fileID: 8779534291080548327, guid: 05cc07eb7e05ee64fa9508618d626163, type: 3}
   PropsToSpawn:
   - {fileID: 7236253704405362127, guid: d205803cda9739146b03e27f47fb348a, type: 3}
 --- !u!1 &1587104262
