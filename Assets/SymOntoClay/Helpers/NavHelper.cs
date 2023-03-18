@@ -138,6 +138,25 @@ namespace SymOntoClay.UnityAsset.Helpers
                 }
             }
 
+            if(entity == null || !entity.Position.HasValue)
+            {
+#if UNITY_EDITOR
+                if(entity == null)
+                {
+                    Debug.LogError("entity == null");
+                }
+                else
+                {
+                    if(!entity.Position.HasValue)
+                    {
+                        Debug.LogError("!entity.Position.HasValue");
+                    }
+                }
+#endif
+
+                return new GoResult() { GoStatus = GoStatus.SystemError };
+            }
+
             var tpos = entity.Position.Value;
 
             var targetPosition = new Vector3(tpos.X, tpos.Y, tpos.Z);
