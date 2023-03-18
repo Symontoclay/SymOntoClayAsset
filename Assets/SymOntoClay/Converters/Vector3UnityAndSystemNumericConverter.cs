@@ -30,6 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SymOntoClay.Core;
 
 namespace SymOntoClay.UnityAsset.Converters
 {
@@ -48,7 +49,7 @@ namespace SymOntoClay.UnityAsset.Converters
         public override bool CanConvertToCoreType => false;
 
         /// <inheritdoc/>
-        public override object ConvertToCoreType(object platformObject, IEngineContext context, LocalCodeExecutionContext localContext)
+        public override object ConvertToCoreType(object platformObject, IEngineContext context, ILocalCodeExecutionContext localContext)
         {
             var targetObject = (UnityEngine.Vector3)platformObject;
 
@@ -56,7 +57,7 @@ namespace SymOntoClay.UnityAsset.Converters
         }
 
         /// <inheritdoc/>
-        public override object ConvertToPlatformType(object coreObject, IEngineContext context, LocalCodeExecutionContext localContext)
+        public override object ConvertToPlatformType(object coreObject, IEngineContext context, ILocalCodeExecutionContext localContext)
         {
             var targetObject = (System.Numerics.Vector3)coreObject;
 
