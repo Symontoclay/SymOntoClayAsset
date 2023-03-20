@@ -80,6 +80,17 @@ namespace SymOntoClay.UnityAsset.Navigation
             
             settings.PlatformSupport = this;
 
+#if DEBUG
+            //Debug.Log($"BaseElementaryArea Awake ('{name}') GetType().FullName  = {GetType().FullName}");
+            Debug.Log($"BaseElementaryArea Awake ('{name}') gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
+            Debug.Log($"BaseElementaryArea Awake ('{name}') Id = {Id}");
+            if (GetType() == typeof(Waypoint))
+            {
+                settings.Categories = new List<string>() { "waypoint" };
+                settings.EnableCategories = true;
+            }
+#endif
+
             _place = WorldFactory.WorldInstance.GetPlace(settings);
         }
 

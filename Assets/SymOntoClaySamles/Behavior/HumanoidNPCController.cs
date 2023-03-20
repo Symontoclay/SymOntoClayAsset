@@ -317,11 +317,11 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //var thread = Thread.CurrentThread;
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl thread.ManagedThreadId = {thread.ManagedThreadId}");
 
-            //var methodId = GetMethodId();
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.InstanceId = {target?.Entity.InstanceId}");
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.Position = {target?.Entity.Position}");
+            var methodId = GetMethodId();
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.InstanceId = {target?.Entity.InstanceId}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.Position = {target?.Entity.Position}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
 #endif
@@ -336,13 +336,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
 #endif
 
             var result = await task;
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
 #endif
 
             RunInMainThread(() =>
