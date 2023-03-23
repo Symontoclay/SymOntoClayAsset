@@ -1,24 +1,24 @@
 app NPC_BattleRoyale_AS_1
 {
-    //idle actions
-    //{
-    //    go();
-    //}
-	
-	on Enter =>
+    idle actions
     {
-        'Begin' >> @>log;
-
         go();
-
-        'End' >> @>log;
     }
+	
+	//on Enter =>
+    //{
+    //    'Begin' >> @>log;
+
+    //    go();
+
+    //    'End' >> @>log;
+    //}
 	
 	fun go()
     {
 	    'Begin go' >> @>log;
-		@@host.go(to: #@(waypoint));
-        //@@host.go(to: #@(waypoint & random));
+		//@@host.go(to: #@(waypoint));
+        @@host.go(to: #@(waypoint & random));
 		//@@host.go(to: #WP_43);
 		'End go' >> @>log;
     }
