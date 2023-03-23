@@ -82,8 +82,8 @@ namespace SymOntoClay.UnityAsset.Navigation
 
 #if DEBUG
             //Debug.Log($"BaseElementaryArea Awake ('{name}') GetType().FullName  = {GetType().FullName}");
-            Debug.Log($"BaseElementaryArea Awake ('{name}') gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
-            Debug.Log($"BaseElementaryArea Awake ('{name}') Id = {Id}");
+            //Debug.Log($"BaseElementaryArea Awake ('{name}') gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
+            //Debug.Log($"BaseElementaryArea Awake ('{name}') Id = {Id}");
             if (GetType() == typeof(Waypoint))
             {
                 settings.Categories = new List<string>() { "waypoint" };
@@ -92,6 +92,24 @@ namespace SymOntoClay.UnityAsset.Navigation
 #endif
 
             _place = WorldFactory.WorldInstance.GetPlace(settings);
+
+
+            if (string.IsNullOrWhiteSpace(_idForFacts) && !string.IsNullOrWhiteSpace(Id))
+            {
+                if (Id.StartsWith("#`"))
+                {
+                    _idForFacts = Id;
+                }
+                else
+                {
+                    _idForFacts = $"{Id.Insert(1, "`")}`";
+                }
+            }
+
+#if UNITY_EDITOR
+            //Debug.Log($"({name}) Id = {Id}");
+            //Debug.Log($"({name}) _idForFacts = {_idForFacts}");
+#endif
         }
 
 #if UNITY_EDITOR

@@ -85,6 +85,12 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             }
 
             _idForFacts = _uSocGameObject.IdForFacts;
+
+#if UNITY_EDITOR
+            //Debug.Log($"({name}) _uSocGameObject == null = {_uSocGameObject == null}");
+            //Debug.Log($"({name}) _idForFacts = {_idForFacts}");
+#endif
+
             _standardFactsBuilder = _uSocGameObject.StandardFactsBuilder;
 
             NSetAliveFact();
@@ -175,11 +181,16 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddWalkingFact()
         {
+
+#if UNITY_EDITOR
+            Debug.Log($"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
+#endif
+
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddWalkingFact factStr = '{factStr}'");
+                Debug.Log($"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
 #endif
 
                 NRemoveCurrWalkingFactId();

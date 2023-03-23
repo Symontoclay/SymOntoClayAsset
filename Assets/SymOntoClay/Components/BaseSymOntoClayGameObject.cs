@@ -58,6 +58,23 @@ namespace SymOntoClay.UnityAsset.Components
             _mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
             GameObjectsRegistry.AddGameObject(gameObject);
+
+            if(string.IsNullOrWhiteSpace(_idForFacts) && !string.IsNullOrWhiteSpace(Id))
+            {
+                if (Id.StartsWith("#`"))
+                {
+                    _idForFacts = Id;
+                }
+                else
+                {
+                    _idForFacts = $"{Id.Insert(1, "`")}`";
+                }
+            }
+
+#if UNITY_EDITOR
+            //Debug.Log($"({name}) Id = {Id}");
+            //Debug.Log($"({name}) _idForFacts = {_idForFacts}");
+#endif
         }
 
 #if UNITY_EDITOR
