@@ -1,18 +1,18 @@
 app NPC_BattleRoyale_AS_1
 {
-    //idle actions
-    //{
-    //    go();
-    //}
-	
-	on Enter =>
+    idle actions
     {
-        'Begin' >> @>log;
-
         go();
-
-        'End' >> @>log;
     }
+	
+	//on Enter =>
+    //{
+    //    'Begin' >> @>log;
+
+    //    go();
+
+    //    'End' >> @>log;
+    //}
 	
 	fun go()
     {

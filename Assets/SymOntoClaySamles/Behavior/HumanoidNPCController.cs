@@ -259,7 +259,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         /*
                  [DebuggerHidden]
         [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public async void GoToImpl(CancellationToken cancellationToken,
+        public async Task GoToImpl(CancellationToken cancellationToken,
         [EndpointParam("To", KindOfEndpointParam.Position)] Vector3 point,
         float speed = 12)
         {
@@ -304,7 +304,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public async void GoToImpl(CancellationToken cancellationToken,
+        public async Task GoToImpl(CancellationToken cancellationToken,
         [EndpointParam("To", KindOfEndpointParam.Position)] INavTarget target,
         float speed = 12)
         {
