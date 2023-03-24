@@ -25,7 +25,7 @@ app NPC_BattleRoyale_AS_1
     }
 }
 
-/*action `move and check`
+action `move and check`
 {
     op (@target)
 	{
@@ -55,4 +55,4 @@ action move
 	{
 		@@host.go(to: @target);
 	}
-}*/
+}
