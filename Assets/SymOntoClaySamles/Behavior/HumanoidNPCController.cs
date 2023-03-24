@@ -361,6 +361,22 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         }
 
         [DebuggerHidden]
+        [BipedEndpoint("Stop", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
+        public void StopImpl(CancellationToken cancellationToken)
+        {
+#if UNITY_EDITOR
+            var methodId = GetMethodId();
+
+            UnityEngine.Debug.Log($"StopImpl Begin {methodId}");
+#endif
+
+            RunInMainThread(() =>
+            {
+                PerformStop();
+            });
+        }
+
+        [DebuggerHidden]
         [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void RotateImpl(CancellationToken cancellationToken, float direction,
             float speed = 2)
