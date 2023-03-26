@@ -34,28 +34,25 @@ using SymOntoClay.UnityAsset.Helpers;
 using UnityEditor.SceneManagement;
 using System.Threading;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
+using Assets.SymOntoClay.Interfaces;
 
 namespace SymOntoClay.UnityAsset.Components
 {
-    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IGameObjectBehavior, IExecutorInMainThread
+    public abstract class BaseSymOntoClayGameObject : MonoBehaviour, IPlatformSupport, IGameObjectBehavior, IExecutorInMainThread//, IMainSymOntoClayInfo, IÑategorized
     {
         public SobjFile SobjFile;
         public string Id;
 
         private string _oldName;
         private string _idForFacts;
-
+        
         public string IdForFacts => _idForFacts;
-
-        private int _mainThreadId;
 
         private InvokerInMainThread _invokerInMainThread;
 
         protected virtual void Awake()
         {
             _invokerInMainThread = new InvokerInMainThread();
-
-            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
             GameObjectsRegistry.AddGameObject(gameObject);
 
@@ -147,7 +144,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void RunInMainThread(Action function)
         {
-            if(_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if(Thread.CurrentThread.ManagedThreadId == 1)
             {
                 function();
                 return;
@@ -158,7 +155,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public TResult RunInMainThread<TResult>(Func<TResult> function)
         {
-            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (Thread.CurrentThread.ManagedThreadId == 1)
             {
                 return function();
             }

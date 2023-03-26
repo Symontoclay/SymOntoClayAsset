@@ -49,6 +49,7 @@ namespace SymOntoClay.UnityAsset.Editors
             _target = (HandThing)target;
         }
 
+        /// <inheritdoc/>
         public override void OnInspectorGUI()
         {
             GUILayout.BeginVertical();

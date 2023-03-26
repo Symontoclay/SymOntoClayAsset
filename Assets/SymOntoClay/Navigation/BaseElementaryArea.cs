@@ -36,7 +36,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace SymOntoClay.UnityAsset.Navigation
 {
-    public abstract class BaseElementaryArea: AbstractArea, IÑategorized
+    public abstract class BaseElementaryArea: AbstractArea, IÑategorized, IMainSymOntoClayInfo
     {
         public SobjFile SobjFile;
         public string Id;
@@ -48,20 +48,34 @@ namespace SymOntoClay.UnityAsset.Navigation
 
         private IPlace _place;
 
-        private int _mainThreadId;
+        /// <inheritdoc/>
+        SobjFile IMainSymOntoClayInfo.SobjFile { get => SobjFile; set => SobjFile = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.Id { get => Id; set => Id = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.IdForFacts { get => _idForFacts; set => _idForFacts = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.Name => name;
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.OldName { get => _oldName; set => _oldName = value; }
 
         public virtual List<string> DefaultCategories => new List<string>();
         public bool EnableCategories = true;
 
         public List<string> Categories;
 
+        /// <inheritdoc/>
         List<string> IÑategorized.Categories { get => Categories; set => Categories = value; }
+
+        /// <inheritdoc/>
         bool IÑategorized.EnableCategories { get => EnableCategories; set => EnableCategories = value; }
 
         protected virtual void Awake()
         {
-            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
-
             GameObjectsRegistry.AddGameObject(gameObject);
 
 #if DEBUG
@@ -178,7 +192,7 @@ namespace SymOntoClay.UnityAsset.Navigation
         /// <inheritdoc/>
         protected override void RunInMainThread(Action function)
         {
-            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (Thread.CurrentThread.ManagedThreadId == 1)
             {
                 function();
                 return;
@@ -190,12 +204,12 @@ namespace SymOntoClay.UnityAsset.Navigation
         /// <inheritdoc/>
         protected override TResult RunInMainThread<TResult>(Func<TResult> function)
         {
-            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (Thread.CurrentThread.ManagedThreadId == 1)
             {
                 return function();
             }
 
-            return _place.RunInMainThread<TResult>(function);
+            return _place.RunInMainThread(function);
         }
     }
 }
