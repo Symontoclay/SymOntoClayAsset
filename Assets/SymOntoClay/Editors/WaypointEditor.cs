@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Assets.SymOntoClay.Editors.CustomEditorGUILayouts;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Helpers;
@@ -45,12 +46,14 @@ namespace SymOntoClay.UnityAsset.Editors
         private Waypoint _target;
         private SerializedObject _so;
         private SerializedProperty _categoriesProperty;
+        private CategoriesCustomEditorGUILayout _categoriesCustomEditorGUILayout;
 
         private void OnEnable()
         {
             _target = (Waypoint)target;
             _so = new SerializedObject(target);
-            _categoriesProperty = _so.FindProperty("Categories");
+            //_categoriesProperty = _so.FindProperty("Categories");
+            _categoriesCustomEditorGUILayout = new CategoriesCustomEditorGUILayout(_target, _so);
         }
 
         /// <inheritdoc/>
@@ -79,19 +82,21 @@ namespace SymOntoClay.UnityAsset.Editors
                 _target.Id = string.Empty;
             }
 
-            _target.EnableCategories = EditorGUILayout.Toggle("Enable Categories", _target.EnableCategories);
+            _categoriesCustomEditorGUILayout.DrawGUI();
 
-            EditorGUILayout.PropertyField(_categoriesProperty, true);
+            //_target.EnableCategories = EditorGUILayout.Toggle("Enable Categories", _target.EnableCategories);
 
-            if(_target.Categories == null)
-            {
-                _target.Categories = new List<string>(_target.DefaultCategories);
-            }
+            //EditorGUILayout.PropertyField(_categoriesProperty, true);
 
-            if(!_target.Categories.Any())
-            {
-                _target.Categories.AddRange(_target.DefaultCategories);
-            }
+            //if(_target.Categories == null)
+            //{
+            //    _target.Categories = new List<string>(_target.DefaultCategories);
+            //}
+
+            //if(!_target.Categories.Any())
+            //{
+            //    _target.Categories.AddRange(_target.DefaultCategories);
+            //}
 
             _so.ApplyModifiedProperties();
 
