@@ -49,6 +49,8 @@ namespace SymOntoClay.UnityAsset.Navigation
 
         private int _mainThreadId;
 
+        protected virtual List<string> DefaultCategories = new List<string>();
+
         protected virtual void Awake()
         {
             _mainThreadId = Thread.CurrentThread.ManagedThreadId;
