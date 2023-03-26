@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Assets.SymOntoClay.Components.Helpers;
 using Assets.SymOntoClay.Interfaces;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Core;
@@ -78,16 +79,7 @@ namespace SymOntoClay.UnityAsset.Navigation
         {
             GameObjectsRegistry.AddGameObject(gameObject);
 
-#if DEBUG
-            //Debug.Log($"BaseElementaryArea Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
-            if (UniqueIdRegistry.ContainsId(Id))
-            {
-                var oldId = Id;
-
-                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
-            }
-            UniqueIdRegistry.AddId(Id);
-#endif
+            MainSymOntoClayInfoComponentHelper.CheckAndFixId(this);
 
             var settings = new PlaceSettings();
             settings.Id = Id;
@@ -115,19 +107,6 @@ namespace SymOntoClay.UnityAsset.Navigation
 
             _place = WorldFactory.WorldInstance.GetPlace(settings);
 
-
-            if (string.IsNullOrWhiteSpace(_idForFacts) && !string.IsNullOrWhiteSpace(Id))
-            {
-                if (Id.StartsWith("#`"))
-                {
-                    _idForFacts = Id;
-                }
-                else
-                {
-                    _idForFacts = $"{Id.Insert(1, "`")}`";
-                }
-            }
-
 #if UNITY_EDITOR
             //Debug.Log($"({name}) Id = {Id}");
             //Debug.Log($"({name}) _idForFacts = {_idForFacts}");
@@ -139,50 +118,10 @@ namespace SymOntoClay.UnityAsset.Navigation
         {
             //Debug.Log($"({name}) OnValidate");
 
-            if (string.IsNullOrWhiteSpace(Id))
-            {
-                Id = GetIdByName();
-            }
-            else
-            {
-                if (Id == GetIdByName(_oldName))
-                {
-                    Id = GetIdByName();
-                }
-            }
-
-            if (Id.StartsWith("#`"))
-            {
-                _idForFacts = Id;
-            }
-            else
-            {
-                _idForFacts = $"{Id.Insert(1, "`")}`";
-            }
-
-            _oldName = name;
-
-            if(Categories == null)
-            {
-                Categories = new List<string>(DefaultCategories);
-            }
-
-            if(!Categories.Any())
-            {
-                Categories.AddRange(DefaultCategories);
-            }
+            MainSymOntoClayInfoComponentHelper.Validate(this);
+            ÑategorizedComponentHelper.Validate(this);
         }
 #endif
-
-        private string GetIdByName()
-        {
-            return GetIdByName(name);
-        }
-
-        private string GetIdByName(string nameStr)
-        {
-            return $"#{nameStr}";
-        }
 
         void Stop()
         {
