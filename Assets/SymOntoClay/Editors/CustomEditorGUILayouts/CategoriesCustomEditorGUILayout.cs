@@ -1,4 +1,5 @@
-﻿using SymOntoClay.UnityAsset.Navigation;
+﻿using Assets.SymOntoClay.Interfaces;
+using SymOntoClay.UnityAsset.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace Assets.SymOntoClay.Editors.CustomEditorGUILayouts
 {
     public class CategoriesCustomEditorGUILayout
     {
-        public CategoriesCustomEditorGUILayout(Waypoint target, SerializedObject so)
+        public CategoriesCustomEditorGUILayout(IСategorized target, SerializedObject so)
         {
             _target = target;
             _so = so;
             _categoriesProperty = so.FindProperty("Categories");
         }
 
-        private Waypoint _target;
+        private IСategorized _target;
         private SerializedObject _so;
         private SerializedProperty _categoriesProperty;
 

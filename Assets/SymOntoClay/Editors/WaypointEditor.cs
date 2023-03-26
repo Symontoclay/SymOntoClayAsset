@@ -45,14 +45,12 @@ namespace SymOntoClay.UnityAsset.Editors
     {
         private Waypoint _target;
         private SerializedObject _so;
-        private SerializedProperty _categoriesProperty;
         private CategoriesCustomEditorGUILayout _categoriesCustomEditorGUILayout;
 
         private void OnEnable()
         {
             _target = (Waypoint)target;
             _so = new SerializedObject(target);
-            //_categoriesProperty = _so.FindProperty("Categories");
             _categoriesCustomEditorGUILayout = new CategoriesCustomEditorGUILayout(_target, _so);
         }
 
@@ -83,20 +81,6 @@ namespace SymOntoClay.UnityAsset.Editors
             }
 
             _categoriesCustomEditorGUILayout.DrawGUI();
-
-            //_target.EnableCategories = EditorGUILayout.Toggle("Enable Categories", _target.EnableCategories);
-
-            //EditorGUILayout.PropertyField(_categoriesProperty, true);
-
-            //if(_target.Categories == null)
-            //{
-            //    _target.Categories = new List<string>(_target.DefaultCategories);
-            //}
-
-            //if(!_target.Categories.Any())
-            //{
-            //    _target.Categories.AddRange(_target.DefaultCategories);
-            //}
 
             _so.ApplyModifiedProperties();
 

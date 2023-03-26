@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Assets.SymOntoClay.Interfaces;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Scriptables;
@@ -35,7 +36,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace SymOntoClay.UnityAsset.Navigation
 {
-    public abstract class BaseElementaryArea: AbstractArea
+    public abstract class BaseElementaryArea: AbstractArea, IÑategorized
     {
         public SobjFile SobjFile;
         public string Id;
@@ -53,6 +54,9 @@ namespace SymOntoClay.UnityAsset.Navigation
         public bool EnableCategories = true;
 
         public List<string> Categories;
+
+        List<string> IÑategorized.Categories { get => Categories; set => Categories = value; }
+        bool IÑategorized.EnableCategories { get => EnableCategories; set => EnableCategories = value; }
 
         protected virtual void Awake()
         {
