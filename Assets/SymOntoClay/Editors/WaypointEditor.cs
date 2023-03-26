@@ -59,26 +59,7 @@ namespace SymOntoClay.UnityAsset.Editors
         {
             GUILayout.BeginVertical();
 
-            _target.SobjFile = (SobjFile)EditorGUILayout.ObjectField("App File", _target.SobjFile, typeof(SobjFile), false);
-
-            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
-
-            if (isInstance)
-            {
-                var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
-
-                if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
-                {
-                    UniqueIdRegistry.RemoveId(_target.Id);
-                    UniqueIdRegistry.AddId(newIdValue);
-
-                    _target.Id = newIdValue;
-                }
-            }
-            else
-            {
-                _target.Id = string.Empty;
-            }
+            MainSymOntoClayInfoCustomEditorGUILayout.DrawGUI(_target);
 
             _categoriesCustomEditorGUILayout.DrawGUI();
 
