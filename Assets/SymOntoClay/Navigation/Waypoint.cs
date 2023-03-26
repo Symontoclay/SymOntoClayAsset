@@ -35,6 +35,10 @@ namespace SymOntoClay.UnityAsset.Navigation
     {
         private InstancesRegistry _instancesRegistry;
 
+        /// <inheritdoc/>
+        public override List<string> DefaultCategories => new List<string>() { "waypoint" };
+
+        /// <inheritdoc/>
         protected override void Awake()
         {
             base.Awake();

@@ -49,7 +49,10 @@ namespace SymOntoClay.UnityAsset.Navigation
 
         private int _mainThreadId;
 
-        protected virtual List<string> DefaultCategories = new List<string>();
+        public virtual List<string> DefaultCategories => new List<string>();
+        public bool EnableCategories = true;
+
+        public List<string> Categories;
 
         protected virtual void Awake()
         {
@@ -82,15 +85,14 @@ namespace SymOntoClay.UnityAsset.Navigation
             
             settings.PlatformSupport = this;
 
+            settings.Categories = Categories;
+            settings.EnableCategories = EnableCategories;
+
 #if DEBUG
             //Debug.Log($"BaseElementaryArea Awake ('{name}') GetType().FullName  = {GetType().FullName}");
             //Debug.Log($"BaseElementaryArea Awake ('{name}') gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
             //Debug.Log($"BaseElementaryArea Awake ('{name}') Id = {Id}");
-            if (GetType() == typeof(Waypoint))
-            {
-                settings.Categories = new List<string>() { "waypoint" };
-                settings.EnableCategories = true;
-            }
+            //Debug.Log($"BaseElementaryArea Awake ('{name}') settings  = {settings}");
 #endif
 
             _place = WorldFactory.WorldInstance.GetPlace(settings);
@@ -117,6 +119,8 @@ namespace SymOntoClay.UnityAsset.Navigation
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
+            //Debug.Log($"({name}) OnValidate");
+
             if (string.IsNullOrWhiteSpace(Id))
             {
                 Id = GetIdByName();
@@ -139,6 +143,16 @@ namespace SymOntoClay.UnityAsset.Navigation
             }
 
             _oldName = name;
+
+            if(Categories == null)
+            {
+                Categories = new List<string>(DefaultCategories);
+            }
+
+            if(!Categories.Any())
+            {
+                Categories.AddRange(DefaultCategories);
+            }
         }
 #endif
 

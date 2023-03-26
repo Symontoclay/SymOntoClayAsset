@@ -244,6 +244,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_31'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &9068403
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +736,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_37'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &70366707
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1070,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_2'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &94616698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_6'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &96241746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,6 +1545,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_25'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &138799996
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,6 +1774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_1'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &141237254
 GameObject:
   m_ObjectHideFlags: 0
@@ -2021,6 +2039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_39'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &180214920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,6 +2197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_29'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &218684249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2297,6 +2321,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_22'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &231182937
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,6 +2760,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_23'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &253537491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,6 +2884,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_21'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &266354376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2976,6 +3009,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_32'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!114 &266354382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2990,6 +3026,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_32'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &268783624
 GameObject:
   m_ObjectHideFlags: 0
@@ -3111,6 +3150,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_14'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &281971624
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,6 +3274,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_27'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &293621853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3723,6 +3768,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_35'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &348749162
 GameObject:
   m_ObjectHideFlags: 0
@@ -4281,6 +4329,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_41'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &421232306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4543,6 +4594,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_54'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &446569414
 GameObject:
   m_ObjectHideFlags: 0
@@ -5084,6 +5138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_38'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &496704408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5351,6 +5408,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_3'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1001 &519978603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5541,6 +5601,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_20'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &538517346
 GameObject:
   m_ObjectHideFlags: 0
@@ -5662,6 +5725,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_55'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &549263387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5783,6 +5849,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_45'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &550686535
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,6 +6078,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_9'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &564119622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6865,6 +6937,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_7'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &651029752
 GameObject:
   m_ObjectHideFlags: 0
@@ -6986,6 +7061,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_8'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &673126006
 GameObject:
   m_ObjectHideFlags: 0
@@ -7721,6 +7799,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_26'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &801678830
 GameObject:
   m_ObjectHideFlags: 0
@@ -7964,6 +8045,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_44'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &875735595
 GameObject:
   m_ObjectHideFlags: 0
@@ -8270,6 +8354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_10'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &914566051
 GameObject:
   m_ObjectHideFlags: 0
@@ -8391,6 +8478,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_40'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &919372137
 GameObject:
   m_ObjectHideFlags: 0
@@ -8512,6 +8602,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_57'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &925843956
 GameObject:
   m_ObjectHideFlags: 0
@@ -8738,6 +8831,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_43'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &973301053
 GameObject:
   m_ObjectHideFlags: 0
@@ -8964,6 +9060,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_5'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &997883899
 GameObject:
   m_ObjectHideFlags: 0
@@ -9085,6 +9184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_13'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &998280333
 GameObject:
   m_ObjectHideFlags: 0
@@ -9206,6 +9308,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_30'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1000327490
 GameObject:
   m_ObjectHideFlags: 0
@@ -10201,6 +10306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_52'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1052530366
 GameObject:
   m_ObjectHideFlags: 0
@@ -10427,6 +10535,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_12'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1099427725
 GameObject:
   m_ObjectHideFlags: 0
@@ -10653,6 +10764,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_47'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1139067108
 GameObject:
   m_ObjectHideFlags: 0
@@ -11089,6 +11203,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_53'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1217776586
 GameObject:
   m_ObjectHideFlags: 0
@@ -11210,6 +11327,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_46'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1243363610
 GameObject:
   m_ObjectHideFlags: 0
@@ -11331,6 +11451,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_17'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1253920586
 GameObject:
   m_ObjectHideFlags: 0
@@ -11662,6 +11785,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_58'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1310101522
 GameObject:
   m_ObjectHideFlags: 0
@@ -11783,6 +11909,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_59'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1327838656
 GameObject:
   m_ObjectHideFlags: 0
@@ -12430,6 +12559,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_28'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1431777374
 GameObject:
   m_ObjectHideFlags: 0
@@ -12551,6 +12683,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_60'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1434526559
 GameObject:
   m_ObjectHideFlags: 0
@@ -12882,6 +13017,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_51'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1455887235
 GameObject:
   m_ObjectHideFlags: 0
@@ -13147,6 +13285,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_48'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1503402422
 GameObject:
   m_ObjectHideFlags: 0
@@ -13373,6 +13514,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_56'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1546561160
 GameObject:
   m_ObjectHideFlags: 0
@@ -13723,6 +13867,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_42'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1616909617
 GameObject:
   m_ObjectHideFlags: 0
@@ -13949,6 +14096,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_61'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1642238253
 GameObject:
   m_ObjectHideFlags: 0
@@ -14070,6 +14220,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_18'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1643426623
 GameObject:
   m_ObjectHideFlags: 0
@@ -14716,6 +14869,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_16'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1696325247
 GameObject:
   m_ObjectHideFlags: 0
@@ -14837,6 +14993,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_15'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1701649850
 GameObject:
   m_ObjectHideFlags: 0
@@ -15423,6 +15582,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_24'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1832101094
 GameObject:
   m_ObjectHideFlags: 0
@@ -15743,6 +15905,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_63'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1862071564
 GameObject:
   m_ObjectHideFlags: 0
@@ -16494,6 +16659,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_4'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1941805946
 GameObject:
   m_ObjectHideFlags: 0
@@ -17024,6 +17192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_50'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1970856978
 GameObject:
   m_ObjectHideFlags: 0
@@ -17179,6 +17350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_36'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1978594941
 GameObject:
   m_ObjectHideFlags: 0
@@ -17300,6 +17474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_33'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1988806532
 GameObject:
   m_ObjectHideFlags: 0
@@ -17543,6 +17720,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_19'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &1989650897
 GameObject:
   m_ObjectHideFlags: 0
@@ -17664,6 +17844,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_34'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &2007165849
 GameObject:
   m_ObjectHideFlags: 0
@@ -17995,6 +18178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_11'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &2081432672
 GameObject:
   m_ObjectHideFlags: 0
@@ -18431,6 +18617,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_49'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &2123203039
 GameObject:
   m_ObjectHideFlags: 0
@@ -18762,6 +18951,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SobjFile: {fileID: 0}
   Id: '#WP_62'
+  EnableCategories: 1
+  Categories:
+  - waypoint
 --- !u!1 &2146835617
 GameObject:
   m_ObjectHideFlags: 0

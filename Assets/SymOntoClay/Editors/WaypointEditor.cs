@@ -33,6 +33,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace SymOntoClay.UnityAsset.Editors
 {
@@ -42,12 +43,17 @@ namespace SymOntoClay.UnityAsset.Editors
     public class WaypointEditor : Editor
     {
         private Waypoint _target;
+        private SerializedObject _so;
+        private SerializedProperty _categoriesProperty;
 
         private void OnEnable()
         {
             _target = (Waypoint)target;
+            _so = new SerializedObject(target);
+            _categoriesProperty = _so.FindProperty("Categories");
         }
 
+        /// <inheritdoc/>
         public override void OnInspectorGUI()
         {
             GUILayout.BeginVertical();
@@ -72,6 +78,22 @@ namespace SymOntoClay.UnityAsset.Editors
             {
                 _target.Id = string.Empty;
             }
+
+            _target.EnableCategories = EditorGUILayout.Toggle("Enable Categories", _target.EnableCategories);
+
+            EditorGUILayout.PropertyField(_categoriesProperty, true);
+
+            if(_target.Categories == null)
+            {
+                _target.Categories = new List<string>(_target.DefaultCategories);
+            }
+
+            if(!_target.Categories.Any())
+            {
+                _target.Categories.AddRange(_target.DefaultCategories);
+            }
+
+            _so.ApplyModifiedProperties();
 
             GUILayout.EndVertical();
 
