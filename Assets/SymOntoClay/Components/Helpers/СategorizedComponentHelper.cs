@@ -11,14 +11,14 @@ namespace Assets.SymOntoClay.Components.Helpers
     {
         public static void Validate(IСategorized target)
         {
-            if (Categories == null)
+            if (target.Categories == null)
             {
-                Categories = new List<string>(DefaultCategories);
+                target.Categories = new List<string>(target.DefaultCategories);
             }
 
-            if (!Categories.Any())
+            if (!target.Categories.Any())
             {
-                Categories.AddRange(DefaultCategories);
+                target.Categories.AddRange(target.DefaultCategories);
             }
         }
     }

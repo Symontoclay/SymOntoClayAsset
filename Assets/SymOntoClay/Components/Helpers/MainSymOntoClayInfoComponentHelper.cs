@@ -41,33 +41,33 @@ namespace Assets.SymOntoClay.Components.Helpers
 
         public static void Validate(IMainSymOntoClayInfo target)
         {
-            if (string.IsNullOrWhiteSpace(Id))
+            if (string.IsNullOrWhiteSpace(target.Id))
             {
-                Id = GetIdByName();
+                target.Id = GetIdByName(target);
             }
             else
             {
-                if (Id == GetIdByName(_oldName))
+                if (target.Id == GetIdByName(target.OldName))
                 {
-                    Id = GetIdByName();
+                    target.Id = GetIdByName(target);
                 }
             }
 
-            if (Id.StartsWith("#`"))
+            if (target.Id.StartsWith("#`"))
             {
-                _idForFacts = Id;
+                target.IdForFacts = target.Id;
             }
             else
             {
-                _idForFacts = $"{Id.Insert(1, "`")}`";
+                target.IdForFacts = $"{target.Id.Insert(1, "`")}`";
             }
 
-            _oldName = name;
+            target.OldName = target.Name;
         }
 
-        private static string GetIdByName()
+        private static string GetIdByName(IMainSymOntoClayInfo target)
         {
-            return GetIdByName(name);
+            return GetIdByName(target.Name);
         }
 
         private static string GetIdByName(string nameStr)
