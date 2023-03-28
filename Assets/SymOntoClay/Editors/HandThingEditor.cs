@@ -30,6 +30,7 @@ using System.Threading.Tasks;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Helpers;
 using UnityEditor.SceneManagement;
+using Assets.SymOntoClay.Editors.CustomEditorGUILayouts;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
@@ -43,10 +44,14 @@ namespace SymOntoClay.UnityAsset.Editors
     public class HandThingEditor : Editor
     {
         private HandThing _target;
+        private SerializedObject _so;
+        private CategoriesCustomEditorGUILayout _categoriesCustomEditorGUILayout;
 
         private void OnEnable()
         {
             _target = (HandThing)target;
+            _so = new SerializedObject(target);
+            _categoriesCustomEditorGUILayout = new CategoriesCustomEditorGUILayout(_target, _so);
         }
 
         /// <inheritdoc/>
@@ -54,26 +59,11 @@ namespace SymOntoClay.UnityAsset.Editors
         {
             GUILayout.BeginVertical();
 
-            _target.SobjFile = (SobjFile)EditorGUILayout.ObjectField("App File", _target.SobjFile, typeof(SobjFile), false);
+            MainSymOntoClayInfoCustomEditorGUILayout.DrawGUI(_target);
 
-            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
+            _categoriesCustomEditorGUILayout.DrawGUI();
 
-            if (isInstance)
-            {
-                var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
-
-                if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
-                {
-                    UniqueIdRegistry.RemoveId(_target.Id);
-                    UniqueIdRegistry.AddId(newIdValue);
-
-                    _target.Id = newIdValue;
-                }
-            }
-            else
-            {
-                _target.Id = string.Empty;
-            }
+            _so.ApplyModifiedProperties();
 
             _target.TakingPolicy = (TakingPolicy)EditorGUILayout.EnumPopup("Taking Policy", _target.TakingPolicy);
 

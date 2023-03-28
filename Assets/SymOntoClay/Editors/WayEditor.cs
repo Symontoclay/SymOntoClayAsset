@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Assets.SymOntoClay.Editors.CustomEditorGUILayouts;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Helpers;
@@ -42,36 +43,25 @@ namespace SymOntoClay.UnityAsset.Editors
     public class WayEditor : Editor
     {
         private Way _target;
+        private SerializedObject _so;
+        private CategoriesCustomEditorGUILayout _categoriesCustomEditorGUILayout;
 
         private void OnEnable()
         {
             _target = (Way)target;
+            _so = new SerializedObject(target);
+            _categoriesCustomEditorGUILayout = new CategoriesCustomEditorGUILayout(_target, _so);
         }
 
         public override void OnInspectorGUI()
         {
             GUILayout.BeginVertical();
 
-            _target.SobjFile = (SobjFile)EditorGUILayout.ObjectField("App File", _target.SobjFile, typeof(SobjFile), false);
+            MainSymOntoClayInfoCustomEditorGUILayout.DrawGUI(_target);
 
-            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
+            _categoriesCustomEditorGUILayout.DrawGUI();
 
-            if (isInstance)
-            {
-                var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
-
-                if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
-                {
-                    UniqueIdRegistry.RemoveId(_target.Id);
-                    UniqueIdRegistry.AddId(newIdValue);
-
-                    _target.Id = newIdValue;
-                }
-            }
-            else
-            {
-                _target.Id = string.Empty;
-            }
+            _so.ApplyModifiedProperties();
 
             GUILayout.EndVertical();
 

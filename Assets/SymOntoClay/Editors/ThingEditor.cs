@@ -31,6 +31,7 @@ using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Helpers;
 using SymOntoClay.UnityAsset.Navigation;
 using UnityEditor.SceneManagement;
+using Assets.SymOntoClay.Editors.CustomEditorGUILayouts;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -44,36 +45,25 @@ namespace SymOntoClay.UnityAsset.Editors
     public class ThingEditor : Editor
     {
         private Thing _target;
+        private SerializedObject _so;
+        private CategoriesCustomEditorGUILayout _categoriesCustomEditorGUILayout;
 
         private void OnEnable()
         {
             _target = (Thing)target;
+            _so = new SerializedObject(target);
+            _categoriesCustomEditorGUILayout = new CategoriesCustomEditorGUILayout(_target, _so);
         }
 
         public override void OnInspectorGUI()
         {
             GUILayout.BeginVertical();
 
-            _target.SobjFile = (SobjFile)EditorGUILayout.ObjectField("App File", _target.SobjFile, typeof(SobjFile), false);
+            MainSymOntoClayInfoCustomEditorGUILayout.DrawGUI(_target);
 
-            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
+            _categoriesCustomEditorGUILayout.DrawGUI();
 
-            if(isInstance)
-            {
-                var newIdValue = EditorGUILayout.TextField("Id", _target.Id);
-
-                if (_target.Id != newIdValue && EditorHelper.IsValidId(newIdValue))
-                {
-                    UniqueIdRegistry.RemoveId(_target.Id);
-                    UniqueIdRegistry.AddId(newIdValue);
-
-                    _target.Id = newIdValue;
-                }
-            }
-            else
-            {
-                _target.Id = string.Empty;
-            }
+            _so.ApplyModifiedProperties();
 
             _target.Waypoint = (Waypoint)EditorGUILayout.ObjectField("Waypoint", _target.Waypoint, typeof(Waypoint), true);
 
