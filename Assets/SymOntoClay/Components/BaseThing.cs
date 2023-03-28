@@ -39,19 +39,9 @@ namespace SymOntoClay.UnityAsset.Components
         protected override void Awake()
         {
             base.Awake();
+
 #if DEBUG
             //Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
-#endif
-
-#if DEBUG
-            Debug.Log($"Thing Awake ('{name}') UniqueIdRegistry.ContainsId(Id)({Id}) = {UniqueIdRegistry.ContainsId(Id)}");
-            if (UniqueIdRegistry.ContainsId(Id))
-            {
-                var oldId = Id;
-
-                Id = $"#id{Guid.NewGuid().ToString("D").Replace("-", string.Empty)}";
-            }
-            UniqueIdRegistry.AddId(Id);
 #endif
 
             var settings = new GameObjectSettings();
@@ -84,8 +74,11 @@ namespace SymOntoClay.UnityAsset.Components
             settings.PlatformSupport = this;
 
 #if DEBUG
-            Debug.Log($"Thing Awake settings = {settings}");
+            //Debug.Log($"Thing Awake settings = {settings}");
 #endif
+
+            settings.Categories = Categories;
+            settings.EnableCategories = EnableCategories;
 
             _thing = WorldFactory.WorldInstance.GetGameObject(settings);
 

@@ -57,13 +57,10 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         protected IStorage BackpackStorage => _humanoidNPC.BackpackStorage;
 
-        private int _mainThreadId;
-
         #region Unity handlers
 
         protected virtual void Awake()
         {
-            _mainThreadId = Thread.CurrentThread.ManagedThreadId;
         }
 
         protected virtual void Start()
@@ -624,7 +621,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <param name="function">Handler which should be executed in main thread context.</param>
         protected void RunInMainThread(Action function)
         {
-            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (Thread.CurrentThread.ManagedThreadId == 1)
             {
                 function();
                 return;
@@ -641,7 +638,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <returns>Result of the execution.</returns>
         protected TResult RunInMainThread<TResult>(Func<TResult> function)
         {
-            if (_mainThreadId == Thread.CurrentThread.ManagedThreadId)
+            if (Thread.CurrentThread.ManagedThreadId == 1)
             {
                 return function();
             }

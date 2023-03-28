@@ -35,6 +35,8 @@ using UnityEditor.SceneManagement;
 using System.Threading;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using Assets.SymOntoClay.Interfaces;
+using Assets.SymOntoClay.Components.Helpers;
+using System.Collections.Generic;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -50,23 +52,39 @@ namespace SymOntoClay.UnityAsset.Components
 
         private InvokerInMainThread _invokerInMainThread;
 
+        /// <inheritdoc/>
+        SobjFile IMainSymOntoClayInfo.SobjFile { get => SobjFile; set => SobjFile = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.Id { get => Id; set => Id = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.IdForFacts { get => _idForFacts; set => _idForFacts = value; }
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.Name => name;
+
+        /// <inheritdoc/>
+        string IMainSymOntoClayInfo.OldName { get => _oldName; set => _oldName = value; }
+
+        public virtual List<string> DefaultCategories => new List<string>();
+        public bool EnableCategories = false;
+
+        public List<string> Categories;
+
+        /// <inheritdoc/>
+        List<string> IÑategorized.Categories { get => Categories; set => Categories = value; }
+
+        /// <inheritdoc/>
+        bool IÑategorized.EnableCategories { get => EnableCategories; set => EnableCategories = value; }
+
         protected virtual void Awake()
         {
             _invokerInMainThread = new InvokerInMainThread();
 
             GameObjectsRegistry.AddGameObject(gameObject);
 
-            if(string.IsNullOrWhiteSpace(_idForFacts) && !string.IsNullOrWhiteSpace(Id))
-            {
-                if (Id.StartsWith("#`"))
-                {
-                    _idForFacts = Id;
-                }
-                else
-                {
-                    _idForFacts = $"{Id.Insert(1, "`")}`";
-                }
-            }
+            MainSymOntoClayInfoComponentHelper.CheckAndFixId(this);
 
 #if UNITY_EDITOR
             //Debug.Log($"({name}) Id = {Id}");
@@ -77,33 +95,8 @@ namespace SymOntoClay.UnityAsset.Components
 #if UNITY_EDITOR
         protected virtual void OnValidate()
         {
-            var isInstance = PrefabStageUtility.GetCurrentPrefabStage() == null;
-
-            if (isInstance)
-            {
-                if (string.IsNullOrWhiteSpace(Id))
-                {
-                    Id = GetIdByName();
-                }
-                else
-                {
-                    if (Id == GetIdByName(_oldName))
-                    {
-                        Id = GetIdByName();
-                    }
-                }
-
-                if (Id.StartsWith("#`"))
-                {
-                    _idForFacts = Id;
-                }
-                else
-                {
-                    _idForFacts = $"{Id.Insert(1, "`")}`";
-                }
-            }
-
-            _oldName = name;
+            MainSymOntoClayInfoComponentHelper.Validate(this);
+            ÑategorizedComponentHelper.Validate(this);
         }
 #endif
 
