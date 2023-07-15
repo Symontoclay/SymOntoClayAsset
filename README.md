@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="100%" height="50" alt="Glory to Ukraine" src="https://symontoclay.github.io/UA_Flag.jpg">
+</p>
+
 <div>Unity components of SymOntoClay Engine.</div>
 
 # SymOntoClay
@@ -14,6 +18,26 @@ SymOntoClay is a hybrid language with logic programming and fuzzy logic for defi
 <p>
 The project is open source component for Unity.
 </p></div></div>
+
+<div><div style='background-color: #FFF9F3;'>
+<table>
+<tbody>
+<tr>
+<td style='background-color: #FEBE0A;'>
+&nbsp;
+</td>
+<td>
+<img src='https://symontoclay.github.io/icons8-warning-48.png' width='48px' height='48px' alt='Warning logo'>
+</td>
+<td>
+<b>Purely experimental and very unstable project developed by only one person</b><br>
+Please read the <a href='https://symontoclay.github.io/you-need-to-know.html'>page</a> before starting
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 ## Aim
 <div><div><p>
@@ -153,7 +177,7 @@ Implementing new features, or improving/refactoring the codebase, is of course a
 </p>
 
 <p>
-Please follow the <a href='/dev/contributing.html'>Developers Guide</a> if you want to help
+Please follow the <a href='https://symontoclay.github.io/dev/contributing.html'>Developers Guide</a> if you want to help
 </p>
 </div></div>
 
