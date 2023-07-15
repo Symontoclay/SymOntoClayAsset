@@ -1,7 +1,3 @@
-<p align="center">
-  <img width="100%" height="50" alt="Glory to Ukraine" src="https://symontoclay.github.io/UA_Flag.jpg">
-</p>
-
 <div>Unity components of SymOntoClay Engine.</div>
 
 # SymOntoClay
@@ -12,12 +8,35 @@
 </span><span></span>
 
 <div><div><p>
-SymOntoClay is a hybrid language with logic programming and fuzzy logic for defining game characters behavior.
+SymOntoClay is a Domain-specific scripting language for creating game artificial intelligence (game AI).
 </p>
 
 <p>
-The project is open source component for Unity.
-</p></div></div>
+The main idea of the language to combine imperative dynamically typed C-like language with non-mainstream approaches:
+    <ul>
+	    <li>
+		    logic programming
+		</li>
+		
+		<li>
+		    fuzzy logic
+		</li>
+		
+		<li>
+		    multiple fuzzy inheritance
+		</li>
+		
+		<li>
+		    and other interesting approaches.
+		</li>
+	</ul>
+
+
+<p>
+Also SymOntoClay is a game AI engine which executes SymOntoClay language scripts in game.
+It is implemented as open source components for Unity.
+</p>
+</div></div>
 
 <div><div style='background-color: #FFF9F3;'>
 <table>
@@ -39,9 +58,13 @@ Please read the <a href='https://symontoclay.github.io/you-need-to-know.html'>pa
 </div>
 </div>
 
-## Aim
-<div><div><p>
-The main aim of the project is experimenting on using various symbolic artificial intelligence approaches in game developing.
+## Goals
+<div><div><h3 class='center-h' is-processed="true">
+Short term goal
+</h3>
+
+<p>
+The current goal of the project is experimenting on using different symbolic artificial intelligence approaches in game development.
 First of all It's logic programming, fuzzy logic, fuzzy inheritance and natural language processing (NLP).
 </p>
 
@@ -51,15 +74,19 @@ There are many interesting things in symbolic artificial intelligence approaches
 And It is very interesting for me to use and see them in gaming.
 </p>
 
+<h3 class='center-h' is-processed="true">
+Long term goal
+</h3>
+
 <p>
-It will be game <abbr title='Artificial Intelligence'>AI</abbr>, that is less strict, than AI for other areas.
+I hope that SymOntoClay will become a powerful and useful tool for game development in the future.
+I will be very glad If It helps to increase amount of cool games, happy users and game developers.
 </p>
 
 <p>
-Now SymOntoClay is focused on pure experimenting.
-But in the future I hope to give a tool to indie game developers for creating games with more powerful AI then It's available them now.
-I will be very glad If It helps to increase amount of cool games, happy users and game developers.
-</p></div></div>
+I will continue development so that this future comes faster.
+</p>
+</div></div>
 
 ## Key features
 <div><ul>
@@ -89,25 +116,43 @@ Learn key features in details <a href='https://symontoclay.github.io/docs/key-fe
 
 ## Domain-specific language (DSL)
 <div><div><p>
-SymOntoClay has own Domain-specific language (DSL).
+SymOntoClay engine has own Domain-specific scripting language (DSL).
 </p>
 
 <p>
-It helps using interesting AI features in more convenient way.
-Some features are difficult to add for existing languages, for example, multiple fuzzy inheritance.
-</p>
+It is a imperative scripting dynamically typed C-like language which combines with non-mainstream approaches:
+    <ul>
+	    <li>
+		    logic programming
+		</li>
+		
+		<li>
+		    fuzzy logic
+		</li>
+		
+		<li>
+		    multiple fuzzy inheritance
+		</li>
+		
+		<li>
+		    and other interesting approaches.
+		</li>
+	</ul>
 
-<p>
-The language is also called SymOntoClay like the engine.
-</p>
 
 <p>
 I'm completely free in my experiments with syntax.
 </p>
 
 <p>
-My main criterion in SymOntoClay's syntax decisions is including interesting features into the syntax as gracefully as possible and making using them convenient in game development.
-</p></div></div>
+My main criterion in SymOntoClay syntax solutions is the most elegant inclusion of interesting features in the syntax and the convenience of using them in game development.
+</p>
+
+<p>
+Custom domain-specific language allows to combine features in more convenient way for using.
+It could be difficult or even impossible to add non-mainstream approaches into existing programming language.
+</p>
+</div></div>
 
 ## Project status
 <div><div><p>
@@ -168,6 +213,7 @@ You can build and install the project from source code.
 ## Contributing
 <div><div><p>
 SymOntoClay is still under development. 
+I will be glad if someone else is interested in it.
 Contributions are always welcome!
 </p>
 
