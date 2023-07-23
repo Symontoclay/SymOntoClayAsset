@@ -1,3 +1,5 @@
+{: { enemy($x) } -> { soldier($x) } :}
+
 app NPC_BattleRoyale_AS_1
 {
     //idle actions
@@ -30,6 +32,7 @@ action `go and kill`
 		{
 		    'Begin go and kill' >> @>log;
 		    `move and check`(@target)[: on complete { 'on complete go and kill (move and check)' >> @>log; complete action;}, on weak canceled { 'on weak canceled go and kill (move and check)' >> @>log; weak cancel action; } :];
+			kill(#@{: see(I, $_) & enemy($_) & state($_, alive) :});
 			'End go and kill' >> @>log;
 		}
 	}
@@ -47,6 +50,12 @@ action `move and check`
 			check();
 			'End move and check' >> @>log;
 		}
+	}
+	
+    on {: see(I, $_) & enemy($_) & state($_, alive) :} => 
+	{
+	    'see(I, $_) & enemy($_) & state($_, alive)' >> @>log;
+		weak cancel action;
 	}
 }
 
@@ -70,6 +79,21 @@ action move
 	op (@target)
 	{
 		@@host.go(to: @target);
+	}
+}
+
+action kill
+{
+    on leave 
+	{
+	   `stop shoot`(); 
+	}
+	
+	op (@target)
+	{
+	    'Begin kill' >> @>log;
+		
+		'End kill' >> @>log;
 	}
 }
 

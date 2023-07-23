@@ -53,7 +53,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         public string IdForFacts => _idForFacts;
         public IEntityLogger Logger => _uSocGameObject.Logger;
 
-        public bool DeleteAliveFactsAfterDie = true;
+        public bool DeleteAliveFactsAfterDeath = true;
 
         protected IStorage BackpackStorage => _humanoidNPC.BackpackStorage;
 
@@ -573,7 +573,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Task.Run(() => {
                 NSetDeadFact();
 
-                if(DeleteAliveFactsAfterDie)
+                if(DeleteAliveFactsAfterDeath)
                 {
                     NRemoveCurrWalkingFactId();
                     NRemoveCurrHoldFactId();
