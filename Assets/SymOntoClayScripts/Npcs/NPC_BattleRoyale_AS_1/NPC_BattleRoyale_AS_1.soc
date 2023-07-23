@@ -17,9 +17,9 @@ app NPC_BattleRoyale_AS_1
 	fun go()
     {
 	    'Begin go' >> @>log;
-		//`move and check`(#@(waypoint & random));
+		`move and check`(#@(waypoint & random));
 		//@@host.go(to: #@(waypoint));
-        @@host.go(to: #@(waypoint & random));
+        //@@host.go(to: #@(waypoint & random));
 		//@@host.go(to: #WP_43);
 		'End go' >> @>log;
     }
@@ -31,9 +31,11 @@ action `move and check`
 	{
 	    repeat
 		{
-		    @@host.go(to: @target)[: timeout = 10, on complete {complete action;} :];
-		    //move(@target)[: timeout = 10, on complete {complete action;} :];
+		    'Begin move and check' >> @>log;
+		    @@host.go(to: @target)[: timeout = 5, on complete {complete action;} :];
+		    //move(@target)[: timeout = 5, on complete {complete action;} :];
 			check();
+			'End move and check' >> @>log;
 		}
 	}
 }
@@ -42,10 +44,14 @@ action check
 {
     op ()
 	{
+	    'Begin check' >> @>log;
+	
 	    @@host.`stop`();
 	    @@host.`rotate`(30);
 		@@host.`rotate`(-60);
 		@@host.`rotate`(30);
+		
+		'End check' >> @>log;
 	}
 }
 
