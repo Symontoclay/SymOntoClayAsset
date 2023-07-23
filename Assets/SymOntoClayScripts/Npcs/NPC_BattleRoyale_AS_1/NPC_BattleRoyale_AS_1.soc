@@ -17,12 +17,22 @@ app NPC_BattleRoyale_AS_1
 	fun go()
     {
 	    'Begin go' >> @>log;
-		`move and check`(#@(waypoint & random));
-		//@@host.go(to: #@(waypoint));
-        //@@host.go(to: #@(waypoint & random));
-		//@@host.go(to: #WP_43);
+		`go and kill`(#@(waypoint & random));
 		'End go' >> @>log;
     }
+}
+
+action `go and kill`
+{
+    op(@target)
+	{
+	    repeat
+		{
+		    'Begin go and kill' >> @>log;
+		    `move and check`(@target)[: on complete { 'on complete go and kill (move and check)' >> @>log; complete action;}, on weak canceled { 'on weak canceled go and kill (move and check)' >> @>log; weak cancel action; } :];
+			'End go and kill' >> @>log;
+		}
+	}
 }
 
 action `move and check`
@@ -32,8 +42,8 @@ action `move and check`
 	    repeat
 		{
 		    'Begin move and check' >> @>log;
-		    @@host.go(to: @target)[: timeout = 5, on complete {complete action;} :];
-		    //move(@target)[: timeout = 5, on complete {complete action;} :];
+		    @@host.go(to: @target)[: timeout = 5, on complete { 'on complete move and check (move)' >> @>log; complete action;} :];//Don't make cascade "on weak canceled"!
+		    //move(@target)[: timeout = 5, on complete { 'on complete move and check (move)' >> @>log; complete action;} :];//Don't make cascade "on weak canceled"!
 			check();
 			'End move and check' >> @>log;
 		}
@@ -99,7 +109,7 @@ action `move and check`
 
 	    repeat
 		{
-		    move(@target)[: timeout = 1.2, on complete { 'on complete move' >> @>log; complete action;}, on weak canceled { 'on weak canceled move and check (move)' >> @>log; weak cancel action; } :];
+		    move(@target)[: timeout = 1.2, on complete { 'on complete move and check (move)' >> @>log; complete action;}, on weak canceled { 'on weak canceled move and check (move)' >> @>log; weak cancel action; } :];
 			check();
 		}
 
