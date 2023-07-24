@@ -1,6 +1,6 @@
 {: { enemy($x) } -> { soldier($x) } :}
 
-app NPC_BattleRoyale_AS_1
+app NPC_BattleRoyale_AS_1 is soldier
 {
     //idle actions
     //{
@@ -31,7 +31,7 @@ action `go and kill`
 	    repeat
 		{
 		    'Begin go and kill' >> @>log;
-		    `move and check`(@target)[: on complete { 'on complete go and kill (move and check)' >> @>log; complete action;}, on weak canceled { 'on weak canceled go and kill (move and check)' >> @>log; weak cancel action; } :];
+		    `move and check`(@target)[: on complete { 'on complete go and kill (move and check)' >> @>log; complete action;} :];//, on weak canceled { 'on weak canceled go and kill (move and check)' >> @>log; weak cancel action; }
 			kill(#@{: see(I, $_) & enemy($_) & state($_, alive) :});
 			'End go and kill' >> @>log;
 		}
@@ -88,13 +88,71 @@ action kill
 	{
 	   `stop shoot`(); 
 	}
-	
-	op (@target)
+
+    op (@target)
 	{
 	    'Begin kill' >> @>log;
-		
+		@_target = @target;
+		@_target >> @>log;
+		`ready for shoot`();
+		aim();
+		shoot();
+		await;
 		'End kill' >> @>log;
 	}
+
+	on {: state(@_target, dead) :}
+	{
+	    'state(@_target, dead)' >> @>log;
+
+	    complete action;
+	}
+
+	on {: !see(I, @_target) :}
+	{
+	    '!see(I, @_target)' >> @>log;
+		select {: !see(I, @_target) :} >> @>log;
+	    weak cancel action;
+	}
+
+	on each 5
+	{
+	    'Begin on each 5' >> @>log;
+	    aim();
+		'End on each 5' >> @>log;
+	}
+
+	fun aim()
+	{
+	    'Begin aim' >> @>log;
+		@_target >> @>log;
+	    @@host.`aim to`(@_target);
+		'End aim' >> @>log;
+	}
+
+	fun shoot()
+	{
+	    'Begin shoot' >> @>log;
+	    @@host.`start shoot`();
+		'End shoot' >> @>log;
+	}
+
+	fun `stop shoot`()
+	{
+	    'Begin stop shoot' >> @>log;
+	    @@host.`stop shoot`();
+		'End stop shoot' >> @>log;
+	}
+
+	fun `ready for shoot`()
+	{
+	    'Begin ready for shoot' >> @>log;
+	    @@host.`ready for shoot`();
+		'End ready for shoot' >> @>log;
+	}
+
+	private:
+	    var @_target;
 }
 
 /*
