@@ -789,7 +789,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void StopShootImpl(CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
 #endif
@@ -804,7 +804,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _rifle.StopFire();
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
+            UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
 #endif
         }
 
