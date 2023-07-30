@@ -165,10 +165,18 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         private void PerformStop()
         {
+#if UNITY_EDITOR
+           UnityEngine.Debug.Log("HumanoidNPCController Begin PerformStop");
+#endif
+
             _navMeshAgent.ResetPath();
             _isWalking = false;
             UpdateAnimator();
             AddStopFact();
+
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log("HumanoidNPCController End PerformStop");
+#endif
         }
 
         public void Die()
@@ -356,7 +364,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
 
 #if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
+            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
         }
 

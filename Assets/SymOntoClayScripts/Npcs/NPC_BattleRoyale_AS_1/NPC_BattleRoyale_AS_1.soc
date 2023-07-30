@@ -4,7 +4,7 @@ app NPC_BattleRoyale_AS_1 is soldier
 {
     //idle actions
     //{
-    //    go();
+        //go();
     //}
 	
 	on Enter =>
