@@ -34,6 +34,7 @@ using UnityEngine;
 using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
 using System.Threading;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.BaseBehaviors
 {
@@ -51,7 +52,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private object _lockObj = new object();
 
         public string IdForFacts => _idForFacts;
-        public IEntityLogger Logger => _uSocGameObject.Logger;
+        public IMonitorLogger Logger => _uSocGameObject.Logger;
 
         public bool DeleteAliveFactsAfterDeath = true;
 

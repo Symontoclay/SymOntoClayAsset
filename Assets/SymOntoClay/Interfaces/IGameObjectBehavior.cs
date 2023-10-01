@@ -22,6 +22,7 @@ SOFTWARE.*/
 
 using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.CoreHelper.DebugHelpers;
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.Core;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// Gets unique Id which is prepared to using in building fact string.
         /// </summary>
         string IdForFacts { get; }
-        IEntityLogger Logger { get; }
+        IMonitorLogger Logger { get; }
         IGameObject SocGameObject { get; }
 
         /// <summary>
@@ -63,16 +64,16 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// </summary>
         /// <param name="text">String that represents the fact.</param>
         /// <returns>Id of inserted fact.</returns>
-        string InsertPublicFact(string text);
+        string InsertPublicFact(IMonitorLogger logger, string text);
 
-        string InsertPublicFact(RuleInstance fact);
+        string InsertPublicFact(IMonitorLogger logger, RuleInstance fact);
 
         /// <summary>
         /// Remove public fact from storage.
         /// Another NPCs can not percept the fact.
         /// </summary>
         /// <param name="id">Id of previously inserted fact.</param>
-        void RemovePublicFact(string id);
+        void RemovePublicFact(IMonitorLogger logger, string id);
 
         /// <summary>
         /// Pushes fact to special delivery system which simulates hearing.

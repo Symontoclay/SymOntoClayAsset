@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Monitor.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace SymOntoClay.UnityAsset.Helpers
 {
     public static class PlatformSupportHelper
     {
-        public static System.Numerics.Vector3 ConvertFromRelativeToAbsolute(Transform transform, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
+        public static System.Numerics.Vector3 ConvertFromRelativeToAbsolute(IMonitorLogger logger, Transform transform, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
         {
             var distance = relativeCoordinate.Distance;
             var angle = relativeCoordinate.HorizontalAngle;
@@ -57,14 +58,14 @@ namespace SymOntoClay.UnityAsset.Helpers
             return new System.Numerics.Vector3(newPosition.x, newPosition.y, newPosition.z);
         }
 
-        public static System.Numerics.Vector3 GetCurrentAbsolutePosition(Transform transform)
+        public static System.Numerics.Vector3 GetCurrentAbsolutePosition(IMonitorLogger logger, Transform transform)
         {
             var currPosition = transform.position;
 
             return new System.Numerics.Vector3(currPosition.x, currPosition.y, currPosition.z);
         }
 
-        public static float GetDirectionToPosition(Transform transform, System.Numerics.Vector3 position)
+        public static float GetDirectionToPosition(IMonitorLogger logger, Transform transform, System.Numerics.Vector3 position)
         {
 #if DEBUG
             //Debug.Log($"BaseSymOntoClayGameObject ConvertFromRelativeToAbsolute position = {position}");

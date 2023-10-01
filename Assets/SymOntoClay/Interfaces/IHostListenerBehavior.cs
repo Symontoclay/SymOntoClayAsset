@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core;
+using SymOntoClay.Monitor.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,6 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// </summary>
         /// <param name="subject">The NPC that takes this.</param>
         /// <returns><b>true</b> if the game object can be be taken by an NPC, otherwise <b>flase</b></returns>
-        bool CanBeTakenBy(IEntity subject);
+        bool CanBeTakenBy(IMonitorLogger logger, IEntity subject);
     }
 }

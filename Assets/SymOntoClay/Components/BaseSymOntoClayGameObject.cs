@@ -34,6 +34,7 @@ using SymOntoClay.UnityAsset.Helpers;
 using UnityEditor.SceneManagement;
 using System.Threading;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -191,27 +192,27 @@ namespace SymOntoClay.UnityAsset.Components
             Task.Run(() => { _worldComponent.PushSoundFact(power, fact); });
         }
 
-        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
+        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
         {
             return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.ConvertFromRelativeToAbsolute(transform, relativeCoordinate); });
         }
 
-        System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition()
+        System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition(IMonitorLogger logger)
         {
             return _currentAbsolutePosition;
         }
 
-        float IPlatformSupport.GetDirectionToPosition(System.Numerics.Vector3 position)
+        float IPlatformSupport.GetDirectionToPosition(IMonitorLogger logger, System.Numerics.Vector3 position)
         {
             return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.GetDirectionToPosition(transform, position); });  
         }
         
-        bool IPlatformSupport.CanBeTakenBy(IEntity subject)
+        bool IPlatformSupport.CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             return CanBeTakenBy(subject);
         }
         
-        protected virtual bool CanBeTakenBy(IEntity subject)
+        protected virtual bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             return false;
         }
