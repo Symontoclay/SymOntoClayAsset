@@ -58,7 +58,7 @@ namespace SymOntoClay.UnityAsset.Helpers
         private const float DISTANCE_BETWEEN_TARGET_THRESHOLD = 2f;
         private const int ITERATION_TIMEOUT = 10;
 
-        public Task<IGoResult> Go(Vector3 targetPosition, CancellationToken cancellationToken)
+        public Task<IGoResult> Go(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
         {
             return Task.Run(() => { return NGo(targetPosition, cancellationToken); }, cancellationToken);
         }
