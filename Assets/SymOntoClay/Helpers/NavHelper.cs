@@ -26,6 +26,7 @@ using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Interfaces;
 using System;
+using SymOntoClay.Monitor.Common;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -60,15 +61,15 @@ namespace SymOntoClay.UnityAsset.Helpers
 
         public Task<IGoResult> Go(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
         {
-            return Task.Run(() => { return NGo(targetPosition, cancellationToken); }, cancellationToken);
+            return Task.Run(() => { return NGo(logger, targetPosition, cancellationToken); }, cancellationToken);
         }
 
-        public Task<IGoResult> Go(INavTarget target, CancellationToken cancellationToken)
+        public Task<IGoResult> Go(IMonitorLogger logger, INavTarget target, CancellationToken cancellationToken)
         {
-            return Task.Run(() => { return NGo(target, cancellationToken); }, cancellationToken);
+            return Task.Run(() => { return NGo(logger, target, cancellationToken); }, cancellationToken);
         }
 
-        private IGoResult NGo(INavTarget target, CancellationToken cancellationToken)
+        private IGoResult NGo(IMonitorLogger logger, INavTarget target, CancellationToken cancellationToken)
         {
             try
             {
@@ -79,11 +80,11 @@ namespace SymOntoClay.UnityAsset.Helpers
                     case KindOfNavTarget.ByAbsoluteCoordinates:
                         {
                             var absoluteCoordinates = target.AbcoluteCoordinates;
-                            return NGo(new Vector3(absoluteCoordinates.X, absoluteCoordinates.Y, absoluteCoordinates.Z), cancellationToken);
+                            return NGo(logger, new Vector3(absoluteCoordinates.X, absoluteCoordinates.Y, absoluteCoordinates.Z), cancellationToken);
                         }
 
                     case KindOfNavTarget.ByEntity:
-                        return NGo(target.Entity, cancellationToken);
+                        return NGo(logger, target.Entity, cancellationToken);
 
                     default:
                         throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
@@ -91,15 +92,13 @@ namespace SymOntoClay.UnityAsset.Helpers
             }
             catch(Exception e)
             {
-#if UNITY_EDITOR
-                UnityEngine.Debug.LogError(e);
-#endif
+                logger.Error("8CF09945-EC52-4990-8A6C-834980554A0D", e);
 
                 return new GoResult() { GoStatus = GoStatus.SystemError };
             }
         }
 
-        private IGoResult NGo(IEntity entity, CancellationToken cancellationToken)
+        private IGoResult NGo(IMonitorLogger logger, IEntity entity, CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"NavHelper NGo entity.InstanceId = {entity.InstanceId}");
@@ -129,7 +128,7 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                     rotateToEntityAfterAction = entity;
 
-                    entity = entity.GetNewEntity(waypointEntityId);
+                    entity = entity.GetNewEntity(logger, waypointEntityId);
 
 #if UNITY_EDITOR
                     //UnityEngine.Debug.Log($"NavHelper NGo entity.InstanceId (2) = {entity.InstanceId}");
@@ -272,7 +271,7 @@ namespace SymOntoClay.UnityAsset.Helpers
             }
         }
 
-        private IGoResult NGo(Vector3 targetPosition, CancellationToken cancellationToken)
+        private IGoResult NGo(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
         {
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"NavHelper NGo targetPosition = {targetPosition}");
