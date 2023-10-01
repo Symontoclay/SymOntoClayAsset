@@ -15,6 +15,7 @@ using SymOntoClay.UnityAsset.BaseBehaviors;
 using SymOntoClay.UnityAsset.Samles.Interfaces;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Helpers;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
@@ -312,7 +313,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Go", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public async Task GoToImpl(CancellationToken cancellationToken,
+        public async Task GoToImpl(CancellationToken cancellationToken, IMonitorLogger logger,
         [EndpointParam("To", KindOfEndpointParam.Position)] INavTarget target,
         float speed = 12)
         {
@@ -370,7 +371,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Stop", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void StopImpl(CancellationToken cancellationToken)
+        public void StopImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
@@ -386,7 +387,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateImpl(CancellationToken cancellationToken, float direction,
+        public void RotateImpl(CancellationToken cancellationToken, IMonitorLogger logger, float direction,
             float speed = 2)
         {
 #if UNITY_EDITOR
@@ -421,7 +422,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Rotate", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateToEntityImpl(CancellationToken cancellationToken, IEntity entity,
+        public void RotateToEntityImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity,
             float speed = 2)
         {
 #if UNITY_EDITOR
@@ -452,7 +453,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void NRotate(CancellationToken cancellationToken, Quaternion targetRotation, float speed)
+        private void NRotate(CancellationToken cancellationToken, IMonitorLogger logger, Quaternion targetRotation, float speed)
         {
             var initialRotation = Quaternion.identity;
 
@@ -489,7 +490,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateHeadImpl(CancellationToken cancellationToken, float? direction)
+        public void RotateHeadImpl(CancellationToken cancellationToken, IMonitorLogger logger, float? direction)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -534,7 +535,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
-        public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IEntity entity)
+        public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -583,7 +584,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void NResetHeadRotation()
+        private void NResetHeadRotation(IMonitorLogger logger)
         {
             _enableRotateHeadIK = false;
 
@@ -598,7 +599,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void TakeImpl(CancellationToken cancellationToken, IEntity entity)
+        public void TakeImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -647,7 +648,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Take from surface", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IEntity entity)
+        public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -671,7 +672,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Take from backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void TakeFromBackpackImpl(CancellationToken cancellationToken, IEntity entity)
+        public void TakeFromBackpackImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -700,7 +701,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void NTake(CancellationToken cancellationToken, IEntity entity)
+        private void NTake(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
@@ -723,7 +724,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        private void NTake(IHandThingCustomBehavior handThing)
+        private void NTake(IHandThingCustomBehavior handThing, IMonitorLogger logger)
         {
             RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
 
@@ -744,7 +745,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
         }
 
-        public void Take(IHandThingCustomBehavior handThing)
+        public void Take(IHandThingCustomBehavior handThing, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("Take is not fully implemented");
@@ -760,7 +761,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _takeAfterInitialization = handThing;
         }
 
-        private void TakeRifle(IRifleCustomBehavior rifle)
+        private void TakeRifle(IRifleCustomBehavior rifle, IMonitorLogger logger)
         {
             _rifle = rifle;
             _currentHandThing = rifle;
@@ -779,7 +780,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [DebuggerHidden]
         [FriendsEndpoints("Aim to")]
         [BipedEndpoint("Start Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StartShootImpl(CancellationToken cancellationToken)
+        public void StartShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
             if (_rifle == null)
             {
@@ -794,7 +795,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [DebuggerHidden]
         [FriendsEndpoints("Aim to")]
         [BipedEndpoint("Stop Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void StopShootImpl(CancellationToken cancellationToken)
+        public void StopShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             var methodId = GetMethodId();
@@ -818,7 +819,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Ready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void ReadyForShootImpl(CancellationToken cancellationToken)
+        public void ReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -840,7 +841,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Unready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void UnReadyForShootImpl(CancellationToken cancellationToken)
+        public void UnReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -863,7 +864,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Throw out", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void ThrowOutImpl(CancellationToken cancellationToken)
+        public void ThrowOutImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -880,7 +881,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
         }
 
-        public void ThrowOutRifle(CancellationToken cancellationToken)
+        public void ThrowOutRifle(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"ThrowOutRifle");
@@ -902,7 +903,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("Aim to", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void AimToImpl(CancellationToken cancellationToken, IEntity entity)
+        public void AimToImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
@@ -979,7 +980,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         [DebuggerHidden]
         [BipedEndpoint("put in backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void PutInBackpackImpl(CancellationToken cancellationToken)
+        public void PutInBackpackImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //var methodId = GetMethodId();
