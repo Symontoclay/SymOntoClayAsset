@@ -33,6 +33,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using SymOntoClay.Core;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Converters
 {
@@ -51,13 +52,13 @@ namespace SymOntoClay.UnityAsset.Converters
         public override bool CanConvertToCoreType => false;
 
         /// <inheritdoc/>
-        public override object ConvertToCoreType(object platformObject, IEngineContext context, ILocalCodeExecutionContext localContext)
+        public override object ConvertToCoreType(IMonitorLogger logger, object platformObject, IEngineContext context, ILocalCodeExecutionContext localContext)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public override object ConvertToPlatformType(object coreObject, IEngineContext context, ILocalCodeExecutionContext localContext)
+        public override object ConvertToPlatformType(IMonitorLogger logger, object coreObject, IEngineContext context, ILocalCodeExecutionContext localContext)
         {
             var targetObject = (WaypointValue)coreObject;
 

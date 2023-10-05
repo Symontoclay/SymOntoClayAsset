@@ -1,3 +1,4 @@
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.Samles.Environment;
 using SymOntoClay.UnityAsset.Samles.Interfaces;
 using SymOntoClay.UnityAsset.Samles.Internal;
@@ -58,7 +59,7 @@ public class NewBehaviourScript : MonoBehaviour, IBipedHumanoidCustomBehavior
         mInputKeyHelper.Update();
     }
 
-    public void Take(IHandThingCustomBehavior handThing)
+    public void Take(IMonitorLogger logger, IHandThingCustomBehavior handThing)
     {
     }
 
@@ -68,7 +69,7 @@ public class NewBehaviourScript : MonoBehaviour, IBipedHumanoidCustomBehavior
 
         mAnimator.SetBool("hasRifle", true);
 
-        _twoHandGun.SetToHandsOfHumanoid(this);
+        _twoHandGun.SetToHandsOfHumanoid(null, this);
     }
 
     private void OnGPressAction()
@@ -106,7 +107,7 @@ public class NewBehaviourScript : MonoBehaviour, IBipedHumanoidCustomBehavior
 
         //m4A1.transform.rotation = towards * m4A1.transform.rotation;
 
-        _twoHandGun.LookAt(Aim);
+        _twoHandGun.LookAt(null, Aim);
     }
 
     void OnAnimatorIK(int layerIndex)

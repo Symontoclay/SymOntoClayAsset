@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymOntoClay.Monitor.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,14 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
         GameObject MainWP { get; }
         GameObject AddWP { get; }
 
-        bool SetToHandsOfHumanoid(IBipedHumanoidCustomBehavior humanoid);
+        bool SetToHandsOfHumanoid(IMonitorLogger logger, IBipedHumanoidCustomBehavior humanoid);
 
-        void LookAt();
-        void LookAt(GameObject target);
-        void LookAt(Transform target);
-        void LookAt(Vector3? target);
-        bool ThrowOut();
-        void StartFire(CancellationToken cancellationToken);
-        void StopFire();
+        void LookAt(IMonitorLogger logger);
+        void LookAt(IMonitorLogger logger, GameObject target);
+        void LookAt(IMonitorLogger logger, Transform target);
+        void LookAt(IMonitorLogger logger, Vector3? target);
+        bool ThrowOut(IMonitorLogger logger);
+        void StartFire(CancellationToken cancellationToken, IMonitorLogger logger);
+        void StopFire(IMonitorLogger logger);
     }
 }

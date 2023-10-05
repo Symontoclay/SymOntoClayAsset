@@ -94,7 +94,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
             _standardFactsBuilder = _uSocGameObject.StandardFactsBuilder;
 
-            NSetAliveFact();
+            NSetAliveFact(Logger);
         }
 
         protected virtual void Stop()
@@ -107,7 +107,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         private string _vitalFactId;
 
-        private void NSetAliveFact()
+        private void NSetAliveFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
@@ -118,14 +118,14 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
                 {
-                    _uSocGameObject.RemovePublicFact(_vitalFactId);
+                    _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
                 }
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(fact);
+                _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
             });
         }
 
-        private void NSetDeadFact()
+        private void NSetDeadFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
@@ -136,10 +136,10 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
                 {
-                    _uSocGameObject.RemovePublicFact(_vitalFactId);
+                    _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
                 }
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(fact);
+                _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
             });
         }
 
@@ -149,7 +149,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC has stopped itself.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void AddStopFact()
+        protected void AddStopFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildStopFactInstance(_idForFacts);
@@ -158,9 +158,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 //Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
 #endif
 
-                NRemoveCurrWalkingFactId();
+                NRemoveCurrWalkingFactId(logger);
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
@@ -168,11 +168,11 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             });
         }
 
-        private void NRemoveCurrWalkingFactId()
+        private void NRemoveCurrWalkingFactId(IMonitorLogger logger)
         {
             if (!string.IsNullOrWhiteSpace(_walkingFactId))
             {
-                _uSocGameObject.RemovePublicFact(_walkingFactId);
+                _uSocGameObject.RemovePublicFact(logger, _walkingFactId);
             }
         }
 
@@ -180,7 +180,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC has started walking.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void AddWalkingFact()
+        protected void AddWalkingFact(IMonitorLogger logger)
         {
 
 #if UNITY_EDITOR
@@ -194,10 +194,10 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 Debug.Log($"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
 #endif
 
-                NRemoveCurrWalkingFactId();
+                NRemoveCurrWalkingFactId(logger);
 
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
@@ -209,7 +209,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC has started running.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void AddRunningFact()
+        protected void AddRunningFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildRunFactInstance(_idForFacts);
@@ -218,9 +218,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 //Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
 #endif
 
-                NRemoveCurrWalkingFactId();
+                NRemoveCurrWalkingFactId(logger);
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(fact);
+                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
                 //Debug.Log($"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
@@ -235,14 +235,14 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
         /// <param name="heldId">Id of held thing.</param>
-        protected void AddHoldFact(string heldId)
+        protected void AddHoldFact(IMonitorLogger logger, string heldId)
         {
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildHoldFactInstance(_idForFacts, heldId);
 
-                NRemoveCurrHoldFactId();
+                NRemoveCurrHoldFactId(logger);
 
-                _holdFactId = _uSocGameObject.InsertPublicFact(fact);
+                _holdFactId = _uSocGameObject.InsertPublicFact(logger, fact);
             });
         }
 
@@ -250,18 +250,18 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Removes fact that the NPC holds something in his hands.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void RemoveHoldFact()
+        protected void RemoveHoldFact(IMonitorLogger logger)
         {
             Task.Run(() => {
-                NRemoveCurrHoldFactId();
+                NRemoveCurrHoldFactId(logger);
             });
         }
 
-        private void NRemoveCurrHoldFactId()
+        private void NRemoveCurrHoldFactId(IMonitorLogger logger)
         {
             if (!string.IsNullOrWhiteSpace(_holdFactId))
             {
-                _uSocGameObject.RemovePublicFact(_holdFactId);
+                _uSocGameObject.RemovePublicFact(logger, _holdFactId);
             }
         }
 
@@ -472,7 +472,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC shoots.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void AddHeShootsFact()
+        protected void AddHeShootsFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 if (!string.IsNullOrWhiteSpace(_heShootsFactId))
@@ -482,7 +482,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 var fact = _standardFactsBuilder.BuildShootFactInstance(_idForFacts);
 
-                _heShootsFactId = _uSocGameObject.InsertPublicFact(fact);
+                _heShootsFactId = _uSocGameObject.InsertPublicFact(logger, fact);
             });
         }
 
@@ -490,18 +490,18 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Removes fact that the NPC shoots.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void RemoveHeShootsFact()
+        protected void RemoveHeShootsFact(IMonitorLogger logger)
         {
             Task.Run(() => {
-                NRemoveCurrHeShootsFactId();
+                NRemoveCurrHeShootsFactId(logger);
             });
         }
 
-        private void NRemoveCurrHeShootsFactId()
+        private void NRemoveCurrHeShootsFactId(IMonitorLogger logger)
         {
             if (!string.IsNullOrWhiteSpace(_heShootsFactId))
             {
-                _uSocGameObject.RemovePublicFact(_heShootsFactId);
+                _uSocGameObject.RemovePublicFact(logger, _heShootsFactId);
 
                 _heShootsFactId = string.Empty;
             }
@@ -513,7 +513,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC is ready for shooting.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void AddHeIsReadyForShootFact()
+        protected void AddHeIsReadyForShootFact(IMonitorLogger logger)
         {
             Task.Run(() => {
                 if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
@@ -523,7 +523,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 var fact = _standardFactsBuilder.BuildReadyForShootFactInstance(_idForFacts);
 
-                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(fact);
+                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(logger, fact);
             });
         }
 
@@ -531,18 +531,18 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Removes fact that the NPC is ready for shooting.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void RemoveHeIsReadyForShootFact()
+        protected void RemoveHeIsReadyForShootFact(IMonitorLogger logger)
         {
             Task.Run(() => {
-                NRemoveCurrHeIsReadyForShootFactId();
+                NRemoveCurrHeIsReadyForShootFactId(logger);
             });
         }
 
-        private void NRemoveCurrHeIsReadyForShootFactId()
+        private void NRemoveCurrHeIsReadyForShootFactId(IMonitorLogger logger)
         {
             if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
             {
-                _uSocGameObject.RemovePublicFact(_heIsReadyForShootFactId);
+                _uSocGameObject.RemovePublicFact(logger, _heIsReadyForShootFactId);
 
                 _heIsReadyForShootFactId = string.Empty;
             }
@@ -551,12 +551,12 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Removes all facts related to shooting.
         /// </summary>
-        protected void RemoveAllShootFacts()
+        protected void RemoveAllShootFacts(IMonitorLogger logger)
         {
             Task.Run(() => {
-                NRemoveCurrHoldFactId();
-                NRemoveCurrHeShootsFactId();
-                NRemoveCurrHeIsReadyForShootFactId();
+                NRemoveCurrHoldFactId(logger);
+                NRemoveCurrHeShootsFactId(logger);
+                NRemoveCurrHeIsReadyForShootFactId(logger);
             });
         }
 
@@ -564,22 +564,22 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Proceses death for NPC.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
-        protected void ProcessDeath()
+        protected void ProcessDeath(IMonitorLogger logger)
         {
-            NProcessDeath();
+            NProcessDeath(logger);
         }
 
-        private void NProcessDeath()
+        private void NProcessDeath(IMonitorLogger logger)
         {
             Task.Run(() => {
-                NSetDeadFact();
+                NSetDeadFact(logger);
 
                 if(DeleteAliveFactsAfterDeath)
                 {
-                    NRemoveCurrWalkingFactId();
-                    NRemoveCurrHoldFactId();
-                    NRemoveCurrHeShootsFactId();
-                    NRemoveCurrHeIsReadyForShootFactId();
+                    NRemoveCurrWalkingFactId(logger);
+                    NRemoveCurrHoldFactId(logger);
+                    NRemoveCurrHeShootsFactId(logger);
+                    NRemoveCurrHeIsReadyForShootFactId(logger);
 
                     RunInMainThread(() => {
                         NStopStepsSoundRoutine();
@@ -655,7 +655,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="subject">The NPC that takes this.</param>
         /// <returns><b>true</b> - if It can be taken, otherwise - <b>false</b>.</returns>
-        public virtual bool CanBeTakenBy(IEntity subject)
+        public virtual bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             return false;
         }
@@ -665,7 +665,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="device">Describes biped device which will be using the game object.</param>
-        protected void AddToManualControl(IGameObjectBehavior obj, DeviceOfBiped device)
+        protected void AddToManualControl(IMonitorLogger logger, IGameObjectBehavior obj, DeviceOfBiped device)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, device);
         }
@@ -675,7 +675,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="devices">Describes list of biped devices which will be using the game object.</param>
-        protected void AddToManualControl(IGameObjectBehavior obj, IList<DeviceOfBiped> devices)
+        protected void AddToManualControl(IMonitorLogger logger, IGameObjectBehavior obj, IList<DeviceOfBiped> devices)
         {
             _humanoidNPC.AddToManualControl(obj.SocGameObject, devices);
         }
@@ -684,7 +684,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Removes a game object from manual controlled area of an NPC.
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
-        protected void RemoveFromManualControl(IGameObjectBehavior obj)
+        protected void RemoveFromManualControl(IMonitorLogger logger, IGameObjectBehavior obj)
         {
             _humanoidNPC.RemoveFromManualControl(obj.SocGameObject);
         }
@@ -693,18 +693,18 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds a game object into backpack.
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
-        protected void AddToBackpack(IGameObject obj)
+        protected void AddToBackpack(IMonitorLogger logger, IGameObject obj)
         {
-            _humanoidNPC.AddToBackpack(obj);
+            _humanoidNPC.AddToBackpack(logger, obj);
         }
 
         /// <summary>
         /// Removes game object from backpack.
         /// </summary>
         /// <param name="obj">Instance of the game object.</param>
-        protected void RemoveFromBackpack(IGameObject obj)
+        protected void RemoveFromBackpack(IMonitorLogger logger, IGameObject obj)
         {
-            _humanoidNPC.RemoveFromBackpack(obj);
+            _humanoidNPC.RemoveFromBackpack(logger, obj);
         }
 
         /// <summary>
@@ -714,9 +714,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
-        protected Quaternion GetRotationToPositionInUsualThread(System.Numerics.Vector3 targetPosition)
+        protected Quaternion GetRotationToPositionInUsualThread(IMonitorLogger logger, System.Numerics.Vector3 targetPosition)
         {
-            return GetRotationToPositionInUsualThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
+            return GetRotationToPositionInUsualThread(logger, new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
         }
 
         /// <summary>
@@ -726,10 +726,10 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
-        protected Quaternion GetRotationToPositionInUsualThread(Vector3 targetPosition)
+        protected Quaternion GetRotationToPositionInUsualThread(IMonitorLogger logger, Vector3 targetPosition)
         {
             return RunInMainThread<Quaternion>(() => {
-                return GetRotationToPositionInMainThread(targetPosition);
+                return GetRotationToPositionInMainThread(logger, targetPosition);
             });
         }
 
@@ -740,9 +740,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
-        protected Quaternion GetRotationToPositionInMainThread(System.Numerics.Vector3 targetPosition)
+        protected Quaternion GetRotationToPositionInMainThread(IMonitorLogger logger, System.Numerics.Vector3 targetPosition)
         {
-            return GetRotationToPositionInMainThread(new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
+            return GetRotationToPositionInMainThread(logger, new Vector3(targetPosition.X, targetPosition.Y, targetPosition.Z));
         }
 
         /// <summary>
@@ -752,7 +752,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
-        protected Quaternion GetRotationToPositionInMainThread(Vector3 targetPosition)
+        protected Quaternion GetRotationToPositionInMainThread(IMonitorLogger logger, Vector3 targetPosition)
         {
             var heading = targetPosition - transform.position;
 

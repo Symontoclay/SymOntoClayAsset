@@ -20,7 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using NLog;
 using SymOntoClay.Core;
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -47,12 +49,12 @@ namespace SymOntoClay.UnityAsset.Components
 
         private IHandThingHostBehavior _uHandThingHost;
 
-        protected override bool CanBeTakenBy(IEntity subject)
+        protected override bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             switch(TakingPolicy)
             {
                 case TakingPolicy.EveryWhere:
-                    return _hostListener.CanBeTakenBy(subject);
+                    return _hostListener.CanBeTakenBy(logger, subject);
 
                 case TakingPolicy.NoWhere:
                     return false;
@@ -77,7 +79,7 @@ namespace SymOntoClay.UnityAsset.Components
                             return false;
                         }
 
-                        return _hostListener.CanBeTakenBy(subject);
+                        return _hostListener.CanBeTakenBy(logger, subject);
                     }
 
                 default:
@@ -85,14 +87,14 @@ namespace SymOntoClay.UnityAsset.Components
             }
         }
 
-        void IHandThingBehavior.HideForBackpackInMainThread()
+        void IHandThingBehavior.HideForBackpackInMainThread(IMonitorLogger logger)
         {
-            _uHandThingHost?.HideForBackpackInMainThread();
+            _uHandThingHost?.HideForBackpackInMainThread(logger);
         }
 
-        void IHandThingBehavior.HideForBackpackInUsualThread()
+        void IHandThingBehavior.HideForBackpackInUsualThread(IMonitorLogger logger)
         {
-            _uHandThingHost?.HideForBackpackInUsualThread();
+            _uHandThingHost?.HideForBackpackInUsualThread(logger);
         }
     }
 }

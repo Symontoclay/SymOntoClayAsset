@@ -1,5 +1,6 @@
 ﻿using SymOntoClay;
 using SymOntoClay.CoreHelper.DebugHelpers;
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.UnityAsset.Samles.Behavior;
@@ -16,7 +17,7 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
         KindOfHandThing Kind { get; }
 
         string IdForFacts { get; }
-        IEntityLogger Logger { get; }
+        IMonitorLogger Logger { get; }
         IGameObjectBehavior USocGameObject { get; }
     }
 }

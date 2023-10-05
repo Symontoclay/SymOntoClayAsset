@@ -38,6 +38,7 @@ using SymOntoClay.Core;
 using SymOntoClay.NLP;
 using UnityEngine.Windows;
 using SymOntoClay.ProjectFiles;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Components
 {

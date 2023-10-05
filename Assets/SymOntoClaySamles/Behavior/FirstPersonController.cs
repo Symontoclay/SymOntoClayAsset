@@ -165,7 +165,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 {
                     _movementState = MovementState.Stops;
 
-                    AddStopFact();
+                    AddStopFact(Logger);
                     StopRepeatingStepsSoundInMainThread();
                 }
             }
@@ -177,7 +177,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                     {
                         _movementState = MovementState.Runs;
 
-                        AddRunningFact();
+                        AddRunningFact(Logger);
                         StartRepeatingRunningStepsSoundInMainThread();
                     }
                 }
@@ -187,7 +187,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                     {
                         _movementState = MovementState.Walks;
 
-                        AddWalkingFact();
+                        AddWalkingFact(Logger);
                         StartRepeatingWalkingStepsSoundInMainThread();
                     }
                 }

@@ -53,7 +53,7 @@ namespace Assets.SymOntoClaySamles.Spawners
                     //Debug.Log($"BaseSpawner Start handThing == null = {handThing == null}");
 #endif
 
-                    humanoidNPC.Take(handThing);
+                    humanoidNPC.Take(null, handThing);
                 }
             }
         }

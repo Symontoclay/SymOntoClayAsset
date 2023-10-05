@@ -35,6 +35,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using SymOntoClay.UnityAsset.Interfaces;
 using UnityEditor.SceneManagement;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -164,7 +165,7 @@ namespace SymOntoClay.UnityAsset.Components
             {
                 _needInitilizeBackpack = false;
 
-                InitilizeBackpack();
+                InitilizeBackpack(Logger);
             }
 
             var newRawVisibleItemsList = new List<UVisibleItem>();
@@ -216,15 +217,15 @@ namespace SymOntoClay.UnityAsset.Components
             }
         }
 
-        private void InitilizeBackpack()
+        private void InitilizeBackpack(IMonitorLogger logger)
         {
             foreach (var gObj in Backpack)
             {
                 var targetHandThingComponent = gObj.GetComponent<IHandThingBehavior>();
 
-                _npc.AddToBackpack(targetHandThingComponent.SocGameObject);
+                _npc.AddToBackpack(logger, targetHandThingComponent.SocGameObject);
 
-                targetHandThingComponent.HideForBackpackInMainThread();
+                targetHandThingComponent.HideForBackpackInMainThread(logger);
             }
         }
 

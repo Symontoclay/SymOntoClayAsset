@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymOntoClay.Monitor.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
     public interface IDieCustomBehavior
     {
-        void Die();
+        void Die(IMonitorLogger logger);
     }
 }

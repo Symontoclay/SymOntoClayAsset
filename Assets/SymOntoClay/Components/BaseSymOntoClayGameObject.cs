@@ -35,6 +35,7 @@ using UnityEditor.SceneManagement;
 using System.Threading;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using SymOntoClay.Monitor.Common;
+using NLog;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -113,7 +114,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         protected virtual void Update()
         {
-            _currentAbsolutePosition = PlatformSupportHelper.GetCurrentAbsolutePosition(transform);
+            _currentAbsolutePosition = PlatformSupportHelper.GetCurrentAbsolutePosition(Logger, transform);
 
             _invokerInMainThread.Update();
         }
@@ -144,7 +145,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public IStandardFactsBuilder StandardFactsBuilder => _worldComponent.StandardFactsBuilder;
         
-        public IEntityLogger Logger => _worldComponent?.Logger;
+        public IMonitorLogger Logger => _worldComponent?.Logger;
 
         public void RunInMainThread(Action function)
         {
@@ -167,19 +168,19 @@ namespace SymOntoClay.UnityAsset.Components
             return _worldComponent.RunInMainThread(function);
         }
 
-        public string InsertPublicFact(string text)
+        public string InsertPublicFact(IMonitorLogger logger, string text)
         {
-            return _worldComponent.InsertPublicFact(text);
+            return _worldComponent.InsertPublicFact(logger, text);
         }
 
-        public string InsertPublicFact(RuleInstance fact)
+        public string InsertPublicFact(IMonitorLogger logger, RuleInstance fact)
         {
-            return _worldComponent.InsertPublicFact(fact);
+            return _worldComponent.InsertPublicFact(logger, fact);
         }
 
-        public void RemovePublicFact(string id)
+        public void RemovePublicFact(IMonitorLogger logger, string id)
         {
-            _worldComponent.RemovePublicFact(id);
+            _worldComponent.RemovePublicFact(logger, id);
         }
 
         public void PushSoundFact(float power, string text)
@@ -194,7 +195,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
         {
-            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.ConvertFromRelativeToAbsolute(transform, relativeCoordinate); });
+            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.ConvertFromRelativeToAbsolute(logger, transform, relativeCoordinate); });
         }
 
         System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition(IMonitorLogger logger)
@@ -204,12 +205,12 @@ namespace SymOntoClay.UnityAsset.Components
 
         float IPlatformSupport.GetDirectionToPosition(IMonitorLogger logger, System.Numerics.Vector3 position)
         {
-            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.GetDirectionToPosition(transform, position); });  
+            return _invokerInMainThread.RunInMainThread(() => { return PlatformSupportHelper.GetDirectionToPosition(logger, transform, position); });  
         }
         
         bool IPlatformSupport.CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
-            return CanBeTakenBy(subject);
+            return CanBeTakenBy(logger, subject);
         }
         
         protected virtual bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)

@@ -1,5 +1,6 @@
 ﻿using SymOntoClay;
 using SymOntoClay.Core;
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.BaseBehaviors;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Interfaces;
@@ -80,12 +81,12 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         private bool _isTaken;
 
-        public override bool CanBeTakenBy(IEntity subject)
+        public override bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             return !_isTaken;
         }
 
-        public bool SetToHandsOfHumanoid(IBipedHumanoidCustomBehavior humanoid)
+        public bool SetToHandsOfHumanoid(IMonitorLogger logger, IBipedHumanoidCustomBehavior humanoid)
         {
             var targetParent = humanoid.RightHandWP.transform;
 
@@ -117,19 +118,19 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             return true;
         }
 
-        public void HideForBackpackInMainThread()
+        public void HideForBackpackInMainThread(IMonitorLogger logger)
         {
             Task.Run(() => {
-                StopFire();
+                StopFire(logger);
             });
 
             transform.SetParent(null);
             gameObject.SetActive(false);
         }
 
-        public void HideForBackpackInUsualThread()
+        public void HideForBackpackInUsualThread(IMonitorLogger logger)
         {
-            StopFire();
+            StopFire(logger);
 
             RunInMainThread(() => {
                 transform.SetParent(null);
@@ -145,7 +146,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             BeforeOffIfSingle
         }
 
-        public void StartFire(CancellationToken cancellationToken)
+        public void StartFire(CancellationToken cancellationToken, IMonitorLogger logger)
         {
             lock (_lockObl)
             {
@@ -174,7 +175,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                     RunInMainThread(() =>
                     {
                         //mGunAudio.Stop();
-                        DisableEffects();
+                        DisableEffects(logger);
                         StopRepeatingShotSoundInMainThread();
                     });
 
@@ -185,7 +186,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 {
                     case InternalStateOfRapidFireGun.TurnedOf:
                         timer = 0f;
-                        RunInMainThread(() => { ProcessShoot(); });
+                        RunInMainThread(() => { ProcessShoot(logger); });
                         state = InternalStateOfRapidFireGun.TurnedOnShot;
                         break;
 
@@ -196,7 +197,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                             if (timer >= EffectsDisplayTime)
                             {
                                 timer = 0f;
-                                DisableEffects();
+                                DisableEffects(logger);
                                 state = InternalStateOfRapidFireGun.TurnedOnWasShot;
                             }
                         });
@@ -207,7 +208,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                             timer += Time.deltaTime;
                             if (timer >= TimeBetweenBullets)
                             {
-                                ProcessShoot();
+                                ProcessShoot(logger);
                                 state = InternalStateOfRapidFireGun.TurnedOnShot;
                             }
                         });
@@ -221,7 +222,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             }
         }
 
-        private void ProcessShoot()
+        private void ProcessShoot(IMonitorLogger logger)
         {
             mGunAudio.Play();
 
@@ -250,19 +251,19 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
                 if (targetOfShoot != null)
                 {
-                    targetOfShoot.SetHit(shootHit, DamagePerShot);
+                    targetOfShoot.SetHit(logger, shootHit, DamagePerShot);
                 }
             }
         }
 
-        private void DisableEffects()
+        private void DisableEffects(IMonitorLogger logger)
         {
             mGunLight.enabled = false;
             mGunParticles.Stop();
             mGunAudio.Stop();
         }
 
-        public void StopFire()
+        public void StopFire(IMonitorLogger logger)
         {
             lock (_lockObl)
             {
@@ -276,7 +277,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             RunInMainThread(() =>
             {
-                DisableEffects();
+                DisableEffects(logger);
             });
 
             StopRepeatingShotSoundInUsualThread();
@@ -284,22 +285,22 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         private Quaternion? _oldLocalRotation;
 
-        public void LookAt()
+        public void LookAt(IMonitorLogger logger)
         {
-            LookAt((Vector3?)null);
+            LookAt(logger, (Vector3?)null);
         }
 
-        public void LookAt(GameObject target)
+        public void LookAt(IMonitorLogger logger, GameObject target)
         {
-            LookAt(target.transform.position);
+            LookAt(logger, target.transform.position);
         }
 
-        public void LookAt(Transform target)
+        public void LookAt(IMonitorLogger logger, Transform target)
         {
-            LookAt(target.position);
+            LookAt(logger, target.position);
         }
 
-        public void LookAt(Vector3? target)
+        public void LookAt(IMonitorLogger logger, Vector3? target)
         {
             if(!target.HasValue)
             {
@@ -320,7 +321,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             transform.LookAt(target.Value);
         }
 
-        public bool ThrowOut()
+        public bool ThrowOut(IMonitorLogger logger)
         {
             if (transform.parent == null)
             {

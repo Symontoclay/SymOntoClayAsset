@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.Monitor.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,12 +38,12 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// Hides the thing as part of placing in backpack.
         /// This method should be called only in main thread.
         /// </summary>
-        void HideForBackpackInMainThread();
+        void HideForBackpackInMainThread(IMonitorLogger logger);
 
         /// <summary>
         /// Hides the thing as part of placing in backpack.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
-        void HideForBackpackInUsualThread();
+        void HideForBackpackInUsualThread(IMonitorLogger logger);
     }
 }

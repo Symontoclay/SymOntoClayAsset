@@ -16,6 +16,7 @@ using SymOntoClay.UnityAsset.Samles.Interfaces;
 using SymOntoClay.UnityAsset.Components;
 using SymOntoClay.UnityAsset.Helpers;
 using SymOntoClay.Monitor.Common;
+using NLog;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior
 {
@@ -62,7 +63,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             base.Start();
 
-            AddStopFact();
+            AddStopFact(Logger);
 
             if (Head == null)
             {
@@ -110,7 +111,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(_takeAfterInitialization != null)
             {
-                NTake(_takeAfterInitialization);
+                NTake(Logger, _takeAfterInitialization);
 
                 _takeAfterInitialization = null;
             }
@@ -164,7 +165,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _animator.SetBool("isDead", _isDead);
         }
 
-        private void PerformStop()
+        private void PerformStop(IMonitorLogger logger)
         {
 #if UNITY_EDITOR
            UnityEngine.Debug.Log("HumanoidNPCController Begin PerformStop");
@@ -173,14 +174,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _navMeshAgent.ResetPath();
             _isWalking = false;
             UpdateAnimator();
-            AddStopFact();
+            AddStopFact(logger);
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("HumanoidNPCController End PerformStop");
 #endif
         }
 
-        public void Die()
+        public void Die(IMonitorLogger logger)
         {
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log("HumanoidNPCController Die");
@@ -195,7 +196,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             UpdateAnimator();
 
-            ProcessDeath();
+            ProcessDeath(logger);
         }
 
         /*
@@ -334,9 +335,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}]  = {}");
 #endif
-            AddWalkingFact();
+            AddWalkingFact(logger);
 
-            var task = _navHelper.Go(target, cancellationToken);
+            var task = _navHelper.Go(logger, target, cancellationToken);
 
             RunInMainThread(() =>
             {
@@ -356,12 +357,12 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             RunInMainThread(() =>
             {
-                PerformStop();
+                PerformStop(logger);
             });
 
             if(result.TargetEntity != null)
             {
-                RotateToEntityImpl(cancellationToken, result.TargetEntity, speed);
+                RotateToEntityImpl(cancellationToken, logger, result.TargetEntity, speed);
             }
 
 #if UNITY_EDITOR
@@ -381,7 +382,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             RunInMainThread(() =>
             {
-                PerformStop();
+                PerformStop(logger);
             });
         }
 
@@ -413,7 +414,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 lookRotation = Quaternion.LookRotation(globalDirection);
             });
 
-            NRotate(cancellationToken, lookRotation, speed);
+            NRotate(cancellationToken, logger, lookRotation, speed);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"RotateImpl End {methodId}");
@@ -433,9 +434,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
+                entity.Specify(logger, /*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
 #if UNITY_EDITOR
@@ -444,9 +445,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
-            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
+            var lookRotation = GetRotationToPositionInUsualThread(logger, entity.Position.Value);
 
-            NRotate(cancellationToken, lookRotation, speed);
+            NRotate(cancellationToken, logger, lookRotation, speed);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"RotateToEntityImpl End {methodId}");
@@ -500,13 +501,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(!direction.HasValue || direction == 0)
             {
-                NResetHeadRotation();
+                NResetHeadRotation(logger);
                 return;
             }
 
             if(Math.Abs(direction.Value) > MaxHeadRotationAngle)
             {
-                RotateImpl(cancellationToken, direction.Value);
+                RotateImpl(cancellationToken, logger, direction.Value);
                 return;
             }
 
@@ -545,15 +546,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(entity == null)
             {
-                NResetHeadRotation();
+                NResetHeadRotation(logger);
                 return;
             }
 
             if (entity.IsEmpty)
             {
-                entity.Specify(/*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
+                entity.Specify(logger, /*EntityConstraints.OnlyVisible,*/ EntityConstraints.Nearest);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
 #if UNITY_EDITOR
@@ -562,7 +563,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
-            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
+            var lookRotation = GetRotationToPositionInUsualThread(logger, entity.Position.Value);
 
             var anlge = RunInMainThread(() => {
                 return Quaternion.Angle(transform.rotation, lookRotation);
@@ -574,10 +575,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (Math.Abs(anlge) > MaxHeadRotationAngle)
             {
-                NRotate(cancellationToken, lookRotation, 2);
+                NRotate(cancellationToken, logger, lookRotation, 2);
             }
 
-            RotateHeadImpl(cancellationToken, anlge);
+            RotateHeadImpl(cancellationToken, logger, anlge);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
@@ -613,9 +614,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.SpecifyOnce(BackpackStorage);
+                entity.SpecifyOnce(logger, BackpackStorage);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
 #if UNITY_EDITOR
@@ -627,9 +628,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+                entity.Specify(logger, EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
 
-                entity.Resolve();
+                entity.Resolve(logger);
 
 #if UNITY_EDITOR
                 //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
@@ -639,7 +640,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
             }
 
-            NTake(cancellationToken, entity);
+            NTake(cancellationToken, logger, entity);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"TakeImpl End {methodId}");
@@ -658,12 +659,12 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.Specify(EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
+                entity.Specify(logger, EntityConstraints.CanBeTaken/*, EntityConstraints.OnlyVisible, EntityConstraints.Nearest*/);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
-            NTake(cancellationToken, entity);
+            NTake(cancellationToken, logger, entity);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"TakeFromSurfaceImpl End {methodId}");
@@ -682,9 +683,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.SpecifyOnce(BackpackStorage);
+                entity.SpecifyOnce(logger, BackpackStorage);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
 #if UNITY_EDITOR
@@ -694,7 +695,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
-            NTake(cancellationToken, entity);
+            NTake(cancellationToken, logger, entity);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
@@ -717,16 +718,16 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject.SocGameObject != null) = {handThing.USocGameObject.SocGameObject != null}");
 #endif
 
-            NTake(handThing);
+            NTake(logger, handThing);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log("NTake End");
 #endif
         }
 
-        private void NTake(IHandThingCustomBehavior handThing, IMonitorLogger logger)
+        private void NTake(IMonitorLogger logger, IHandThingCustomBehavior handThing)
         {
-            RemoveFromBackpack(handThing.USocGameObject.SocGameObject);
+            RemoveFromBackpack(logger, handThing.USocGameObject.SocGameObject);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
@@ -736,7 +737,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 switch (handThing.Kind)
                 {
                     case KindOfHandThing.Rifle:
-                        TakeRifle(handThing as IRifleCustomBehavior);
+                        TakeRifle(logger, handThing as IRifleCustomBehavior);
                         break;
 
                     default:
@@ -745,7 +746,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
         }
 
-        public void Take(IHandThingCustomBehavior handThing, IMonitorLogger logger)
+        public void Take(IMonitorLogger logger, IHandThingCustomBehavior handThing)
         {
 #if UNITY_EDITOR
             UnityEngine.Debug.Log("Take is not fully implemented");
@@ -754,14 +755,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(_isAlreadyStarted)
             {
-                NTake(handThing);
+                NTake(logger, handThing);
                 return;
             }
 
             _takeAfterInitialization = handThing;
         }
 
-        private void TakeRifle(IRifleCustomBehavior rifle, IMonitorLogger logger)
+        private void TakeRifle(IMonitorLogger logger, IRifleCustomBehavior rifle)
         {
             _rifle = rifle;
             _currentHandThing = rifle;
@@ -769,12 +770,12 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _hasRifle = true;
             UpdateAnimator();
 
-            rifle.SetToHandsOfHumanoid(this);
+            rifle.SetToHandsOfHumanoid(logger, this);
 
             //I have moved endpoins here from RapidFireGunController
             //AddToManualControl(_rifle.USocGameObject, new List<DeviceOfBiped>() {  DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand });
 
-            AddHoldFact(rifle.IdForFacts);
+            AddHoldFact(logger, rifle.IdForFacts);
         }
 
         [DebuggerHidden]
@@ -787,9 +788,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 return;
             }
 
-            AddHeShootsFact();
+            AddHeShootsFact(logger);
 
-            _rifle.StartFire(cancellationToken);
+            _rifle.StartFire(cancellationToken, logger);
         }
 
         [DebuggerHidden]
@@ -808,9 +809,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 return;
             }
 
-            RemoveHeShootsFact();
+            RemoveHeShootsFact(logger);
 
-            _rifle.StopFire();
+            _rifle.StopFire(logger);
 
 #if UNITY_EDITOR
             UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
@@ -832,7 +833,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 UpdateAnimator();
             });
 
-            AddHeIsReadyForShootFact();
+            AddHeIsReadyForShootFact(logger);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"ReadyForShootImpl End {methodId}");
@@ -855,7 +856,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 UpdateAnimator();
             });
 
-            RemoveHeIsReadyForShootFact();
+            RemoveHeIsReadyForShootFact(logger);
 
 #if UNITY_EDITOR
             //UnityEngine.Debug.Log($"UnReadyForShootImpl End {methodId}");
@@ -874,7 +875,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (_rifle != null)
             {
-                ThrowOutRifle(cancellationToken);
+                ThrowOutRifle(cancellationToken, logger);
                 _currentHandThing = null;
                 _rifle = null;
                 return;
@@ -890,7 +891,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             RunInMainThread(() => {
                 _enableRifleIK = false;
 
-                _rifle.ThrowOut();
+                _rifle.ThrowOut(logger);
 
                 _isAim = false;
                 _hasRifle = false;
@@ -898,7 +899,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 UpdateAnimator();
             });
 
-            RemoveAllShootFacts();
+            RemoveAllShootFacts(logger);
         }
 
         [DebuggerHidden]
@@ -918,7 +919,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
 
                 RunInMainThread(() => {
-                    _rifle.LookAt();
+                    _rifle.LookAt(logger);
                 });
 
 #if UNITY_EDITOR
@@ -930,9 +931,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
-                entity.Specify(EntityConstraints.OnlyVisible);
+                entity.Specify(logger, EntityConstraints.OnlyVisible);
 
-                entity.Resolve();
+                entity.Resolve(logger);
             }
 
             if(entity.IsEmpty)
@@ -952,7 +953,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             var targetGameObject = RunInMainThread(() => { return GameObjectsRegistry.GetGameObject(entity.InstanceId); });
 
-            var lookRotation = GetRotationToPositionInUsualThread(entity.Position.Value);
+            var lookRotation = GetRotationToPositionInUsualThread(logger, entity.Position.Value);
 
             var anlge = RunInMainThread(() => {
                 return Quaternion.Angle(transform.rotation, lookRotation);
@@ -964,13 +965,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(Math.Abs(anlge) > MaxWeaponRotationAngle)
             {
-                NRotate(cancellationToken, lookRotation, 2);
+                NRotate(cancellationToken, logger, lookRotation, 2);
             }
 
             RunInMainThread(() => {
                 _enableRifleIK = true;
 
-                _rifle.LookAt(targetGameObject);
+                _rifle.LookAt(logger, targetGameObject);
             });
 
 #if UNITY_EDITOR
@@ -997,7 +998,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
 #endif
 
-            _currentHandThing.HideForBackpackInUsualThread();
+            _currentHandThing.HideForBackpackInUsualThread(logger);
 
             RunInMainThread(() => {
                 _enableRifleIK = false;
@@ -1006,9 +1007,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 UpdateAnimator();
             });
 
-            AddToBackpack(_currentHandThing.USocGameObject.SocGameObject);
+            AddToBackpack(logger, _currentHandThing.USocGameObject.SocGameObject);
 
-            RemoveAllShootFacts();
+            RemoveAllShootFacts(logger);
         }
     }
 }

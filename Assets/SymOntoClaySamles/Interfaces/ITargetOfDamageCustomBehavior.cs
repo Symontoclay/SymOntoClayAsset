@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymOntoClay.Monitor.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
     public interface ITargetOfDamageCustomBehavior
     {
-        void SetHit(RaycastHit shootHit, int damagePerShot);
+        void SetHit(IMonitorLogger logger, RaycastHit shootHit, int damagePerShot);
     }
 }

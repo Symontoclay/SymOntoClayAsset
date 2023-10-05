@@ -30,6 +30,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
+using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Navigation
 {
@@ -62,27 +63,27 @@ namespace SymOntoClay.UnityAsset.Navigation
         protected abstract TResult RunInMainThread<TResult>(Func<TResult> function);
 
         /// <inheritdoc/>
-        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
+        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
         {
-            return PlatformSupportHelper.ConvertFromRelativeToAbsolute(transform, relativeCoordinate);
+            return PlatformSupportHelper.ConvertFromRelativeToAbsolute(logger, transform, relativeCoordinate);
         }
 
         /// <inheritdoc/>
-        System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition()
+        System.Numerics.Vector3 IPlatformSupport.GetCurrentAbsolutePosition(IMonitorLogger logger)
         {
             return RunInMainThread(() => {
-                return PlatformSupportHelper.GetCurrentAbsolutePosition(transform);
+                return PlatformSupportHelper.GetCurrentAbsolutePosition(logger, transform);
             });            
         }
 
         /// <inheritdoc/>
-        float IPlatformSupport.GetDirectionToPosition(System.Numerics.Vector3 position)
+        float IPlatformSupport.GetDirectionToPosition(IMonitorLogger logger, System.Numerics.Vector3 position)
         {
-            return PlatformSupportHelper.GetDirectionToPosition(transform, position);
+            return PlatformSupportHelper.GetDirectionToPosition(logger, transform, position);
         }
 
         /// <inheritdoc/>
-        bool IPlatformSupport.CanBeTakenBy(IEntity subject)
+        bool IPlatformSupport.CanBeTakenBy(IMonitorLogger logger, IEntity subject)
         {
             return false;
         }
