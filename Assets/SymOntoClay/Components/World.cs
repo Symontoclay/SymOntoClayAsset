@@ -61,7 +61,7 @@ namespace SymOntoClay.UnityAsset.Components
 #if DEBUG
             //QuickLogger.Log($"World Awake Application.supportBasePath = {supportBasePath}");
 #endif
-            var logDir = Path.Combine(supportBasePath, "NpcLogs");
+            var logDir = Path.Combine(supportBasePath, "NpcLogMessages");
 
             _world = WorldFactory.WorldInstance;
 
@@ -147,7 +147,7 @@ namespace SymOntoClay.UnityAsset.Components
                 settings.NLPConverterProvider = nlpConverterProvider;
             }
 
-            settings.Logging = new LoggingSettings()
+            /*settings.Logging = new LoggingSettings()
             {
                 LogDir = logDir,
                 RootContractName = Application.productName,
@@ -156,7 +156,18 @@ namespace SymOntoClay.UnityAsset.Components
                 EnableRemoteConnection = true,
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
+            };*/
+
+            var monitorSettings = new SymOntoClay.Monitor.MonitorSettings
+            {
+                Enable = true,
+                MessagesDir = logDir,
+                LogicalSearchExplainDumpDir = logDir,
+                KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
+                EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
             };
+
+            settings.Monitor = new SymOntoClay.Monitor.Monitor(monitorSettings);
 
 #if DEBUG            
             //Debug.Log($"World Awake settings = {settings}");
