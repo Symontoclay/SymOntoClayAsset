@@ -167,8 +167,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         private void PerformStop(IMonitorLogger logger)
         {
-#if UNITY_EDITOR
-           UnityEngine.Debug.Log("HumanoidNPCController Begin PerformStop");
+#if DEBUG
+            UnityEngine.Debug.Log("HumanoidNPCController Begin PerformStop");
 #endif
 
             _navMeshAgent.ResetPath();
@@ -176,18 +176,18 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             UpdateAnimator();
             AddStopFact(logger);
 
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log("HumanoidNPCController End PerformStop");
 #endif
         }
 
         public void Die(IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log("HumanoidNPCController Die");
 #endif
 
-            if(_isDead)
+            if (_isDead)
             {
                 return;
             }
@@ -323,12 +323,12 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 return;
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //var thread = Thread.CurrentThread;
             //UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl thread.ManagedThreadId = {thread.ManagedThreadId}");
 
             var methodId = GetMethodId();
-            UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
+            logger.Info($"HumanoidNPCController GoToImpl [{methodId}] target.Kind = {target.Kind}");
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target.AbcoluteCoordinates = {target.AbcoluteCoordinates}");
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.InstanceId = {target?.Entity.InstanceId}");
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] target?.Entity.Position = {target?.Entity.Position}");
@@ -345,13 +345,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 UpdateAnimator();
             });
 
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
 #endif
 
             var result = await task;
 
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
 #endif
 
@@ -365,7 +365,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 RotateToEntityImpl(cancellationToken, logger, result.TargetEntity, speed);
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log($"HumanoidNPCController GoToImpl [{methodId}] Walking has been stoped.");
 #endif
         }
@@ -374,7 +374,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Stop", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void StopImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             var methodId = GetMethodId();
 
             UnityEngine.Debug.Log($"StopImpl Begin {methodId}");
@@ -391,7 +391,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void RotateImpl(CancellationToken cancellationToken, IMonitorLogger logger, float direction,
             float speed = 2)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"RotateImpl Begin {methodId}; direction = {direction}");
@@ -407,7 +407,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
                 var globalDirection = transform.TransformDirection(localDirection);
 
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"RotateImpl {methodId} (1) globalDirection = {globalDirection}");
 #endif
 
@@ -416,7 +416,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NRotate(cancellationToken, logger, lookRotation, speed);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateImpl End {methodId}");
 #endif
         }
@@ -426,7 +426,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void RotateToEntityImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity,
             float speed = 2)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"RotateToEntityImpl Begin {methodId}");
@@ -439,7 +439,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 entity.Resolve(logger);
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Id = {entity.Id}");
             //UnityEngine.Debug.Log($"RotateToEntityImpl {methodId} entity.Position = {entity.Position}");
@@ -449,7 +449,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NRotate(cancellationToken, logger, lookRotation, speed);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateToEntityImpl End {methodId}");
 #endif
         }
@@ -466,7 +466,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             while (true)
             {
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"RotateImpl End {methodId} (1) timeCount = {timeCount}");
 #endif
 
@@ -493,13 +493,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void RotateHeadImpl(CancellationToken cancellationToken, IMonitorLogger logger, float? direction)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"RotateHeadImpl Begin {methodId}; direction = {direction}");
 #endif
 
-            if(!direction.HasValue || direction == 0)
+            if (!direction.HasValue || direction == 0)
             {
                 NResetHeadRotation(logger);
                 return;
@@ -529,7 +529,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 _enableRotateHeadIK = true;
             });
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateHeadImpl End {methodId}");
 #endif
         }
@@ -538,13 +538,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Rotate head", DeviceOfBiped.RightLeg, DeviceOfBiped.LeftLeg)]
         public void RotateHeadToEntityImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl Begin {methodId}");
 #endif
 
-            if(entity == null)
+            if (entity == null)
             {
                 NResetHeadRotation(logger);
                 return;
@@ -557,7 +557,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 entity.Resolve(logger);
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.InstanceId = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Id = {entity.Id}");
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} entity.Position = {entity.Position}");
@@ -569,7 +569,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 return Quaternion.Angle(transform.rotation, lookRotation);
             });
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl {methodId} anlge = {anlge}");
 #endif
 
@@ -580,7 +580,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             RotateHeadImpl(cancellationToken, logger, anlge);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"RotateHeadToEntityImpl End {methodId}");
 #endif
         }
@@ -602,13 +602,13 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Take", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"TakeImpl Begin {methodId}");
 #endif
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeImpl entity.IsEmpty = {entity.IsEmpty}");
 #endif
 
@@ -619,7 +619,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 entity.Resolve(logger);
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (2) = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"TakeImpl entity.Id (2) = {entity.Id}");
             //UnityEngine.Debug.Log($"TakeImpl entity.Position (2) = {entity.Position}");
@@ -632,7 +632,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
                 entity.Resolve(logger);
 
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"TakeImpl entity.InstanceId (after) = {entity.InstanceId}");
                 //UnityEngine.Debug.Log($"TakeImpl entity.Id (after) = {entity.Id}");
                 //UnityEngine.Debug.Log($"TakeImpl entity.Position (after) = {entity.Position}");
@@ -642,7 +642,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NTake(cancellationToken, logger, entity);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeImpl End {methodId}");
 #endif
         }
@@ -651,7 +651,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Take from surface", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeFromSurfaceImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"TakeFromSurfaceImpl Begin {methodId}");
@@ -666,7 +666,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NTake(cancellationToken, logger, entity);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeFromSurfaceImpl End {methodId}");
 #endif
         }
@@ -675,7 +675,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Take from backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void TakeFromBackpackImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl Begin {methodId}");
@@ -688,7 +688,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 entity.Resolve(logger);
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.InstanceId = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Id = {entity.Id}");
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl entity.Position = {entity.Position}");
@@ -697,14 +697,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NTake(cancellationToken, logger, entity);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"TakeFromBackpackImpl End {methodId}");
 #endif
         }
 
         private void NTake(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"NTake entity.InstanceId = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"NTake entity.Id = {entity.Id}");
             //UnityEngine.Debug.Log($"NTake entity.Position = {entity.Position}");
@@ -712,7 +712,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             var handThing = RunInMainThread(() => { return GameObjectsRegistry.GetComponent<IHandThingCustomBehavior>(entity.InstanceId); });
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"NTake (handThing != null) = {handThing != null}");
             //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject != null) = {handThing.USocGameObject != null}");
             //UnityEngine.Debug.Log($"NTake (handThing.USocGameObject.SocGameObject != null) = {handThing.USocGameObject.SocGameObject != null}");
@@ -720,7 +720,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             NTake(logger, handThing);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log("NTake End");
 #endif
         }
@@ -729,7 +729,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             RemoveFromBackpack(logger, handThing.USocGameObject.SocGameObject);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"NTake End of RemoveFromBackpack");
 #endif
 
@@ -748,7 +748,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         public void Take(IMonitorLogger logger, IHandThingCustomBehavior handThing)
         {
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log("Take is not fully implemented");
             UnityEngine.Debug.Log($"HumanoidNPCController Take _isAlreadyStarted = {_isAlreadyStarted}");
 #endif
@@ -798,10 +798,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Stop Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StopShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             var methodId = GetMethodId();
 
-            //UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
+            UnityEngine.Debug.Log($"StopShootImpl Begin {methodId}");
 #endif
 
             if (_rifle == null)
@@ -813,7 +813,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             _rifle.StopFire(logger);
 
-#if UNITY_EDITOR
+#if DEBUG
             UnityEngine.Debug.Log($"StopShootImpl End {methodId}");
 #endif
         }
@@ -822,7 +822,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Ready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void ReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"ReadyForShootImpl Begin {methodId}");
@@ -835,7 +835,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             AddHeIsReadyForShootFact(logger);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"ReadyForShootImpl End {methodId}");
 #endif
         }
@@ -844,7 +844,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Unready For Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void UnReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"UnReadyForShootImpl Begin {methodId}");
@@ -858,7 +858,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             RemoveHeIsReadyForShootFact(logger);
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"UnReadyForShootImpl End {methodId}");
 #endif
         }
@@ -867,7 +867,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Throw out", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void ThrowOutImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"ThrowOutImpl Begin {methodId}");
@@ -884,7 +884,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         public void ThrowOutRifle(CancellationToken cancellationToken, IMonitorLogger logger)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"ThrowOutRifle");
 #endif
 
@@ -906,15 +906,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Aim to", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void AimToImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"AimToImpl Begin {methodId}");
 #endif
 
-            if(entity == null)
+            if (entity == null)
             {
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null");
 #endif
 
@@ -922,7 +922,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                     _rifle.LookAt(logger);
                 });
 
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"AimToImpl {methodId} entity == null return;");
 #endif
 
@@ -938,14 +938,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if(entity.IsEmpty)
             {
-#if UNITY_EDITOR
+#if DEBUG
                 //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.IsEmpty End");
 #endif
 
                 return;
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
             //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Id = {entity.Id}");
             //UnityEngine.Debug.Log($"AimToImpl {methodId} entity.Position = {entity.Position}");
@@ -959,11 +959,11 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 return Quaternion.Angle(transform.rotation, lookRotation);
             });
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"AimToImpl {methodId} anlge = {anlge}");
 #endif
 
-            if(Math.Abs(anlge) > MaxWeaponRotationAngle)
+            if (Math.Abs(anlge) > MaxWeaponRotationAngle)
             {
                 NRotate(cancellationToken, logger, lookRotation, 2);
             }
@@ -974,27 +974,27 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 _rifle.LookAt(logger, targetGameObject);
             });
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"AimToImpl {methodId} End");
 #endif
         }
 
         [DebuggerHidden]
         [BipedEndpoint("put in backpack", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
-        public void PutInBackpackImpl(CancellationToken cancellationToken, IMonitorLogger logger)
+        public void PutInBackpackImpl(CancellationToken cancellationToken, UnityEngine.Debug)
         {
-#if UNITY_EDITOR
+#if DEBUG
             //var methodId = GetMethodId();
 
             //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} Begin");
 #endif
 
-            if(_currentHandThing == null)
+            if (_currentHandThing == null)
             {
                 return;
             }
 
-#if UNITY_EDITOR
+#if DEBUG
             //UnityEngine.Debug.Log($"PutInBackpackImpl {methodId} NEXT");
 #endif
 

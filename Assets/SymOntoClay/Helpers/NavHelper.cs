@@ -100,9 +100,9 @@ namespace SymOntoClay.UnityAsset.Helpers
 
         private IGoResult NGo(IMonitorLogger logger, IEntity entity, CancellationToken cancellationToken)
         {
-#if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NavHelper NGo entity.InstanceId = {entity.InstanceId}");
-            //UnityEngine.Debug.Log($"NavHelper NGo entity.Position = {entity.Position}");
+#if DEBUG
+            logger.Info(, $"NavHelper NGo entity.InstanceId = {entity.InstanceId}");
+            logger.Info($"NavHelper NGo entity.Position = {entity.Position}");
 #endif
             var entityInstanceId = entity.InstanceId;
 
@@ -114,41 +114,41 @@ namespace SymOntoClay.UnityAsset.Helpers
             {
                 var waypointInstanceId = _instancesRegistry.GetLinkedWaypoint(entityInstanceId);
 
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"NavHelper NGo waypointInstanceId = {waypointInstanceId}");
+#if DEBUG
+                logger.Info($"NavHelper NGo waypointInstanceId = {waypointInstanceId}");
 #endif
 
                 if (waypointInstanceId.HasValue)
                 {
                     var waypointEntityId = _instancesRegistry.GetId(waypointInstanceId.Value);
 
-#if UNITY_EDITOR
-                    //UnityEngine.Debug.Log($"NavHelper NGo waypointEntityId = '{waypointEntityId}'");
+#if DEBUG
+                    logger.Info($"NavHelper NGo waypointEntityId = '{waypointEntityId}'");
 #endif
 
                     rotateToEntityAfterAction = entity;
 
                     entity = entity.GetNewEntity(logger, waypointEntityId);
 
-#if UNITY_EDITOR
-                    //UnityEngine.Debug.Log($"NavHelper NGo entity.InstanceId (2) = {entity.InstanceId}");
-                    //UnityEngine.Debug.Log($"NavHelper NGo entity.Position (2) = {entity.Position}");
+#if DEBUG
+                    logger.Info($"NavHelper NGo entity.InstanceId (2) = {entity.InstanceId}");
+                    logger.Info($"NavHelper NGo entity.Position (2) = {entity.Position}");
 #endif
                 }
             }
 
             if(entity == null || !entity.Position.HasValue)
             {
-#if UNITY_EDITOR
-                if(entity == null)
+#if DEBUG
+                if (entity == null)
                 {
-                    Debug.LogError("entity == null");
+                    logger.Error("entity == null");
                 }
                 else
                 {
                     if(!entity.Position.HasValue)
                     {
-                        Debug.LogError("!entity.Position.HasValue");
+                        logger.Error("!entity.Position.HasValue");
                     }
                 }
 #endif
@@ -174,9 +174,9 @@ namespace SymOntoClay.UnityAsset.Helpers
                     return _transform.position;
                 });
 
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"NavHelper NGo position = {position}");
-                //UnityEngine.Debug.Log($"NavHelper NGo oldPosition = {oldPosition}");
+#if DEBUG
+                logger.Info($"NavHelper NGo position = {position}");
+                logger.Info($"NavHelper NGo oldPosition = {oldPosition}");
 #endif
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
@@ -198,14 +198,14 @@ namespace SymOntoClay.UnityAsset.Helpers
                     {
                         var delta = Vector3.Distance(position, oldPosition.Value);
 
-#if UNITY_EDITOR
-                        //UnityEngine.Debug.Log($"NavHelper NGo delta = {delta}");
+#if DEBUG
+                        logger.Info($"NavHelper NGo delta = {delta}");
 #endif
 
                         if (delta < DISTANCE_DELTA_THRESHOLD)
                         {
-#if UNITY_EDITOR
-                            //UnityEngine.Debug.Log("NavHelper NGo delta < 0.1");
+#if DEBUG
+                            logger.Info("NavHelper NGo delta < 0.1");
 #endif
 
                             var isTargetPlace = RunInMainThread(() =>
@@ -227,11 +227,11 @@ namespace SymOntoClay.UnityAsset.Helpers
                             });
 
 
-#if UNITY_EDITOR
-                            //UnityEngine.Debug.Log($"NavHelper NGo isTargetPlace = {isTargetPlace}");
+#if DEBUG
+                            logger.Info($"NavHelper NGo isTargetPlace = {isTargetPlace}");
 #endif
 
-                            if(isTargetPlace)
+                            if (isTargetPlace)
                             {
                                 return new GoResult() 
                                 { 
@@ -242,8 +242,8 @@ namespace SymOntoClay.UnityAsset.Helpers
 
                             var distanceBetweenTarget = Vector3.Distance(position, targetPosition);
 
-#if UNITY_EDITOR
-                            //UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
+#if DEBUG
+                            logger.Info($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
 #endif
 
                             if (distanceBetweenTarget > DISTANCE_BETWEEN_TARGET_THRESHOLD)
@@ -273,8 +273,8 @@ namespace SymOntoClay.UnityAsset.Helpers
 
         private IGoResult NGo(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
         {
-#if UNITY_EDITOR
-            //UnityEngine.Debug.Log($"NavHelper NGo targetPosition = {targetPosition}");
+#if DEBUG
+            logger.Info($"NavHelper NGo targetPosition = {targetPosition}");
 #endif
 
             RunInMainThread(() => {
@@ -291,9 +291,9 @@ namespace SymOntoClay.UnityAsset.Helpers
                     return _transform.position;
                 });
 
-#if UNITY_EDITOR
-                //UnityEngine.Debug.Log($"NavHelper NGo position = {position}");
-                //UnityEngine.Debug.Log($"NavHelper NGo oldPosition = {oldPosition}");
+#if DEBUG
+                logger.Info($"NavHelper NGo position = {position}");
+                logger.Info($"NavHelper NGo oldPosition = {oldPosition}");
 #endif
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
@@ -311,23 +311,23 @@ namespace SymOntoClay.UnityAsset.Helpers
                     {
                         var delta = Vector3.Distance(position, oldPosition.Value);
 
-#if UNITY_EDITOR
-                        //UnityEngine.Debug.Log($"NavHelper NGo delta = {delta}");
+#if DEBUG
+                        logger.Info($"NavHelper NGo delta = {delta}");
 #endif
 
-                        if(delta < DISTANCE_DELTA_THRESHOLD)
+                        if (delta < DISTANCE_DELTA_THRESHOLD)
                         {
-#if UNITY_EDITOR
-                            //UnityEngine.Debug.Log("NavHelper NGo delta < 0.1");
+#if DEBUG
+                            logger.Info("NavHelper NGo delta < 0.1");
 #endif
 
                             var distanceBetweenTarget = Vector3.Distance(position, targetPosition);
 
-#if UNITY_EDITOR
-                            //UnityEngine.Debug.Log($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
+#if DEBUG
+                            logger.Info($"NavHelper NGo distanceBetweenTarget = {distanceBetweenTarget}");
 #endif
 
-                            if(distanceBetweenTarget > DISTANCE_BETWEEN_TARGET_THRESHOLD)
+                            if (distanceBetweenTarget > DISTANCE_BETWEEN_TARGET_THRESHOLD)
                             {
                                 return new GoResult() { GoStatus = GoStatus.BrokenByObsticle };
                             }
