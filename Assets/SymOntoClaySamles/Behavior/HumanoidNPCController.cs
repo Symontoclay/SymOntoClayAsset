@@ -783,14 +783,28 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         [BipedEndpoint("Start Shoot", DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand)]
         public void StartShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
+#if DEBUG
+            var methodId = GetMethodId();
+
+            logger.Info($"StartShootImpl Begin {methodId}");
+#endif
+
             if (_rifle == null)
             {
+#if DEBUG
+                logger.Info($"StartShootImpl End {methodId}; _rifle == null");
+#endif
+
                 return;
             }
 
             AddHeShootsFact(logger);
 
             _rifle.StartFire(cancellationToken, logger);
+
+#if DEBUG
+            logger.Info($"StartShootImpl End {methodId}");
+#endif
         }
 
         [DebuggerHidden]
@@ -801,11 +815,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #if DEBUG
             var methodId = GetMethodId();
 
-            logger.Info($"StopShootImpl Begin {methodId}");
+            logger.Info("FB36F499-6314-4034-B3CF-4DB912A2BC6C", $"StopShootImpl Begin {methodId}");
 #endif
 
             if (_rifle == null)
             {
+#if DEBUG
+                logger.Info("E5A226ED-B70F-4ACC-B6D9-AB70CB6D2BF9", $"StopShootImpl End {methodId}; _rifle == null");
+#endif
+
                 return;
             }
 
@@ -814,7 +832,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _rifle.StopFire(logger);
 
 #if DEBUG
-            logger.Info($"StopShootImpl End {methodId}");
+            logger.Info("9404BBEB-9726-4441-A76D-C9FC0866B4E5", $"StopShootImpl End {methodId}");
 #endif
         }
 
@@ -823,9 +841,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void ReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if DEBUG
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            logger.Info($"ReadyForShootImpl Begin {methodId}");
+            logger.Info("942B7068-CB59-4998-A487-E72861587E75", $"ReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => { 
@@ -836,7 +854,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             AddHeIsReadyForShootFact(logger);
 
 #if DEBUG
-            logger.Info($"ReadyForShootImpl End {methodId}");
+            logger.Info("71D1999C-1322-4122-8BEA-9B20D05E6952", $"ReadyForShootImpl End {methodId}");
 #endif
         }
 
@@ -845,9 +863,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void UnReadyForShootImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if DEBUG
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            logger.Info($"UnReadyForShootImpl Begin {methodId}");
+            logger.Info("1DA34AE5-93CD-48E7-8085-4CBFFE4D64FD", $"UnReadyForShootImpl Begin {methodId}");
 #endif
 
             RunInMainThread(() => {
@@ -859,7 +877,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             RemoveHeIsReadyForShootFact(logger);
 
 #if DEBUG
-            logger.Info($"UnReadyForShootImpl End {methodId}");
+            logger.Info("B7FC0923-D35F-417C-92A7-77B0DC99791C", $"UnReadyForShootImpl End {methodId}");
 #endif
         }
 
@@ -868,24 +886,37 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void ThrowOutImpl(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if DEBUG
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            logger.Info($"ThrowOutImpl Begin {methodId}");
+            logger.Info("83EA15FF-2B4A-4F5C-AADA-EF21E51A77AA", $"ThrowOutImpl Begin {methodId}");
 #endif
 
             if (_rifle != null)
             {
+#if DEBUG
+                logger.Info("58E0731B-CF72-4D6B-B6F3-8E4D86B6C625", "ThrowOutImpl _rifle != null");
+#endif
+
                 ThrowOutRifle(cancellationToken, logger);
                 _currentHandThing = null;
                 _rifle = null;
+
+#if DEBUG
+                logger.Info("23E288C5-63E4-4482-A063-B63AEEE7F922", $"ThrowOutImpl End {methodId}");
+#endif
+
                 return;
             }
+
+#if DEBUG
+            logger.Info("F06177E6-5ACE-4D37-B2C1-1E02F1BDB1DE", $"ThrowOutImpl End {methodId}");
+#endif
         }
 
         public void ThrowOutRifle(CancellationToken cancellationToken, IMonitorLogger logger)
         {
 #if DEBUG
-            logger.Info($"ThrowOutRifle");
+            logger.Info("00DFB8FB-59EE-4697-B792-5D8520731E83", $"ThrowOutRifle Begin");
 #endif
 
             RunInMainThread(() => {
@@ -900,6 +931,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
 
             RemoveAllShootFacts(logger);
+
+#if DEBUG
+            logger.Info("5353C623-96D6-4EEA-94B3-566FFF33C234", $"ThrowOutRifle End");
+#endif
         }
 
         [DebuggerHidden]
@@ -907,15 +942,15 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void AimToImpl(CancellationToken cancellationToken, IMonitorLogger logger, IEntity entity)
         {
 #if DEBUG
-            //var methodId = GetMethodId();
+            var methodId = GetMethodId();
 
-            logger.Info($"AimToImpl Begin {methodId}");
+            logger.Info("0679D3D8-5A5D-4F57-86D6-FA89CDB267F3", $"AimToImpl Begin {methodId}");
 #endif
 
             if (entity == null)
             {
 #if DEBUG
-                logger.Info($"AimToImpl {methodId} entity == null");
+                logger.Info("BCDAE495-7F4D-4742-9A76-1F3556672EA4", $"AimToImpl {methodId} entity == null");
 #endif
 
                 RunInMainThread(() => {
@@ -923,7 +958,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 });
 
 #if DEBUG
-                logger.Info($"AimToImpl {methodId} entity == null return;");
+                logger.Info("312A62E9-DC27-44E8-BCC5-E0622D5BDEC5", $"AimToImpl {methodId} entity == null return;");
 #endif
 
                 return;
@@ -931,6 +966,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             if (entity.IsEmpty)
             {
+#if DEBUG
+                logger.Info("58465AB3-2A2F-4789-8066-280DBAF04866", $"AimToImpl {methodId} entity.IsEmpty (1)");
+#endif
+
                 entity.Specify(logger, EntityConstraints.OnlyVisible);
 
                 entity.Resolve(logger);
@@ -939,16 +978,16 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             if(entity.IsEmpty)
             {
 #if DEBUG
-                logger.Info($"AimToImpl {methodId} entity.IsEmpty End");
+                logger.Info("47735032-3535-439A-BEA2-EB773FDACF1E", $"AimToImpl {methodId} entity.IsEmpty End");
 #endif
 
                 return;
             }
 
 #if DEBUG
-            logger.Info($"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
-            logger.Info($"AimToImpl {methodId} entity.Id = {entity.Id}");
-            logger.Info($"AimToImpl {methodId} entity.Position = {entity.Position}");
+            logger.Info("08AC9168-005D-49A8-9BE8-D8C606DD8A6F", $"AimToImpl {methodId} entity.InstanceId = {entity.InstanceId}");
+            logger.Info("58398B81-7565-44E0-8E32-F3F318DAD732", $"AimToImpl {methodId} entity.Id = {entity.Id}");
+            logger.Info("25EEADC2-48C0-4DE5-910C-F337CF29428B", $"AimToImpl {methodId} entity.Position = {entity.Position}");
 #endif
 
             var targetGameObject = RunInMainThread(() => { return GameObjectsRegistry.GetGameObject(entity.InstanceId); });
@@ -960,7 +999,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
 
 #if DEBUG
-            logger.Info($"AimToImpl {methodId} anlge = {anlge}");
+            logger.Info("4D809EB4-E7D8-4447-95B6-6A823B015B10", $"AimToImpl {methodId} anlge = {anlge}");
 #endif
 
             if (Math.Abs(anlge) > MaxWeaponRotationAngle)
@@ -975,7 +1014,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             });
 
 #if DEBUG
-            logger.Info($"AimToImpl {methodId} End");
+            logger.Info("7853AE68-DA2A-4F29-AE55-A4C758560867", $"AimToImpl {methodId} End");
 #endif
         }
 
@@ -986,16 +1025,20 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #if DEBUG
             var methodId = GetMethodId();
 
-            logger.Info($"PutInBackpackImpl {methodId} Begin");
+            logger.Info("225181C0-5656-49FA-9F3D-7DA5B515E58A", $"PutInBackpackImpl {methodId} Begin");
 #endif
 
             if (_currentHandThing == null)
             {
+#if DEBUG
+                logger.Info("B9733273-898A-402A-A6C7-29AAED79F4A2", $"PutInBackpackImpl {methodId} _currentHandThing == null = {_currentHandThing == null}");
+#endif
+
                 return;
             }
 
 #if DEBUG
-            logger.Info($"PutInBackpackImpl {methodId} NEXT");
+            logger.Info("FDFC045B-57D1-4F60-831A-B8A7013EDD76", $"PutInBackpackImpl {methodId} NEXT");
 #endif
 
             _currentHandThing.HideForBackpackInUsualThread(logger);
@@ -1012,7 +1055,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             RemoveAllShootFacts(logger);
 
 #if DEBUG
-            logger.Info($"PutInBackpackImpl {methodId} End");
+            logger.Info("E4748301-470F-49B2-A33E-CAE2249B851A", $"PutInBackpackImpl {methodId} End");
 #endif
         }
     }
