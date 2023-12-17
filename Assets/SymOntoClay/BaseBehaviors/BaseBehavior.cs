@@ -112,8 +112,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NSetAliveFact factStr = '{factStr}'");
+#if DEBUG
+                //logger?.Info("D55496E9-7B4D-4B62-B95D-FB44B5A4EC4B", $"BaseBehavior NSetAliveFact factStr = '{factStr}'");
 #endif
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -130,8 +130,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NSetDeadFact factStr = '{factStr}'");
+#if DEBUG
+                //logger?.Info("F431ECFC-3188-4157-8171-2A2F2C353A49", $"BaseBehavior NSetDeadFact factStr = '{factStr}'");
 #endif
 
                 if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -154,16 +154,16 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildStopFactInstance(_idForFacts);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddStopFact factStr = '{factStr}'");
+#if DEBUG
+                //logger?.Info("8FD485BE-A814-4CC3-8B98-F9ABB5DCB5C8", $"BaseBehavior NAddStopFact factStr = '{factStr}'");
 #endif
 
                 NRemoveCurrWalkingFactId(logger);
 
                 _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
+#if DEBUG
+                //logger?.Info("193723A8-0481-46CA-A6BF-C7477F2838CE", $"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
 #endif
             });
         }
@@ -183,15 +183,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected void AddWalkingFact(IMonitorLogger logger)
         {
 
-#if UNITY_EDITOR
-            Debug.Log($"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
+#if DEBUG
+            logger?.Info("83385CD2-A3E4-4543-9DCE-EDDAC7BE8AB1", $"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
 #endif
             
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
 
-#if UNITY_EDITOR
-                Debug.Log($"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
+#if DEBUG
+                logger?.Info("1AC92372-0C01-4EB1-A8EF-C1959D7727CA", $"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
 #endif
 
                 NRemoveCurrWalkingFactId(logger);
@@ -199,8 +199,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
                 _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
+#if DEBUG
+                //logger?.Info("30FC2DC9-E067-4832-94BE-60672F90F7F8", $"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
             });
         }
@@ -214,16 +214,16 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildRunFactInstance(_idForFacts);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddRunningFact factStr = '{factStr}'");
+#if DEBUG
+                //logger?.Info("3D9360A2-466F-4657-AAC7-F6D5F66EC516", $"BaseBehavior NAddRunningFact factStr = '{factStr}'");
 #endif
 
                 NRemoveCurrWalkingFactId(logger);
 
                 _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
-#if UNITY_EDITOR
-                //Debug.Log($"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
+#if DEBUG
+                //logger?.Info("05AE7BDF-C5B6-4861-92B7-5B3C88E42E42", $"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
 #endif
             });
         }
