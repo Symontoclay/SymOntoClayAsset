@@ -186,7 +186,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 #if UNITY_EDITOR
             Debug.Log($"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
 #endif
-
+            
             Task.Run(() => {
                 var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
 

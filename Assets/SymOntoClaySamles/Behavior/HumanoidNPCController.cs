@@ -783,7 +783,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             RemoveFromBackpack(logger, handThing.USocGameObject.SocGameObject);
 
 #if DEBUG
-            logger.Info("968DC76B-7216-470B-9965-ACEC1ECA70F3", $"NTake End of RemoveFromBackpack");
+            logger?.Info("968DC76B-7216-470B-9965-ACEC1ECA70F3", $"NTake End of RemoveFromBackpack");
 #endif
 
             RunInMainThread(() => {
@@ -802,8 +802,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         public void Take(IMonitorLogger logger, IHandThingCustomBehavior handThing)
         {
 #if DEBUG
-            logger.Info("91E033D0-F450-467B-994E-D214C5D566A6", "Take is not fully implemented");
-            logger.Info("3067B94A-DCBD-461C-AFAC-360AD0217E4C", $"HumanoidNPCController Take _isAlreadyStarted = {_isAlreadyStarted}");
+            logger?.Info("91E033D0-F450-467B-994E-D214C5D566A6", "Take is not fully implemented");
+            logger?.Info("3067B94A-DCBD-461C-AFAC-360AD0217E4C", $"HumanoidNPCController Take _isAlreadyStarted = {_isAlreadyStarted}");
 #endif
 
             if(_isAlreadyStarted)
