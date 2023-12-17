@@ -164,6 +164,10 @@ namespace SymOntoClay.UnityAsset.Helpers
 
             var targetPosition = new Vector3(tpos.X, tpos.Y, tpos.Z);
 
+#if DEBUG
+            logger.Info("E065C81F-3471-4007-89D0-52B38D06A453", $"NavHelper NGo targetPosition = {targetPosition}");
+#endif
+
             RunInMainThread(() => {
                 _navMeshAgent.SetDestination(targetPosition);
             });
@@ -181,6 +185,8 @@ namespace SymOntoClay.UnityAsset.Helpers
 #if DEBUG
                 logger.Info("B5B48200-34DA-41D5-B8B2-C81D3FE0B85C", $"NavHelper NGo position = {position}");
                 logger.Info("553047DA-6C89-4AA3-8C74-08E7542086CC", $"NavHelper NGo oldPosition = {oldPosition}");
+                var ditanceToTarget = Vector3.Distance(position, targetPosition);
+                logger.Info("553047DA-6C89-4AA3-8C74-08E7542086CC", $"NavHelper NGo ditanceToTarget = {ditanceToTarget}");
 #endif
 
                 if (targetPosition.x == position.x && targetPosition.z == position.z)
