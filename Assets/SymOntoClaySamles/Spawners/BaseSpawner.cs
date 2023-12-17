@@ -10,6 +10,42 @@ namespace Assets.SymOntoClaySamles.Spawners
 {
     public class BaseSpawner : MonoBehaviour
     {
+        private float Radius = 3;//tmp
+
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+
+            Gizmos.DrawLine(transform.position, transform.position + transform.up * 3);
+
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * Radius);
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(45, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(90, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(135, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(180, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(225, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(270, 0, Radius));
+
+            Gizmos.DrawRay(transform.position, GetFarPoint(315, 0, Radius));
+        }
+
+        private Vector3 GetFarPoint(float x, float y, float distance)
+        {
+            var dy = Mathf.Sin(y * Mathf.Deg2Rad);
+
+            var dx = Mathf.Sin(x * Mathf.Deg2Rad);
+            var dz = Mathf.Cos(x * Mathf.Deg2Rad);
+
+            var localDirection = new Vector3(dx, dy, dz) * distance;
+            return localDirection;
+        }
+
         public SpawnGroup SpawnGroup;
 
         public GameObject Prefab;
