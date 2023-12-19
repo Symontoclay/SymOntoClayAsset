@@ -10,6 +10,7 @@ namespace Assets.SymOntoClaySamles.Spawners
 {
     public class BaseSpawner : MonoBehaviour
     {
+#if UNITY_EDITOR
         private float Radius = 3;//tmp
 
         void OnDrawGizmos()
@@ -45,6 +46,7 @@ namespace Assets.SymOntoClaySamles.Spawners
             var localDirection = new Vector3(dx, dy, dz) * distance;
             return localDirection;
         }
+#endif
 
         public SpawnGroup SpawnGroup;
 
@@ -63,7 +65,14 @@ namespace Assets.SymOntoClaySamles.Spawners
 
         protected void ProcessInstantiate(Vector3 position)
         {
-            var instance = Instantiate(GetTargetPrefab(), position, transform.rotation);
+            var targetPrefab = GetTargetPrefab();
+
+            if(targetPrefab == null)
+            {
+                return;
+            }
+
+            var instance = Instantiate(targetPrefab, position, transform.rotation);
 
             var humanoidNPC = instance.GetComponent<IBipedHumanoidCustomBehavior>();
 
@@ -120,7 +129,7 @@ namespace Assets.SymOntoClaySamles.Spawners
         {
 #if DEBUG
             Debug.Log($"BaseSpawner GetTargetPropsToSpawn PropsToSpawn?.Count = {PropsToSpawn?.Count}");
-            Debug.Log($"BaseSpawner GetTargetPropsToSpawn SpawnGroup.PropsToSpawn?.Count = {SpawnGroup.PropsToSpawn?.Count}");
+            Debug.Log($"BaseSpawner GetTargetPropsToSpawn SpawnGroup.PropsToSpawn?.Count = {SpawnGroup?.PropsToSpawn?.Count}");
 #endif
 
             if(PropsToSpawn.Any())
