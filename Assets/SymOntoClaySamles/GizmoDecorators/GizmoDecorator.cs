@@ -7,7 +7,7 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
     [AddComponentMenu("SymOntoClay Samles/GizmoDecorator")]
     public class GizmoDecorator : MonoBehaviour
     {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         public Color Color;
 
         void OnDrawGizmos()
@@ -27,7 +27,28 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
             //Debug.Log($"GizmoDecorator OnDrawGizmos Gizmos.color = {Gizmos.color}");
 #endif
 
-            var scaleX = transform.localScale.x / 2;
+            var size = GetComponent<Renderer>().bounds.size;
+
+#if DEBUG
+            //Debug.Log($"GizmoDecorator OnDrawGizmos PropsToSpawn?.Count = {PropsToSpawn?.Count}");
+            Debug.Log($"GizmoDecorator OnDrawGizmos size = {size}");
+#endif
+
+            TmpDr();
+        }
+
+        private void TmpDr()
+        {
+            var size = GetComponent<Renderer>().bounds.size;
+
+            //var scaleX = transform.localScale.x / 2;
+
+            var scaleX = size.x / 2;
+
+            if(scaleX < 0.1)
+            {
+                scaleX = 1;
+            }
 
             var rightPoint = transform.position + transform.right.normalized * scaleX;
 
@@ -39,7 +60,14 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
 
             //Gizmos.DrawLine(transform.position, rightPoint);
 
-            var scaleZ = transform.localScale.z / 2;
+            //var scaleZ = transform.localScale.z / 2;
+
+            var scaleZ = size.z / 2;
+
+            if (scaleZ < 0.1)
+            {
+                scaleZ = 1;
+            }
 
             var forvardPoint = transform.position + transform.forward.normalized * scaleZ;
 
@@ -51,7 +79,19 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
 
             //Gizmos.DrawLine(transform.position, forvardPoint);
 
-            var scaleY = transform.localScale.y / 2;
+            //var scaleY = transform.localScale.y / 2;
+
+            var scaleY = size.y / 2;
+
+#if DEBUG
+            Debug.Log($"GizmoDecorator OnDrawGizmos size.y = {size.y}");
+            Debug.Log($"GizmoDecorator OnDrawGizmos scaleY = {scaleY}");
+#endif
+
+            if (scaleY < 0.1)
+            {
+                scaleY = 1;
+            }
 
             var upPoint = transform.position + transform.up.normalized * scaleY;
 
@@ -88,6 +128,6 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
             Gizmos.DrawLine(dflPoint, uflPoint);
             Gizmos.DrawLine(dblPoint, ublPoint);
         }
-//#endif
+#endif
     }
 }
