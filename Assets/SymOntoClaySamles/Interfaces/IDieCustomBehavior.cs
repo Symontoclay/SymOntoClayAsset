@@ -9,6 +9,6 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
     public interface IDieCustomBehavior
     {
-        void Die(IMonitorLogger logger);
+        void Die();
     }
 }

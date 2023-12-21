@@ -10,6 +10,6 @@ namespace SymOntoClay.UnityAsset.Samles.Interfaces
 {
     public interface ITargetOfDamageCustomBehavior
     {
-        void SetHit(IMonitorLogger logger, RaycastHit shootHit, int damagePerShot);
+        void SetHit(RaycastHit shootHit, int damagePerShot);
     }
 }

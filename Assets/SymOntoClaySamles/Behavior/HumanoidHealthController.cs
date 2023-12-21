@@ -22,14 +22,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             _dieProvider = GetComponent<IDieCustomBehavior>();
         }
 
-        public void SetHit(IMonitorLogger logger, RaycastHit shootHit, int damagePerShot)
+        public void SetHit(RaycastHit shootHit, int damagePerShot)
         {
             Health -= damagePerShot;
 
             if(Health < 0)
             {
                 Health = 0;
-                _dieProvider.Die(logger);
+                _dieProvider.Die();
             }
         }
     }

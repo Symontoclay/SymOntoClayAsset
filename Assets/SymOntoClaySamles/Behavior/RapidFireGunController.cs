@@ -251,7 +251,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
                 if (targetOfShoot != null)
                 {
-                    targetOfShoot.SetHit(logger, shootHit, DamagePerShot);
+                    targetOfShoot.SetHit(shootHit, DamagePerShot);
                 }
             }
         }

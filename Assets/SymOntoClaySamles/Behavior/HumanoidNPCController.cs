@@ -181,16 +181,16 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 #endif
         }
 
-        public void Die(IMonitorLogger logger)
+        public void Die()
         {
 #if DEBUG
-            logger.Info("5A425A9C-CFEC-4F53-ACFE-6F404359EC94", "HumanoidNPCController Die Begin");
+            Logger.Info("5A425A9C-CFEC-4F53-ACFE-6F404359EC94", "HumanoidNPCController Die Begin");
 #endif
 
             if (_isDead)
             {
 #if DEBUG
-                logger.Info("D194AE2F-4E47-40C5-9184-6C1CE1B30091", "HumanoidNPCController Die End _isDeads");
+                Logger.Info("D194AE2F-4E47-40C5-9184-6C1CE1B30091", "HumanoidNPCController Die End _isDeads");
 #endif
 
                 return;
@@ -200,10 +200,10 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             UpdateAnimator();
 
-            ProcessDeath(logger);
+            ProcessDeath(Logger);
 
 #if DEBUG
-            logger.Info("DB466FA7-4273-41A8-B6E6-C0CD89D469EA", "HumanoidNPCController Die End");
+            Logger.Info("DB466FA7-4273-41A8-B6E6-C0CD89D469EA", "HumanoidNPCController Die End");
 #endif
         }
 
