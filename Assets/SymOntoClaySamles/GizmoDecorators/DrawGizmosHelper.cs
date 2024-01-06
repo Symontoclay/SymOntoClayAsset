@@ -63,8 +63,7 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
 
             if (enableRadialLines)
             {
-                var radius = 0;
-
+                int radius;
                 if (customRadialLineRadius.HasValue)
                 {
                     radius = customRadialLineRadius.Value;
