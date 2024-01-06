@@ -35,7 +35,6 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
             //Debug.Log($"GizmoDecorator OnDrawGizmos size = {size}");
 #endif
 
-            //TmpDr();
             DrawGizmosHelper.DrawGizmos(transform, size, DrawGizmosHelper.ToGizmosColor(Color), true, 3, true, null, true);
         }
 #endif
