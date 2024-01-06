@@ -81,7 +81,14 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
 
             if (enableCentralVetricalLine)
             {
-                Gizmos.DrawLine(transform.position, transform.position + transform.up * centralVetricalLineHeight.Value);
+                if(centralVetricalLineHeight.HasValue)
+                {
+                    Gizmos.DrawLine(transform.position, transform.position + transform.up * centralVetricalLineHeight.Value);
+                }
+                else
+                {
+                    Gizmos.DrawLine(transform.position, transform.position + transform.up * Convert.ToInt32(scaleY));
+                }                
             }
 
             if(enableRadialLines)
