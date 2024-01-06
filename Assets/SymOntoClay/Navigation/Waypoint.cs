@@ -53,70 +53,41 @@ namespace SymOntoClay.UnityAsset.Navigation
         }
 
 #if UNITY_EDITOR
+        private float Radius = 3;//tmp
+
         void OnDrawGizmos()
         {
+
             Gizmos.color = Color.blue;
 
-            var scaleX = transform.localScale.x / 2;
+            Gizmos.DrawLine(transform.position, transform.position + transform.up * 3);
 
-            var rightPoint = transform.position + transform.right.normalized * scaleX;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * Radius);
 
-            var rX = rightPoint.x;
+            Gizmos.DrawRay(transform.position, GetFarPoint(45, 0, Radius));
 
-            var leftPoint = transform.position + transform.right.normalized * scaleX * -1;
+            Gizmos.DrawRay(transform.position, GetFarPoint(90, 0, Radius));
 
-            var lX = leftPoint.x;
+            Gizmos.DrawRay(transform.position, GetFarPoint(135, 0, Radius));
 
-            //Gizmos.DrawLine(transform.position, rightPoint);
+            Gizmos.DrawRay(transform.position, GetFarPoint(180, 0, Radius));
 
-            var scaleZ = transform.localScale.z / 2;
+            Gizmos.DrawRay(transform.position, GetFarPoint(225, 0, Radius));
 
-            var forvardPoint = transform.position + transform.forward.normalized * scaleZ;
+            Gizmos.DrawRay(transform.position, GetFarPoint(270, 0, Radius));
 
-            var fZ = forvardPoint.z;
+            Gizmos.DrawRay(transform.position, GetFarPoint(315, 0, Radius));
+        }
 
-            var backPoint = transform.position + transform.forward.normalized * scaleZ * -1;
+        private Vector3 GetFarPoint(float x, float y, float distance)
+        {
+            var dy = Mathf.Sin(y * Mathf.Deg2Rad);
 
-            var bZ = backPoint.z;
+            var dx = Mathf.Sin(x * Mathf.Deg2Rad);
+            var dz = Mathf.Cos(x * Mathf.Deg2Rad);
 
-            //Gizmos.DrawLine(transform.position, forvardPoint);
-
-            var scaleY = transform.localScale.y / 2;
-
-            var upPoint = transform.position + transform.up.normalized * scaleY;
-
-            var uY = upPoint.y;
-
-            var downPoint = transform.position + transform.up.normalized * scaleY * -1;
-
-            var dY = downPoint.y;
-
-            //Gizmos.DrawLine(transform.position, upPoint);
-
-            var ufrPoint = new Vector3(rX, uY, fZ);
-            var ubrPoint = new Vector3(rX, uY, bZ);
-            var uflPoint = new Vector3(lX, uY, fZ);
-            var ublPoint = new Vector3(lX, uY, bZ);
-
-            Gizmos.DrawLine(ufrPoint, ubrPoint);
-            Gizmos.DrawLine(ufrPoint, uflPoint);
-            Gizmos.DrawLine(ublPoint, uflPoint);
-            Gizmos.DrawLine(ublPoint, ubrPoint);
-
-            var dfrPoint = new Vector3(rX, dY, fZ);
-            var dbrPoint = new Vector3(rX, dY, bZ);
-            var dflPoint = new Vector3(lX, dY, fZ);
-            var dblPoint = new Vector3(lX, dY, bZ);
-
-            Gizmos.DrawLine(dfrPoint, dbrPoint);
-            Gizmos.DrawLine(dfrPoint, dflPoint);
-            Gizmos.DrawLine(dblPoint, dflPoint);
-            Gizmos.DrawLine(dblPoint, dbrPoint);
-
-            Gizmos.DrawLine(dfrPoint, ufrPoint);
-            Gizmos.DrawLine(dbrPoint, ubrPoint);
-            Gizmos.DrawLine(dflPoint, uflPoint);
-            Gizmos.DrawLine(dblPoint, ublPoint);
+            var localDirection = new Vector3(dx, dy, dz) * distance;
+            return localDirection;
         }
 #endif
     }
