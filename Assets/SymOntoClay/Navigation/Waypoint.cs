@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using SymOntoClay.UnityAsset.GizmoDecorators;
 using SymOntoClay.UnityAsset.Helpers;
 using System;
 using System.Collections.Generic;
@@ -53,41 +54,11 @@ namespace SymOntoClay.UnityAsset.Navigation
         }
 
 #if UNITY_EDITOR
-        private float Radius = 3;//tmp
-
         void OnDrawGizmos()
         {
+            var size = GetComponent<Renderer>().bounds.size;
 
-            Gizmos.color = Color.blue;
-
-            Gizmos.DrawLine(transform.position, transform.position + transform.up * 3);
-
-            Gizmos.DrawLine(transform.position, transform.position + transform.forward * Radius);
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(45, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(90, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(135, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(180, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(225, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(270, 0, Radius));
-
-            Gizmos.DrawRay(transform.position, GetFarPoint(315, 0, Radius));
-        }
-
-        private Vector3 GetFarPoint(float x, float y, float distance)
-        {
-            var dy = Mathf.Sin(y * Mathf.Deg2Rad);
-
-            var dx = Mathf.Sin(x * Mathf.Deg2Rad);
-            var dz = Mathf.Cos(x * Mathf.Deg2Rad);
-
-            var localDirection = new Vector3(dx, dy, dz) * distance;
-            return localDirection;
+            DrawGizmosHelper.DrawGizmos(transform, size, Color.yellow, true, 3, true, null, false);
         }
 #endif
     }
