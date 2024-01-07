@@ -4734,7 +4734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Color: {r: 0.8679245, g: 0.1432894, b: 0.26056638, a: 0}
   EnableCentralVetricalLine: 1
-  UseCustomCentralVetricalLineHeight: 0
+  UseCustomCentralVetricalLineHeight: 1
   CentralVetricalLineHeight: 3
   EnableRadialLines: 1
   UseCustomRadialLineRadius: 0
