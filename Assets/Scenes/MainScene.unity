@@ -5364,6 +5364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fad29cd808e5a149a465ef8471afdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KindOfCharacter: 0
   SpawnGroup: {fileID: 0}
   Prefab: {fileID: 5644024920194529123, guid: 7b35d01da4e871d4392f5c36d3874e2c, type: 3}
   PropsToSpawn:
@@ -9918,6 +9919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edae25c103dcc54da397b08fcf3fefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KindOfCharacter: 0
   SpawnGroup: {fileID: 0}
   Prefab: {fileID: 5644024920194529123, guid: 7b35d01da4e871d4392f5c36d3874e2c, type: 3}
   PropsToSpawn:

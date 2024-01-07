@@ -12,18 +12,31 @@ namespace Assets.SymOntoClaySamles.Spawners
     public class BaseSpawner : MonoBehaviour
     {
 #if UNITY_EDITOR
+        public KindOfCharacter KindOfCharacter;
+
         void OnDrawGizmos()
         {
             var size = GetComponent<Renderer>().bounds.size;
 
-            DrawGizmosHelper.DrawGizmos(transform, size, Color.blue, false, null, false, null, true);
+            DrawGizmosHelper.DrawGizmos(transform, size, SpawnGroup == null ? GetColor(KindOfCharacter) : GetColor(SpawnGroup.KindOfCharacter), false, null, false, null, true);
+        }
+
+        private static Color GetColor(KindOfCharacter kindOfCharacter)
+        {
+            return kindOfCharacter switch
+            {
+                KindOfCharacter.Blue => Color.blue,
+                KindOfCharacter.Neutral => Color.green,
+                KindOfCharacter.Red => Color.red,
+                _ => throw new ArgumentOutOfRangeException(nameof(kindOfCharacter), kindOfCharacter, null)
+            };
         }
 #endif
 
         public SpawnGroup SpawnGroup;
 
         public GameObject Prefab;
-        public List<GameObject> PropsToSpawn;        
+        public List<GameObject> PropsToSpawn;
 
         protected bool IsEmptySpawner()
         {
