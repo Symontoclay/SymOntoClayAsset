@@ -12,8 +12,6 @@ namespace Assets.SymOntoClaySamles.Spawners
     public class BaseSpawner : MonoBehaviour
     {
 #if UNITY_EDITOR
-        public KindOfCharacter KindOfCharacter;
-
         void OnDrawGizmos()
         {
             var size = GetComponent<Renderer>().bounds.size;
@@ -32,6 +30,7 @@ namespace Assets.SymOntoClaySamles.Spawners
             };
         }
 #endif
+        public KindOfCharacter KindOfCharacter;
 
         public SpawnGroup SpawnGroup;
 

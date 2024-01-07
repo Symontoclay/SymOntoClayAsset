@@ -22,7 +22,7 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
             bool enableCentralVetricalLine,
             int? centralVetricalLineHeight,
             bool enableRadialLines,
-            int? customRadialLineRadius,
+            int? radialLineRadius,
             bool enableBoundLines
         )
         {
@@ -64,9 +64,9 @@ namespace SymOntoClay.UnityAsset.GizmoDecorators
             if (enableRadialLines)
             {
                 int radius;
-                if (customRadialLineRadius.HasValue)
+                if (radialLineRadius.HasValue)
                 {
-                    radius = customRadialLineRadius.Value;
+                    radius = radialLineRadius.Value;
                 }
                 else
                 {

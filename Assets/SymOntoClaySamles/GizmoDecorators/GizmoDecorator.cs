@@ -1,4 +1,5 @@
-﻿using Assets.SymOntoClaySamles.Spawners;
+﻿using Assets.SymOntoClaySamles.GizmoDecorators;
+using Assets.SymOntoClaySamles.Spawners;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,36 +7,39 @@ using UnityEngine;
 namespace SymOntoClay.UnityAsset.GizmoDecorators
 {
     [AddComponentMenu("SymOntoClay Samles/GizmoDecorator")]
-    public class GizmoDecorator : MonoBehaviour
+    public class GizmoDecorator : BaseGizmoDecorator
     {
-#if UNITY_EDITOR
-        public Color Color;
+        public GizmoDecoratorGroup GizmoDecoratorGroup;
 
+#if UNITY_EDITOR
         void OnDrawGizmos()
         {
-#if DEBUG
-            //Debug.Log($"GizmoDecorator OnDrawGizmos PropsToSpawn?.Count = {PropsToSpawn?.Count}");
-            //Debug.Log($"GizmoDecorator OnDrawGizmos Color = {Color}");
-#endif
-
-            //Gizmos.color = Color;
-
-            //Gizmos.color = Color.green;
-            
-
-#if DEBUG
-            //Debug.Log($"GizmoDecorator OnDrawGizmos PropsToSpawn?.Count = {PropsToSpawn?.Count}");
-            //Debug.Log($"GizmoDecorator OnDrawGizmos Gizmos.color = {Gizmos.color}");
-#endif
-
             var size = GetComponent<Renderer>().bounds.size;
 
-#if DEBUG
-            //Debug.Log($"GizmoDecorator OnDrawGizmos PropsToSpawn?.Count = {PropsToSpawn?.Count}");
-            //Debug.Log($"GizmoDecorator OnDrawGizmos size = {size}");
-#endif
-
-            DrawGizmosHelper.DrawGizmos(transform, size, DrawGizmosHelper.ToGizmosColor(Color), true, 3, true, null, true);
+            if(GizmoDecoratorGroup == null)
+            {
+                DrawGizmosHelper.DrawGizmos(
+                    transform,
+                    size,
+                    DrawGizmosHelper.ToGizmosColor(Color),
+                    EnableCentralVetricalLine,
+                    UseCustomCentralVetricalLineHeight ? CentralVetricalLineHeight : null,
+                    EnableRadialLines,
+                    UseCustomRadialLineRadius ? RadialLineRadius: null,
+                    EnableBoundLines);
+            }
+            else
+            {
+                DrawGizmosHelper.DrawGizmos(
+                    transform,
+                    size,
+                    DrawGizmosHelper.ToGizmosColor(GizmoDecoratorGroup.Color),
+                    GizmoDecoratorGroup.EnableCentralVetricalLine,
+                    GizmoDecoratorGroup.UseCustomCentralVetricalLineHeight ? GizmoDecoratorGroup.CentralVetricalLineHeight : null,
+                    GizmoDecoratorGroup.EnableRadialLines,
+                    GizmoDecoratorGroup.UseCustomRadialLineRadius ? GizmoDecoratorGroup.RadialLineRadius : null,
+                    GizmoDecoratorGroup.EnableBoundLines);
+            }
         }
 #endif
     }
