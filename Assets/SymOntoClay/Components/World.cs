@@ -39,6 +39,7 @@ using SymOntoClay.NLP;
 using UnityEngine.Windows;
 using SymOntoClay.ProjectFiles;
 using SymOntoClay.Monitor.Common;
+using System.Threading;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -54,6 +55,9 @@ namespace SymOntoClay.UnityAsset.Components
 
         void Awake()
         {
+            //ThreadPool.SetMinThreads(327670, 10000);
+            //ThreadPool.SetMaxThreads(3276700, 100000);
+
             _invokerInMainThread = new InvokerInMainThread();
 
             var supportBasePath = Path.Combine(Environment.GetEnvironmentVariable("APPDATA"), Application.productName);
