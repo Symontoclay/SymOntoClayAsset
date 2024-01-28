@@ -350,7 +350,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
             AddWalkingFact(logger);
 
-            var task = _navHelper.Go(logger, target, cancellationToken);
+            //var task = _navHelper.GoAsync(logger, target, cancellationToken);
 
             RunInMainThread(() =>
             {
@@ -362,7 +362,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             logger.Info("4014E628-E98D-4C12-979D-D31CD29027FE", $"HumanoidNPCController GoToImpl [{methodId}] Walking has been started.");
 #endif
 
-            var result = await task;
+            //var result = await task;
+            var result = _navHelper.Go(logger, target, cancellationToken);
 
 #if DEBUG
             logger.Info("22A6E1D0-6E80-4C2A-B242-01DB0D78A2A5", $"HumanoidNPCController GoToImpl [{methodId}] result.GoStatus = {result.GoStatus}");
