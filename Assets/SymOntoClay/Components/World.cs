@@ -166,7 +166,6 @@ namespace SymOntoClay.UnityAsset.Components
             {
                 Enable = true,
                 MessagesDir = logDir,
-                LogicalSearchExplainDumpDir = logDir,
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
             };
