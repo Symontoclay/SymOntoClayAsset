@@ -109,19 +109,56 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         private void NSetAliveFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
-
-#if DEBUG
-                //logger?.Info("D55496E9-7B4D-4B62-B95D-FB44B5A4EC4B", $"BaseBehavior NSetAliveFact factStr = '{factStr}'");
+#if UNITY_EDITOR
+            Debug.Log($"({name}) NSetAliveFact _idForFacts = {_idForFacts}");
+            Debug.Log($"({name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
 #endif
 
-                if (!string.IsNullOrWhiteSpace(_vitalFactId))
-                {
-                    _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
-                }
+            Task.Run(() => {
+#if UNITY_EDITOR
+                Debug.Log($"({name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
+#endif
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                try
+                {
+                    var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
+
+#if UNITY_EDITOR
+                    Debug.Log($"({name}) NSetAliveFact fact {fact.ToHumanizedLabel()}");
+#endif
+
+#if DEBUG
+                    //logger?.Info("D55496E9-7B4D-4B62-B95D-FB44B5A4EC4B", $"BaseBehavior NSetAliveFact factStr = '{factStr}'");
+#endif
+
+                    if (!string.IsNullOrWhiteSpace(_vitalFactId))
+                    {
+                        _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
+                    }
+
+                    _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+
+#if UNITY_EDITOR
+                    Debug.Log($"({name}) NSetAliveFact _vitalFactId = {_vitalFactId}");
+#endif
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("5F0C0C29-1AF3-4B37-9BA3-D29102E727CB", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
             });
         }
 
@@ -131,16 +168,43 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
 
 #if DEBUG
-                //logger?.Info("F431ECFC-3188-4157-8171-2A2F2C353A49", $"BaseBehavior NSetDeadFact factStr = '{factStr}'");
+            //logger?.Info("F431ECFC-3188-4157-8171-2A2F2C353A49", $"BaseBehavior NSetDeadFact factStr = '{factStr}'");
 #endif
 
-                if (!string.IsNullOrWhiteSpace(_vitalFactId))
-                {
-                    _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
-                }
+#if UNITY_EDITOR
+            Debug.Log($"({name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
+#endif
 
-                _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+            if (!string.IsNullOrWhiteSpace(_vitalFactId))
+            {
+                _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
+            }
+
+            _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+
+#if UNITY_EDITOR
+            Debug.Log($"({name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
+#endif
+
             });
+
+            /*
+                try
+                {
+
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+             */
         }
 
         private string _walkingFactId;

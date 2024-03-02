@@ -57,6 +57,7 @@ namespace SymOntoClay.UnityAsset.Components
         {
             //ThreadPool.SetMinThreads(327670, 10000);
             //ThreadPool.SetMaxThreads(3276700, 100000);
+            ThreadPool.SetMinThreads(1000, 200);//It helps in console app but does't help in the Unity.
 
             _invokerInMainThread = new InvokerInMainThread();
 

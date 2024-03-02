@@ -57,13 +57,14 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         protected override void Start()
         {
-#if UNITY_EDITOR
-            UnityEngine.Debug.Log("HumanoidNPCController Start");
-#endif
-
             base.Start();
 
+#if UNITY_EDITOR
+            UnityEngine.Debug.Log($"HumanoidNPCController Start name = {name}; Logger?.Id = {Logger?.Id}");
+#endif
+
             AddStopFact(Logger);
+            
 
             if (Head == null)
             {
