@@ -80,9 +80,11 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// </summary>
         /// <param name="power">Power of sound.</param>
         /// <param name="text">String that represents the fact.</param>
-        void PushSoundFact(float power, string text);
+        void PushSoundFact(IMonitorLogger logger, float power, string text);
+        void PushSoundFactAsync(IMonitorLogger logger, float power, string text);
 
-        void PushSoundFact(float power, RuleInstance fact);
+        void PushSoundFact(IMonitorLogger logger, float power, RuleInstance fact);
+        void PushSoundFactAsync(IMonitorLogger logger, float power, RuleInstance fact);
 
         IStandardFactsBuilder StandardFactsBuilder { get; }
     }

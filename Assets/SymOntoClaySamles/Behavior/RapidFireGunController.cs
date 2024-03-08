@@ -166,7 +166,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
             //mGunAudio.Play();
             //});            
 
-            StartRepeatingShotSoundInUsualThread();
+            StartRepeatingShotSoundInUsualThread(logger);
 
             while (true)
             {

@@ -59,7 +59,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnRPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q1, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q1, shoot)");
             
             Debug.Log("End OnRPressAction");
         }
@@ -68,7 +68,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnTPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q2, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q2, shoot)");
 
             Debug.Log("End OnTPressAction");
         }
@@ -77,7 +77,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnYPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q3, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q3, shoot)");
 
             Debug.Log("End OnYPressAction");
         }
@@ -86,7 +86,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnUPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q4, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q4, shoot)");
 
             Debug.Log("End OnUPressAction");
         }
@@ -95,7 +95,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnIPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q5, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q5, shoot)");
 
             Debug.Log("End OnIPressAction");
         }
@@ -104,7 +104,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnOPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q6, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q6, shoot)");
 
             Debug.Log("End OnOPressAction");
         }
@@ -113,7 +113,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnFPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q7, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q7, shoot)");
 
             Debug.Log("End OnFPressAction");
         }
@@ -122,7 +122,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnZPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q8, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q8, shoot)");
 
             Debug.Log("End OnZPressAction");
         }
@@ -131,7 +131,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnXPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q9, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q9, shoot)");
 
             Debug.Log("End OnXPressAction");
         }
@@ -140,7 +140,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnCPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q10, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q10, shoot)");
 
             Debug.Log("End OnCPressAction");
         }
@@ -149,7 +149,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnVPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q11, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q11, shoot)");
 
             Debug.Log("End OnVPressAction");
         }
@@ -158,7 +158,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnBPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q12, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q12, shoot)");
 
             Debug.Log("End OnBPressAction");
         }
@@ -167,7 +167,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnNPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q13, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q13, shoot)");
 
             Debug.Log("End OnNPressAction");
         }
@@ -176,7 +176,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnMPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q14, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q14, shoot)");
 
             Debug.Log("End OnMPressAction");
         }
@@ -185,7 +185,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnLPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q15, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q15, shoot)");
 
             Debug.Log("End OnLPressAction");
         }
@@ -194,7 +194,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             Debug.Log("OnKPressAction");
 
-            _uSocGameObject.PushSoundFact(60, "act(q16, shoot)");
+            _uSocGameObject.PushSoundFactAsync(null, 60, "act(q16, shoot)");
 
             Debug.Log("End OnKPressAction");
         }

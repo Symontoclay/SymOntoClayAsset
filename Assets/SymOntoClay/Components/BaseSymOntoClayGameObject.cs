@@ -183,14 +183,76 @@ namespace SymOntoClay.UnityAsset.Components
             _worldComponent.RemovePublicFact(logger, id);
         }
 
-        public void PushSoundFact(float power, string text)
+        public void PushSoundFact(IMonitorLogger logger, float power, string text)
         {
-            Task.Run(() => { _worldComponent.PushSoundFact(power, text); });            
+            _worldComponent.PushSoundFact(power, text);
         }
 
-        public void PushSoundFact(float power, RuleInstance fact)
+        public void PushSoundFactAsync(IMonitorLogger logger, float power, string text)
         {
-            Task.Run(() => { _worldComponent.PushSoundFact(power, fact); });
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("3F95AB51-CD23-4744-88B0-1151048E7046");
+
+                try
+                {
+                    _worldComponent.PushSoundFact(power, text);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("178D22F7-1863-4173-9984-0241072120B1", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("6C96A3C9-AF9F-444B-9B42-F3BBDE89F67F", taskId);
+            });            
+        }
+
+        public void PushSoundFact(IMonitorLogger logger, float power, RuleInstance fact)
+        {
+            _worldComponent.PushSoundFact(power, fact);
+        }
+
+        public void PushSoundFactAsync(IMonitorLogger logger, float power, RuleInstance fact)
+        {
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("83A11806-08F7-4ED7-9DFD-76DA762AA0A2");
+
+                try
+                {
+                    _worldComponent.PushSoundFact(power, fact);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("81F37759-00DC-4739-9CAB-7224DBB7B76B", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("1F452966-D7F3-4485-8B63-312B5C2FEA4F", taskId);
+            });
         }
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)

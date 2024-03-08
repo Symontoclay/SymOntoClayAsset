@@ -35,6 +35,7 @@ using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
 using System.Threading;
 using SymOntoClay.Monitor.Common;
+using NLog;
 
 namespace SymOntoClay.UnityAsset.BaseBehaviors
 {
@@ -114,7 +115,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Debug.Log($"({name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
 #endif
 
-            Task.Run(() => {
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("72F737AD-F4A2-4080-BFD7-3BE50630584C");
+
 #if UNITY_EDITOR
                 Debug.Log($"({name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
 #endif
@@ -159,53 +162,102 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 #endif
                     }
                 }
+
+                logger.StopTask("1914801B-3AE2-4437-A352-23CAB90CBB73", taskId);
             });
         }
 
         private void NSetDeadFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("3F66428E-C833-4F22-9EB2-1AB6C01DC24A");
 
-#if DEBUG
-            //logger?.Info("F431ECFC-3188-4157-8171-2A2F2C353A49", $"BaseBehavior NSetDeadFact factStr = '{factStr}'");
-#endif
-
-#if UNITY_EDITOR
-            Debug.Log($"({name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
-#endif
-
-            if (!string.IsNullOrWhiteSpace(_vitalFactId))
-            {
-                _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
-            }
-
-            _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
-
-#if UNITY_EDITOR
-            Debug.Log($"({name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
-#endif
-
-            });
-
-            /*
                 try
                 {
+                    var fact = _standardFactsBuilder.BuildDeadFactInstance(_idForFacts);
 
+#if DEBUG
+                    //logger?.Info("F431ECFC-3188-4157-8171-2A2F2C353A49", $"BaseBehavior NSetDeadFact factStr = '{factStr}'");
+#endif
+
+#if UNITY_EDITOR
+                    Debug.Log($"({name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
+#endif
+
+                    if (!string.IsNullOrWhiteSpace(_vitalFactId))
+                    {
+                        _uSocGameObject.RemovePublicFact(logger, _vitalFactId);
+                    }
+
+                    _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+
+#if UNITY_EDITOR
+                    Debug.Log($"({name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
+#endif
                 }
                 catch (Exception e)
                 {
                     try
                     {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
 
+                        logger.Error("470979E8-2996-4B74-A6FD-E6EF0659EC3F", e);
                     }
                     catch (Exception ex)
                     {
-
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
                     }
                 }
-             */
+
+                logger.StopTask("6BCC156F-2837-4C7D-B8C9-0685C8748349", taskId);
+            });
         }
+
+        /*
+    try
+    {
+
+    }
+    catch (Exception e)
+    {
+        try
+        {
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+ */
+
+        /*
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+                try
+                {
+#if UNITY_EDITOR
+                    Debug.LogError($"({name}) e = {e}");
+#endif
+
+                    logger.Error(, e);
+                }
+                catch (Exception ex)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError($"({name}) ex = {ex}");
+#endif
+                }
+            }
+         */
 
         private string _walkingFactId;
 
@@ -215,20 +267,44 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddStopFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildStopFactInstance(_idForFacts);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("4E872860-246A-43F0-844F-7EE3E15055AB");
+
+                try
+                {
+                    var fact = _standardFactsBuilder.BuildStopFactInstance(_idForFacts);
 
 #if DEBUG
-                //logger?.Info("8FD485BE-A814-4CC3-8B98-F9ABB5DCB5C8", $"BaseBehavior NAddStopFact factStr = '{factStr}'");
+                    //logger?.Info("8FD485BE-A814-4CC3-8B98-F9ABB5DCB5C8", $"BaseBehavior NAddStopFact factStr = '{factStr}'");
 #endif
 
-                NRemoveCurrWalkingFactId(logger);
+                    NRemoveCurrWalkingFactId(logger);
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                    _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if DEBUG
-                //logger?.Info("193723A8-0481-46CA-A6BF-C7477F2838CE", $"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
+                    //logger?.Info("193723A8-0481-46CA-A6BF-C7477F2838CE", $"BaseBehavior NAddStopFact _walkingFactId = {_walkingFactId}");
 #endif
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("7EB12A8F-62BC-4A75-A6B3-EC22516BA767", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("71B2AC6C-73CD-440D-8FAC-6E204F948469", taskId);
             });
         }
 
@@ -246,26 +322,49 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddWalkingFact(IMonitorLogger logger)
         {
-
 #if DEBUG
             logger?.Info("83385CD2-A3E4-4543-9DCE-EDDAC7BE8AB1", $"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
 #endif
             
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("05C3A625-E42D-4007-926C-4FE929AEF1FF");
+
+                try
+                {
+                    var fact = _standardFactsBuilder.BuildWalkFactInstance(_idForFacts);
 
 #if DEBUG
-                logger?.Info("1AC92372-0C01-4EB1-A8EF-C1959D7727CA", $"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
+                    logger?.Info("1AC92372-0C01-4EB1-A8EF-C1959D7727CA", $"BaseBehavior NAddWalkingFact fact = '{fact.ToHumanizedString()}'");
 #endif
 
-                NRemoveCurrWalkingFactId(logger);
+                    NRemoveCurrWalkingFactId(logger);
 
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                    _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if DEBUG
-                //logger?.Info("30FC2DC9-E067-4832-94BE-60672F90F7F8", $"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
+                    //logger?.Info("30FC2DC9-E067-4832-94BE-60672F90F7F8", $"BaseBehavior NAddWalkingFact _walkingFactId = {_walkingFactId}");
 #endif
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("FF8CB845-1FB5-4457-BCAB-FA08DA0C0224", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("0777E8A1-7528-443D-A3B1-37E76C5CCA5D", taskId);
             });
         }
 
@@ -275,20 +374,44 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddRunningFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildRunFactInstance(_idForFacts);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("2EB9B259-DCD1-4A1B-870F-C81024D763AF");
+
+                try
+                {
+                    var fact = _standardFactsBuilder.BuildRunFactInstance(_idForFacts);
 
 #if DEBUG
-                //logger?.Info("3D9360A2-466F-4657-AAC7-F6D5F66EC516", $"BaseBehavior NAddRunningFact factStr = '{factStr}'");
+                    //logger?.Info("3D9360A2-466F-4657-AAC7-F6D5F66EC516", $"BaseBehavior NAddRunningFact factStr = '{factStr}'");
 #endif
 
-                NRemoveCurrWalkingFactId(logger);
+                    NRemoveCurrWalkingFactId(logger);
 
-                _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                    _walkingFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if DEBUG
-                //logger?.Info("05AE7BDF-C5B6-4861-92B7-5B3C88E42E42", $"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
+                    //logger?.Info("05AE7BDF-C5B6-4861-92B7-5B3C88E42E42", $"BaseBehavior NAddRunningFact _walkingFactId = {_walkingFactId}");
 #endif
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("A1CC6ED0-20FC-4E03-A7BF-85C404C47C3B", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("9970DB2B-0FFA-4EC1-8F9B-E04C77C9F0A4", taskId);
             });
         }
 
@@ -301,12 +424,36 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <param name="heldId">Id of held thing.</param>
         protected void AddHoldFact(IMonitorLogger logger, string heldId)
         {
-            Task.Run(() => {
-                var fact = _standardFactsBuilder.BuildHoldFactInstance(_idForFacts, heldId);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("914B9BAF-5159-412F-966F-A57B41207822");
 
-                NRemoveCurrHoldFactId(logger);
+                try
+                {
+                    var fact = _standardFactsBuilder.BuildHoldFactInstance(_idForFacts, heldId);
 
-                _holdFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                    NRemoveCurrHoldFactId(logger);
+
+                    _holdFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("432EE236-4DEE-4AB9-BD6E-FA2181C0A99F", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("015B0445-DC37-4261-9148-99EFB0AB1317", taskId);
             });
         }
 
@@ -316,8 +463,32 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHoldFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                NRemoveCurrHoldFactId(logger);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("C84246AB-E797-4C88-BD09-6BFB62E71995");
+
+                try
+                {
+                    NRemoveCurrHoldFactId(logger);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("8F950667-4802-4B49-BC7A-A3A7AFB56FCB", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("973F8F71-9B3D-4124-9BFA-9AB47385E336", taskId);
             });
         }
 
@@ -329,21 +500,73 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             }
         }
 
-        private IEnumerator StepsSoundRoutine(float power, string text)
+        private IEnumerator StepsSoundRoutine(float power, string text, IMonitorLogger logger)
         {
             while (true)
             {
-                Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
+                Task.Run(() => {//logged
+                    var taskId = logger.StartTask("8E46E18C-5283-40AF-A760-1CB0A1466934");
+
+                    try
+                    {
+                        _uSocGameObject.PushSoundFact(logger, power, text);
+                    }
+                    catch (Exception e)
+                    {
+                        try
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) e = {e}");
+#endif
+
+                            logger.Error("F9E9635D-30A6-4152-81AA-2BFC622C01BD", e);
+                        }
+                        catch (Exception ex)
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) ex = {ex}");
+#endif
+                        }
+                    }
+
+                    logger.StopTask("5D37496E-A190-44F5-8F59-5E8A3A3770F5", taskId);
+                });
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
-        private IEnumerator StepsSoundRoutine(float power, RuleInstance fact)
+        private IEnumerator StepsSoundRoutine(float power, RuleInstance fact, IMonitorLogger logger)
         {
             while (true)
             {
-                Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
+                Task.Run(() => {//logged
+                    var taskId = logger.StartTask("8A87FBFF-4F88-47DA-913D-5B9329181BDE");
+
+                    try
+                    {
+                        _uSocGameObject.PushSoundFact(logger, power, fact);
+                    }
+                    catch (Exception e)
+                    {
+                        try
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) e = {e}");
+#endif
+
+                            logger.Error("31B7F3A6-56A3-477B-927F-81924840F57E", e);
+                        }
+                        catch (Exception ex)
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) ex = {ex}");
+#endif
+                        }
+                    }
+
+                    logger.StopTask("B5C6FCA5-35CB-486C-B96E-AE21E9D41B77", taskId);
+                });
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -365,28 +588,28 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Starts pushing sound facts that the NPS is walking.
         /// This method should be called only in main thread.
         /// </summary>
-        protected void StartRepeatingWalkingStepsSoundInMainThread()
+        protected void StartRepeatingWalkingStepsSoundInMainThread(IMonitorLogger logger)
         {
-            NStartRepeatingWalkingStepsSound();
+            NStartRepeatingWalkingStepsSound(logger);
         }
 
         /// <summary>
         /// Starts pushing sound facts that the NPS is walking.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
-        protected void StartRepeatingWalkingStepsSoundInUsualThread()
+        protected void StartRepeatingWalkingStepsSoundInUsualThread(IMonitorLogger logger)
         {
             RunInMainThread(() =>
             {
-                NStartRepeatingWalkingStepsSound();
+                NStartRepeatingWalkingStepsSound(logger);
             });            
         }
 
-        private void NStartRepeatingWalkingStepsSound()
+        private void NStartRepeatingWalkingStepsSound(IMonitorLogger logger)
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, _standardFactsBuilder.BuildWalkSoundFactInstance());
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(50, _standardFactsBuilder.BuildWalkSoundFactInstance(), logger);
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
@@ -394,27 +617,27 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Starts pushing sound facts that the NPS is running.
         /// This method should be called only in main thread.
         /// </summary>
-        protected void StartRepeatingRunningStepsSoundInMainThread()
+        protected void StartRepeatingRunningStepsSoundInMainThread(IMonitorLogger logger)
         {
-            NStartRepeatingRunningStepsSound();
+            NStartRepeatingRunningStepsSound(logger);
         }
 
         /// <summary>
         /// Starts pushing sound facts that the NPS is running.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
-        protected void StartRepeatingRunningStepsSoundInUsualThread()
+        protected void StartRepeatingRunningStepsSoundInUsualThread(IMonitorLogger logger)
         {
             RunInMainThread(() => {
-                NStartRepeatingRunningStepsSound();
-            });            
+                NStartRepeatingRunningStepsSound(logger);
+            });
         }
 
-        private void NStartRepeatingRunningStepsSound()
+        private void NStartRepeatingRunningStepsSound(IMonitorLogger logger)
         {
             NStopStepsSoundRoutine();
 
-            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, _standardFactsBuilder.BuildRunSoundFactInstance());
+            _repeatingStepsSoundCoroutine = StepsSoundRoutine(60, _standardFactsBuilder.BuildRunSoundFactInstance(), logger);
             StartCoroutine(_repeatingStepsSoundCoroutine);
         }
 
@@ -422,44 +645,96 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Stops pushing sound facts that the NPS is walking or running.
         /// This method should be called only in main thread.
         /// </summary>
-        protected void StopRepeatingStepsSoundInMainThread()
+        protected void StopRepeatingStepsSoundInMainThread(IMonitorLogger logger)
         {
-            NStopRepeatingStepsSound();
+            NStopRepeatingStepsSound(logger);
         }
 
         /// <summary>
         /// Stops pushing sound facts that the NPS is walking or running.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
-        protected void StopRepeatingStepsSoundInUsualThread()
+        protected void StopRepeatingStepsSoundInUsualThread(IMonitorLogger logger)
         {
             RunInMainThread(() => { 
-                NStopRepeatingStepsSound();
+                NStopRepeatingStepsSound(logger);
             });            
         }
 
-        private void NStopRepeatingStepsSound()
+        private void NStopRepeatingStepsSound(IMonitorLogger logger)
         {
             NStopStepsSoundRoutine();
         }
 
         private float REPEAT_FACT_INTERVAL = 30f;
 
-        private IEnumerator ShotSoundRoutine(float power, string text)
+        private IEnumerator ShotSoundRoutine(float power, string text, IMonitorLogger logger)
         {
             while (true)
             {
-                Task.Run(() => { _uSocGameObject.PushSoundFact(power, text); });
+                Task.Run(() => {//logged
+                    var taskId = logger.StartTask("26C48A2B-2F3E-44A8-A1EC-DB782F432F1C");
+
+                    try
+                    {
+                        _uSocGameObject.PushSoundFact(logger, power, text);
+                    }
+                    catch (Exception e)
+                    {
+                        try
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) e = {e}");
+#endif
+
+                            logger.Error("07FFDBD0-47A4-45B5-9937-45CC1CAA2503", e);
+                        }
+                        catch (Exception ex)
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) ex = {ex}");
+#endif
+                        }
+                    }
+
+                    logger.StopTask("8B912625-EBE1-4FD0-8361-B57FA68ABFF3", taskId);
+                });
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
         }
 
-        private IEnumerator ShotSoundRoutine(float power, RuleInstance fact)
+        private IEnumerator ShotSoundRoutine(float power, RuleInstance fact, IMonitorLogger logger)
         {
             while (true)
             {
-                Task.Run(() => { _uSocGameObject.PushSoundFact(power, fact); });
+                Task.Run(() => {//logged
+                    var taskId = logger.StartTask("6CB4B374-FDEF-4A6A-BA37-C67F7222BF00");
+
+                    try
+                    {
+                        _uSocGameObject.PushSoundFact(logger, power, fact);
+                    }
+                    catch (Exception e)
+                    {
+                        try
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) e = {e}");
+#endif
+
+                            logger.Error("3036C8D2-04CF-4076-8A4B-73A4755278C6", e);
+                        }
+                        catch (Exception ex)
+                        {
+#if UNITY_EDITOR
+                            Debug.LogError($"({name}) ex = {ex}");
+#endif
+                        }
+                    }
+
+                    logger.StopTask("DC05A8CC-39D4-418F-A652-3758EDD64EB9", taskId);
+                });
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -471,27 +746,27 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Starts pushing sound facts that something is shooting.
         /// This method should be called only in main thread.
         /// </summary>
-        protected void StartRepeatingShotSoundInMainThread()
+        protected void StartRepeatingShotSoundInMainThread(IMonitorLogger logger)
         {
-            NStartRepeatingShotSound();
+            NStartRepeatingShotSound(logger);
         }
 
         /// <summary>
         /// Starts pushing sound facts that something is shooting.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
-        protected void StartRepeatingShotSoundInUsualThread()
+        protected void StartRepeatingShotSoundInUsualThread(IMonitorLogger logger)
         {
             RunInMainThread(() => {
-                NStartRepeatingShotSound();
+                NStartRepeatingShotSound(logger);
             });
         }
 
-        private void NStartRepeatingShotSound()
+        private void NStartRepeatingShotSound(IMonitorLogger logger)
         {
             NStopShotSoundRoutine();
 
-            _repeatingShotSound = ShotSoundRoutine(70, _standardFactsBuilder.BuildShootSoundFactInstance());
+            _repeatingShotSound = ShotSoundRoutine(70, _standardFactsBuilder.BuildShootSoundFactInstance(), logger);
             StartCoroutine(_repeatingShotSound);
         }
 
@@ -538,15 +813,41 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddHeShootsFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                if (!string.IsNullOrWhiteSpace(_heShootsFactId))
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("CE05EB0E-2149-42C4-9BC8-F0812983B4BF");
+
+                try
                 {
-                    return;
+                    if (!string.IsNullOrWhiteSpace(_heShootsFactId))
+                    {
+                        logger.StopTask("D6EB95B3-588A-4A58-B73C-557B2B9CC13F", taskId);
+
+                        return;
+                    }
+
+                    var fact = _standardFactsBuilder.BuildShootFactInstance(_idForFacts);
+
+                    _heShootsFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("7004EBA4-ABC3-48CD-A6EA-01B8700D6D07", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
                 }
 
-                var fact = _standardFactsBuilder.BuildShootFactInstance(_idForFacts);
-
-                _heShootsFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                logger.StopTask("55B39F53-FAC0-4E6B-95AD-4C1C184958A2", taskId);
             });
         }
 
@@ -556,8 +857,32 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHeShootsFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                NRemoveCurrHeShootsFactId(logger);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("F91100C3-198B-4BC8-B0C4-500E357797A7");
+
+                try
+                {
+                    NRemoveCurrHeShootsFactId(logger);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("B4F4BFEF-2E77-4D5A-A56A-AB3DB998C9CB", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("39CDF78A-2F37-43C5-BC4E-724E1A3CC67E", taskId);
             });
         }
 
@@ -579,15 +904,41 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddHeIsReadyForShootFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("E21D86B1-817A-4AF4-9661-D13380035270");
+
+                try
                 {
-                    return;
+                    if (!string.IsNullOrWhiteSpace(_heIsReadyForShootFactId))
+                    {
+                        logger.StopTask("615A26D4-AA84-4530-A5ED-5CB2EBC2E288", taskId);
+
+                        return;
+                    }
+
+                    var fact = _standardFactsBuilder.BuildReadyForShootFactInstance(_idForFacts);
+
+                    _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("08580DB6-94C2-4A40-88E7-FA34676F591C", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
                 }
 
-                var fact = _standardFactsBuilder.BuildReadyForShootFactInstance(_idForFacts);
-
-                _heIsReadyForShootFactId = _uSocGameObject.InsertPublicFact(logger, fact);
+                logger.StopTask("A06CB5F0-13D6-498D-A487-6531DBA200A2", taskId);
             });
         }
 
@@ -597,8 +948,32 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHeIsReadyForShootFact(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                NRemoveCurrHeIsReadyForShootFactId(logger);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("7C7AE14F-BCD1-4669-8E8B-2B3A8B180AAA");
+
+                try
+                {
+                    NRemoveCurrHeIsReadyForShootFactId(logger);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("1CBD20CB-15F8-4E10-92E6-40193131DC9D", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("E6428BA4-8E79-495A-8CE5-F974AB34FC32", taskId);
             });
         }
 
@@ -617,10 +992,34 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveAllShootFacts(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                NRemoveCurrHoldFactId(logger);
-                NRemoveCurrHeShootsFactId(logger);
-                NRemoveCurrHeIsReadyForShootFactId(logger);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("C8DE57D9-922B-4D1C-ADE7-89E0E20DABE6");
+
+                try
+                {
+                    NRemoveCurrHoldFactId(logger);
+                    NRemoveCurrHeShootsFactId(logger);
+                    NRemoveCurrHeIsReadyForShootFactId(logger);
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("53B8ED2A-5FEE-40E9-9748-19444F1E922A", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("3710E0E9-5C54-4CE8-8C56-D9554BE927DA", taskId);
             });
         }
 
@@ -635,23 +1034,47 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         private void NProcessDeath(IMonitorLogger logger)
         {
-            Task.Run(() => {
-                NSetDeadFact(logger);
+            Task.Run(() => {//logged
+                var taskId = logger.StartTask("4459C9CC-DFFE-48DA-A3DB-4C1CE8E7559F");
 
-                if(DeleteAliveFactsAfterDeath)
+                try
                 {
-                    NRemoveCurrWalkingFactId(logger);
-                    NRemoveCurrHoldFactId(logger);
-                    NRemoveCurrHeShootsFactId(logger);
-                    NRemoveCurrHeIsReadyForShootFactId(logger);
+                    NSetDeadFact(logger);
 
-                    RunInMainThread(() => {
-                        NStopStepsSoundRoutine();
-                        NStopShotSoundRoutine();
-                    });
+                    if (DeleteAliveFactsAfterDeath)
+                    {
+                        NRemoveCurrWalkingFactId(logger);
+                        NRemoveCurrHoldFactId(logger);
+                        NRemoveCurrHeShootsFactId(logger);
+                        NRemoveCurrHeIsReadyForShootFactId(logger);
 
-                    _uHumanoidNPC.Die();
+                        RunInMainThread(() => {
+                            NStopStepsSoundRoutine();
+                            NStopShotSoundRoutine();
+                        });
+
+                        _uHumanoidNPC.Die();
+                    }
                 }
+                catch (Exception e)
+                {
+                    try
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) e = {e}");
+#endif
+
+                        logger.Error("4C865122-233B-48E4-A2E3-100A2FC55742", e);
+                    }
+                    catch (Exception ex)
+                    {
+#if UNITY_EDITOR
+                        Debug.LogError($"({name}) ex = {ex}");
+#endif
+                    }
+                }
+
+                logger.StopTask("A952FA28-AF06-45E0-B7A3-4BAF1F3B6F34", taskId);
             });
         }
 
