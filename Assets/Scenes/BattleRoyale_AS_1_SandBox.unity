@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bafcdc0cafc13947946ebff2c3cc52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KindOfCharacter: 0
   Prefab: {fileID: 8779534291080548327, guid: 05cc07eb7e05ee64fa9508618d626163, type: 3}
   PropsToSpawn:
   - {fileID: 7236253704405362127, guid: d205803cda9739146b03e27f47fb348a, type: 3}
@@ -552,6 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6edae25c103dcc54da397b08fcf3fefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KindOfCharacter: 0
   SpawnGroup: {fileID: 583486020}
   Prefab: {fileID: 0}
   PropsToSpawn: []
@@ -603,8 +605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorldFile: {fileID: -6750239444755058063, guid: 668f3d12172c0804a98a57f2f2dd1337, type: 3}
-  KindOfLogicalSearchExplain: 0
-  EnableAddingRemovingFactLoggingInStorages: 0
+  KindOfLogicalSearchExplain: 1
+  EnableAddingRemovingFactLoggingInStorages: 1
   EnableNLP: 0
 --- !u!1 &1829460877
 GameObject:
