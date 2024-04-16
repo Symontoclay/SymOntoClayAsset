@@ -421,6 +421,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// Adds fact that the NPC holds something in his hands.
         /// This method can be called both in main and in usual (not main) thread.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="heldId">Id of held thing.</param>
         protected void AddHoldFact(IMonitorLogger logger, string heldId)
         {
@@ -1140,6 +1141,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Checks that It can be taken by the NPC.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="subject">The NPC that takes this.</param>
         /// <returns><b>true</b> - if It can be taken, otherwise - <b>false</b>.</returns>
         public virtual bool CanBeTakenBy(IMonitorLogger logger, IEntity subject)
@@ -1150,6 +1152,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Adds a game object into manual controlled area of the NPC.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="device">Describes biped device which will be using the game object.</param>
         protected void AddToManualControl(IMonitorLogger logger, IGameObjectBehavior obj, DeviceOfBiped device)
@@ -1160,6 +1163,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Adds a game object into manual controlled area of the NPC.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="obj">Instance of the game object.</param>
         /// <param name="devices">Describes list of biped devices which will be using the game object.</param>
         protected void AddToManualControl(IMonitorLogger logger, IGameObjectBehavior obj, IList<DeviceOfBiped> devices)
@@ -1170,6 +1174,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Removes a game object from manual controlled area of an NPC.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="obj">Instance of the game object.</param>
         protected void RemoveFromManualControl(IMonitorLogger logger, IGameObjectBehavior obj)
         {
@@ -1179,6 +1184,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Adds a game object into backpack.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="obj">Instance of the game object.</param>
         protected void AddToBackpack(IMonitorLogger logger, IGameObject obj)
         {
@@ -1188,6 +1194,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <summary>
         /// Removes game object from backpack.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="obj">Instance of the game object.</param>
         protected void RemoveFromBackpack(IMonitorLogger logger, IGameObject obj)
         {
@@ -1199,6 +1206,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// It is a wrapper on Quaternion.LookRotation.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInUsualThread(IMonitorLogger logger, System.Numerics.Vector3 targetPosition)
@@ -1211,6 +1219,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// It is a wrapper on Quaternion.LookRotation.
         /// This method should be called only in usual (not main) thread.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInUsualThread(IMonitorLogger logger, Vector3 targetPosition)
@@ -1225,6 +1234,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// It is a wrapper on Quaternion.LookRotation.
         /// This method should be called only in main thread.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInMainThread(IMonitorLogger logger, System.Numerics.Vector3 targetPosition)
@@ -1237,6 +1247,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// It is a wrapper on Quaternion.LookRotation.
         /// This method should be called only in main thread.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="targetPosition">Position that is looked at.</param>
         /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInMainThread(IMonitorLogger logger, Vector3 targetPosition)

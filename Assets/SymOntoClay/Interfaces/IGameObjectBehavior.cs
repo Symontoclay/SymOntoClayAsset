@@ -62,6 +62,7 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// Inserts public fact into storage.
         /// Another NPCs can percept the fact.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="text">String that represents the fact.</param>
         /// <returns>Id of inserted fact.</returns>
         string InsertPublicFact(IMonitorLogger logger, string text);
@@ -72,12 +73,14 @@ namespace SymOntoClay.UnityAsset.Interfaces
         /// Remove public fact from storage.
         /// Another NPCs can not percept the fact.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="id">Id of previously inserted fact.</param>
         void RemovePublicFact(IMonitorLogger logger, string id);
 
         /// <summary>
         /// Pushes fact to special delivery system which simulates hearing.
         /// </summary>
+        /// <param name="logger">Logger for method call.</param>
         /// <param name="power">Power of sound.</param>
         /// <param name="text">String that represents the fact.</param>
         void PushSoundFact(IMonitorLogger logger, float power, string text);
