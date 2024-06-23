@@ -21,7 +21,7 @@ namespace SymOntoClay.UnityAsset.Samles.Environment
             {
                 if(_instance == null)
                 {
-                    _instance = UnityEngine.Object.FindObjectOfType<PlayerCommonBus>();
+                    _instance = FindFirstObjectByType<PlayerCommonBus>();
                 }
 
                 return _instance;
