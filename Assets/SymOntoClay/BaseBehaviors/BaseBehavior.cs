@@ -1224,7 +1224,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <returns>Rotation to target position.</returns>
         protected Quaternion GetRotationToPositionInUsualThread(IMonitorLogger logger, Vector3 targetPosition)
         {
-            return RunInMainThread<Quaternion>(() => {
+            return RunInMainThread(() => {
                 return GetRotationToPositionInMainThread(logger, targetPosition);
             });
         }
