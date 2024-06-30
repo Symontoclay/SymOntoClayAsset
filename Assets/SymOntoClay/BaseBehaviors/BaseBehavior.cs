@@ -115,7 +115,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             Debug.Log($"({name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
 #endif
 
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("72F737AD-F4A2-4080-BFD7-3BE50630584C");
 
 #if UNITY_EDITOR
@@ -169,7 +169,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         private void NSetDeadFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("3F66428E-C833-4F22-9EB2-1AB6C01DC24A");
 
                 try
@@ -267,7 +267,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddStopFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("4E872860-246A-43F0-844F-7EE3E15055AB");
 
                 try
@@ -326,7 +326,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             logger?.Info("83385CD2-A3E4-4543-9DCE-EDDAC7BE8AB1", $"BaseBehavior NAddWalkingFact _idForFacts = '{_idForFacts}'");
 #endif
             
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("05C3A625-E42D-4007-926C-4FE929AEF1FF");
 
                 try
@@ -374,7 +374,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddRunningFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("2EB9B259-DCD1-4A1B-870F-C81024D763AF");
 
                 try
@@ -425,7 +425,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// <param name="heldId">Id of held thing.</param>
         protected void AddHoldFact(IMonitorLogger logger, string heldId)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("914B9BAF-5159-412F-966F-A57B41207822");
 
                 try
@@ -464,7 +464,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHoldFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("C84246AB-E797-4C88-BD09-6BFB62E71995");
 
                 try
@@ -505,7 +505,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             while (true)
             {
-                Task.Run(() => {//logged
+                Task.Run(() => {
                     var taskId = logger.StartTask("8E46E18C-5283-40AF-A760-1CB0A1466934");
 
                     try
@@ -541,7 +541,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             while (true)
             {
-                Task.Run(() => {//logged
+                Task.Run(() => {
                     var taskId = logger.StartTask("8A87FBFF-4F88-47DA-913D-5B9329181BDE");
 
                     try
@@ -673,7 +673,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             while (true)
             {
-                Task.Run(() => {//logged
+                Task.Run(() => {
                     var taskId = logger.StartTask("26C48A2B-2F3E-44A8-A1EC-DB782F432F1C");
 
                     try
@@ -709,7 +709,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             while (true)
             {
-                Task.Run(() => {//logged
+                Task.Run(() => {
                     var taskId = logger.StartTask("6CB4B374-FDEF-4A6A-BA37-C67F7222BF00");
 
                     try
@@ -814,7 +814,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddHeShootsFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("CE05EB0E-2149-42C4-9BC8-F0812983B4BF");
 
                 try
@@ -858,7 +858,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHeShootsFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("F91100C3-198B-4BC8-B0C4-500E357797A7");
 
                 try
@@ -905,7 +905,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void AddHeIsReadyForShootFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("E21D86B1-817A-4AF4-9661-D13380035270");
 
                 try
@@ -949,7 +949,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveHeIsReadyForShootFact(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("7C7AE14F-BCD1-4669-8E8B-2B3A8B180AAA");
 
                 try
@@ -993,7 +993,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         /// </summary>
         protected void RemoveAllShootFacts(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("C8DE57D9-922B-4D1C-ADE7-89E0E20DABE6");
 
                 try
@@ -1035,7 +1035,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         private void NProcessDeath(IMonitorLogger logger)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("4459C9CC-DFFE-48DA-A3DB-4C1CE8E7559F");
 
                 try

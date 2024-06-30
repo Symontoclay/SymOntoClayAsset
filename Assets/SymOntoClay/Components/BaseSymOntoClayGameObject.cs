@@ -190,7 +190,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void PushSoundFactAsync(IMonitorLogger logger, float power, string text)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("3F95AB51-CD23-4744-88B0-1151048E7046");
 
                 try
@@ -226,7 +226,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void PushSoundFactAsync(IMonitorLogger logger, float power, RuleInstance fact)
         {
-            Task.Run(() => {//logged
+            Task.Run(() => {
                 var taskId = logger.StartTask("83A11806-08F7-4ED7-9DFD-76DA762AA0A2");
 
                 try
