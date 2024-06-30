@@ -39,6 +39,7 @@ namespace SymOntoClay.UnityAsset.Components
         protected override void Awake()
         {
             base.Awake();
+
 #if DEBUG
             //Debug.Log($"BaseThing Awake name = '{name}' gameObject.GetInstanceID() = {gameObject.GetInstanceID()}");
 #endif

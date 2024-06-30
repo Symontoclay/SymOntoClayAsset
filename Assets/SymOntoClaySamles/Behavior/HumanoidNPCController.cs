@@ -45,6 +45,8 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         protected override void Awake()
         {
+            base.Awake();
+
 #if UNITY_EDITOR
             //Debug.Log("HumanoidNPCController Awake");
 #endif

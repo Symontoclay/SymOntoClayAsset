@@ -9,13 +9,13 @@ namespace Assets.SymOntoClay.Environment
         {
             AsyncEvents = new CustomThreadPoolSettings
             {
-                MaxThreadsCount = 100,
-                MinThreadsCount = 50
+                MaxThreadsCount = 20,
+                MinThreadsCount = 5
             },
             CodeExecution = new CustomThreadPoolSettings
             {
-                MaxThreadsCount = 100,
-                MinThreadsCount = 50
+                MaxThreadsCount = 50,
+                MinThreadsCount = 5
             }
         };
     }
