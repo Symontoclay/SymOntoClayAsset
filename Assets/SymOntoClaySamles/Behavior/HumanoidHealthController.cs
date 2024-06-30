@@ -1,11 +1,4 @@
-﻿using SymOntoClay;
-using SymOntoClay.Monitor.Common;
-using SymOntoClay.UnityAsset.Samles.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SymOntoClay.UnityAsset.Samles.Interfaces;
 using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Samles.Behavior

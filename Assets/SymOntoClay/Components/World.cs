@@ -20,26 +20,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.UnityAsset.Scriptables;
+using Assets.SymOntoClay.Environment;
+using SymOntoClay.Monitor.Common;
+using SymOntoClay.NLP;
+using SymOntoClay.ProjectFiles;
 using SymOntoClay.SoundBuses;
+using SymOntoClay.StandardFacts;
+using SymOntoClay.Threading;
+using SymOntoClay.UnityAsset.Converters;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Helpers;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using SymOntoClay.UnityAsset.Core.Internal.TypesConverters.DefaultConverters;
+using SymOntoClay.UnityAsset.Scriptables;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using SymOntoClay.UnityAsset.Converters;
-using SymOntoClay.StandardFacts;
-using SymOntoClay.Core;
-using SymOntoClay.NLP;
-using UnityEngine.Windows;
-using SymOntoClay.ProjectFiles;
-using SymOntoClay.Monitor.Common;
-using System.Threading;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -53,11 +52,19 @@ namespace SymOntoClay.UnityAsset.Components
 
         private bool _isStarded;
 
+        private CancellationTokenSource _cancellationTokenSource;
+        private ICustomThreadPool _threadPool;
+
         void Awake()
         {
-            //ThreadPool.SetMinThreads(327670, 10000);
-            //ThreadPool.SetMaxThreads(3276700, 100000);
-            ThreadPool.SetMinThreads(1000, 200);//It helps in console app but does't help in the Unity.
+            var threadingSettings = DefaultThreadingSettings.Settings;
+
+            //ThreadPool.SetMinThreads(threadingSettings?.MinThreadsCount ?? DefaultCustomThreadPoolSettings.MinThreadsCount,
+            //    threadingSettings?.MaxThreadsCount ?? DefaultCustomThreadPoolSettings.MaxThreadsCount);//It helps in console app but does't help in the Unity.
+
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
 
             _invokerInMainThread = new InvokerInMainThread();
 
@@ -91,6 +98,9 @@ namespace SymOntoClay.UnityAsset.Components
 
             var settings = new WorldSettings();
 
+            settings.CancellationToken = _cancellationTokenSource.Token;
+            settings.ThreadingSettings = threadingSettings;
+
             var worldSpaceFilesSearcherOptions = new WorldSpaceFilesSearcherOptions()
             {
                 InputDir = wspaceDir,
@@ -122,7 +132,12 @@ namespace SymOntoClay.UnityAsset.Components
 
             settings.InvokerInMainThread = _invokerInMainThread;
 
-            settings.SoundBus = new SimpleSoundBus();
+            settings.SoundBus = new SimpleSoundBus(new SimpleSoundBusSettings
+            {
+                CancellationToken = _cancellationTokenSource.Token,
+                ThreadingSettings = threadingSettings.AsyncEvents
+            });
+
             settings.StandardFactsBuilder = new StandardFactsBuilder();
 
 #if DEBUG
@@ -168,7 +183,9 @@ namespace SymOntoClay.UnityAsset.Components
                 Enable = true,
                 MessagesDir = logDir,
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
-                EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
+                EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages,
+                CancellationToken = _cancellationTokenSource.Token,
+                ThreadingSettings = threadingSettings.AsyncEvents
             };
 
             settings.Monitor = new SymOntoClay.Monitor.Monitor(monitorSettings);
@@ -214,6 +231,9 @@ namespace SymOntoClay.UnityAsset.Components
 #endif
 
             _world.Dispose();
+            _cancellationTokenSource.Cancel();
+            _threadPool.Dispose();
+            _cancellationTokenSource.Dispose();
         }
 
         private IWorld _world;

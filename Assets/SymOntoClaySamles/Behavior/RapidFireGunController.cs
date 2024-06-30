@@ -1,6 +1,7 @@
 ﻿using SymOntoClay;
 using SymOntoClay.Core;
 using SymOntoClay.Monitor.Common;
+using SymOntoClay.Threading;
 using SymOntoClay.UnityAsset.BaseBehaviors;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Interfaces;
@@ -120,9 +121,9 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
 
         public void HideForBackpackInMainThread(IMonitorLogger logger)
         {
-            Task.Run(() => {
+            ThreadTask.Run(() => {
                 StopFire(logger);
-            });
+            }, _threadPool, _cancellationTokenSource.Token);
 
             transform.SetParent(null);
             gameObject.SetActive(false);

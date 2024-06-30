@@ -1,8 +1,6 @@
-﻿using SymOntoClay.UnityAsset.Components;
-using SymOntoClay.UnityAsset.GizmoDecorators;
+﻿using SymOntoClay.UnityAsset.GizmoDecorators;
 using SymOntoClay.UnityAsset.Samles.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

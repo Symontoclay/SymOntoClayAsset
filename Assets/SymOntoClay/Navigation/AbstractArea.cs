@@ -21,16 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core;
-using SymOntoClay.UnityAsset.Helpers;
-using SymOntoClay.UnityAsset.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using SymOntoClay.Monitor.Common;
+using SymOntoClay.UnityAsset.Core;
+using SymOntoClay.UnityAsset.Helpers;
+using System;
+using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Navigation
 {
@@ -63,7 +58,7 @@ namespace SymOntoClay.UnityAsset.Navigation
         protected abstract TResult RunInMainThread<TResult>(Func<TResult> function);
 
         /// <inheritdoc/>
-        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
+        System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, RelativeCoordinate relativeCoordinate)
         {
             return PlatformSupportHelper.ConvertFromRelativeToAbsolute(logger, transform, relativeCoordinate);
         }
@@ -73,7 +68,7 @@ namespace SymOntoClay.UnityAsset.Navigation
         {
             return RunInMainThread(() => {
                 return PlatformSupportHelper.GetCurrentAbsolutePosition(logger, transform);
-            });            
+            });
         }
 
         /// <inheritdoc/>

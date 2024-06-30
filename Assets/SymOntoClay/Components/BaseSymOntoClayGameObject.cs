@@ -20,9 +20,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Assets.SymOntoClay.Environment;
 using SymOntoClay.Core;
 using SymOntoClay.Core.Internal.CodeModel;
 using SymOntoClay.Monitor.Common;
+using SymOntoClay.Threading;
 using SymOntoClay.UnityAsset.Core;
 using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using SymOntoClay.UnityAsset.Helpers;
@@ -50,8 +52,15 @@ namespace SymOntoClay.UnityAsset.Components
 
         private InvokerInMainThread _invokerInMainThread;
 
+        private CancellationTokenSource _cancellationTokenSource;
+        private ICustomThreadPool _threadPool;
+
         protected virtual void Awake()
         {
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
+
             _invokerInMainThread = new InvokerInMainThread();
 
             _mainThreadId = Thread.CurrentThread.ManagedThreadId;
@@ -117,6 +126,13 @@ namespace SymOntoClay.UnityAsset.Components
         }
 
         private System.Numerics.Vector3 _currentAbsolutePosition;
+
+        protected virtual void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+            _threadPool.Dispose();
+            _cancellationTokenSource.Dispose();
+        }
 
         private string GetIdByName()
         {
@@ -187,7 +203,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void PushSoundFactAsync(IMonitorLogger logger, float power, string text)
         {
-            Task.Run(() => {
+            ThreadTask.Run(() => {
                 var taskId = logger.StartTask("3F95AB51-CD23-4744-88B0-1151048E7046");
 
                 try
@@ -213,7 +229,7 @@ namespace SymOntoClay.UnityAsset.Components
                 }
 
                 logger.StopTask("6C96A3C9-AF9F-444B-9B42-F3BBDE89F67F", taskId);
-            });            
+            }, _threadPool, _cancellationTokenSource.Token);            
         }
 
         public void PushSoundFact(IMonitorLogger logger, float power, RuleInstance fact)
@@ -223,7 +239,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public void PushSoundFactAsync(IMonitorLogger logger, float power, RuleInstance fact)
         {
-            Task.Run(() => {
+            ThreadTask.Run(() => {
                 var taskId = logger.StartTask("83A11806-08F7-4ED7-9DFD-76DA762AA0A2");
 
                 try
@@ -249,7 +265,7 @@ namespace SymOntoClay.UnityAsset.Components
                 }
 
                 logger.StopTask("1F452966-D7F3-4485-8B63-312B5C2FEA4F", taskId);
-            });
+            }, _threadPool, _cancellationTokenSource.Token);
         }
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
