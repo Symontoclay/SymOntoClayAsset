@@ -21,16 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core.Internal.CodeModel.Helpers;
-using SymOntoClay.Core.Internal.Instances;
-using SymOntoClay.UnityAsset.Samles.Environment;
-using SymOntoClay.UnityAsset.Samles.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Helpers
 {

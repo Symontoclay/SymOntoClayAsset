@@ -21,21 +21,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using SymOntoClay.Core;
-using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.UnityAsset.Scriptables;
-using SymOntoClay.UnityAsset.Core;
-using System;
-using System.Collections;
-using System.Threading.Tasks;
-using UnityEngine;
-using SymOntoClay.UnityAsset.Interfaces;
 using SymOntoClay.Core.Internal.CodeModel;
-using SymOntoClay.UnityAsset.Helpers;
-using UnityEditor.SceneManagement;
-using System.Threading;
-using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
 using SymOntoClay.Monitor.Common;
-using NLog;
+using SymOntoClay.UnityAsset.Core;
+using SymOntoClay.UnityAsset.Core.Internal.EndPoints.MainThread;
+using SymOntoClay.UnityAsset.Helpers;
+using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.UnityAsset.Scriptables;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEditor.SceneManagement;
+using UnityEngine;
 
 namespace SymOntoClay.UnityAsset.Components
 {
