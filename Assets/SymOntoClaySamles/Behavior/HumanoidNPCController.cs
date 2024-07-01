@@ -99,7 +99,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
                 _leftHandWP = LeftHandWP;
             }
 
-            _navHelper = new NavHelper(transform, _navMeshAgent, this);
+            _navHelper = new NavHelper(transform, _navMeshAgent, this, _threadPool);
 
             _isAlreadyStarted = true;
         }

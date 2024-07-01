@@ -36,16 +36,18 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using SymOntoClay.Threading;
 
 namespace SymOntoClay.UnityAsset.Helpers
 {
     public class NavHelper
     {
-        public NavHelper(Transform transform, NavMeshAgent navMeshAgent, IExecutorInMainThread executorInMainThread)
+        public NavHelper(Transform transform, NavMeshAgent navMeshAgent, IExecutorInMainThread executorInMainThread, ICustomThreadPool threadPool)
         {
             _transform = transform;
             _navMeshAgent = navMeshAgent;
             _executorInMainThread = executorInMainThread;
+            _threadPool = threadPool;
             _instancesRegistry = InstancesRegistry.GetRegistry();
         }
 
@@ -53,6 +55,7 @@ namespace SymOntoClay.UnityAsset.Helpers
         private readonly NavMeshAgent _navMeshAgent;
         private readonly IExecutorInMainThread _executorInMainThread;
         private readonly InstancesRegistry _instancesRegistry;
+        protected ICustomThreadPool _threadPool;
 
         private const int CHECKING_DISTANCE_ITERATINONS_COUNT = 50;
         private const float DISTANCE_DELTA_THRESHOLD = 1f;
@@ -61,12 +64,12 @@ namespace SymOntoClay.UnityAsset.Helpers
 
         public Task<IGoResult> GoAsync(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
         {
-            return Task.Run(() => { return NGo(logger, targetPosition, cancellationToken); }, cancellationToken);
+            return ThreadTask<IGoResult>.Run(() => { return NGo(logger, targetPosition, cancellationToken); }, _threadPool, cancellationToken).StandardTaskWithResult;
         }
 
         public Task<IGoResult> GoAsync(IMonitorLogger logger, INavTarget target, CancellationToken cancellationToken)
         {
-            return Task.Run(() => { return NGo(logger, target, cancellationToken); }, cancellationToken);
+            return ThreadTask<IGoResult>.Run(() => { return NGo(logger, target, cancellationToken); }, _threadPool, cancellationToken).StandardTaskWithResult;
         }
 
         public IGoResult Go(IMonitorLogger logger, Vector3 targetPosition, CancellationToken cancellationToken)
