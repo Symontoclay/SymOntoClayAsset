@@ -55,8 +55,12 @@ namespace SymOntoClay.UnityAsset.Components
         private CancellationTokenSource _cancellationTokenSource;
         private ICustomThreadPool _threadPool;
 
+        protected string _name;
+
         protected virtual void Awake()
         {
+            _name = name;
+
             _cancellationTokenSource = new CancellationTokenSource();
 
             _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
@@ -215,7 +219,7 @@ namespace SymOntoClay.UnityAsset.Components
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("178D22F7-1863-4173-9984-0241072120B1", e);
@@ -223,7 +227,7 @@ namespace SymOntoClay.UnityAsset.Components
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -251,7 +255,7 @@ namespace SymOntoClay.UnityAsset.Components
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("81F37759-00DC-4739-9CAB-7224DBB7B76B", e);
@@ -259,7 +263,7 @@ namespace SymOntoClay.UnityAsset.Components
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }

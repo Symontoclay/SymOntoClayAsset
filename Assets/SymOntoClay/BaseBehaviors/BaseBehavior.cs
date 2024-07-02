@@ -61,6 +61,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         protected CancellationTokenSource _cancellationTokenSource;
         protected ICustomThreadPool _threadPool;
 
+        protected string _name;
+
         #region Unity handlers
 
         protected virtual void Awake()
@@ -70,6 +72,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             _cancellationTokenSource = new CancellationTokenSource();
 
             _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
+
+            _name = name;
         }
 
         protected virtual void Start()
@@ -122,15 +126,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private void NSetAliveFact(IMonitorLogger logger)
         {
 #if UNITY_EDITOR
-            Debug.Log($"({name}) NSetAliveFact _idForFacts = {_idForFacts}");
-            Debug.Log($"({name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
+            Debug.Log($"({_name}) NSetAliveFact _idForFacts = {_idForFacts}");
+            Debug.Log($"({_name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
 #endif
 
             ThreadTask.Run(() => {
                 var taskId = logger.StartTask("72F737AD-F4A2-4080-BFD7-3BE50630584C");
 
 #if UNITY_EDITOR
-                Debug.Log($"({name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
+                Debug.Log($"({_name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
 #endif
 
                 try
@@ -138,7 +142,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({name}) NSetAliveFact fact {fact.ToHumanizedLabel()}");
+                    Debug.Log($"({_name}) NSetAliveFact fact {fact.ToHumanizedLabel()}");
 #endif
 
 #if DEBUG
@@ -153,7 +157,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({name}) NSetAliveFact _vitalFactId = {_vitalFactId}");
+                    Debug.Log($"({_name}) NSetAliveFact _vitalFactId = {_vitalFactId}");
 #endif
                 }
                 catch (Exception e)
@@ -161,7 +165,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("5F0C0C29-1AF3-4B37-9BA3-D29102E727CB", e);
@@ -169,7 +173,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -192,7 +196,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 #endif
 
 #if UNITY_EDITOR
-                    Debug.Log($"({name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
+                    Debug.Log($"({_name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
 #endif
 
                     if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -203,7 +207,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
+                    Debug.Log($"({_name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
 #endif
                 }
                 catch (Exception e)
@@ -211,7 +215,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("470979E8-2996-4B74-A6FD-E6EF0659EC3F", e);
@@ -219,7 +223,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -256,7 +260,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 try
                 {
 #if UNITY_EDITOR
-                    Debug.LogError($"({name}) e = {e}");
+                    Debug.LogError($"({_name}) e = {e}");
 #endif
 
                     logger.Error(, e);
@@ -264,7 +268,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 catch (Exception ex)
                 {
 #if UNITY_EDITOR
-                    Debug.LogError($"({name}) ex = {ex}");
+                    Debug.LogError($"({_name}) ex = {ex}");
 #endif
                 }
             }
@@ -302,7 +306,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("7EB12A8F-62BC-4A75-A6B3-EC22516BA767", e);
@@ -310,7 +314,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -362,7 +366,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("FF8CB845-1FB5-4457-BCAB-FA08DA0C0224", e);
@@ -370,7 +374,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -409,7 +413,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("A1CC6ED0-20FC-4E03-A7BF-85C404C47C3B", e);
@@ -417,7 +421,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -452,7 +456,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("432EE236-4DEE-4AB9-BD6E-FA2181C0A99F", e);
@@ -460,7 +464,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -487,7 +491,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("8F950667-4802-4B49-BC7A-A3A7AFB56FCB", e);
@@ -495,7 +499,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -528,7 +532,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         try
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) e = {e}");
+                            Debug.LogError($"({_name}) e = {e}");
 #endif
 
                             logger.Error("F9E9635D-30A6-4152-81AA-2BFC622C01BD", e);
@@ -536,7 +540,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         catch (Exception ex)
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) ex = {ex}");
+                            Debug.LogError($"({_name}) ex = {ex}");
 #endif
                         }
                     }
@@ -564,7 +568,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         try
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) e = {e}");
+                            Debug.LogError($"({_name}) e = {e}");
 #endif
 
                             logger.Error("31B7F3A6-56A3-477B-927F-81924840F57E", e);
@@ -572,7 +576,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         catch (Exception ex)
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) ex = {ex}");
+                            Debug.LogError($"({_name}) ex = {ex}");
 #endif
                         }
                     }
@@ -696,7 +700,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         try
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) e = {e}");
+                            Debug.LogError($"({_name}) e = {e}");
 #endif
 
                             logger.Error("07FFDBD0-47A4-45B5-9937-45CC1CAA2503", e);
@@ -704,7 +708,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         catch (Exception ex)
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) ex = {ex}");
+                            Debug.LogError($"({_name}) ex = {ex}");
 #endif
                         }
                     }
@@ -732,7 +736,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         try
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) e = {e}");
+                            Debug.LogError($"({_name}) e = {e}");
 #endif
 
                             logger.Error("3036C8D2-04CF-4076-8A4B-73A4755278C6", e);
@@ -740,7 +744,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                         catch (Exception ex)
                         {
 #if UNITY_EDITOR
-                            Debug.LogError($"({name}) ex = {ex}");
+                            Debug.LogError($"({_name}) ex = {ex}");
 #endif
                         }
                     }
@@ -846,7 +850,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("7004EBA4-ABC3-48CD-A6EA-01B8700D6D07", e);
@@ -854,7 +858,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -881,7 +885,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("B4F4BFEF-2E77-4D5A-A56A-AB3DB998C9CB", e);
@@ -889,7 +893,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -937,7 +941,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("08580DB6-94C2-4A40-88E7-FA34676F591C", e);
@@ -945,7 +949,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -972,7 +976,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("1CBD20CB-15F8-4E10-92E6-40193131DC9D", e);
@@ -980,7 +984,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -1018,7 +1022,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("53B8ED2A-5FEE-40E9-9748-19444F1E922A", e);
@@ -1026,7 +1030,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
@@ -1073,7 +1077,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     try
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) e = {e}");
+                        Debug.LogError($"({_name}) e = {e}");
 #endif
 
                         logger.Error("4C865122-233B-48E4-A2E3-100A2FC55742", e);
@@ -1081,7 +1085,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     catch (Exception ex)
                     {
 #if UNITY_EDITOR
-                        Debug.LogError($"({name}) ex = {ex}");
+                        Debug.LogError($"({_name}) ex = {ex}");
 #endif
                     }
                 }
