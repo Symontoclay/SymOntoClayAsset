@@ -185,7 +185,8 @@ namespace SymOntoClay.UnityAsset.Components
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages,
                 CancellationToken = _cancellationTokenSource.Token,
-                ThreadingSettings = threadingSettings.AsyncEvents
+                ThreadingSettings = threadingSettings.AsyncEvents,
+                EnableAsyncMessageCreation = true
             };
 
             settings.Monitor = new SymOntoClay.Monitor.Monitor(monitorSettings);

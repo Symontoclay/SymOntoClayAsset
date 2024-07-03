@@ -2,16 +2,16 @@
 
 app NPC_BattleRoyale_AS_1 is soldier
 {
-    //idle actions
-    //{
-        //go();
-    //}
+    idle actions
+    {
+        go();
+    }
 	
 	on Enter =>
     {
         'Begin' >> @>log;
 
-        go();
+        //go();
 
         'End' >> @>log;
     }
