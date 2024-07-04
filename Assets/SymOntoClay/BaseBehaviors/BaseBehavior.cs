@@ -679,7 +679,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         {
             RunInMainThread(() => { 
                 NStopRepeatingStepsSound(logger);
-            });            
+            });
         }
 
         private void NStopRepeatingStepsSound(IMonitorLogger logger)
