@@ -59,6 +59,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private int _mainThreadId;
 
         protected CancellationTokenSource _cancellationTokenSource;
+        protected CancellationTokenSource _linkedCancellationTokenSource;
+
         protected ICustomThreadPool _threadPool;
 
         protected string _name;
@@ -70,8 +72,9 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             _mainThreadId = Thread.CurrentThread.ManagedThreadId;
 
             _cancellationTokenSource = new CancellationTokenSource();
+            _linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, Application.exitCancellationToken);
 
-            _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
+            _threadPool = ThreadPoolFactory.Create(_linkedCancellationTokenSource.Token);
 
             _name = name;
         }
@@ -115,6 +118,8 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 
         protected virtual void OnDestroy()
         {
+            StopAllCoroutines();
+
             _cancellationTokenSource.Cancel();
             _threadPool.Dispose();
             _cancellationTokenSource.Dispose();
@@ -179,7 +184,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("1914801B-3AE2-4437-A352-23CAB90CBB73", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private void NSetDeadFact(IMonitorLogger logger)
@@ -229,7 +234,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("6BCC156F-2837-4C7D-B8C9-0685C8748349", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /*
@@ -320,7 +325,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("71B2AC6C-73CD-440D-8FAC-6E204F948469", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private void NRemoveCurrWalkingFactId(IMonitorLogger logger)
@@ -380,7 +385,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("0777E8A1-7528-443D-A3B1-37E76C5CCA5D", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -427,7 +432,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("9970DB2B-0FFA-4EC1-8F9B-E04C77C9F0A4", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private string _holdFactId;
@@ -470,7 +475,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("015B0445-DC37-4261-9148-99EFB0AB1317", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -505,7 +510,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("973F8F71-9B3D-4124-9BFA-9AB47385E336", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private void NRemoveCurrHoldFactId(IMonitorLogger logger)
@@ -546,7 +551,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     }
 
                     logger.StopTask("5D37496E-A190-44F5-8F59-5E8A3A3770F5", taskId);
-                }, _threadPool, _cancellationTokenSource.Token);
+                }, _threadPool, _linkedCancellationTokenSource.Token);
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -582,7 +587,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     }
 
                     logger.StopTask("B5C6FCA5-35CB-486C-B96E-AE21E9D41B77", taskId);
-                }, _threadPool, _cancellationTokenSource.Token);
+                }, _threadPool, _linkedCancellationTokenSource.Token);
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -714,7 +719,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     }
 
                     logger.StopTask("8B912625-EBE1-4FD0-8361-B57FA68ABFF3", taskId);
-                }, _threadPool, _cancellationTokenSource.Token);
+                }, _threadPool, _linkedCancellationTokenSource.Token);
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -750,7 +755,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     }
 
                     logger.StopTask("DC05A8CC-39D4-418F-A652-3758EDD64EB9", taskId);
-                }, _threadPool, _cancellationTokenSource.Token);
+                }, _threadPool, _linkedCancellationTokenSource.Token);
 
                 yield return new WaitForSeconds(REPEAT_FACT_INTERVAL);
             }
@@ -864,7 +869,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("55B39F53-FAC0-4E6B-95AD-4C1C184958A2", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -899,7 +904,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("39CDF78A-2F37-43C5-BC4E-724E1A3CC67E", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private void NRemoveCurrHeShootsFactId(IMonitorLogger logger)
@@ -955,7 +960,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("A06CB5F0-13D6-498D-A487-6531DBA200A2", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -990,7 +995,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("E6428BA4-8E79-495A-8CE5-F974AB34FC32", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private void NRemoveCurrHeIsReadyForShootFactId(IMonitorLogger logger)
@@ -1036,7 +1041,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("3710E0E9-5C54-4CE8-8C56-D9554BE927DA", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -1091,7 +1096,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                 }
 
                 logger.StopTask("A952FA28-AF06-45E0-B7A3-4BAF1F3B6F34", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         private static int _methodId;

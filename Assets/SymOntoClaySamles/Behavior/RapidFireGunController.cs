@@ -123,7 +123,7 @@ namespace SymOntoClay.UnityAsset.Samles.Behavior
         {
             ThreadTask.Run(() => {
                 StopFire(logger);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
 
             transform.SetParent(null);
             gameObject.SetActive(false);

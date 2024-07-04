@@ -274,11 +274,15 @@ namespace SymOntoClay.UnityAsset.Components
             _isDead = true;
 
             _npc.Die();
+
+            _cancellationTokenSource.Cancel();
         }
 
-        void Stop()
+        protected override void OnDestroy()
         {
             _npc.Dispose();
+
+            base.OnDestroy();
         }
 
         private IHumanoidNPC _npc;

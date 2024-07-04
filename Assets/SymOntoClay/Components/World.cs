@@ -53,7 +53,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         private bool _isStarded;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        //private CancellationTokenSource _cancellationTokenSource;
         private ICustomThreadPool _threadPool;
 
         void Awake()
@@ -70,7 +70,7 @@ namespace SymOntoClay.UnityAsset.Components
             //ThreadPool.SetMinThreads(threadingSettings?.MinThreadsCount ?? DefaultCustomThreadPoolSettings.MinThreadsCount,
             //    threadingSettings?.MaxThreadsCount ?? DefaultCustomThreadPoolSettings.MaxThreadsCount);//It helps in console app but does't help in the Unity.
 
-            _cancellationTokenSource = new CancellationTokenSource();
+            //_cancellationTokenSource = new CancellationTokenSource();
 
             _threadPool = ThreadPoolFactory.Create(Application.exitCancellationToken);
 
@@ -106,7 +106,7 @@ namespace SymOntoClay.UnityAsset.Components
 
             var settings = new WorldSettings();
 
-            settings.CancellationToken = _cancellationTokenSource.Token;
+            settings.CancellationToken = Application.exitCancellationToken;
             settings.ThreadingSettings = threadingSettings;
 
             var worldSpaceFilesSearcherOptions = new WorldSpaceFilesSearcherOptions()
@@ -289,9 +289,9 @@ namespace SymOntoClay.UnityAsset.Components
 #endif
 
             _world.Dispose();
-            _cancellationTokenSource.Cancel();
+            //_cancellationTokenSource.Cancel();
             _threadPool.Dispose();
-            _cancellationTokenSource.Dispose();
+            //_cancellationTokenSource.Dispose();
 
 #if DEBUG
             Debug.Log("World OnDestroy End");

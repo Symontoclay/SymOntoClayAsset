@@ -52,7 +52,9 @@ namespace SymOntoClay.UnityAsset.Components
 
         private InvokerInMainThread _invokerInMainThread;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        protected CancellationTokenSource _cancellationTokenSource;
+        protected CancellationTokenSource _linkedCancellationTokenSource;
+
         private ICustomThreadPool _threadPool;
 
         protected string _name;
@@ -62,8 +64,9 @@ namespace SymOntoClay.UnityAsset.Components
             _name = name;
 
             _cancellationTokenSource = new CancellationTokenSource();
+            _linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(_cancellationTokenSource.Token, Application.exitCancellationToken);
 
-            _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
+            _threadPool = ThreadPoolFactory.Create(_linkedCancellationTokenSource.Token);
 
             _invokerInMainThread = new InvokerInMainThread();
 
@@ -133,6 +136,8 @@ namespace SymOntoClay.UnityAsset.Components
 
         protected virtual void OnDestroy()
         {
+            StopAllCoroutines();
+
             _cancellationTokenSource.Cancel();
             _threadPool.Dispose();
             _cancellationTokenSource.Dispose();
@@ -233,7 +238,7 @@ namespace SymOntoClay.UnityAsset.Components
                 }
 
                 logger.StopTask("6C96A3C9-AF9F-444B-9B42-F3BBDE89F67F", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);            
+            }, _threadPool, _linkedCancellationTokenSource.Token);            
         }
 
         public void PushSoundFact(IMonitorLogger logger, float power, RuleInstance fact)
@@ -269,7 +274,7 @@ namespace SymOntoClay.UnityAsset.Components
                 }
 
                 logger.StopTask("1F452966-D7F3-4485-8B63-312B5C2FEA4F", taskId);
-            }, _threadPool, _cancellationTokenSource.Token);
+            }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
         System.Numerics.Vector3 IPlatformSupport.ConvertFromRelativeToAbsolute(IMonitorLogger logger, SymOntoClay.Core.RelativeCoordinate relativeCoordinate)
