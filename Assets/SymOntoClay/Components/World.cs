@@ -58,6 +58,13 @@ namespace SymOntoClay.UnityAsset.Components
 
         void Awake()
         {
+#if DEBUG
+            Debug.Log($"World Awake Application.dataPath = {Application.dataPath}");
+            Debug.Log($"World Awake Application.consoleLogPath = {Application.consoleLogPath}");
+            Debug.Log($"World Awake Application.persistentDataPath = {Application.persistentDataPath}");
+            Debug.Log($"World Awake Application.temporaryCachePath = {Application.temporaryCachePath}");
+#endif
+
             var threadingSettings = DefaultThreadingSettings.Settings;
 
             //ThreadPool.SetMinThreads(threadingSettings?.MinThreadsCount ?? DefaultCustomThreadPoolSettings.MinThreadsCount,
@@ -65,7 +72,7 @@ namespace SymOntoClay.UnityAsset.Components
 
             _cancellationTokenSource = new CancellationTokenSource();
 
-            _threadPool = ThreadPoolFactory.Create(_cancellationTokenSource.Token);
+            _threadPool = ThreadPoolFactory.Create(Application.exitCancellationToken);
 
             _invokerInMainThread = new InvokerInMainThread();
 
@@ -135,7 +142,7 @@ namespace SymOntoClay.UnityAsset.Components
 
             settings.SoundBus = new SimpleSoundBus(new SimpleSoundBusSettings
             {
-                CancellationToken = _cancellationTokenSource.Token,
+                CancellationToken = Application.exitCancellationToken,
                 ThreadingSettings = threadingSettings.AsyncEvents
             });
 
@@ -185,7 +192,7 @@ namespace SymOntoClay.UnityAsset.Components
                 MessagesDir = logDir,
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages,
-                CancellationToken = _cancellationTokenSource.Token,
+                CancellationToken = Application.exitCancellationToken,
                 ThreadingSettings = threadingSettings.AsyncEvents,
                 EnableAsyncMessageCreation = true,
                 Features = new MonitorFeatures
