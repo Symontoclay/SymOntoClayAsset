@@ -166,7 +166,7 @@ namespace SymOntoClay.UnityAsset.Navigation
             return $"#{nameStr}";
         }
 
-        void Stop()
+        void OnDestroy()
         {
             _place.Dispose();
         }

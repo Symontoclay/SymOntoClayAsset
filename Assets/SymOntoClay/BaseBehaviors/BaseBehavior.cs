@@ -109,15 +109,12 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
             NSetAliveFact(Logger);
         }
 
-        protected virtual void Stop()
+        protected virtual void OnDestroy()
         {
             NStopStepsSoundRoutine();
 
             NStopShotSoundRoutine();
-        }
 
-        protected virtual void OnDestroy()
-        {
             StopAllCoroutines();
 
             _cancellationTokenSource.Cancel();
@@ -131,15 +128,15 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
         private void NSetAliveFact(IMonitorLogger logger)
         {
 #if UNITY_EDITOR
-            Debug.Log($"({_name}) NSetAliveFact _idForFacts = {_idForFacts}");
-            Debug.Log($"({_name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
+            //Debug.Log($"({_name}) NSetAliveFact _idForFacts = {_idForFacts}");
+            //Debug.Log($"({_name}) NSetAliveFact logger == null = {logger == null}; logger?.Id = {logger?.Id}");
 #endif
 
             ThreadTask.Run(() => {
                 var taskId = logger.StartTask("72F737AD-F4A2-4080-BFD7-3BE50630584C");
 
 #if UNITY_EDITOR
-                Debug.Log($"({_name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
+                //Debug.Log($"({_name}) NEXT NSetAliveFact _idForFacts = {_idForFacts}");
 #endif
 
                 try
@@ -147,7 +144,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     var fact = _standardFactsBuilder.BuildAliveFactInstance(_idForFacts);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({_name}) NSetAliveFact fact {fact.ToHumanizedLabel()}");
+                    //Debug.Log($"({_name}) NSetAliveFact fact {fact.ToHumanizedLabel()}");
 #endif
 
 #if DEBUG
@@ -162,7 +159,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({_name}) NSetAliveFact _vitalFactId = {_vitalFactId}");
+                    //Debug.Log($"({_name}) NSetAliveFact _vitalFactId = {_vitalFactId}");
 #endif
                 }
                 catch (Exception e)
@@ -201,7 +198,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
 #endif
 
 #if UNITY_EDITOR
-                    Debug.Log($"({_name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
+                    //Debug.Log($"({_name}) NSetDeadFact fact {fact.ToHumanizedLabel()}");
 #endif
 
                     if (!string.IsNullOrWhiteSpace(_vitalFactId))
@@ -212,7 +209,7 @@ namespace SymOntoClay.UnityAsset.BaseBehaviors
                     _vitalFactId = _uSocGameObject.InsertPublicFact(logger, fact);
 
 #if UNITY_EDITOR
-                    Debug.Log($"({_name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
+                    //Debug.Log($"({_name}) NSetDeadFact _vitalFactId = {_vitalFactId}");
 #endif
                 }
                 catch (Exception e)

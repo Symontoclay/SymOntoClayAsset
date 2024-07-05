@@ -95,9 +95,11 @@ namespace SymOntoClay.UnityAsset.Components
 
         private IGameObject _thing;
 
-        protected virtual void Stop()
+        protected override void OnDestroy()
         {
             _thing.Dispose();
+
+            base.OnDestroy();
         }
     }
 }

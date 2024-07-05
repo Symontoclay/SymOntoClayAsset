@@ -73,9 +73,11 @@ namespace SymOntoClay.UnityAsset.Components
 #endif
         }
 
-        void Stop()
+        protected override void OnDestroy()
         {
             _player.Dispose();
+
+            base.OnDestroy();
         }
     }
 }
