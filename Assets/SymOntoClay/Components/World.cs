@@ -234,7 +234,8 @@ namespace SymOntoClay.UnityAsset.Components
                     EnableEndRunResetExprOfConditionalTrigger = true,
                     EnableActivateIdleAction = true,
 
-                    EnableTasks = true,
+                    EnableHtn = true,
+                    EnableBuildPlan = true,
 
                     EnableOutput = true,
                     EnableTrace = true,

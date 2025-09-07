@@ -213,7 +213,7 @@ namespace SymOntoClay.UnityAsset.Components
         public void PushSoundFactAsync(IMonitorLogger logger, float power, string text)
         {
             ThreadTask.Run(() => {
-                var taskId = logger.StartTask("3F95AB51-CD23-4744-88B0-1151048E7046");
+                var taskId = logger.StartThreadTask("3F95AB51-CD23-4744-88B0-1151048E7046");
 
                 try
                 {
@@ -237,7 +237,7 @@ namespace SymOntoClay.UnityAsset.Components
                     }
                 }
 
-                logger.StopTask("6C96A3C9-AF9F-444B-9B42-F3BBDE89F67F", taskId);
+                logger.StopThreadTask("6C96A3C9-AF9F-444B-9B42-F3BBDE89F67F", taskId);
             }, _threadPool, _linkedCancellationTokenSource.Token);            
         }
 
@@ -249,7 +249,7 @@ namespace SymOntoClay.UnityAsset.Components
         public void PushSoundFactAsync(IMonitorLogger logger, float power, RuleInstance fact)
         {
             ThreadTask.Run(() => {
-                var taskId = logger.StartTask("83A11806-08F7-4ED7-9DFD-76DA762AA0A2");
+                var taskId = logger.StartThreadTask("83A11806-08F7-4ED7-9DFD-76DA762AA0A2");
 
                 try
                 {
@@ -273,7 +273,7 @@ namespace SymOntoClay.UnityAsset.Components
                     }
                 }
 
-                logger.StopTask("1F452966-D7F3-4485-8B63-312B5C2FEA4F", taskId);
+                logger.StopThreadTask("1F452966-D7F3-4485-8B63-312B5C2FEA4F", taskId);
             }, _threadPool, _linkedCancellationTokenSource.Token);
         }
 
