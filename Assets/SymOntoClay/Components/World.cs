@@ -21,7 +21,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
 using Assets.SymOntoClay.Environment;
+using SymOntoClay.Monitor;
 using SymOntoClay.Monitor.Common;
+using SymOntoClay.Monitor.Helpers;
 using SymOntoClay.Monitor.Internal;
 using SymOntoClay.NLP;
 using SymOntoClay.ProjectFiles;
@@ -65,8 +67,6 @@ namespace SymOntoClay.UnityAsset.Components
             Debug.Log($"World Awake Application.temporaryCachePath = {Application.temporaryCachePath}");
 #endif
 
-            var threadingSettings = DefaultThreadingSettings.Settings;
-
             //ThreadPool.SetMinThreads(threadingSettings?.MinThreadsCount ?? DefaultCustomThreadPoolSettings.MinThreadsCount,
             //    threadingSettings?.MaxThreadsCount ?? DefaultCustomThreadPoolSettings.MaxThreadsCount);//It helps in console app but does't help in the Unity.
 
@@ -107,7 +107,8 @@ namespace SymOntoClay.UnityAsset.Components
             var settings = new WorldSettings();
 
             settings.CancellationToken = Application.exitCancellationToken;
-            settings.ThreadingSettings = threadingSettings;
+            
+            DefaultThreadingSettings.ConfigureThreadingSettings(settings);
 
             var worldSpaceFilesSearcherOptions = new WorldSpaceFilesSearcherOptions()
             {
@@ -143,7 +144,7 @@ namespace SymOntoClay.UnityAsset.Components
             settings.SoundBus = new SimpleSoundBus(new SimpleSoundBusSettings
             {
                 CancellationToken = Application.exitCancellationToken,
-                ThreadingSettings = threadingSettings.AsyncEvents
+                ThreadingSettings = DefaultThreadingSettings.ConfigureSoundBusThreadingSettings()
             });
 
             settings.StandardFactsBuilder = new StandardFactsBuilder();
@@ -186,6 +187,10 @@ namespace SymOntoClay.UnityAsset.Components
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages
             };*/
 
+            var monitorFeatures = new MonitorFeatures();
+
+            MonitorFeaturesHelper.SetAllFeaturesEnabled(monitorFeatures);
+
             var monitorSettings = new SymOntoClay.Monitor.MonitorSettings
             {
                 Enable = true,
@@ -193,58 +198,9 @@ namespace SymOntoClay.UnityAsset.Components
                 KindOfLogicalSearchExplain = KindOfLogicalSearchExplain,
                 EnableAddingRemovingFactLoggingInStorages = EnableAddingRemovingFactLoggingInStorages,
                 CancellationToken = Application.exitCancellationToken,
-                ThreadingSettings = threadingSettings.AsyncEvents,
+                ThreadingSettings = DefaultThreadingSettings.ConfigureMonitorThreadingSettings(),
                 EnableAsyncMessageCreation = true,
-                Features = new MonitorFeatures
-                {
-                    EnableCallMethod = true,
-                    EnableParameter = true,
-                    EnableEndCallMethod = true,
-                    EnableMethodResolving = true,
-                    EnableEndMethodResolving = true,
-                    EnableActionResolving = true,
-                    EnableEndActionResolving = true,
-                    EnableHostMethodResolving = true,
-                    EnableEndHostMethodResolving = true,
-                    EnableHostMethodActivation = true,
-                    EnableEndHostMethodActivation = true,
-                    EnableHostMethodStarting = true,
-                    EnableEndHostMethodStarting = true,
-                    EnableHostMethodExecution = true,
-                    EnableEndHostMethodExecution = true,
-                    EnableSystemExpr = true,
-                    EnableCodeFrame = true,
-                    EnableLeaveThreadExecutor = true,
-                    EnableGoBackToPrevCodeFrame = true,
-                    EnableStartProcessInfo = true,
-                    EnableCancelProcessInfo = true,
-                    EnableWeakCancelProcessInfo = true,
-                    EnableCancelInstanceExecution = true,
-                    EnableSetExecutionCoordinatorStatus = true,
-                    EnableSetProcessInfoStatus = true,
-                    EnableWaitProcessInfo = true,
-                    EnableRunLifecycleTrigger = true,
-                    EnableDoTriggerSearch = true,
-                    EnableEndDoTriggerSearch = true,
-                    EnableSetConditionalTrigger = true,
-                    EnableResetConditionalTrigger = true,
-                    EnableRunSetExprOfConditionalTrigger = true,
-                    EnableEndRunSetExprOfConditionalTrigger = true,
-                    EnableRunResetExprOfConditionalTrigger = true,
-                    EnableEndRunResetExprOfConditionalTrigger = true,
-                    EnableActivateIdleAction = true,
-
-                    EnableHtn = true,
-                    EnableBuildPlan = true,
-
-                    EnableOutput = true,
-                    EnableTrace = true,
-                    EnableDebug = true,
-                    EnableInfo = true,
-                    EnableWarn = true,
-                    EnableError = true,
-                    EnableFatal = true
-                }
+                Features = monitorFeatures
             };
 
             settings.Monitor = new SymOntoClay.Monitor.Monitor(monitorSettings);

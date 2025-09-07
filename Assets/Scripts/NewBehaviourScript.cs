@@ -1,7 +1,7 @@
 using SymOntoClay.Monitor.Common;
-using SymOntoClay.UnityAsset.Samles.Environment;
-using SymOntoClay.UnityAsset.Samles.Interfaces;
-using SymOntoClay.UnityAsset.Samles.Internal;
+using SymOntoClay.UnityAsset.Samples.Environment;
+using SymOntoClay.UnityAsset.Samples.Interfaces;
+using SymOntoClay.UnityAsset.Samples.Internal;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;

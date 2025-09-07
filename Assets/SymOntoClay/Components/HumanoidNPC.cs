@@ -20,22 +20,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-using SymOntoClay.UnityAsset.Data;
-using SymOntoClay.CoreHelper.DebugHelpers;
-using SymOntoClay.UnityAsset.Scriptables;
+using SymOntoClay.Monitor.Common;
 using SymOntoClay.UnityAsset.Core;
-using SymOntoClay.UnityAsset.Core.Helpers;
+using SymOntoClay.UnityAsset.Data;
+using SymOntoClay.UnityAsset.Interfaces;
+using SymOntoClay.UnityAsset.Scriptables;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
-using SymOntoClay.UnityAsset.Interfaces;
-using UnityEditor.SceneManagement;
-using SymOntoClay.Monitor.Common;
 
 namespace SymOntoClay.UnityAsset.Components
 {
@@ -57,7 +51,7 @@ namespace SymOntoClay.UnityAsset.Components
 
         public List<GameObject> Backpack;
 
-        private bool _needInitilizeBackpack;
+        private bool _needInitializeBackpack;
 
         //public bool IsImmortal;
         //public int Health = 100;
@@ -148,7 +142,7 @@ namespace SymOntoClay.UnityAsset.Components
 
             if (Backpack != null && Backpack.Any())
             {
-                _needInitilizeBackpack = true;
+                _needInitializeBackpack = true;
             }
         }
 
@@ -161,11 +155,11 @@ namespace SymOntoClay.UnityAsset.Components
 
             base.Update();
 
-            if(_needInitilizeBackpack)
+            if(_needInitializeBackpack)
             {
-                _needInitilizeBackpack = false;
+                _needInitializeBackpack = false;
 
-                InitilizeBackpack(Logger);
+                InitializeBackpack(Logger);
             }
 
             var newRawVisibleItemsList = new List<UVisibleItem>();
@@ -217,7 +211,7 @@ namespace SymOntoClay.UnityAsset.Components
             }
         }
 
-        private void InitilizeBackpack(IMonitorLogger logger)
+        private void InitializeBackpack(IMonitorLogger logger)
         {
             foreach (var gObj in Backpack)
             {

@@ -7,7 +7,7 @@ namespace Assets.SymOntoClay.Environment
     {
         public static ICustomThreadPool Create(CancellationToken cancellationToken)
         {
-            var threadingSettings = DefaultThreadingSettings.Settings?.AsyncEvents;
+            var threadingSettings = DefaultThreadingSettings.ConfigureWorldThreadingSettings()?.AsyncEvents;
 
             return new CustomThreadPool(threadingSettings?.MinThreadsCount ?? DefaultCustomThreadPoolSettings.MinThreadsCount,
                 threadingSettings?.MaxThreadsCount ?? DefaultCustomThreadPoolSettings.MaxThreadsCount,
