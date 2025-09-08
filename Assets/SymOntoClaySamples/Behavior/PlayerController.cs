@@ -42,7 +42,7 @@ namespace SymOntoClay.UnityAsset.Samples.Behavior
             mInputKeyHelper.AddPressListener(KeyCode.Z, OnZPressAction);//NPC rotates
             mInputKeyHelper.AddPressListener(KeyCode.X, OnXPressAction);//NPC rotates head
             mInputKeyHelper.AddPressListener(KeyCode.C, OnCPressAction);//NPC rotates to entity
-            mInputKeyHelper.AddPressListener(KeyCode.V, OnVPressAction);//NPC rotates head to entitys
+            mInputKeyHelper.AddPressListener(KeyCode.V, OnVPressAction);//NPC rotates head to entities
             mInputKeyHelper.AddPressListener(KeyCode.B, OnBPressAction);//NPC puts to backpack
             mInputKeyHelper.AddPressListener(KeyCode.N, OnNPressAction);//NPC takes gun from backpack
             mInputKeyHelper.AddPressListener(KeyCode.M, OnMPressAction);//NPC rotates to npc
