@@ -829,7 +829,7 @@ namespace SymOntoClay.UnityAsset.Samples.Behavior
 
             rifle.SetToHandsOfHumanoid(logger, this);
 
-            //I have moved endpoins here from RapidFireGunController
+            //I have moved endpoints here from RapidFireGunController
             //AddToManualControl(_rifle.USocGameObject, new List<DeviceOfBiped>() {  DeviceOfBiped.RightHand, DeviceOfBiped.LeftHand });
 
             AddHoldFact(logger, rifle.IdForFacts);
