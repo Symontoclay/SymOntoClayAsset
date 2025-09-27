@@ -193,7 +193,7 @@ namespace SymOntoClay.UnityAsset.Samples.Behavior
             if (_isDead)
             {
 #if DEBUG
-                Logger.Info("D194AE2F-4E47-40C5-9184-6C1CE1B30091", "HumanoidNPCController Die End _isDeads");
+                Logger.Info("D194AE2F-4E47-40C5-9184-6C1CE1B30091", "HumanoidNPCController Die End _isDead");
 #endif
 
                 return;
